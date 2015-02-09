@@ -7,21 +7,27 @@ package com.ajegames.storytime.model;
 public class Story {
 
     private String title;
+    private String author;
     private String description;
     private Scene firstScene;
 
-    private Story(String title, String description) {
+    private Story(String title, String author, String description) {
         this.title = title;
+        this.author = author;
         this.description = description;
         firstScene = Scene.createEmptyScene();
     }
 
-    public static Story createStory(String title, String description) {
-        return new Story(title, description);
+    public static Story createStory(String title, String author, String description) {
+        return new Story(title, author, description);
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     public String getDescription() {
