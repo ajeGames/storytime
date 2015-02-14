@@ -9,3 +9,17 @@
   margin: 0.5em;
   padding: 1em;
 }
+
+.storyTitle {
+  font-weight: bold;
+  font-size: large;
+}
+
+.sceneTitle {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.tagline {
+  font-style: italic;
+}

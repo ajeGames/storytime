@@ -10,21 +10,134 @@
 </head>
 
 <body>
-  <div id="createStory">
-    <div class="explanation">
-      <ul>
-        <li>Persona: Author</li>
-        <li>Use Case: Create Story</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <form method="post" action="">
-        <p>Author:<br/>Mark Twain</p>
-        <p>Story Title:<br/><input type="text" size="50" maxlength="80" /></p>
-        <p>Description:<br/><textarea cols="80" rows="4"></textarea></p>
-        <p><button>Create Story</button></p>
-      </form>
-    </div>
+<div id="createStory">
+  <div class="explanation">
+    <ul>
+      <li>Persona: Author</li>
+      <li>Use Case: Create Story</li>
+    </ul>
   </div>
+  <div class="panel">
+    <form method="post" action="">
+      <p><label>Author:<br/><input name="author" type="text" size="50" maxlength="80" value="Mark Twain" /></label></p>
+      <p><label>Story Title:<br/><input name="storyTitle" type="text" size="50" maxlength="80" /></label></p>
+      <p><label>Tagline:<br/><textarea name="tagline" cols="80" rows="4"></textarea></label></p>
+      <p><button>Create Story</button></p>
+    </form>
+  </div>
+</div>
+<div id="addFirstScene">
+  <div class="explanation">
+    <ul>
+      <li>Persona: Author</li>
+      <li>Use Case: Add First Scene</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <div class="storyTitle">The Three Little Pigs</div>
+    <p>by The Grimm Brothers</p>
+    <p class="tagline">The story of how hard work and sound investment makes for a good life.</p>
+
+    <form method="post" action="">
+      <p><label>Scene Title:<br/><input name="sceneTitle" type="text" size="50" maxlength="80" /></label></p>
+      <p><label>Prose:<br/><textarea name="sceneProse" cols="80" rows="12"></textarea></label></p>
+      <p><button>Add Scene</button></p>
+    </form>
+  </div>
+</div>
+<div id="addFirstOption">
+  <div class="explanation">
+    <ul>
+      <li>Persona: Author</li>
+      <li>Use Case: Add Possible Next Scene</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <div class="storyTitle">The Three Little Pigs</div>
+    <p>by The Grimm Brothers</p>
+    <p class="tagline">The story of how hard work and sound investment makes for a good life.</p>
+    <div class="sceneTitle">Introduction</div>
+    <p>A long time ago in the Friendly Woods, there lives three little pigs who were brothers.  They enjoyed
+      living in the woods, but they realized one day that they would be more comfortable if they could stay in
+      nice houses, like people.  The brothers had to choose what kind of material to use to build their houses.</p>
+
+    <form method="post" action="">
+      <p><label>Possible Next Scene:<br/><textarea name="nextScene" cols="80" rows="4"></textarea></label></p>
+      <p><button>Update Scene</button></p>
+    </form>
+  </div>
+</div>
+<div id="addSecondOption">
+  <div class="explanation">
+    <ul>
+      <li>Persona: Author</li>
+      <li>Use Case: Add Possible Next Scene</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <div class="storyTitle">The Three Little Pigs</div>
+    <p>by The Grimm Brothers</p>
+    <p class="tagline">The story of how hard work and sound investment makes for a good life.</p>
+    <div class="sceneTitle">Introduction</div>
+    <p>A long time ago in the Friendly Woods, there lives three little pigs who were brothers.  They enjoyed
+      living in the woods, but they realized one day that they would be more comfortable if they could stay in
+      nice houses, like people.  The brothers had to choose what kind of material to use to build their houses.</p>
+    <ul>
+      <li>Use straw to build a house.</li>
+    </ul>
+
+    <form method="post" action="">
+      <p><label>Possible Next Scene:<br/><textarea name="nextScene" cols="80" rows="4"></textarea></label></p>
+      <p><button>Add Scene</button></p>
+    </form>
+  </div>
+</div>
+<div id="addThirdOption">
+  <div class="explanation">
+    <ul>
+      <li>Persona: Author</li>
+      <li>Use Case: Add Possible Next Scene</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <div class="storyTitle">The Three Little Pigs</div>
+    <p>by The Grimm Brothers</p>
+    <p class="tagline">The story of how hard work and sound investment makes for a good life.</p>
+    <div class="sceneTitle">Introduction</div>
+    <p>A long time ago in the Friendly Woods, there lives three little pigs who were brothers.  They enjoyed
+      living in the woods, but they realized one day that they would be more comfortable if they could stay in
+      nice houses, like people.  The brothers had to choose what kind of material to use to build their houses.</p>
+    <ul>
+      <li>Use straw to build a house.</li>
+      <li>Use sticks to build a house.</li>
+    </ul>
+
+    <form method="post" action="">
+      <p><label>Possible Next Scene:<br/><textarea name="nextScene" cols="80" rows="4"></textarea></label></p>
+      <p><button>Add Scene</button></p>
+    </form>
+  </div>
+</div><div id="anotherScene">
+  <div class="explanation">
+    <ul>
+      <li>Persona: Author</li>
+      <li>Use Case: Work on another scene</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <div class="storyTitle">The Three Little Pigs</div>
+    <p>by The Grimm Brothers</p>
+    <p class="tagline">The story of how hard work and sound investment makes for a good life.</p>
+
+    <div class="sceneTitle"><a href="">Introduction</a></div>
+
+    <div class="sceneTitle">Use sticks to build a house.</div>
+
+    <form method="post" action="">
+      <p><label>Prose:<br/><textarea name="sceneProse" cols="80" rows="12"></textarea></label></p>
+      <p><button>Update Scene</button></p>
+    </form>
+  </div>
+</div>
 </body>
 </html>
