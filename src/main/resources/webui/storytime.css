@@ -1,0 +1,11 @@
+.explanation {
+  border: dotted slateblue 5px;
+  margin: 0.5em;
+  background-color: lightgoldenrodyellow;
+}
+
+.panel {
+  border: solid darkgray 2px;
+  margin: 0.5em;
+  padding: 1em;
+}
