@@ -6,19 +6,28 @@
   var app = angular.module('storytime', []);
 
   app.controller('StoryController', function() {
-    this.draft = story;
-    this.draft.firstScene = scene;
+    this.story = {};
+    this.activeScene = {};
+    this.lastScene = {};
   });
 
   var story = {
     title: "The Itsy Bitsy Spider",
     author: "Kids Place Live",
-    tagline: "Watch what this spider does."
-  }
+    tagline: "Watch what this spider does.",
+    firstSceneKey: "abc123"
+  };
 
+  // TODO figure this out
   var scene = {
+    key: "abc123",
     heading: "Introduction",
-    prose: "Once upon a time, there was a tiny, little spider who was thinking about where to go."
-  }
+    prose: "Once upon a time, there was a tiny, little spider who was thinking about where to go.",
+    choices: [{
+      key: "abc234", heading: "Go up the spout."
+    }, {
+      key: "abc345", heading: "Stay right where you are."
+    }]
+  };
 })();
 

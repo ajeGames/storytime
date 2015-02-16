@@ -9,15 +9,15 @@
     <script src="js/angular.min.js"></script>
     <script src="js/storytime.js"></script>
 
-    <div ng-controller="StoryController as story" class="panel">
-      <div class="storyTitle">{{story.draft.title}}</div>
-      <p>by {{story.draft.author}}
-      <p class="tagline">{{story.draft.tagline}}</p>
+    <div ng-controller="StoryController as storyCtrl" class="panel">
+      <div class="storyTitle">{{storyCtrl.story.title}}</div>
+      <p>by {{storyCtrl.story.author}}
+      <p class="tagline">{{storyCtrl.story.tagline}}</p>
 
       <form name="storyForm">
-        <p><label>Story Title:<br/><input ng-model="story.draft.title" type="text" /></label></p>
-        <p><label>Author:<br/><input ng-model="story.draft.author" type="text" /></label></p>
-        <p><label>Tagline:<br/><textarea ng-model="story.draft.tagline" cols="80" rows="4"></textarea></label></p>
+        <p><label>Story Title:<br/><input ng-model="storyCtrl.story.title" type="text" /></label></p>
+        <p><label>Author:<br/><input ng-model="storyCtrl.story.author" type="text" /></label></p>
+        <p><label>Tagline:<br/><textarea ng-model="storyCtrl.story.tagline" cols="80" rows="4"></textarea></label></p>
         <p><button>Create Story</button></p>
       </form>
 
