@@ -10,15 +10,26 @@
     <script src="js/storytime.js"></script>
 
     <div ng-controller="StoryController as story" class="panel">
-      <div class="storyTitle">{{ story.draft.title }}</div>
-      <p>by {{ story.draft.author }}
-      <p class="tagline">{{ story.draft.tagline }}</p>
+      <div class="storyTitle">{{story.draft.title}}</div>
+      <p>by {{story.draft.author}}
+      <p class="tagline">{{story.draft.tagline}}</p>
 
-      <form method="post" action="">
-        <p><label>Scene Title:<br/><input name="sceneTitle" type="text" size="50" maxlength="80" /></label></p>
-        <p><label>Prose:<br/><textarea name="sceneProse" cols="80" rows="12"></textarea></label></p>
+      <form name="storyForm">
+        <p><label>Story Title:<br/><input ng-model="story.draft.title" type="text" /></label></p>
+        <p><label>Author:<br/><input ng-model="story.draft.author" type="text" /></label></p>
+        <p><label>Tagline:<br/><textarea ng-model="story.draft.tagline" cols="80" rows="4"></textarea></label></p>
+        <p><button>Create Story</button></p>
+      </form>
+
+      <div class="sceneTitle">{{story.draft.firstScene.heading}}</div>
+      <p>{{story.draft.firstScene.prose}}</p>
+
+      <form name="sceneForm">
+        <p><label>Scene Heading:<br/><input ng-model="story.draft.firstScene.heading" type="text" /></label></p>
+        <p><label>Prose:<br/><textarea ng-model="story.draft.firstScene.prose" cols="80" rows="12"></textarea></label></p>
         <p><button>Update Scene</button></p>
       </form>
+
     </div>
   </body>
 </html>
