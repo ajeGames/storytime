@@ -8,7 +8,6 @@
   app.controller('StoryController', function() {
     this.story = {};
     this.activeScene = {};
-    this.nextSceneTeaser = '';
     this.newStory = true;
     this.editStory = true;
     this.editScene = false;
@@ -24,7 +23,7 @@
         this.activeScene = this.story.firstScene;
       } else {
         // TODO call server update method
-      };
+      }
       this.editStory = false;
       this.editScene = true;
     };
@@ -48,5 +47,5 @@
 
     };
   });
-});
+})();
 

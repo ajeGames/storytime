@@ -14,7 +14,7 @@
         <div class="storyTitle">{{storyCtrl.story.title}}</div>
         <p>by {{storyCtrl.story.author}}
         <p class="tagline">{{storyCtrl.story.tagline}}</p>
-        <form name="editStoryForm" ng-submit="storyCtrl.editStory()"><button>Edit</button></form>
+        <div><form name="editStoryForm" ng-submit="storyCtrl.editStory()"><button>Edit</button></form></div>
       </div>
       <div ng-show="storyCtrl.editStory">
         <form name="storyForm" ng-submit="storyCtrl.updateStory()">
@@ -28,8 +28,12 @@
       <div ng-hide="storyCtrl.editStory">
         <div ng-hide="storyCtrl.editScene">
           <div class="sceneTitle">{{storyCtrl.activeScene.heading}}</div>
-          <p>{{story.activeScene.prose}}</p>
-          <form name="editSceneForm" ng-submit="storyCtrl.editScene()"><button>Edit</button></form>
+          <p>{{storyCtrl.activeScene.prose}}</p>
+          <div>
+            <form name="editSceneForm" ng-submit="storyCtrl.editScene()">
+              <button>Edit</button>
+            </form>
+          </div>
         </div>
         <div ng-show="storyCtrl.editScene">
           <form name="sceneForm" ng-submit="storyCtrl.updateScene()">
