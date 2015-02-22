@@ -8,30 +8,45 @@
   app.controller('StoryController', function() {
     this.story = {};
     this.activeScene = {};
-    this.message = "Just getting started.";
+    this.nextSceneTeaser = '';
+    this.newStory = true;
+    this.editStory = true;
+    this.editScene = false;
 
-    this.createStory = function() {
-      this.message = "You just created a new story."
-    }
+    this.updateStory = function() {
+      if (this.newStory) {
+        // TODO call server create method
+        this.story.key = '123';
+        this.story.firstScene = {};
+
+        this.newStory = false;
+        this.story.scenes = [this.story.firstScene];  // build list of scenes
+        this.activeScene = this.story.firstScene;
+      } else {
+        // TODO call server update method
+      };
+      this.editStory = false;
+      this.editScene = true;
+    };
+
+    this.editStory = function() {
+      this.editStory = true;
+      this.editScene = false;
+    };
+
+    this.updateScene = function() {
+      // TODO submit scene info to server
+      this.activeScene.key = '123';
+      this.editScene = false;
+    };
+
+    this.editScene = function() {
+      this.editScene = true;
+    };
+
+    this.addNextSceneOption = function() {
+
+    };
   });
-
-  var story = {
-    title: "The Itsy Bitsy Spider",
-    author: "Kids Place Live",
-    tagline: "Watch what this spider does.",
-    firstSceneKey: "abc123"
-  };
-
-  // TODO figure this out
-  var scene = {
-    key: "abc123",
-    heading: "Introduction",
-    prose: "Once upon a time, there was a tiny, little spider who was thinking about where to go.",
-    choices: [{
-      key: "abc234", heading: "Go up the spout."
-    }, {
-      key: "abc345", heading: "Stay right where you are."
-    }]
-  };
-})();
+});
 

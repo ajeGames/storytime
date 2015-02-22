@@ -31,4 +31,10 @@
 
 .tagline {
   font-style: italic;
+  margin: 0;
+}
+
+.storySummary {
+  border: 1px dashed black;
+  padding: 0.25em;
 }
