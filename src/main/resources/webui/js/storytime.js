@@ -8,7 +8,11 @@
   app.controller('StoryController', function() {
     this.story = {};
     this.activeScene = {};
-    this.lastScene = {};
+    this.message = "Just getting started.";
+
+    this.createStory = function() {
+      this.message = "You just created a new story."
+    }
   });
 
   var story = {

@@ -10,11 +10,12 @@
     <script src="js/storytime.js"></script>
 
     <div ng-controller="StoryController as storyCtrl" class="panel">
+      <h2>{{storyCtrl.message}}</h2>
       <div class="storyTitle">{{storyCtrl.story.title}}</div>
       <p>by {{storyCtrl.story.author}}
       <p class="tagline">{{storyCtrl.story.tagline}}</p>
 
-      <form name="storyForm">
+      <form name="storyForm" ng-submit="storyCtrl.createStory()">
         <p><label>Story Title:<br/><input ng-model="storyCtrl.story.title" type="text" /></label></p>
         <p><label>Author:<br/><input ng-model="storyCtrl.story.author" type="text" /></label></p>
         <p><label>Tagline:<br/><textarea ng-model="storyCtrl.story.tagline" cols="80" rows="4"></textarea></label></p>
@@ -24,7 +25,7 @@
       <div class="sceneTitle">{{story.draft.firstScene.heading}}</div>
       <p>{{story.draft.firstScene.prose}}</p>
 
-      <form name="sceneForm">
+      <form name="sceneForm" ng-submit="storyCtrl.addScene()">
         <p><label>Scene Heading:<br/><input ng-model="story.draft.firstScene.heading" type="text" /></label></p>
         <p><label>Prose:<br/><textarea ng-model="story.draft.firstScene.prose" cols="80" rows="12"></textarea></label></p>
         <p><button>Update Scene</button></p>

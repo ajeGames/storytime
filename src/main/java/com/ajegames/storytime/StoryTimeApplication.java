@@ -5,7 +5,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
 /**
- * This is for...
+ * This is what sets up the application.
  */
 public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
 
@@ -25,6 +25,7 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
 
     @Override
     public void run(StoryTimeConfiguration config, Environment environment) throws Exception {
+
 
     }
 }
