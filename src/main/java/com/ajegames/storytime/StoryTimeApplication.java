@@ -1,5 +1,7 @@
 package com.ajegames.storytime;
 
+import com.ajegames.storytime.health.StoryHealthCheck;
+import com.ajegames.storytime.resource.StoryTimeResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -25,7 +27,7 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
 
     @Override
     public void run(StoryTimeConfiguration config, Environment environment) throws Exception {
-
-
+        environment.healthChecks().register("story", new StoryHealthCheck());
+        environment.jersey().register(new StoryTimeResource());
     }
 }

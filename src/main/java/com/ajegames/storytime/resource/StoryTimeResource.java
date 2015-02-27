@@ -1,6 +1,5 @@
-package com.ajegames.storytime;
+package com.ajegames.storytime.resource;
 
-import com.ajegames.storytime.data.StoryRepository;
 import com.ajegames.storytime.model.Story;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
@@ -28,8 +27,6 @@ public class StoryTimeResource {
      * @return java.util.List containing search results
      */
     @GET
-    @Path("find")
-    @Produces(MediaType.APPLICATION_JSON)
     @Timed
     public List<Story> findStories() {
         /*
