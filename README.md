@@ -45,7 +45,7 @@ Use cases and API methods
 
 * Change something editable about the scene referenced by the given `key`.
 
-`editScene(key, summary, content)`
+`editScene(key, summary, prose)`
 
 **Edit scene summary**
 
@@ -53,8 +53,8 @@ Use cases and API methods
 
 `editSceneSummary(key, summary)`
 
-**Edit scene content**
+**Edit scene prose**
 
 * Change the scene with the given `key`.
 
-`editSceneContent(key, content)`
+`editSceneContent(key, prose)`

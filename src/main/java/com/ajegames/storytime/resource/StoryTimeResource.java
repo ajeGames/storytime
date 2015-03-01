@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -36,7 +37,13 @@ public class StoryTimeResource {
          */
         LOG.info("Find stories: " + "all");
         List<Story> result = new ArrayList<Story>();
-        result.add(Story.createStory("testing", "tester", "this is a test"));
+
         return result;
+    }
+
+    @POST
+    @Timed
+    public Story createStory(Story story) {
+        return story;
     }
 }

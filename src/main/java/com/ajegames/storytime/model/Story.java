@@ -8,39 +8,58 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Story {
 
-    private String title;
-    private String author;
-    private String description;
-    private Scene firstScene;
-
-    private Story(String title, String author, String description) {
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        firstScene = Scene.createEmptyScene();
-    }
-
-    public static Story createStory(String title, String author, String description) {
-        return new Story(title, author, description);
-    }
+    @JsonProperty
+    private String key;
 
     @JsonProperty
+    private String title;
+
+    @JsonProperty
+    private String author;
+
+    @JsonProperty
+    private String description;
+
+    @JsonProperty
+    private SceneSummary firstScene;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    @JsonProperty
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getAuthor() {
         return author;
     }
 
-    @JsonProperty
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    @JsonProperty
-    public Scene getFirstScene() {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public SceneSummary getFirstScene() {
         return firstScene;
+    }
+
+    public void setFirstScene(SceneSummary firstScene) {
+        this.firstScene = firstScene;
     }
 }

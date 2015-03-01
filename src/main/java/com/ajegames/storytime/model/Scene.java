@@ -1,68 +1,44 @@
 package com.ajegames.storytime.model;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
- * <code>Scene</code> holds a snippet of a story and includes a number of options that allow the reader to
- * choose the next step.
+ * All information about a scene, including summaries of the next scene options.
  */
-public class Scene {
+public class Scene extends SceneSummary {
 
-    private String key;
-    private String summary;
-    private String content;
-    private List<Scene> choices;
+    @JsonProperty
+    private String heading;
 
-    private Scene() {
-        choices = new ArrayList<Scene>();
+    @JsonProperty
+    private String prose;
+
+    @JsonProperty
+    private List<SceneSummary> nextSceneOptions;
+
+    public String getHeading() {
+        return heading;
     }
 
-    private Scene(String key, String summary, String content) {
-        this.key = key;
-        this.summary = summary;
-        this.content = content;
-        choices = new ArrayList<Scene>();
+    public void setHeading(String heading) {
+        this.heading = heading;
     }
 
-    public static Scene createEmptyScene() {
-        return new Scene();
+    public String getProse() {
+        return prose;
     }
 
-    public static Scene loadScene(String key, String summary, String content) {
-        return new Scene(key, summary, content);
+    public void setProse(String prose) {
+        this.prose = prose;
     }
 
-    public String getKey() {
-        return key;
+    public List<SceneSummary> getNextSceneOptions() {
+        return nextSceneOptions;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setNextSceneOptions(List<SceneSummary> nextSceneOptions) {
+        this.nextSceneOptions = nextSceneOptions;
     }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public List<Scene> getChoices() {
-        return choices;
-    }
-
-    public void addChoice(Scene choice) {
-        choices.add(choice);
-    }
-
 }
