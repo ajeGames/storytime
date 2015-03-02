@@ -1,5 +1,6 @@
 package com.ajegames.storytime.resource;
 
+import com.ajegames.storytime.data.StoryTimeRepository;
 import com.ajegames.storytime.model.Story;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
@@ -31,19 +32,10 @@ public class StoryTimeResource {
     @Timed
     public List<Story> findStories() {
         /*
-         * TODO: make this return actual stories
          * TODO: introduce criteria to refine search
          * TODO: limit results returned -- think through how to cache for incremental fetch?
          */
         LOG.info("Find stories: " + "all");
-        List<Story> result = new ArrayList<Story>();
-
-        return result;
-    }
-
-    @POST
-    @Timed
-    public Story createStory(Story story) {
-        return story;
+        return StoryTimeRepository.getInstance().getStories();
     }
 }
