@@ -5,47 +5,47 @@
 (function() {
   var app = angular.module('storytime', []);
 
-  app.controller('StoryController', function() {
-    this.story = {};
-    this.activeScene = {};
-    this.newStory = true;
-    this.editStory = true;
-    this.editScene = false;
+  app.controller('StoryController', function($scope, storyService) {
+    $scope.story = {};
 
-    this.updateStory = function() {
-      if (this.newStory) {
-        // TODO call server create method
-        this.story.key = '123';
-        this.story.firstScene = {};
+    $scope.addStory = function() {
+      // call server
 
-        this.newStory = false;
-        this.story.scenes = [this.story.firstScene];  // build list of scenes
-        this.activeScene = this.story.firstScene;
-      } else {
-        // TODO call server update method
-      }
-      this.editStory = false;
-      this.editScene = true;
-    };
+      $http.post('story').then(function(response) {
+        console.log(response.data);
+      });
 
-    this.editStory = function() {
-      this.editStory = true;
-      this.editScene = false;
-    };
+      // update local story with whatever is returned
 
-    this.updateScene = function() {
-      // TODO submit scene info to server
-      this.activeScene.key = '123';
-      this.editScene = false;
-    };
-
-    this.editScene = function() {
-      this.editScene = true;
-    };
-
-    this.addNextSceneOption = function() {
+      // change edit mode on page
 
     };
+
   });
+
+  app.service('storyService',
+      function($http, $q) {
+
+        // public API
+        return ({
+          addStory: addStory,
+          getStory: getStory
+        });
+
+        function addStory(story) {
+
+          var request = $http({
+            method: "post",
+            url: "/storytime/story",
+            data: {
+              name: updated_story
+            }
+          });
+          return (request.then (handleSuccess, handleError));
+        }
+      }
+  );
+
+
 })();
 

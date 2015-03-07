@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/storytime/story")
 @Produces(MediaType.APPLICATION_JSON)
@@ -19,7 +20,12 @@ public class StoryResource {
 
     @POST
     public void create(Story story) {
-        repo.addStory(story);
+        LOG.info("Creating another story for a happier universe.");
+        try {
+            repo.addStory(story);
+        } catch (Exception e) {
+            throw new WebApplicationException(e, Response.Status.BAD_REQUEST);
+        }
     }
 
     @GET

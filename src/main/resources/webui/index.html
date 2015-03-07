@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="storytime">
 <head lang="en">
   <meta charset="UTF-8">
-  <title></title>
+  <title>Storytime - Authoring</title>
+  <link rel="stylesheet" type="text/css" href="storytime.css" />
 </head>
 <body>
+  <script src="js/angular.min.js"></script>
+  <script src="js/storytime.js"></script>
+
+  <div ng-controller="StoryController as storyCtrl" class="panel">
+    <form name="storyForm" ng-submit="storyCtrl.addStory()">
+      <p><label>Key:<br/>{{storyCtrl.story.key}}</label></p>
+      <p><label>Story Title:<br/><input ng-model="storyCtrl.story.title" type="text" /></label></p>
+      <p><label>Author:<br/><input ng-model="storyCtrl.story.author" type="text" /></label></p>
+      <p><label>Tagline:<br/><textarea ng-model="storyCtrl.story.tagline" cols="80" rows="4"></textarea></label></p>
+      <p><button>Create Story</button></p>
+    </form>
+  </div>
 
 </body>
 </html>

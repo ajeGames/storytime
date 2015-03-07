@@ -5,6 +5,9 @@ import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
 
 import javax.validation.constraints.Null;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +33,14 @@ public class StoryTimeRepository {
         return repo;
     }
 
-    public Story addStory(Story story) {
+    public Story addStory(Story story) throws Exception {
+        // if given story has key and item already exists, throw something; use update instead
+        if (story.getKey() != null) {
+            throw new Exception("The given Story specifies a key that is already in use. Either clear the key or " +
+                    "use update method.");
+        }
+
+        // otherwise, pick a new key
         story.setKey(keyGenerator.nextString());
         stories.put(story.getKey(), story);
         return story;

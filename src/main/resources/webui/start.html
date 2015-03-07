@@ -17,7 +17,7 @@
         <div><form name="editStoryForm" ng-submit="storyCtrl.editStory()"><button>Edit</button></form></div>
       </div>
       <div ng-show="storyCtrl.editStory">
-        <form name="storyForm" ng-submit="storyCtrl.updateStory()">
+        <form name="storyForm" ng-submit="storyCtrl.addStory()">
           <p><label>Story Title:<br/><input ng-model="storyCtrl.story.title" type="text" /></label></p>
           <p><label>Author:<br/><input ng-model="storyCtrl.story.author" type="text" /></label></p>
           <p><label>Tagline:<br/><textarea ng-model="storyCtrl.story.tagline" cols="80" rows="4"></textarea></label></p>
