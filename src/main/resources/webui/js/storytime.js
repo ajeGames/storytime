@@ -55,6 +55,7 @@ app.controller('StoryCtrl', ['$scope', function($scope){
     for (i in $scope.catalog) {
       if ($scope.catalog[i].key == key) {
         $scope.draft = $scope.catalog[i];
+        $scope.draftScene = $scope.draft.firstScene;
         break;
       }
     }
@@ -64,7 +65,7 @@ app.controller('StoryCtrl', ['$scope', function($scope){
   $scope.clear = function() {
     $scope.draft = {};
     $scope.isEdit = true;
-  }
+  };
 
   $scope.delete = function(key) {
     for (i in $scope.catalog) {
@@ -73,10 +74,15 @@ app.controller('StoryCtrl', ['$scope', function($scope){
         $scope.draft = {};
       }
     }
-  }
-}]);
+  };
 
-app.controller('SceneCtrl', ['$scope', function($scope) {
+  $scope.updateScene = function() {
+    if ($scope.draftScene.key == null) {
+      $scope.draftScene.key = Date.now();  // TODO backend will do this when hooked up
+    }
+  };
+
+  /// Scene edit logic
 
   $scope.draftScene = {};
 
@@ -97,7 +103,7 @@ app.controller('SceneCtrl', ['$scope', function($scope) {
       $scope.draftScene.nextSceneOptions.push(sceneOption);
       $scope.nextSceneTeaser = null;
     }
-  }
+  };
 
 }]);
 
