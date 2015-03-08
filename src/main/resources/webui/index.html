@@ -41,12 +41,12 @@
           <h2 class="heading">Opening Scene</h2>
           <div>
             <p>({{draftScene.key}})
-              <label>Opening Scene Teaser: <input ng-model="draftScene.teaser" type="text" size="80" /></label></p>
+              <label>Opening Scene Teaser: <input ng-model="draftScene.teaser" type="text" size="80" class="teaser" /></label></p>
             <p><label>Scene:<br/><textarea ng-model="draftScene.prose" cols="80" rows="4"></textarea></label></p>
             <p><button ng-click="updateScene()">Update</button></p>
-            <p><input ng-model="nextSceneTeaser" type="text" /><button ng-click="addSceneOption()">Add Next Scene</button></p>
+            <p><input ng-model="nextSceneTeaser" type="text" class="teaser" /> <button ng-click="addSceneOption()">Add Next Scene</button></p>
             <div ng-repeat="nextScene in draftScene.nextSceneOptions">
-              <p>({{nextScene.key}}) {{nextScene.teaser}}</p>
+              <p>({{nextScene.key}}) {{nextScene.teaser}} <button ng-click="removeSceneOption(nextScene.key)">Remove Scene</button></p>
             </div>
           </div>
         </div>
