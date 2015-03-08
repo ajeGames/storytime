@@ -19,8 +19,9 @@ app.controller('StoryCtrl', ['$scope', function($scope){
   ];
 
   $scope.draft = {};
+  $scope.isEdit = true;
 
-  $scope.save = function () {
+  $scope.save = function() {
     if ($scope.draft.key == null) {
       $scope.draft.key = Date.now();  // TODO backend will do this when hooked up
       $scope.catalog.push($scope.draft);  // new story, so add to list
@@ -31,21 +32,31 @@ app.controller('StoryCtrl', ['$scope', function($scope){
         }
       }
     }
-    $scope.draft = {};
-  }
+    $scope.isEdit = false;
+  };
 
-  $scope.edit = function (key) {
+  $scope.edit = function(key) {
     for (i in $scope.catalog) {
       if ($scope.catalog[i].key == key) {
         $scope.draft = angular.copy($scope.catalog[i]);
         break;
       }
     }
-  }
+    $scope.isEdit = true;
+  };
 
   $scope.clear = function() {
     $scope.draft = {};
+    $scope.isEdit = true;
   }
+}]);
+
+app.controller('SceneCtrl', ['$scope', function($scope) {
+
+  $scope.draftScene = {
+    'key': 'QWERTY1', 'teaser': 'Once upon a time...', 'prose': 'A long time ago in a galaxy far far away, there lived three little pigs.'
+  };
+
 }]);
 
   //app.service('storyService',
