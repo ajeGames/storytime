@@ -19,7 +19,7 @@
 }
 
 .storyTitle {
-  font-weight: bold;
+  font-style: italic;
   font-size: large;
 }
 
@@ -27,11 +27,6 @@
   font-weight: bold;
   font-size: medium;
   margin: 1em 0;
-}
-
-.tagline {
-  font-style: italic;
-  margin: 0;
 }
 
 .storySummary {

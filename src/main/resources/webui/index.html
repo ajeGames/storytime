@@ -13,16 +13,17 @@
   <div ng-controller="StoryCtrl">
 
     <div ng-repeat="story in catalog" class="storySummary">
-      <p><b>Key:</b> {{story.key}} <b>Title:</b> {{story.title}} <b>Author:</b> {{story.author}}
-        <b>Tagline:</b> {{story.tagline}} <button ng-click="edit(story.key)">Load</button></p>
-      <p><b>Opening Scene:</b> (<b>Key:</b> {{story.firstScene.key}}) <b>Teaser:</b> {{story.firstScene.teaser}}</p>
+      <p>({{story.key}}) <em>{{story.title}}</em> by {{story.author}}. "{{story.tagline}}"
+        <button ng-click="edit(story.key)">Load</button>
+        <button ng-click="delete(story.key)">Delete</button></p>
     </div>
+
+    <hr/>
 
     <!-- create and edit a single story -->
     <div class="storySummary" ng-hide="isEdit">
-      <div class="storyTitle">{{draft.title}}</div>
-      <p>by {{draft.author}}
-      <p class="tagline">{{draft.tagline}}</p>
+      <span class="storyTitle">{{draft.title}}</span> by {{draft.author}}
+      <p>"{{draft.tagline}}"</p>
       <div><button ng-click="edit(draft.key)">Edit</button></div>
     </div>
     <div class="panel" ng-show="isEdit">
