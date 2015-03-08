@@ -10,7 +10,13 @@ app.controller('StoryCtrl', ['$scope', function($scope){
     {
       'key': 'ABC123', 'title': 'Tale of Two Cities', 'author': 'Charles Dickens',
       'tagline': 'It was the best of times; it was the worst of times.',
-      'firstScene': {'key': '098ZYX', 'teaser': '19th century London'}
+      'firstScene': {'key': '098ZYX', 'teaser': '19th century London',
+                     'prose': 'It was the best of times.  It was the worst of times.  Blah blah blah.',
+                     'nextSceneOptions': [
+                        { 'key': '123SCENE', 'teaser': 'See what was so good about these times.' },
+                        { 'key': '234SCENE', 'teaser': 'See what was so bad about these times.' }
+                     ]
+                    }
     },
     {
       'key': 'DEF456', 'title': 'The Raven', 'author': 'Edgar Allan Poe', 'tagline': 'Evermore.',
@@ -72,9 +78,26 @@ app.controller('StoryCtrl', ['$scope', function($scope){
 
 app.controller('SceneCtrl', ['$scope', function($scope) {
 
-  $scope.draftScene = {
-    'key': 'QWERTY1', 'teaser': 'Once upon a time...', 'prose': 'A long time ago in a galaxy far far away, there lived three little pigs.'
+  $scope.draftScene = {};
+
+  $scope.testScene = {
+    'key': 'QWERTY1', 'teaser': 'Once upon a time...',
+    'prose': 'A long time ago in a galaxy far far away, there lived three little pigs.',
+    'nextSceneOptions': [
+      { 'key': 'QWERTY2', 'teaser': 'Use the force.' },
+      { 'key': 'QWERTY3', 'teaser': 'Turn to the dark side.' }
+    ]
   };
+
+  $scope.nextSceneTeaser = null;
+
+  $scope.addSceneOption = function() {
+    if ($scope.nextSceneTeaser != null) {
+      var sceneOption = { 'key': Date.now(), 'teaser': $scope.nextSceneTeaser };
+      $scope.draftScene.nextSceneOptions.push(sceneOption);
+      $scope.nextSceneTeaser = null;
+    }
+  }
 
 }]);
 
