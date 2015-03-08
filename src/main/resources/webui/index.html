@@ -12,10 +12,15 @@
   <!-- list of stories -->
   <div ng-controller="StoryCtrl">
 
-    <div ng-repeat="story in catalog" class="storySummary">
-      <p>({{story.key}}) <em>{{story.title}}</em> by {{story.author}}. "{{story.tagline}}"
-        <button ng-click="edit(story.key)">Load</button>
-        <button ng-click="delete(story.key)">Delete</button></p>
+    <div class="storyListPanel">
+      <h2 class="heading">Catalog of Stories</h2>
+      <div class="scroller">
+        <div ng-repeat="story in catalog" class="storyListItem">
+          <p>({{story.key}}) <em>{{story.title}}</em> by {{story.author}}. "{{story.tagline}}"
+            <button ng-click="edit(story.key)">Load</button>
+            <button ng-click="delete(story.key)">Delete</button></p>
+        </div>
+      </div>
     </div>
 
     <hr/>
@@ -24,7 +29,7 @@
     <div class="storySummary" ng-hide="isEdit">
       <span class="storyTitle">{{draft.title}}</span> by {{draft.author}}
       <p>"{{draft.tagline}}"</p>
-      <div><button ng-click="edit(draft.key)">Edit</button></div>
+      <div><button ng-click="edit(draft.key)">Edit</button> <button ng-click="clear()">Clear</button></div>
     </div>
     <div class="panel" ng-show="isEdit">
       <p><label>Key:<br/>{{draft.key}}</label></p>

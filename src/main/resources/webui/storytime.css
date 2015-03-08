@@ -1,14 +1,25 @@
-.explanation {
-  border: dotted slateblue 5px;
-  margin: 0.5em;
-  background-color: lightgoldenrodyellow;
+.heading {
+  margin: 0 0 0.5em 0;
+  padding: 0;
 }
 
-.useCase {
-  border: solid darkcyan 2px;
-  margin: 1em 0;
+.storyListPanel {
+  border: groove silver 5px;
   padding: 1em;
-  background-color: lightgray;
+  margin: 1em;
+  background-color: aquamarine;
+}
+
+.scroller {
+  border: dotted black 1px;
+  height: 8em;
+  overflow-y: auto;
+  background-color: white;
+}
+
+.storyListItem {
+  margin: 0.5em;
+  border-bottom: dotted lightgray 1px;
 }
 
 .panel {
