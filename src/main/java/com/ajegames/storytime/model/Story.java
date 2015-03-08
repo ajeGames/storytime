@@ -23,6 +23,15 @@ public class Story {
     @JsonProperty
     private SceneSummary firstScene;
 
+    public static Story create(String title, String author, String description, SceneSummary firstScene) {
+        Story out = new Story();
+        out.setTitle(title);
+        out.setAuthor(author);
+        out.setDescription(description);
+        out.setFirstScene(firstScene);
+        return out;
+    }
+
     public String getKey() {
         return key;
     }

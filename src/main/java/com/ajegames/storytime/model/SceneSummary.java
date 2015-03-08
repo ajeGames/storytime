@@ -13,6 +13,12 @@ public class SceneSummary {
     @JsonProperty
     private String teaser;
 
+    public static SceneSummary create(String teaser) {
+        SceneSummary summary = new SceneSummary();
+        summary.setTeaser(teaser);
+        return summary;
+    }
+
     public String getKey() {
         return key;
     }

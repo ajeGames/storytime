@@ -3,11 +3,13 @@ package com.ajegames.storytime.data;
 import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
+import com.google.common.collect.Collections2;
 
 import javax.validation.constraints.Null;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +65,9 @@ public class StoryTimeRepository {
     }
 
     public List<Story> getStories() {
-        return (List<Story>) stories.values();
+        List<Story> result = new ArrayList<Story>();
+        result.addAll(stories.values());
+        return result;
     }
 
     public Scene addScene(Scene scene) {

@@ -4,6 +4,8 @@ import com.ajegames.storytime.model.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 /**
  * Puts the repository through its paces.
  */
@@ -35,6 +37,26 @@ public class StoryTimeRepositoryTest {
             }
         } catch (Exception e) {
             Assert.fail("Unexpected", e);
+        }
+    }
+
+    @Test
+    public void testGetStories() {
+        try {
+            StoryTimeRepository instance = StoryTimeRepository.getInstance();
+            Story toAdd = new Story();
+            toAdd.setTitle("blah");
+            instance.addStory(toAdd);
+            toAdd = new Story();
+            toAdd.setTitle("biddy");
+            instance.addStory(toAdd);
+            toAdd = new Story();
+            toAdd.setTitle("bah");
+            instance.addStory(toAdd);
+            List<Story> out = instance.getStories();
+            Assert.assertFalse(out.isEmpty());
+        } catch (Exception e) {
+            Assert.fail("Fail", e);
         }
     }
 }
