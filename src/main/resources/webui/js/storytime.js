@@ -49,6 +49,15 @@ app.controller('StoryCtrl', ['$scope', function($scope){
     $scope.draft = {};
     $scope.isEdit = true;
   }
+
+  $scope.delete = function(key) {
+    for (i in $scope.catalog) {
+      if ($scope.catalog[i].key == key) {
+        $scope.catalog.splice(i,1);
+        $scope.draft = {};
+      }
+    }
+  }
 }]);
 
 app.controller('SceneCtrl', ['$scope', function($scope) {
