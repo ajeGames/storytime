@@ -8,7 +8,7 @@ app.controller('StoryCtrl', ['$scope', function($scope){
 
   $scope.catalog = [
     {
-      'key': 'ABC123', 'title': 'Tale of Two Cities', 'author': 'Dickens, Charles',
+      'key': 'ABC123', 'title': 'Tale of Two Cities', 'author': 'Charles Dickens',
       'tagline': 'It was the best of times; it was the worst of times.',
       'firstScene': {'key': '098ZYX', 'teaser': '19th century London'}
     },

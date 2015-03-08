@@ -16,34 +16,30 @@
       <h2 class="heading">Catalog of Stories</h2>
       <div class="scroller">
         <div ng-repeat="story in catalog" class="storyListItem">
-          <p>({{story.key}}) <em>{{story.title}}</em> by {{story.author}}. "{{story.tagline}}"
-            <button ng-click="edit(story.key)">Load</button>
+          <p><a href="#" ng-click="edit(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. "{{story.tagline}}"
             <button ng-click="delete(story.key)">Delete</button></p>
         </div>
       </div>
     </div>
 
-    <hr/>
-
     <!-- create and edit a single story -->
-    <div class="storySummary" ng-hide="isEdit">
-      <span class="storyTitle">{{draft.title}}</span> by {{draft.author}}
-      <p>"{{draft.tagline}}"</p>
-      <div><button ng-click="edit(draft.key)">Edit</button> <button ng-click="clear()">Clear</button></div>
-    </div>
-    <div class="panel" ng-show="isEdit">
-      <p><label>Key:<br/>{{draft.key}}</label></p>
+    <div class="storyPanel" ng-show="isEdit">
+      <p><label>Key: {{draft.key}}</label></p>
       <p><label>Story Title:<br/><input ng-model="draft.title" type="text" /></label></p>
       <p><label>Author:<br/><input ng-model="draft.author" type="text" /></label></p>
       <p><label>Tagline:<br/><textarea ng-model="draft.tagline" cols="80" rows="4"></textarea></label></p>
       <p><button ng-click="save()">Save</button> <button ng-click="clear()">Clear</button></p>
     </div>
+    <div class="storyPanel" ng-hide="isEdit">
+      <span class="storyTitle">{{draft.title}}</span> by {{draft.author}}
+      <p>"{{draft.tagline}}"</p>
+      <div><button ng-click="edit(draft.key)">Edit</button> <button ng-click="clear()">Clear</button></div>
 
-    <div ng-controller="SceneCtrl">
-      <p><label>Opening Scene Teaser:<br/><input ng-model="draft.firstScene.teaser" type="text" /></label></p>
+      <div ng-controller="SceneCtrl" class="scenePanel">
+        <p><label>Opening Scene Teaser:<br/><input ng-model="draft.firstScene.teaser" type="text" /></label></p>
 
+      </div>
     </div>
-
   </div>
 
 </body>
