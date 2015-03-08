@@ -35,6 +35,8 @@
 }
 
 .scenePanel {
+  margin-top: 1em;
+  padding: 1em;
   background-color: white;
 }
 

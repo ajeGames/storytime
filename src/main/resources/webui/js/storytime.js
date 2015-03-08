@@ -45,6 +45,16 @@ app.controller('StoryCtrl', ['$scope', function($scope){
     $scope.isEdit = true;
   };
 
+  $scope.load = function(key) {
+    for (i in $scope.catalog) {
+      if ($scope.catalog[i].key == key) {
+        $scope.draft = $scope.catalog[i];
+        break;
+      }
+    }
+    $scope.isEdit = false;
+  };
+
   $scope.clear = function() {
     $scope.draft = {};
     $scope.isEdit = true;
