@@ -23,6 +23,11 @@ public class StoryTimeResource {
 
     private static Logger LOG = LoggerFactory.getLogger(StoryTimeResource.class);
 
+    @GET
+    public String ping() {
+        return "The Storytime server is awake";
+    }
+
     /**
      * Provide summary information for all stories that match given criteria.  For now, returns all stories.
      *
@@ -30,6 +35,7 @@ public class StoryTimeResource {
      */
     @GET
     @Timed
+    @Path("stories")
     public List<Story> findStories() {
         /*
          * TODO: introduce criteria to refine search
