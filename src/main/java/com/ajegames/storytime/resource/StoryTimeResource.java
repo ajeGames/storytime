@@ -25,7 +25,7 @@ public class StoryTimeResource {
 
     @GET
     public String ping() {
-        return "The Storytime server is awake";
+        return "The StoryTime server is ready for action.";
     }
 
     /**

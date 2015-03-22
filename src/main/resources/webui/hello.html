@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <script src="js/angular.min.js"></script>
+  <script src="js/test.js"></script>
+
+  <div ng-app="app">
+    <div ng-controller="CalculatorController">
+      Enter a number:
+      <input type="number" ng-model="number">
+      <button ng-click="doSquare()">X<sup>2</sup></button>
+      <button ng-click="doCube()">X<sup>3</sup></button>
+
+      <div>Answer: {{answer}}</div>
+    </div>
+  </div>
+</body>
+</html>

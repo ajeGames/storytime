@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="Prototype">
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Using $http Service</title>
+  <style type="text/css">
+    a[ ng-click ] {
+      color: #FF00CC ;
+      cursor: pointer ;
+      text-decoration: underline ;
+    }
+  </style>
+</head>
+<body ng-controller="DemoController">
+  <script src="js/angular.min.js"></script>
+  <script src="js/prototype.js"></script>
+
+  <h1>
+    Using The $http Service In AngularJS To Make AJAX Requests
+  </h1>
+
+  <!-- Show existing friends. -->
+  <ul>
+    <li ng-repeat="friend in friends">
+
+      {{ friend.name }}
+
+      ( <a ng-click="removeFriend( friend )">delete</a> )
+
+    </li>
+  </ul>
+
+  <!-- Add a new friend to the list. -->
+  <form ng-submit="addFriend()">
+
+    <input type="text" ng-model="form.name" size="20" />
+    <input type="submit" value="Add Friend" />
+
+  </form>
+
+
+</body>
+</html>

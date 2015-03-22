@@ -4,42 +4,14 @@
 
 var app = angular.module('storytime', []);
 
-app.controller('StoryCtrl', ['$scope', function ($scope) {
+app.controller('StoryCtrl', ['$scope', 'StoryService', function ($scope, StoryService) {
 
   // TODO learn how to test
-  $scope.sampleCatalog = [
-    {
-      'key': 'ABC123', 'title': 'Tale of Two Cities', 'author': 'Charles Dickens',
-      'tagline': 'It was the best of times; it was the worst of times.',
-      'firstScene': {
-        'key': '098ZYX', 'teaser': '19th century London',
-        'prose': 'It was the best of times.  It was the worst of times.  Blah blah blah.',
-        'nextSceneOptions': [
-          {'key': '123SCENE', 'teaser': 'See what was so good about these times.'},
-          {'key': '234SCENE', 'teaser': 'See what was so bad about these times.'}
-        ]
-      }
-    },
-    {
-      'key': 'DEF456', 'title': 'The Raven', 'author': 'Edgar Allan Poe', 'tagline': 'Evermore.',
-      'firstScene': {'key': '765WVU', 'teaser': 'Something about my love, Lenore...'}
-    },
-    {
-      'key': 'GHI789', 'title': 'Star Wars', 'author': 'George Lucas',
-      'tagline': 'Can our young hero overcome adversity and bring balance to the force?',
-      'firstScene': {
-        'key': 'QWERTY1', 'teaser': 'May the force be with you.',
-        'prose': 'A long time ago in a galaxy far far away, the Rebel alliance was causing trouble for the Galactic Empire.',
-        'nextSceneOptions': [
-          {'key': 'QWERTY2', 'teaser': 'Use the force.'}
-        ]
-      }
-    }
-  ];
 
   // === Story summary edit logic ===
 
-  $scope.catalog = $scope.sampleCatalog;  // TODO ask the backend for this data
+//  $scope.catalog = StoryService.listStoriesMock();
+  $scope.catalog = StoryService.listStories();
   $scope.draft = {};
   $scope.isEdit = true;
 
@@ -125,39 +97,5 @@ app.controller('StoryCtrl', ['$scope', function ($scope) {
       }
     }
   };
-}])
-;
-
-//app.service('storyService',
-//  function($http, $q) {
-//
-//    // public API
-//    return ({
-//      addStory: addStory
-//    });
-//
-//    function addStory(story) {
-//      var request = $http({
-//        method: "post",
-//        url: "/api/storytime/story",
-//        data: {
-//          story: story
-//        }
-//      });
-//      return (request.then(handleSuccess, handleError));
-//    }
-//
-//    function handleSuccess(response) {
-//      return(response.data);
-//    }
-//
-//    function handleError(response) {
-//      if (!angular.isObject( response.data ) || !response.data.message) {
-//        return($q.reject("An unknown error occurred."));
-//      }
-//      return($q.reject(response.data.message));
-//    }
-//
-//  }
-//);
+}]);
 
