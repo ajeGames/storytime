@@ -38,9 +38,9 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
     private void loadSampleStories() {
         StoryTimeRepository storyRepo = StoryTimeRepository.getInstance();
         try {
-            storyRepo.addStory(Story.create("A Tall Tale", "A. Storyteller", "You will never believe it.",
+            storyRepo.addStory(Story.create("SERVER: A Tall Tale", "A. Storyteller", "You will never believe it.",
                     SceneSummary.create("A man walks into a bar...")));
-            storyRepo.addStory(Story.create("The Three Little Pigs", "Bros. Grimm", "A lesson in economics.",
+            storyRepo.addStory(Story.create("SERVER: The Three Little Pigs", "Bros. Grimm", "A lesson in economics.",
                     SceneSummary.create("Who's afraid of the Big Bad Wolf?")));
         } catch (Exception e) {
             LOG.error("Unable to load sample stories", e);
