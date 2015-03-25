@@ -1,55 +1,59 @@
-/**
- * Created by dmount on 3/23/15.
- */
-app.service('StoryService',
-    function ($http, $q) {
+(function () {
+  'use strict';
 
-      return ({
-        refreshStories: refreshStories
+  angular
+      .module('StoryTime')
+      .service('StoryService', StoryService);
+
+  function StoryService($http, $q) {
+
+    return ({
+      refreshStories: refreshStories
+    });
+
+    function refreshStories() {
+      var request = $http({
+        method: "get",
+        url: "api/storytime/stories"
       });
 
-      function refreshStories() {
-        var request = $http({
-          method: "get",
-          url: "api/storytime/stories"
-        });
+      return (request.then(handleSuccess, handleError));
+    }
 
-        return (request.then(handleSuccess, handleError));
-      }
+    // ---
+    // PRIVATE
+    // ---
 
-      // ---
-      // PRIVATE
-      // ---
+    // I transform the error response, unwrapping the application dta from
+    // the API response payload.
+    function handleError(response) {
 
-      // I transform the error response, unwrapping the application dta from
-      // the API response payload.
-      function handleError(response) {
+      // The API response from the server should be returned in a
+      // nomralized format. However, if the request was not handled by the
+      // server (or what not handles properly - ex. server error), then we
+      // may have to normalize it on our end, as best we can.
+      if (
+          !angular.isObject(response.data) || !response.data.message
+      ) {
 
-        // The API response from the server should be returned in a
-        // nomralized format. However, if the request was not handled by the
-        // server (or what not handles properly - ex. server error), then we
-        // may have to normalize it on our end, as best we can.
-        if (
-            !angular.isObject(response.data) || !response.data.message
-        ) {
-
-          return ( $q.reject("An unknown error occurred.") );
-
-        }
-
-        // Otherwise, use expected error message.
-        return ( $q.reject(response.data.message) );
+        return ( $q.reject("An unknown error occurred.") );
 
       }
 
-
-      // I transform the successful response, unwrapping the application data
-      // from the API response payload.
-      function handleSuccess(response) {
-
-        return ( response.data );
-
-      }
+      // Otherwise, use expected error message.
+      return ( $q.reject(response.data.message) );
 
     }
-);
+
+
+    // I transform the successful response, unwrapping the application data
+    // from the API response payload.
+    function handleSuccess(response) {
+
+      return ( response.data );
+
+    }
+
+  }
+
+})();
