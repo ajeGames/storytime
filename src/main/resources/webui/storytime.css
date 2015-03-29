@@ -12,7 +12,7 @@
 
 .scroller {
   border: dotted black 1px;
-  height: 8em;
+  height: 60%;
   overflow-y: auto;
   background-color: white;
 }

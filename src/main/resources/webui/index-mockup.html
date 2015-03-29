@@ -18,7 +18,7 @@
       <h2 class="heading">Catalog of Stories</h2>
       <div class="scroller">
         <div ng-repeat="story in storyCtrl.catalog" class="storyListItem">
-          <p><a href="#" ng-click="load(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. "{{story.tagline}}"
+          <p><a href="#" ng-click="load(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. "{{story.tagLine}}"
             <button ng-click="delete(story.key)">Delete</button></p>
         </div>
       </div>
@@ -31,12 +31,12 @@
         <p>Key: {{storyCtrl.draft.key}}</p>
         <p><label>Story Title:<br/><input ng-model="storyCtrl.draft.title" type="text" /></label></p>
         <p><label>Author:<br/><input ng-model="storyCtrl.draft.author" type="text" /></label></p>
-        <p><label>Tagline:<br/><textarea ng-model="storyCtrl.draft.tagline" cols="80" rows="4"></textarea></label></p>
+        <p><label>Tagline:<br/><textarea ng-model="storyCtrl.draft.tagLine" cols="80" rows="4"></textarea></label></p>
         <p><button ng-click="storyCtrl.save()">Save</button> <button ng-click="storyCtrl.clear()">Clear</button></p>
       </div>
       <div ng-hide="storyCtrl.isEdit">
         <p><span class="storyTitle">{{storyCtrl.draft.title}}</span> by {{storyCtrl.draft.author}}</p>
-        <p>"{{storyCtrl.draft.tagline}}"</p>
+        <p>"{{storyCtrl.draft.tagLine}}"</p>
         <div><button ng-click="storyCtrl.edit(storyCtrl.draft.key)">Edit</button>
           <button ng-click="storyCtrl.clear()">Clear</button></div>
 

@@ -16,10 +16,13 @@
       <h2 class="heading">Catalog of Stories</h2>
       <div class="scroller">
         <div ng-repeat="story in catCtrl.catalog" class="storyListItem">
-          <p><a href="#" ng-click="load(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. "{{story.tagline}}"
+          <p><a href="#" ng-click="load(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. ({{story.key}})
             <button ng-click="delete(story.key)">Delete</button></p>
+          <p>"{{story.tagLine}}"</p>
+          <p>{{story.description}}</p>
         </div>
       </div>
+      <div><button ng-click="catCtrl.startNewStory()">Start A New Story</button></div>
     </div>
   </div>
 </body>

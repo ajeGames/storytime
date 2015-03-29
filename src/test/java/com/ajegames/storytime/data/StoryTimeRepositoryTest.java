@@ -45,9 +45,8 @@ public class StoryTimeRepositoryTest {
             Story myStory = new Story();
             StoryTimeRepository instance = StoryTimeRepository.getInstance();
             Story result = instance.addStory(myStory);
-            String key1 = result.getKey();
             try {
-                Story result2 = instance.addStory(result);
+                instance.addStory(result);
             } catch (Exception e) {
                 // expected
             }

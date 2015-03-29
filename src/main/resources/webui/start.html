@@ -13,14 +13,14 @@
       <div class="storySummary" ng-hide="storyCtrl.editStory">
         <div class="storyTitle">{{storyCtrl.story.title}}</div>
         <p>by {{storyCtrl.story.author}}
-        <p class="tagline">{{storyCtrl.story.tagline}}</p>
+        <p class="tagLine">{{storyCtrl.story.tagLine}}</p>
         <div><form name="editStoryForm" ng-submit="storyCtrl.editStory()"><button>Edit</button></form></div>
       </div>
       <div ng-show="storyCtrl.editStory">
         <form name="storyForm" ng-submit="storyCtrl.addStory()">
           <p><label>Story Title:<br/><input ng-model="storyCtrl.story.title" type="text" /></label></p>
           <p><label>Author:<br/><input ng-model="storyCtrl.story.author" type="text" /></label></p>
-          <p><label>Tagline:<br/><textarea ng-model="storyCtrl.story.tagline" cols="80" rows="4"></textarea></label></p>
+          <p><label>Tagline:<br/><textarea ng-model="storyCtrl.story.tagLine" cols="80" rows="4"></textarea></label></p>
           <p><button>Create Story</button></p>
         </form>
       </div>

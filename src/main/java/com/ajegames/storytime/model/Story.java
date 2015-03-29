@@ -18,15 +18,20 @@ public class Story {
     private String author;
 
     @JsonProperty
+    private String tagLine;
+
+    @JsonProperty
     private String description;
 
     @JsonProperty
     private SceneSummary firstScene;
 
-    public static Story create(String title, String author, String description, SceneSummary firstScene) {
+    public static Story create(String title, String author, String tagLine, String description,
+                               SceneSummary firstScene) {
         Story out = new Story();
         out.setTitle(title);
         out.setAuthor(author);
+        out.setTagLine(tagLine);
         out.setDescription(description);
         out.setFirstScene(firstScene);
         return out;
@@ -54,6 +59,14 @@ public class Story {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getTagLine() {
+        return tagLine;
+    }
+
+    public void setTagLine(String tagLine) {
+        this.tagLine = tagLine;
     }
 
     public String getDescription() {
