@@ -1,5 +1,6 @@
 package com.ajegames.storytime.data;
 
+import com.ajegames.storytime.model.SceneSummary;
 import com.ajegames.storytime.model.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -20,6 +21,20 @@ public class StoryTimeRepositoryTest {
             Assert.assertNotNull(result.getKey());
         } catch (Exception e) {
             Assert.fail("Fail", e);
+        }
+    }
+
+    @Test
+    public void testAddingStoryAlsoSetsFirstSceneKey() {
+        try {
+            StoryTimeRepository instance = StoryTimeRepository.getInstance();
+            Story toAdd = new Story();
+            toAdd.setTitle("A Cautionary Tale");
+            toAdd.setFirstScene(SceneSummary.create("Everything comes down to the choice you must make."));
+            Story out = instance.addStory(toAdd);
+            Assert.assertNotNull(out.getFirstScene().getKey());
+        } catch (Exception e) {
+            Assert.fail("Unexpected", e);
         }
     }
 
@@ -59,4 +74,5 @@ public class StoryTimeRepositoryTest {
             Assert.fail("Fail", e);
         }
     }
+
 }

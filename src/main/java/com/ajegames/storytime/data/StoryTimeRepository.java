@@ -1,6 +1,7 @@
 package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Scene;
+import com.ajegames.storytime.model.SceneSummary;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
 import com.google.common.collect.Collections2;
@@ -41,10 +42,15 @@ public class StoryTimeRepository {
             throw new Exception("The given Story specifies a key that is already in use. Either clear the key or " +
                     "use update method.");
         }
-
         // otherwise, pick a new key
         story.setKey(keyGenerator.nextString());
         stories.put(story.getKey(), story);
+
+        // make sure first scene is indexed and has a key
+        if (story.getFirstScene() != null && story.getFirstScene().getKey() == null) {
+            addScene(story.getFirstScene());
+        }
+
         return story;
     }
 
@@ -74,6 +80,13 @@ public class StoryTimeRepository {
         scene.setKey(keyGenerator.nextString());
         scenes.put(scene.getKey(), scene);
         return scene;
+    }
+
+    public SceneSummary addScene(SceneSummary summary) {
+        Scene in = Scene.create(summary);
+        addScene(in);
+        summary.setKey(in.getKey());
+        return summary;
     }
 
     public Scene getScene(String key) {

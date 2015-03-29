@@ -19,13 +19,15 @@ public class StoryResource {
     private StoryTimeRepository repo = StoryTimeRepository.getInstance();
 
     @POST
-    public void create(Story story) {
+    public Story create(Story story) {
         LOG.info("Creating another story for a happier universe.");
+        Story result;
         try {
-            repo.addStory(story);
+            result = repo.addStory(story);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.BAD_REQUEST);
         }
+        return result;
     }
 
     @GET
