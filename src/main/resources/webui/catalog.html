@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="StoryTime">
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Catalog of Stories</title>
+  <link rel="stylesheet" type="text/css" href="storytime.css" />
+</head>
+<body>
+  <script src="js/angular.min.js"></script>
+  <script src="js/app.module.js"></script>
+  <script src="js/storyService.js"></script>
+  <script src="js/catalogController.js"></script>
+
+  <div ng-controller="CatalogController as catCtrl">
+    <div class="storyListPanel">
+      <h2 class="heading">Catalog of Stories</h2>
+      <div class="scroller">
+        <div ng-repeat="story in catCtrl.catalog" class="storyListItem">
+          <p><a href="#" ng-click="load(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. "{{story.tagline}}"
+            <button ng-click="delete(story.key)">Delete</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
