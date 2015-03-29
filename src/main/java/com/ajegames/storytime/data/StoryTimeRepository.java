@@ -10,10 +10,7 @@ import javax.validation.constraints.Null;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <code>StoryRepositoryInMemoryImpl</code> manages storage and retrieval of stories.
@@ -67,7 +64,28 @@ public class StoryTimeRepository {
     }
 
     public void removeStory(String key) {
+        Story story = getStory(key);
+        if (story == null) {
+            return;
+            // TODO decide whether to indicate not found or quietly ignore
+        }
+        if (story.getFirstScene() != null) {
+            removeScenesInChain(story.getFirstScene().getKey());
+        }
         stories.remove(key);
+    }
+
+    public void removeScenesInChain(String key) {
+        // TODO implement
+        Scene aScene = scenes.get(key);
+        if (aScene != null) {
+            List<SceneSummary> options = aScene.getNextSceneOptions();
+            if (options != null) {
+                for (SceneSummary summary : options) {
+                    removeScenesInChain(summary.getKey());
+                }
+            }
+        }
     }
 
     public List<Story> getStories() {

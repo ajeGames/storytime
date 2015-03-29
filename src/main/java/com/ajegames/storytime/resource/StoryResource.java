@@ -35,4 +35,10 @@ public class StoryResource {
     public Story get(@PathParam("key") String key) {
         return repo.getStory(key);
     }
+
+    @DELETE
+    @Path("{key}")
+    public void destroy(@PathParam("key") String key) {
+        repo.removeStory(key);
+    }
 }

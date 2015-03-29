@@ -1,5 +1,6 @@
 package com.ajegames.storytime.data;
 
+import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.SceneSummary;
 import com.ajegames.storytime.model.Story;
 import org.testng.Assert;
@@ -75,4 +76,14 @@ public class StoryTimeRepositoryTest {
         }
     }
 
+    @Test
+    public void testDeleteStoryWithScenes() {
+        StoryTimeRepository instance = StoryTimeRepository.getInstance();
+        Story myStory = new Story();
+        Scene first = Scene.create("top level", "top level", "top level");
+        SceneSummary anotherOption = SceneSummary.create("second A");
+        first.addNextSceneOption(anotherOption);
+        first.addNextSceneOption(SceneSummary.create("second B"));
+        first.addNextSceneOption(SceneSummary.create("second C"));
+    }
 }
