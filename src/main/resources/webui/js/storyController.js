@@ -102,16 +102,6 @@
       vm.isEdit = true;
     };
 
-    vm.delete = function (key) {
-      for (var i in vm.catalog) {
-        if (vm.catalog[i].key == key) {
-          vm.catalog.splice(i, 1);
-          vm.draft = {};
-          break;
-        }
-      }
-    };
-
     vm.updateScene = function () {
       if (vm.draftScene.key == null) {
         vm.draftScene.key = Date.now();  // TODO backend will do this when hooked up

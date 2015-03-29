@@ -17,7 +17,7 @@
       <div class="scroller">
         <div ng-repeat="story in catCtrl.catalog" class="storyListItem">
           <p><a href="#" ng-click="load(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. ({{story.key}})
-            <button ng-click="delete(story.key)">Delete</button></p>
+            <button ng-click="edit(story.key)">Edit</button> <button ng-click="delete(story.key)">Delete</button></p>
           <p>"{{story.tagLine}}"</p>
           <p>{{story.description}}</p>
         </div>
