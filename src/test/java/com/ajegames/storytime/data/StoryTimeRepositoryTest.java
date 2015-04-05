@@ -77,12 +77,29 @@ public class StoryTimeRepositoryTest {
 
     @Test
     public void testDeleteStoryWithScenes() {
-        StoryTimeRepository instance = StoryTimeRepository.getInstance();
-        Story myStory = new Story();
-        Scene first = Scene.create("top level", "top level", "top level");
-        SceneSummary anotherOption = SceneSummary.create("second A");
-        first.addNextSceneOption(anotherOption);
-        first.addNextSceneOption(SceneSummary.create("second B"));
-        first.addNextSceneOption(SceneSummary.create("second C"));
+        StoryTimeRepository repo = StoryTimeRepository.getInstance();
+        Scene first = repo.addScene(Scene.create("A teaser", "A heading", "A prose prose prose"));
+        Scene second = repo.addScene(Scene.create("B teaser", "B heading", "B prose prose prose"));
+        Scene third = repo.addScene(Scene.create("C teaser", "C heading", "C prose prose prose"));
+        first.addNextSceneOption(second.generateSummary());
+        first.addNextSceneOption(third.generateSummary());
+        try {
+            Story myStory = repo.addStory(Story.create("Some Story", "Somebody", "Something catchy", "Something compelling",
+                    first.generateSummary()));
+            Assert.assertNotNull(repo.getScene(first.getKey()));
+            Assert.assertNotNull(repo.getScene(second.getKey()));
+            Assert.assertNotNull(repo.getScene(third.getKey()));
+            repo.removeStory(myStory.getKey());
+
+            String key = first.getKey();
+            Scene scene = repo.getScene(key);
+            Assert.assertNull(scene);
+
+            Assert.assertNull(repo.getScene(first.getKey()));
+            Assert.assertNull(repo.getScene(second.getKey()));
+            Assert.assertNull(repo.getScene(third.getKey()));
+        } catch (Exception e) {
+            Assert.fail("Could not add story", e);
+        }
     }
 }

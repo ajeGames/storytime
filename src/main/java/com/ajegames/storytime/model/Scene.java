@@ -87,4 +87,11 @@ public class Scene {
         }
         this.nextSceneOptions.add(anotherOption);
     }
+
+    public SceneSummary generateSummary() {
+        SceneSummary out = new SceneSummary();
+        out.setKey(getKey());
+        out.setTeaser(getTeaser());
+        return out;
+    }
 }

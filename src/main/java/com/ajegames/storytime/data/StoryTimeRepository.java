@@ -73,13 +73,14 @@ public class StoryTimeRepository {
             // TODO decide whether to indicate not found or quietly ignore
         }
         if (story.getFirstScene() != null) {
-            removeScenesInChain(story.getFirstScene().getKey());
+            String firstSceneKey = story.getFirstScene().getKey();
+            removeScenesInChain(firstSceneKey);
+            scenes.remove(firstSceneKey);
         }
         stories.remove(key);
     }
 
     public void removeScenesInChain(String key) {
-        // TODO implement
         Scene aScene = scenes.get(key);
         if (aScene != null) {
             List<SceneSummary> options = aScene.getNextSceneOptions();
@@ -87,6 +88,8 @@ public class StoryTimeRepository {
                 for (SceneSummary summary : options) {
                     removeScenesInChain(summary.getKey());
                 }
+            } else {
+                removeScene(key);
             }
         }
     }
