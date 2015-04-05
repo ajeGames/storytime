@@ -36,6 +36,17 @@ public class StoryResource {
         return repo.getStory(key);
     }
 
+    @PUT
+    @Path("{key}")
+    public void update(@PathParam("key") String key, Story storyUpdate) {
+        LOG.info("Receiving changes to story.");
+        if (!key.equals(storyUpdate.getKey())) {
+            LOG.error("Key in URI does not match key in data");
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        repo.updateStory(storyUpdate);
+    }
+
     @DELETE
     @Path("{key}")
     public void destroy(@PathParam("key") String key) {

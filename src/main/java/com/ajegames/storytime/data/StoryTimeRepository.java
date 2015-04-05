@@ -60,7 +60,10 @@ public class StoryTimeRepository {
         if (story == null) {
             throw new NullPointerException("Story not found: " + update.getKey());
         }
-        stories.put(update.getKey(), update);
+        story.setTitle(update.getTitle());
+        story.setAuthor(update.getAuthor());
+        story.setTagLine(update.getTagLine());
+        story.setDescription(update.getDescription());
     }
 
     public void removeStory(String key) {
