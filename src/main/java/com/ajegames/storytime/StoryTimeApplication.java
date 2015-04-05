@@ -4,6 +4,7 @@ import com.ajegames.storytime.data.StoryTimeRepository;
 import com.ajegames.storytime.health.StoryHealthCheck;
 import com.ajegames.storytime.model.SceneSummary;
 import com.ajegames.storytime.model.Story;
+import com.ajegames.storytime.resource.SceneResource;
 import com.ajegames.storytime.resource.StoryResource;
 import com.ajegames.storytime.resource.StoryTimeResource;
 import io.dropwizard.Application;
@@ -56,5 +57,6 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
         environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(new StoryTimeResource());
         environment.jersey().register(new StoryResource());
+        environment.jersey().register(new SceneResource());
     }
 }
