@@ -41,7 +41,7 @@ public class StoryTimeResource {
          * TODO: introduce criteria to refine search
          * TODO: limit results returned -- think through how to cache for incremental fetch?
          */
-        LOG.info("Find stories: SlightSlight ssssall");
+        LOG.info("Find stories: all");
         return StoryTimeRepository.getInstance().getStories();
     }
 }
