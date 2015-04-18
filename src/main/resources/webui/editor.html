@@ -14,16 +14,6 @@
   <!-- list of stories -->
   <div ng-controller="StoryCtrl as storyCtrl">
 
-    <div class="storyListPanel">
-      <h2 class="heading">Catalog of Stories</h2>
-      <div class="scroller">
-        <div ng-repeat="story in storyCtrl.catalog" class="storyListItem">
-          <p><a href="#" ng-click="load(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. "{{story.tagLine}}"
-            <button ng-click="delete(story.key)">Delete</button></p>
-        </div>
-      </div>
-    </div>
-
     <!-- create and edit a single story -->
     <div class="storyPanel">
       <h2 class="heading">Active Story</h2>

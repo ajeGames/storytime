@@ -46,19 +46,6 @@
     vm.draft = {};
     vm.isEdit = true;
 
-    function applyRemoteData(stories) {
-      vm.catalog = stories;
-    }
-
-    function loadCatalog() {
-
-      // The friendService returns a promise.
-      StoryService.refreshStories()
-          .then(function (stories) {
-            applyRemoteData(stories);
-          });
-    }
-
     vm.save = function () {
       if (vm.draft.key == null) {
         vm.draft.key = Date.now();  // TODO backend will do this when hooked up
