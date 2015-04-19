@@ -4,12 +4,6 @@ import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.SceneSummary;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
-import com.google.common.collect.Collections2;
-
-import javax.validation.constraints.Null;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
 import java.util.*;
 
 /**
