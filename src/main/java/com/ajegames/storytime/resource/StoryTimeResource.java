@@ -1,5 +1,6 @@
 package com.ajegames.storytime.resource;
 
+import com.ajegames.storytime.data.StoryTimePersistence;
 import com.ajegames.storytime.data.StoryTimeRepository;
 import com.ajegames.storytime.model.Story;
 import com.codahale.metrics.annotation.Timed;
@@ -43,5 +44,17 @@ public class StoryTimeResource {
          */
         LOG.info("Find stories: all");
         return StoryTimeRepository.getInstance().getStories();
+    }
+
+    @POST
+    @Timed
+    @Path("save")
+    public String saveStories() {
+        /*
+         * TODO this is a terrible idea in the long run; should require admin permissions
+         */
+        LOG.info("Triggering persistence of stories to disk");
+        new StoryTimePersistence().saveStoriesToDisk();
+        return "Stories saved to disk";
     }
 }

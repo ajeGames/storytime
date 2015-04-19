@@ -51,6 +51,7 @@ public class StoryResource {
     @DELETE
     @Path("{key}")
     public void destroy(@PathParam("key") String key) {
+        LOG.info("Eliminating entire story: " + key);
         repo.removeStory(key);
     }
 }
