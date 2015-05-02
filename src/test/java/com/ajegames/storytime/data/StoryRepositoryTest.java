@@ -11,13 +11,13 @@ import java.util.List;
 /**
  * Puts the repository through its paces.
  */
-public class StoryTimeRepositoryTest {
+public class StoryRepositoryTest {
 
     @Test
     public void testAddStorySetsKey() {
         try {
             Story myStory = new Story();
-            StoryTimeRepository instance = StoryTimeRepository.getInstance();
+            StoryRepository instance = StoryPersistence.getStoryRepository();
             Story result = instance.addStory(myStory);
             Assert.assertNotNull(result.getKey());
         } catch (Exception e) {
@@ -28,7 +28,7 @@ public class StoryTimeRepositoryTest {
     @Test
     public void testAddingStoryAlsoSetsFirstSceneKey() {
         try {
-            StoryTimeRepository instance = StoryTimeRepository.getInstance();
+            StoryRepository instance = StoryPersistence.getStoryRepository();
             Story toAdd = new Story();
             toAdd.setTitle("A Cautionary Tale");
             toAdd.setFirstScene(SceneSummary.create("Everything comes down to the choice you must make."));
@@ -43,7 +43,7 @@ public class StoryTimeRepositoryTest {
     public void testAddWithExistingKeyThrowsException() {
         try {
             Story myStory = new Story();
-            StoryTimeRepository instance = StoryTimeRepository.getInstance();
+            StoryRepository instance = StoryPersistence.getStoryRepository();
             Story result = instance.addStory(myStory);
             try {
                 instance.addStory(result);
@@ -58,7 +58,7 @@ public class StoryTimeRepositoryTest {
     @Test
     public void testGetStories() {
         try {
-            StoryTimeRepository instance = StoryTimeRepository.getInstance();
+            StoryRepository instance = StoryPersistence.getStoryRepository();
             Story toAdd = new Story();
             toAdd.setTitle("blah");
             instance.addStory(toAdd);
@@ -77,7 +77,7 @@ public class StoryTimeRepositoryTest {
 
     @Test
     public void testDeleteStoryWithScenes() {
-        StoryTimeRepository repo = StoryTimeRepository.getInstance();
+        StoryRepository repo = StoryPersistence.getStoryRepository();
         Scene first = repo.addScene(Scene.create("A teaser", "A heading", "A prose prose prose"));
         Scene second = repo.addScene(Scene.create("B teaser", "B heading", "B prose prose prose"));
         Scene third = repo.addScene(Scene.create("C teaser", "C heading", "C prose prose prose"));

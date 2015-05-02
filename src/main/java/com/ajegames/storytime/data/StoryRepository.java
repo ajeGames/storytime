@@ -7,24 +7,24 @@ import com.ajegames.util.RandomString;
 import java.util.*;
 
 /**
- * <code>StoryRepositoryInMemoryImpl</code> manages storage and retrieval of stories.
+ * <code>StoryRepositoryInMemoryImpl</code> manages storage and retrieval of stories.  See StoryPersistence to
+ * access singleton instance of this class.
  */
-public class StoryTimeRepository {
-
-    private static final StoryTimeRepository repo = new StoryTimeRepository();
+public class StoryRepository {
 
     private Map<String, Story> stories;
     private Map<String, Scene> scenes;
     private RandomString keyGenerator;
 
-    private StoryTimeRepository() {
+    public StoryRepository() {
         stories = new HashMap<String, Story>();
         scenes = new HashMap<String, Scene>();
         keyGenerator = new RandomString(8);
     }
 
-    public static StoryTimeRepository getInstance() {
-        return repo;
+    public void loadStory(Story storyToLoad) {
+        // TODO load as-is; decide how to handle identical keys -- probably warn and replace; null key is invalid
+
     }
 
     public Story addStory(Story story) throws Exception {

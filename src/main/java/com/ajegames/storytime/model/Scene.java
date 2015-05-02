@@ -25,6 +25,14 @@ public class Scene {
     @JsonProperty
     private List<SceneSummary> nextSceneOptions;
 
+    public static Scene load(String key, String teaser, String heading, String prose) {
+        Scene scene = new Scene();
+        scene.setTeaser(teaser);
+        scene.setHeading(heading);
+        scene.setProse(prose);
+        return scene;
+    }
+
     public static Scene create(String teaser, String heading, String prose) {
         Scene scene = new Scene();
         scene.setTeaser(teaser);

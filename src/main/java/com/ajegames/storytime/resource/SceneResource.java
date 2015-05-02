@@ -1,6 +1,7 @@
 package com.ajegames.storytime.resource;
 
-import com.ajegames.storytime.data.StoryTimeRepository;
+import com.ajegames.storytime.data.StoryPersistence;
+import com.ajegames.storytime.data.StoryRepository;
 import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.SceneSummary;
 import org.slf4j.Logger;
@@ -17,14 +18,12 @@ public class SceneResource {
 
     private static Logger LOG = LoggerFactory.getLogger(SceneResource.class);
 
-    private StoryTimeRepository repo = StoryTimeRepository.getInstance();
-
     @POST
     public Scene create(String storyKey, Scene aScene) {
         LOG.info("Adding a scene to story");
         Scene result;
         try {
-            result = repo.addScene(aScene);
+            result = StoryPersistence.getStoryRepository().addScene(aScene);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.BAD_REQUEST);
         }
@@ -37,7 +36,7 @@ public class SceneResource {
         LOG.info("Adding a scene to story");
         SceneSummary result;
         try {
-            result = repo.addScene(summary);
+            result = StoryPersistence.getStoryRepository().addScene(summary);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.BAD_REQUEST);
         }
@@ -47,7 +46,7 @@ public class SceneResource {
     @GET
     @Path("{key}")
     public Scene get(@PathParam("key") String key) {
-        return repo.getScene(key);
+        return StoryPersistence.getStoryRepository().getScene(key);
     }
 
     @PUT
@@ -58,12 +57,12 @@ public class SceneResource {
             LOG.error("Key in URI does not match key in data");
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        repo.updateScene(sceneUpdate);
+        StoryPersistence.getStoryRepository().updateScene(sceneUpdate);
     }
 
     @DELETE
     @Path("{key}")
     public void destroy(@PathParam("key") String key) {
-        repo.removeScene(key);
+        StoryPersistence.getStoryRepository().removeScene(key);
     }
 }

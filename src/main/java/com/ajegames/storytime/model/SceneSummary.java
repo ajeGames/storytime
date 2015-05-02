@@ -19,6 +19,13 @@ public class SceneSummary {
         return summary;
     }
 
+    public static SceneSummary load(String key, String teaser) {
+        SceneSummary summary = new SceneSummary();
+        summary.setKey(key);
+        summary.setTeaser(teaser);
+        return summary;
+    }
+
     public String getKey() {
         return key;
     }
