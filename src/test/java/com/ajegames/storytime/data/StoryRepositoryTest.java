@@ -1,9 +1,10 @@
 package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Scene;
-import com.ajegames.storytime.model.SceneSummary;
 import com.ajegames.storytime.model.Story;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -13,92 +14,97 @@ import java.util.List;
  */
 public class StoryRepositoryTest {
 
-    @Test
-    public void testAddStorySetsKey() {
-        try {
-            Story myStory = new Story();
-            StoryRepository instance = StoryPersistence.getStoryRepository();
-            Story result = instance.addStory(myStory);
-            Assert.assertNotNull(result.getKey());
-        } catch (Exception e) {
-            Assert.fail("Fail", e);
-        }
+    private StoryRepository repo;
+
+    @BeforeClass
+    public void setup() throws Exception {
+        StoryPersistence.initialize("test-repo");
+        repo = StoryPersistence.getStoryRepository();
+    }
+
+    @AfterClass
+    public void tearDown() throws Exception {
+        StoryPersistence.cleanup();
     }
 
     @Test
-    public void testAddingStoryAlsoSetsFirstSceneKey() {
-        try {
-            StoryRepository instance = StoryPersistence.getStoryRepository();
-            Story toAdd = new Story();
-            toAdd.setTitle("A Cautionary Tale");
-            Story out = instance.addStory(toAdd);
-            Assert.fail("FIXME");
-        } catch (Exception e) {
-            Assert.fail("Unexpected", e);
-        }
+    public void testAddStoryWithoutKeySetsKey() throws Exception {
+        Story myStory = Story.createNew("Test Story", "A. Writer", "Read me", "This is a test story");
+        Story out = repo.addStory(myStory);
+        Assert.assertNotNull(out);
+        Assert.assertNotNull(out.getKey());
     }
 
     @Test
-    public void testAddWithExistingKeyThrowsException() {
-        try {
-            Story myStory = new Story();
-            StoryRepository instance = StoryPersistence.getStoryRepository();
-            Story result = instance.addStory(myStory);
-            try {
-                instance.addStory(result);
-            } catch (Exception e) {
-                // expected
-            }
-        } catch (Exception e) {
-            Assert.fail("Unexpected", e);
-        }
+    public void testAddStoryWithKeyPreservesKey() throws Exception {
+        Story myStory = Story.createExisting("12345678", "Test Story", "A. Writer", "Read me", "This is a test story",
+                "scn0001");
+        Story out = repo.addStory(myStory);
+        Assert.assertNotNull(out);
+        Assert.assertEquals(out.getKey(), "12345678");
     }
 
     @Test
-    public void testGetStories() {
-        try {
-            StoryRepository instance = StoryPersistence.getStoryRepository();
-            Story toAdd = new Story();
-            toAdd.setTitle("blah");
-            instance.addStory(toAdd);
-            toAdd = new Story();
-            toAdd.setTitle("biddy");
-            instance.addStory(toAdd);
-            toAdd = new Story();
-            toAdd.setTitle("bah");
-            instance.addStory(toAdd);
-            List<Story> out = instance.getStories();
-            Assert.assertFalse(out.isEmpty());
-        } catch (Exception e) {
-            Assert.fail("Fail", e);
-        }
+    public void testAddedStoryFoundInRepo() throws Exception {
+        Story myStory = Story.createNew("Test Story", "A. Writer", "Read me", "This is a test story");
+        Story out = repo.addStory(myStory);
+        Story fromRepo = repo.getStory(out.getKey());
+        Assert.assertEquals(fromRepo, out);
     }
 
     @Test
-    public void testDeleteStoryWithScenes() {
-        StoryRepository repo = StoryPersistence.getStoryRepository();
-        Scene first = repo.addScene(Scene.create("A teaser", "A heading", "A prose prose prose"));
-        Scene second = repo.addScene(Scene.create("B teaser", "B heading", "B prose prose prose"));
-        Scene third = repo.addScene(Scene.create("C teaser", "C heading", "C prose prose prose"));
-        first.addNextSceneOption(second.getKey());
-        first.addNextSceneOption(third.getKey());
-        try {
-            Story myStory = repo.addStory(Story.create("Some Story", "Somebody", "Something catchy", "Something compelling",
-                    first.getKey()));
-            Assert.assertNotNull(repo.getScene(first.getKey()));
-            Assert.assertNotNull(repo.getScene(second.getKey()));
-            Assert.assertNotNull(repo.getScene(third.getKey()));
-            repo.removeStory(myStory.getKey());
+    void testLoadStoryWithKeyWorks() {
+        Story myStory = Story.createExisting("abcd1234", "Test Story", "A. Writer", "Read me", "This is a test story",
+                "scn0001");
+        repo.loadStory(myStory);
 
-            String key = first.getKey();
-            Scene scene = repo.getScene(key);
-            Assert.assertNull(scene);
-
-            Assert.assertNull(repo.getScene(first.getKey()));
-            Assert.assertNull(repo.getScene(second.getKey()));
-            Assert.assertNull(repo.getScene(third.getKey()));
-        } catch (Exception e) {
-            Assert.fail("Could not add story", e);
-        }
     }
+
+    @Test
+    public void testLoadStoryWithoutKeyFails() {
+        Story myStory = Story.createNew("Test Story", "A. Writer", "Read me", "This is a test story");
+        try {
+            repo.loadStory(myStory);
+        } catch (Exception e) {
+            // supposed to throw something
+            return;
+        }
+        Assert.fail("Excepted to have a problem loading new story (i.e., without a key)");
+    }
+
+    @Test
+    public void testLoadStoryWithNonUniqueKeyReplacesStoryInRepo() throws Exception {
+        Story first = Story.createNew("A story", "An author", "A tag line", "A description");
+        first = repo.addStory(first);
+        Story result = repo.getStory(first.getKey());
+        Assert.assertEquals(result, first);
+
+        Story second = Story.createExisting(first.getKey(), "New Story", "New Author", "Blah", "Blah",
+                first.getFirstScene());
+        repo.loadStory(second);
+        result = repo.getStory(first.getKey());
+        Assert.assertEquals(result, second);
+
+        // TODO think through what happens to abandoned scenes -- maybe should not allow loading of stories with non-unique keys
+    }
+
+    @Test
+    public void testLoadedStoryFoundInRepo() throws Exception {
+        Story myStory = Story.createExisting("qwerty123", "Test Story", "A. Writer", "Read me", "This is a test story",
+                "scn0001");
+        repo.loadStory(myStory);
+        Story fromRepo = repo.getStory(myStory.getKey());
+        Assert.assertEquals(fromRepo, myStory);
+    }
+
+    @Test
+    public void testAddNewStoryCreatesFirstScene() throws Exception {
+        Story myStory = Story.createNew("Jungle Cruise", "Indiana Jones", "So you don't like snakes?",
+                "Travel the Amazon with a famous archaeologist.");
+        Story result = repo.addStory(myStory);
+        String firstSceneKey = result.getFirstScene();
+        Assert.assertNotNull(firstSceneKey);
+        Assert.assertNotNull(repo.getScene(firstSceneKey));
+    }
+
 }

@@ -37,7 +37,7 @@ public class StoryRepository {
         String key = storyToLoad.getKey();
         if (key == null) {
             LOG.warn("Story not loaded; must already have key.");
-            return;
+            throw new RuntimeException("Story not loaded; must already have key.");
         }
         if (stories.containsKey(key)) {
             LOG.warn("Key for story being added already in use.  Replacing story.");
@@ -50,6 +50,8 @@ public class StoryRepository {
      * Adds a story to repository.  New stories without a key can be added.  Okay to add stories with key
      * defined.  If there is already a story with the same key, it will be replaced by the new one.
      * The story that is returned will have a unique key assigned.
+     *
+     * Also creates first scene for new stories.
      *
      * @param story
      * @return
@@ -65,6 +67,26 @@ public class StoryRepository {
             story.setKey(tempKey);
         }
         loadStory(story);
+
+        // TODO need to create firstScene
+
+        if (story.getFirstScene() != null) {
+            if (scenes.containsKey(story.getFirstScene())) {
+            }
+        }
+
+        // if scene is not set, create a new scene and set firstScene key on story
+        // if scene is set but not found in repo, treat as new.
+        if (story.getFirstScene() == null || !scenes.containsKey(story.getFirstScene())) {
+
+            // TODO perhaps initial scene should be empty -- for now, make the fields visible
+
+            Scene firstScene = Scene.createNew("Get ready for adventure!", "Opening scene",
+                    "This is the opening scene.  Grab your reader's attention.");
+            firstScene = addScene(firstScene);
+            story.setFirstScene(firstScene.getKey());
+        }
+
         return story;
     }
 
@@ -121,13 +143,6 @@ public class StoryRepository {
         scene.setKey(keyGenerator.nextString());
         scenes.put(scene.getKey(), scene);
         return scene;
-    }
-
-    public SceneSummary addScene(SceneSummary summary) {
-        Scene in = Scene.create(summary);
-        addScene(in);
-        summary.setKey(in.getKey());
-        return summary;
     }
 
     public Scene getScene(String key) {

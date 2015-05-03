@@ -32,11 +32,12 @@ public class SceneResource {
 
     @POST
     @Path("summary")
-    public SceneSummary createFromSummary(String storyKey, SceneSummary summary) {
+    public Scene createFromSummary(String storyKey, SceneSummary summary) {
         LOG.info("Adding a scene to story");
-        SceneSummary result;
+        Scene result;
         try {
-            result = StoryPersistence.getStoryRepository().addScene(summary);
+            Scene sceneToAdd = Scene.createNew(summary.getTeaser(), "", "");
+            result = StoryPersistence.getStoryRepository().addScene(sceneToAdd);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.BAD_REQUEST);
         }

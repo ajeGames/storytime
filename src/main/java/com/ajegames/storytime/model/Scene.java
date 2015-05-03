@@ -25,7 +25,7 @@ public class Scene {
     @JsonProperty
     private List<String> nextSceneOptions;
 
-    public static Scene load(String key, String teaser, String heading, String prose) {
+    public static Scene createNew(String teaser, String heading, String prose) {
         Scene scene = new Scene();
         scene.setTeaser(teaser);
         scene.setHeading(heading);
@@ -33,18 +33,12 @@ public class Scene {
         return scene;
     }
 
-    public static Scene create(String teaser, String heading, String prose) {
+    public static Scene createExisting(String key, String teaser, String heading, String prose) {
         Scene scene = new Scene();
+        scene.setKey(key);
         scene.setTeaser(teaser);
         scene.setHeading(heading);
         scene.setProse(prose);
-        return scene;
-    }
-
-    public static Scene create(SceneSummary summary) {
-        Scene scene = new Scene();
-        scene.setKey(summary.getKey());
-        scene.setTeaser(summary.getTeaser());
         return scene;
     }
 
@@ -89,17 +83,37 @@ public class Scene {
         this.nextSceneOptions.addAll(nextSceneOptions);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Scene scene = (Scene) o;
+
+        if (heading != null ? !heading.equals(scene.heading) : scene.heading != null) return false;
+        if (key != null ? !key.equals(scene.key) : scene.key != null) return false;
+        if (nextSceneOptions != null ? !nextSceneOptions.equals(scene.nextSceneOptions) : scene.nextSceneOptions != null)
+            return false;
+        if (prose != null ? !prose.equals(scene.prose) : scene.prose != null) return false;
+        if (teaser != null ? !teaser.equals(scene.teaser) : scene.teaser != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = key != null ? key.hashCode() : 0;
+        result = 31 * result + (teaser != null ? teaser.hashCode() : 0);
+        result = 31 * result + (heading != null ? heading.hashCode() : 0);
+        result = 31 * result + (prose != null ? prose.hashCode() : 0);
+        result = 31 * result + (nextSceneOptions != null ? nextSceneOptions.hashCode() : 0);
+        return result;
+    }
+
     public void addNextSceneOption(String anotherOption) {
         if (this.nextSceneOptions == null) {
             this.nextSceneOptions = new ArrayList<String>();
         }
         this.nextSceneOptions.add(anotherOption);
-    }
-
-    public SceneSummary generateSummary() {
-        SceneSummary out = new SceneSummary();
-        out.setKey(getKey());
-        out.setTeaser(getTeaser());
-        return out;
     }
 }

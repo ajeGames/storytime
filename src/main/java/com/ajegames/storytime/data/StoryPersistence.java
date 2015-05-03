@@ -25,7 +25,7 @@ public class StoryPersistence {
         if (!pathToStories.exists()) {
             LOG.info("Creating directory to hold story files.");
             if (!pathToStories.mkdir()) {
-                throw new RuntimeException("Unable to create path for story files.");
+                throw new RuntimeException("Unable to createNew path for story files.");
             }
         } else if (!pathToStories.isDirectory()) {
             LOG.error("Path to story files must point to a directory. " + pathToStoryFiles);
@@ -48,10 +48,26 @@ public class StoryPersistence {
     }
 
     /**
-     * Primarily for testing.
+     * Removes the repository instance to start from a clean slate.
+     *
+     * <b>Primarily for testing.</b>
      */
-    public static void reset() {
+    static void reset() {
         instance = null;
+    }
+
+    /**
+     * Deletes the repository, including the directory and all story files that happen to be in it.  Also
+     * removes the instance to start from a clean slate.
+     *
+     * <b>Primarily for testing.</b>
+     */
+    static void cleanup() {
+        if (instance.pathToStories.exists()) {
+            instance.pathToStories.delete();
+        }
+        instance.pathToStories = null;
+        reset();
     }
 
     public static StoryPersistence getInstance() {

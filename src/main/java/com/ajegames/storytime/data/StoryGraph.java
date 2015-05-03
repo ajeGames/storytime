@@ -19,8 +19,6 @@ public class StoryGraph {
     @JsonProperty
     private List<Scene> scenes;
 
-    private Map<String, Scene> sceneMap;
-
     public Story getStory() {
         return story;
     }
@@ -35,18 +33,9 @@ public class StoryGraph {
 
     public void setScenes(List<Scene> scenes) {
         this.scenes = scenes;
-        this.sceneMap = new HashMap<String, Scene>();
-        for (Scene scene : scenes) {
-            sceneMap.put(scene.getKey(), scene);
-        }
     }
 
     public void addScene(Scene scene) {
         this.scenes.add(scene);
-        this.sceneMap.put(scene.getKey(), scene);
-    }
-
-    public Scene getScene(String key) {
-        return this.sceneMap.get(key);
     }
 }
