@@ -1,0 +1,11 @@
+{
+  "key": "33333333",
+  "title": "Test 3",
+  "author": "A. Storyteller",
+  "tagLine": "You will never believe it.",
+  "description": "This is a fascinating little tale about someone who goes above and beyond the norm.  In fact, you will start to doubt whether this story is true.",
+  "firstScene": {
+    "key": "30000001",
+    "teaser": "A man walks into a bar..."
+  }
+}

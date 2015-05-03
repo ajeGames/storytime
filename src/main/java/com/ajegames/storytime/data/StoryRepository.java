@@ -4,6 +4,9 @@ import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.SceneSummary;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 /**
@@ -11,6 +14,8 @@ import java.util.*;
  * access singleton instance of this class.
  */
 public class StoryRepository {
+
+    private static Logger LOG = LoggerFactory.getLogger(StoryRepository.class);
 
     private Map<String, Story> stories;
     private Map<String, Scene> scenes;
@@ -22,26 +27,43 @@ public class StoryRepository {
         keyGenerator = new RandomString(8);
     }
 
+    /**
+     * Loads story as-is into repository.  Expected to already have key assigned; otherwise will not load.
+     * If another story is already loaded with the same key, the new story will take its place.
+     *
+     * @param storyToLoad
+     */
     public void loadStory(Story storyToLoad) {
-        // TODO load as-is; decide how to handle identical keys -- probably warn and replace; null key is invalid
-
+        String key = storyToLoad.getKey();
+        if (key == null) {
+            LOG.warn("Story not loaded; must already have key.");
+            return;
+        }
+        if (stories.containsKey(key)) {
+            LOG.warn("Key for story being added already in use.  Replacing story.");
+        }
+        stories.put(storyToLoad.getKey(), storyToLoad);
     }
 
+    /**
+     * Adds a story to repository.  New stories without a key can be added.  Okay to add stories with key
+     * defined.  If there is already a story with the same key, it will be replaced by the new one.
+     * The story that is returned will have a unique key assigned.
+     *
+     * @param story
+     * @return
+     * @throws Exception
+     */
     public Story addStory(Story story) throws Exception {
-        // if given story has key and item already exists, throw something; use update instead
-        if (story.getKey() != null) {
-            throw new Exception("The given Story specifies a key that is already in use. Either clear the key or " +
-                    "use update method.");
+        // without key ==> assign unique key
+        if (story.getKey() == null) {
+            String tempKey = keyGenerator.nextString();
+            while (stories.containsKey(tempKey)) {
+                tempKey = keyGenerator.nextString();
+            }
+            story.setKey(tempKey);
         }
-        // otherwise, pick a new key
-        story.setKey(keyGenerator.nextString());
-        stories.put(story.getKey(), story);
-
-        // make sure first scene is indexed and has a key
-        if (story.getFirstScene() != null && story.getFirstScene().getKey() == null) {
-            addScene(story.getFirstScene());
-        }
-
+        loadStory(story);
         return story;
     }
 
@@ -63,8 +85,8 @@ public class StoryRepository {
     public void removeStory(String key) {
         Story story = getStory(key);
         if (story == null) {
+            LOG.warn("Story to be removed was not found.");
             return;
-            // TODO decide whether to indicate not found or quietly ignore
         }
         if (story.getFirstScene() != null) {
             String firstSceneKey = story.getFirstScene().getKey();

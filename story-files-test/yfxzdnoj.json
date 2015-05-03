@@ -1,0 +1,11 @@
+{
+  "key": "44444444",
+  "title": "Test 4",
+  "author": "Bros. Grimm",
+  "tagLine": "A lesson in economics.",
+  "description": "What happens when forest creatures try to strike a healthy work-life balance?",
+  "firstScene": {
+    "key": "00000001",
+    "teaser": "Who's afraid of the Big Bad Wolf?"
+  }
+}

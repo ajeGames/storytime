@@ -16,19 +16,6 @@ public class StoryPersistenceTest {
         return new File(TEST_PATH);
     }
 
-    @BeforeClass
-    public void setup() {
-        File testPath = getTestPath();
-        if (!testPath.exists()) {
-            Assert.assertTrue(testPath.mkdir());
-        }
-    }
-
-    @AfterClass
-    public void cleanup() {
-        Assert.assertTrue(getTestPath().delete());
-    }
-
     @Test
     public void testInitializeWithDefaultPath() {
         StoryPersistence.reset();
@@ -48,6 +35,7 @@ public class StoryPersistenceTest {
         Assert.assertNotNull(instance);
         StoryRepository repo = StoryPersistence.getStoryRepository();
         Assert.assertNotNull(repo);
+        Assert.assertTrue(getTestPath().exists());
     }
 
     @Test
@@ -63,4 +51,17 @@ public class StoryPersistenceTest {
         Assert.assertTrue(path.exists());
         Assert.assertTrue(path.delete(), "Unable to remove directory");
     }
+
+    @Test
+    public void testLoadRepository() throws Exception {
+        StoryPersistence.reset();
+
+        StoryPersistence.initialize(TEST_PATH);
+        StoryRepository repo = StoryPersistence.getStoryRepository();
+        Assert.assertNotNull(repo);
+
+        Assert.assertEquals(repo.getStories().size(), 4);
+
+    }
+
 }
