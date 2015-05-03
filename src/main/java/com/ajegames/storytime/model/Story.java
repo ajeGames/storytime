@@ -24,10 +24,9 @@ public class Story {
     private String description;
 
     @JsonProperty
-    private SceneSummary firstScene;
+    private String firstScene;
 
-    public static Story create(String title, String author, String tagLine, String description,
-                               SceneSummary firstScene) {
+    public static Story create(String title, String author, String tagLine, String description, String firstScene) {
         Story out = new Story();
         out.setTitle(title);
         out.setAuthor(author);
@@ -77,11 +76,11 @@ public class Story {
         this.description = description;
     }
 
-    public SceneSummary getFirstScene() {
+    public String getFirstScene() {
         return firstScene;
     }
 
-    public void setFirstScene(SceneSummary firstScene) {
+    public void setFirstScene(String firstScene) {
         this.firstScene = firstScene;
     }
 }

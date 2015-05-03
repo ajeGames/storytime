@@ -17,13 +17,13 @@ public class StoryRepository {
 
     private static Logger LOG = LoggerFactory.getLogger(StoryRepository.class);
 
+    private RandomString keyGenerator;
     private Map<String, Story> stories;
     private Map<String, Scene> scenes;
-    private RandomString keyGenerator;
+    private Map<String, String> storySceneMap;
 
     public StoryRepository() {
         stories = new HashMap<String, Story>();
-        scenes = new HashMap<String, Scene>();
         keyGenerator = new RandomString(8);
     }
 
@@ -42,6 +42,7 @@ public class StoryRepository {
         if (stories.containsKey(key)) {
             LOG.warn("Key for story being added already in use.  Replacing story.");
         }
+        StoryGraph graph = new StoryGraph();
         stories.put(storyToLoad.getKey(), storyToLoad);
     }
 
@@ -89,7 +90,7 @@ public class StoryRepository {
             return;
         }
         if (story.getFirstScene() != null) {
-            String firstSceneKey = story.getFirstScene().getKey();
+            String firstSceneKey = story.getFirstScene();
             removeScenesInChain(firstSceneKey);
             scenes.remove(firstSceneKey);
         }
@@ -99,10 +100,10 @@ public class StoryRepository {
     public void removeScenesInChain(String key) {
         Scene aScene = scenes.get(key);
         if (aScene != null) {
-            List<SceneSummary> options = aScene.getNextSceneOptions();
+            List<String> options = aScene.getNextSceneOptions();
             if (options != null) {
-                for (SceneSummary summary : options) {
-                    removeScenesInChain(summary.getKey());
+                for (String optionKey : options) {
+                    removeScenesInChain(optionKey);
                 }
             } else {
                 removeScene(key);

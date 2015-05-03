@@ -61,7 +61,10 @@ public class StoryPersistenceTest {
         Assert.assertNotNull(repo);
 
         Assert.assertEquals(repo.getStories().size(), 4);
-
+        Assert.assertNotNull(repo.getStory("11111111"));
+//        Assert.assertNotNull(repo.getStoryScenes("11111111"));
+//        Assert.assertNotNull(repo.getScene("11111111", "10000001"));
+        Assert.fail("Incomplete");
     }
 
 }

@@ -23,7 +23,7 @@ public class Scene {
     private String prose;
 
     @JsonProperty
-    private List<SceneSummary> nextSceneOptions;
+    private List<String> nextSceneOptions;
 
     public static Scene load(String key, String teaser, String heading, String prose) {
         Scene scene = new Scene();
@@ -80,18 +80,18 @@ public class Scene {
         this.prose = prose;
     }
 
-    public List<SceneSummary> getNextSceneOptions() {
+    public List<String> getNextSceneOptions() {
         return nextSceneOptions;
     }
 
-    public void setNextSceneOptions(List<SceneSummary> nextSceneOptions) {
-        this.nextSceneOptions = new ArrayList<SceneSummary>();
+    public void setNextSceneOptions(List<String> nextSceneOptions) {
+        this.nextSceneOptions = new ArrayList<String>();
         this.nextSceneOptions.addAll(nextSceneOptions);
     }
 
-    public void addNextSceneOption(SceneSummary anotherOption) {
+    public void addNextSceneOption(String anotherOption) {
         if (this.nextSceneOptions == null) {
-            this.nextSceneOptions = new ArrayList<SceneSummary>();
+            this.nextSceneOptions = new ArrayList<String>();
         }
         this.nextSceneOptions.add(anotherOption);
     }

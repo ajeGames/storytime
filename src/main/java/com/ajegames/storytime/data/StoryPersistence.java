@@ -88,8 +88,8 @@ public class StoryPersistence {
 
     private void loadStoryFile(File datafile) throws IOException {
         try {
-            Story theStory = new ObjectMapper().readValue(datafile, Story.class);
-            repo.loadStory(theStory);
+            StoryGraph theWholeStory = new ObjectMapper().readValue(datafile, StoryGraph.class);
+            repo.loadStory(theWholeStory.getStory());
         } catch (Exception e) {
             LOG.warn("Something went wrong loading file: " + datafile.getPath(), e);
         }
