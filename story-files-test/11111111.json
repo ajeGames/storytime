@@ -1,0 +1,33 @@
+{
+  "story": {
+    "key": "11111111",
+    "title": "Test 1",
+    "author": "A. Storyteller",
+    "tagLine": "You will never believe it.",
+    "description": "This is a fascinating little tale about someone who goes above and beyond the norm.  In fact, you will start to doubt whether this story is true.",
+    "firstScene": "10000001"
+  },
+  "scenes": [
+    {
+      "key": "10000001",
+      "teaser": "A man walks into a bar...",
+      "heading": "This is funny.",
+      "prose": "A man walks into a bar and says, \"Ouch\"",
+      "nextSceneOptions": [
+        "10000002", "10000003"
+      ]
+    },
+    {
+      "key": "10000002",
+      "teaser": "Tell me it's funny.",
+      "heading": "You Win!",
+      "prose": "Since you have such a good sense of humor, you are a winner in my book."
+    },
+    {
+      "key": "10000003",
+      "teaser": "Scoff at my joke.",
+      "heading": "You die.",
+      "prose": "Since you are unable to laugh, you die of a heart attack.  Too bad."
+    }
+  ]
+}

@@ -1,13 +1,15 @@
 package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Scene;
-import com.ajegames.storytime.model.SceneSummary;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <code>StoryRepositoryInMemoryImpl</code> manages storage and retrieval of stories.  See StoryPersistence to
@@ -24,6 +26,8 @@ public class StoryRepository {
 
     public StoryRepository() {
         stories = new HashMap<String, Story>();
+        scenes = new HashMap<String, Scene>();
+        storySceneMap = new HashMap<String, String>();
         keyGenerator = new RandomString(8);
     }
 
@@ -36,14 +40,12 @@ public class StoryRepository {
     public void loadStory(Story storyToLoad) {
         String key = storyToLoad.getKey();
         if (key == null) {
-            LOG.warn("Story not loaded; must already have key.");
-            throw new RuntimeException("Story not loaded; must already have key.");
+            throw new IllegalArgumentException("Story must already have key.");
         }
         if (stories.containsKey(key)) {
             LOG.warn("Key for story being added already in use.  Replacing story.");
         }
-        StoryGraph graph = new StoryGraph();
-        stories.put(storyToLoad.getKey(), storyToLoad);
+        stories.put(key, storyToLoad);
     }
 
     /**
@@ -68,13 +70,6 @@ public class StoryRepository {
         }
         loadStory(story);
 
-        // TODO need to create firstScene
-
-        if (story.getFirstScene() != null) {
-            if (scenes.containsKey(story.getFirstScene())) {
-            }
-        }
-
         // if scene is not set, create a new scene and set firstScene key on story
         // if scene is set but not found in repo, treat as new.
         if (story.getFirstScene() == null || !scenes.containsKey(story.getFirstScene())) {
@@ -83,7 +78,7 @@ public class StoryRepository {
 
             Scene firstScene = Scene.createNew("Get ready for adventure!", "Opening scene",
                     "This is the opening scene.  Grab your reader's attention.");
-            firstScene = addScene(firstScene);
+            firstScene = addScene(story.getKey(), firstScene);
             story.setFirstScene(firstScene.getKey());
         }
 
@@ -139,9 +134,24 @@ public class StoryRepository {
         return result;
     }
 
-    public Scene addScene(Scene scene) {
+    public void loadScene(String storyKey, Scene sceneToLoad) {
+        if (storyKey == null) {
+            throw new IllegalArgumentException("Must indicate valid story key.");
+        }
+        String sceneKey = sceneToLoad.getKey();
+        if (sceneKey == null) {
+            throw new IllegalArgumentException("Scene must already have key.");
+        }
+        if (stories.containsKey(sceneKey)) {
+            LOG.warn("Key for story being added already in use.  Replacing story.");
+        }
+        scenes.put(sceneKey, sceneToLoad);
+        storySceneMap.put(storyKey, sceneKey);
+    }
+
+    public Scene addScene(String storyKey, Scene scene) {
         scene.setKey(keyGenerator.nextString());
-        scenes.put(scene.getKey(), scene);
+        loadScene(storyKey, scene);
         return scene;
     }
 

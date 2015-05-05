@@ -1,5 +1,6 @@
 package com.ajegames.storytime.data;
 
+import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.Story;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -105,7 +106,14 @@ public class StoryPersistence {
     private void loadStoryFile(File datafile) throws IOException {
         try {
             StoryGraph theWholeStory = new ObjectMapper().readValue(datafile, StoryGraph.class);
-            repo.loadStory(theWholeStory.getStory());
+
+            Story theStory = theWholeStory.getStory();
+            repo.loadStory(theStory);
+
+            List<Scene> scenesToLoad = theWholeStory.getScenes();
+            for (Scene theScene : scenesToLoad) {
+                repo.loadScene(theStory.getKey(), theScene);
+            }
         } catch (Exception e) {
             LOG.warn("Something went wrong loading file: " + datafile.getPath(), e);
         }

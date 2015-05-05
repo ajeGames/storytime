@@ -1,5 +1,6 @@
 package com.ajegames.storytime.data;
 
+import com.ajegames.storytime.model.Scene;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -60,11 +61,15 @@ public class StoryPersistenceTest {
         StoryRepository repo = StoryPersistence.getStoryRepository();
         Assert.assertNotNull(repo);
 
-        Assert.assertEquals(repo.getStories().size(), 4);
+        Assert.assertEquals(repo.getStories().size(), 1);
         Assert.assertNotNull(repo.getStory("11111111"));
-//        Assert.assertNotNull(repo.getStoryScenes("11111111"));
-//        Assert.assertNotNull(repo.getScene("11111111", "10000001"));
-        Assert.fail("Incomplete");
+        Scene one = repo.getScene("10000001");
+        Assert.assertNotNull(one);
+        Assert.assertEquals(one.getNextSceneOptions().size(), 2);
+        Assert.assertTrue(one.getNextSceneOptions().contains("10000002"));
+        Assert.assertTrue(one.getNextSceneOptions().contains("10000003"));
+        Assert.assertNotNull(repo.getScene("10000002"));
+        Assert.assertNotNull(repo.getScene("10000003"));
     }
 
 }
