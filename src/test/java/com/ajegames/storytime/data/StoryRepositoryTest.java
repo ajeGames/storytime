@@ -1,13 +1,10 @@
 package com.ajegames.storytime.data;
 
-import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.Story;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 /**
  * Puts the repository through its paces.

@@ -60,8 +60,9 @@ public class StoryPersistenceTest {
         StoryRepository repo = StoryPersistence.getStoryRepository();
         Assert.assertNotNull(repo);
 
-        Assert.assertEquals(repo.getStories().size(), 1);
+        Assert.assertEquals(repo.getStories().size(), 2);
         Assert.assertNotNull(repo.getStory("11111111"));
+        Assert.assertNotNull(repo.getStory("22222222"));
         Scene one = repo.getScene("10000001");
         Assert.assertNotNull(one);
         Assert.assertEquals(one.getNextSceneOptions().size(), 2);

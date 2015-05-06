@@ -6,10 +6,7 @@ import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <code>StoryRepositoryInMemoryImpl</code> manages storage and retrieval of stories.  See StoryPersistence to
@@ -22,12 +19,12 @@ public class StoryRepository {
     private RandomString keyGenerator;
     private Map<String, Story> stories;
     private Map<String, Scene> scenes;
-    private Map<String, String> storySceneMap;
+    private Map<String, Set<String>> storySceneMap;
 
     public StoryRepository() {
         stories = new HashMap<String, Story>();
         scenes = new HashMap<String, Scene>();
-        storySceneMap = new HashMap<String, String>();
+        storySceneMap = new HashMap<String, Set<String>>();
         keyGenerator = new RandomString(8);
     }
 
@@ -62,10 +59,10 @@ public class StoryRepository {
     public Story addStory(Story story) throws Exception {
         // without key ==> assign unique key
         if (story.getKey() == null) {
-            String tempKey = keyGenerator.nextString();
-            while (stories.containsKey(tempKey)) {
+            String tempKey;
+            do {
                 tempKey = keyGenerator.nextString();
-            }
+            } while (stories.containsKey(tempKey));
             story.setKey(tempKey);
         }
         loadStory(story);
@@ -146,11 +143,26 @@ public class StoryRepository {
             LOG.warn("Key for story being added already in use.  Replacing story.");
         }
         scenes.put(sceneKey, sceneToLoad);
-        storySceneMap.put(storyKey, sceneKey);
+        addToStorySceneMap(storyKey, sceneKey);
+    }
+
+    private void addToStorySceneMap(String storyKey, String sceneKey) {
+        Set scenes = storySceneMap.get(storyKey);
+        if (scenes == null) {
+            scenes = new HashSet<String>();
+            storySceneMap.put(storyKey, scenes);
+        }
+        scenes.add(sceneKey);
     }
 
     public Scene addScene(String storyKey, Scene scene) {
-        scene.setKey(keyGenerator.nextString());
+        if (scene.getKey() == null) {
+            String tempKey;
+            do {
+                tempKey = keyGenerator.nextString();
+            } while (scenes.containsKey(tempKey));
+            scene.setKey(tempKey);
+        }
         loadScene(storyKey, scene);
         return scene;
     }
@@ -159,9 +171,15 @@ public class StoryRepository {
         return scenes.get(key);
     }
 
-    public List<Scene> getScenesOfStory(String storyKey) {
-        // TODO sync with other mac
-        return null;
+    public Set<Scene> getScenesForStory(String storyKey) {
+        Set<Scene> fullScenes = new HashSet<Scene>();
+        Set<String> sceneKeys = storySceneMap.get(storyKey);
+        if (sceneKeys != null) {
+            for (String key : sceneKeys) {
+                fullScenes.add(scenes.get(key));
+            }
+        }
+        return fullScenes;
     }
 
     public void updateScene(Scene update) {

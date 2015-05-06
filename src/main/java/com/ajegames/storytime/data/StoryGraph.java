@@ -4,14 +4,13 @@ import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.Story;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents how stories are persisted to file, which is different from how they are presented to UI.
  */
-public class StoryGraph {
+public class
+        StoryGraph {
 
     @JsonProperty
     private Story story;
