@@ -159,6 +159,11 @@ public class StoryRepository {
         return scenes.get(key);
     }
 
+    public List<Scene> getScenesOfStory(String storyKey) {
+        // TODO sync with other mac
+        return null;
+    }
+
     public void updateScene(Scene update) {
         Scene scene = scenes.get(update.getKey());
         if (scene == null) {

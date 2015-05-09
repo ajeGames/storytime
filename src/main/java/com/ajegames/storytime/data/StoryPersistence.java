@@ -127,6 +127,9 @@ public class StoryPersistence {
         List<Story> allStories = repo.getStories();
         for (Story aStory : allStories) {
             try {
+                StoryGraph graph = new StoryGraph();
+                graph.setStory(aStory);
+                repo.getScenesOfStory(aStory.getKey());
                 File filename = new File(pathToStories + aStory.getKey() + ".json");
                 writeStoryToFile(filename, aStory);
             } catch (IOException e) {

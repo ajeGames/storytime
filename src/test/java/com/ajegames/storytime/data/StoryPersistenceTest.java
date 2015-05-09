@@ -1,9 +1,8 @@
 package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Scene;
+import com.ajegames.storytime.model.Story;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -70,6 +69,24 @@ public class StoryPersistenceTest {
         Assert.assertTrue(one.getNextSceneOptions().contains("10000003"));
         Assert.assertNotNull(repo.getScene("10000002"));
         Assert.assertNotNull(repo.getScene("10000003"));
+    }
+
+    @Test
+    public void testStoreEntireRepository() throws Exception {
+        StoryPersistence.reset();
+
+        StoryPersistence.initialize("keep-me");
+        StoryRepository repo = StoryPersistence.getStoryRepository();
+
+        Story oneStory = Story.createNew("One", "One", "One", "One");
+        repo.addStory(oneStory);
+
+        Scene firstScene = repo.getScene(oneStory.getFirstScene());
+        firstScene.setHeading("One");
+        firstScene.setTeaser("One");
+        firstScene.setProse("One");
+
+        StoryPersistence.getInstance().storeStoryRepo();
     }
 
 }
