@@ -1,0 +1,73 @@
+package com.ajegames.storytime.data;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class JSONFilePersistence implements StoryPersistence {
+
+    private static final String DEFAULT_STORY_DB_FILEROOT = "story-files-default/";
+
+    private static Logger LOG = LoggerFactory.getLogger(JSONFilePersistence.class);
+
+    private File pathToStories;
+
+    public JSONFilePersistence() {
+        this(DEFAULT_STORY_DB_FILEROOT);
+    }
+
+    public JSONFilePersistence(String pathToStoryFiles) {
+        this.pathToStories = new File(pathToStoryFiles);
+        if (!pathToStories.exists()) {
+            LOG.info("Creating directory to hold story files.");
+            if (!pathToStories.mkdir()) {
+                throw new RuntimeException("Unable to createNew path for story files.");
+            }
+        } else if (!pathToStories.isDirectory()) {
+            LOG.error("Path to story files must point to a directory. " + pathToStoryFiles);
+            throw new RuntimeException("Path to story files must point to a directory. " + pathToStoryFiles);
+        }
+    }
+
+    @Override
+    public List<StoryGraph> loadStories() {
+        List<StoryGraph> out = new ArrayList<StoryGraph>();
+        File[] storyDataFiles = pathToStories.listFiles();
+        if (storyDataFiles != null) {
+            for (File datafile : storyDataFiles) {
+                try {
+                    StoryGraph loadedStory = new ObjectMapper().readValue(datafile, StoryGraph.class);
+                    out.add(loadedStory);
+                } catch (IOException e) {
+                    LOG.error("File could not be read as a story: " + datafile.toString());
+                }
+            }
+        }
+        return out;
+    }
+
+    @Override
+    public void saveStory(StoryGraph story) {
+        try {
+            new ObjectMapper().writeValue(buildFilename(story.getStory().getKey()), story);
+        } catch (IOException e) {
+            LOG.error("Something went wrong when writing out the story", e);
+        }
+    }
+
+    @Override
+    public boolean deleteStory(StoryGraph story) {
+        File fileToDelete = buildFilename(story.getStory().getKey());
+        return fileToDelete.delete();
+    }
+
+    private File buildFilename(String baseName) {
+        return new File(pathToStories + baseName + ".json");
+    }
+
+}

@@ -12,53 +12,47 @@ public class StoryPersistenceTest {
 
     private static final String TEST_PATH = "story-files-test/";
 
-    private File getTestPath() {
+    private File getTestPathFile() {
         return new File(TEST_PATH);
     }
 
     @Test
     public void testInitializeWithDefaultPath() {
-        StoryPersistence.reset();
-
-        StoryPersistence instance = StoryPersistence.getInstance();
-        Assert.assertNotNull(instance);
-        StoryRepository repo = StoryPersistence.getStoryRepository();
+        StoryRepository repo = StoryRepository.getInstance();
+        repo.setPersistence(new JSONFilePersistence());
+        Story aStory = Story.createNew("Test Default Path", "Test", "Test", "Test");
+        try {
+            repo.addStory(aStory);
+        } catch (Exception e) {
+            Assert.fail("Bah", e);
+        }
         Assert.assertNotNull(repo);
+    }
+
+    @Test
+    public void testFailureToInitializeBombs() {
+        StoryRepository repo = StoryRepository.getInstance();
+        Story aStory = Story.createNew("Test Default Path", "Test", "Test", "Test");
+        try {
+            repo.addStory(aStory);
+        } catch (Exception e) {
+            return;  // perfect
+        }
+        Assert.fail("Should have died with first attempt to write to persistence.");
     }
 
     @Test
     public void testInitializeWithPath() throws Exception {
-        StoryPersistence.reset();
-
-        StoryPersistence.initialize(TEST_PATH);
-        StoryPersistence instance = StoryPersistence.getInstance();
-        Assert.assertNotNull(instance);
-        StoryRepository repo = StoryPersistence.getStoryRepository();
+        StoryRepository repo = StoryRepository.getInstance();
+        repo.setPersistence(new JSONFilePersistence(TEST_PATH));
         Assert.assertNotNull(repo);
-        Assert.assertTrue(getTestPath().exists());
-    }
-
-    @Test
-    public void testInitializeWithNonexistentPath() throws Exception {
-        StoryPersistence.reset();
-        String pathName = "randomTestPath-" + new Date().toString();
-
-        StoryPersistence.initialize(pathName);
-        StoryPersistence instance = StoryPersistence.getInstance();
-        Assert.assertNotNull(instance);
-
-        File path = new File(pathName);
-        Assert.assertTrue(path.exists());
-        Assert.assertTrue(path.delete(), "Unable to remove directory");
+        Assert.assertTrue(getTestPathFile().exists());
     }
 
     @Test
     public void testLoadRepository() throws Exception {
-        StoryPersistence.reset();
-
-        StoryPersistence.initialize(TEST_PATH);
-        StoryRepository repo = StoryPersistence.getStoryRepository();
-        Assert.assertNotNull(repo);
+        StoryRepository repo = StoryRepository.getInstance();
+        repo.setPersistence(new JSONFilePersistence(TEST_PATH));
 
         Assert.assertEquals(repo.getStories().size(), 2);
         Assert.assertNotNull(repo.getStory("11111111"));
@@ -74,10 +68,8 @@ public class StoryPersistenceTest {
 
     @Test
     public void testStoreEntireRepository() throws Exception {
-        StoryPersistence.reset();
-
-        StoryPersistence.initialize("keep-me");
-        StoryRepository repo = StoryPersistence.getStoryRepository();
+        StoryRepository repo = StoryRepository.getInstance();
+        repo.setPersistence(new JSONFilePersistence("keep-me/"));
 
         Story oneStory = Story.createNew("One", "One", "One", "One");
         repo.addStory(oneStory);
@@ -86,8 +78,9 @@ public class StoryPersistenceTest {
         firstScene.setHeading("One");
         firstScene.setTeaser("One");
         firstScene.setProse("One");
+        repo.updateStory(oneStory);
 
-        StoryPersistence.getInstance().storeStoryRepo();
+        Assert.assertTrue(new File("keep-me/").listFiles().length > 0);
     }
 
 }

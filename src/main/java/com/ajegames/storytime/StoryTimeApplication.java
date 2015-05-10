@@ -1,6 +1,7 @@
 package com.ajegames.storytime;
 
-import com.ajegames.storytime.data.StoryPersistence;
+import com.ajegames.storytime.data.JSONFilePersistence;
+import com.ajegames.storytime.data.StoryRepository;
 import com.ajegames.storytime.health.StoryHealthCheck;
 import com.ajegames.storytime.resource.SceneResource;
 import com.ajegames.storytime.resource.StoryResource;
@@ -35,7 +36,7 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
 
     private void loadSampleStories(PersistenceConfiguration config) {
         try {
-            StoryPersistence.initialize(config.getPath());
+            StoryRepository.getInstance().setPersistence(new JSONFilePersistence(config.getPath()));
         } catch (Exception e) {
             LOG.error("Unable to load sample stories", e);
         }

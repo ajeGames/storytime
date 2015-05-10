@@ -1,6 +1,6 @@
 package com.ajegames.storytime.resource;
 
-import com.ajegames.storytime.data.StoryPersistence;
+import com.ajegames.storytime.data.StoryRepository;
 import com.ajegames.storytime.model.Scene;
 import com.ajegames.storytime.model.SceneSummary;
 import org.slf4j.Logger;
@@ -17,12 +17,14 @@ public class SceneResource {
 
     private static Logger LOG = LoggerFactory.getLogger(SceneResource.class);
 
+    private StoryRepository repo = StoryRepository.getInstance();
+
     @POST
     public Scene create(String storyKey, Scene aScene) {
         LOG.info("Adding a scene to story");
         Scene result;
         try {
-            result = StoryPersistence.getStoryRepository().addScene(storyKey, aScene);
+            result = repo.addScene(storyKey, aScene);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.BAD_REQUEST);
         }
@@ -36,7 +38,7 @@ public class SceneResource {
         Scene result;
         try {
             Scene sceneToAdd = Scene.createNew(summary.getTeaser(), "", "");
-            result = StoryPersistence.getStoryRepository().addScene(storyKey, sceneToAdd);
+            result = repo.addScene(storyKey, sceneToAdd);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.BAD_REQUEST);
         }
@@ -46,7 +48,7 @@ public class SceneResource {
     @GET
     @Path("{key}")
     public Scene get(@PathParam("key") String key) {
-        return StoryPersistence.getStoryRepository().getScene(key);
+        return repo.getScene(key);
     }
 
     @PUT
@@ -57,12 +59,12 @@ public class SceneResource {
             LOG.error("Key in URI does not match key in data");
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        StoryPersistence.getStoryRepository().updateScene(sceneUpdate);
+        repo.updateScene(sceneUpdate);
     }
 
     @DELETE
     @Path("{key}")
     public void destroy(@PathParam("key") String key) {
-        StoryPersistence.getStoryRepository().removeScene(key);
+        repo.removeScene(key);
     }
 }

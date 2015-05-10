@@ -1,13 +1,12 @@
 package com.ajegames.storytime.resource;
 
-import com.ajegames.storytime.data.StoryPersistence;
+import com.ajegames.storytime.data.StoryRepository;
 import com.ajegames.storytime.model.Story;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +20,8 @@ import java.util.List;
 public class StoryTimeResource {
 
     private static Logger LOG = LoggerFactory.getLogger(StoryTimeResource.class);
+
+    private StoryRepository repo = StoryRepository.getInstance();
 
     @GET
     public String ping() {
@@ -41,18 +42,6 @@ public class StoryTimeResource {
          * TODO: limit results returned -- think through how to cache for incremental fetch?
          */
         LOG.info("Find stories: all");
-        return StoryPersistence.getStoryRepository().getStories();
-    }
-
-    @POST
-    @Timed
-    @Path("save")
-    public String saveStories() {
-        /*
-         * TODO this is a terrible idea in the long run; should require admin permissions
-         */
-        LOG.info("Triggering persistence of stories to disk");
-        StoryPersistence.getInstance().storeStoryRepo();
-        return "Stories saved to disk";
+        return repo.getStories();
     }
 }

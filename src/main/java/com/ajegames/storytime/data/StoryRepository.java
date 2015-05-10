@@ -14,18 +14,48 @@ import java.util.*;
  */
 public class StoryRepository {
 
+    private static StoryRepository instance;
     private static Logger LOG = LoggerFactory.getLogger(StoryRepository.class);
 
+    private StoryPersistence storage;
     private RandomString keyGenerator;
     private Map<String, Story> stories;
     private Map<String, Scene> scenes;
     private Map<String, Set<String>> storySceneMap;
 
-    public StoryRepository() {
+    private StoryRepository() {
+        storage = new DefaultPersistence();
         stories = new HashMap<String, Story>();
         scenes = new HashMap<String, Scene>();
         storySceneMap = new HashMap<String, Set<String>>();
         keyGenerator = new RandomString(8);
+    }
+
+    /**
+     * Call first before attempting to getInstance().
+     *
+     * @param persistenceImpl
+     * @return
+     */
+    public void setPersistence(StoryPersistence persistenceImpl) {
+        if (storage == null) {
+            throw new IllegalArgumentException("Persistence mechanism cannot be null");
+        }
+        storage = persistenceImpl;
+        load(storage.loadStories());
+    }
+
+    public void load(List<StoryGraph> stories) {
+        for (StoryGraph graph : stories) {
+
+        }
+    }
+
+    public static StoryRepository getInstance() {
+        if (instance == null) {
+            instance = new StoryRepository();
+        }
+        return instance;
     }
 
     /**
@@ -191,6 +221,8 @@ public class StoryRepository {
     }
 
     public void removeScene(String key) {
+        // FIXME
+//        storage.deleteStory(getStory(key));
         scenes.remove(key);
     }
 }

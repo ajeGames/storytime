@@ -15,13 +15,13 @@ public class StoryRepositoryTest {
 
     @BeforeClass
     public void setup() throws Exception {
-        StoryPersistence.initialize("test-repo");
-        repo = StoryPersistence.getStoryRepository();
+        repo = StoryRepository.getInstance();
+        repo.setPersistence(new JSONFilePersistence("test-repo"));
     }
 
     @AfterClass
     public void tearDown() throws Exception {
-        StoryPersistence.cleanup();
+        // TODO implement something that allows test to clean up environment when tests are done
     }
 
     @Test

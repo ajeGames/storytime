@@ -1,6 +1,5 @@
 package com.ajegames.storytime.resource;
 
-import com.ajegames.storytime.data.StoryPersistence;
 import com.ajegames.storytime.data.StoryRepository;
 import com.ajegames.storytime.model.Story;
 import org.slf4j.Logger;
@@ -17,7 +16,7 @@ public class StoryResource {
 
     private static Logger LOG = LoggerFactory.getLogger(StoryResource.class);
 
-    private StoryRepository repo = StoryPersistence.getStoryRepository();
+    private StoryRepository repo = StoryRepository.getInstance();
 
     @POST
     public Story create(Story story) {
