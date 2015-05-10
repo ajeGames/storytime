@@ -5,11 +5,11 @@
     "author": "B. A. Storyteller",
     "tagLine": "Shortest story ever.",
     "description": "You have never read a shorter story, I guarantee it!",
-    "firstScene": "20000001"
+    "firstScene": "22222222-1"
   },
   "scenes": [
     {
-      "key": "20000001",
+      "key": "22222222-1",
       "teaser": "Read me",
       "heading": "In the beginning...",
       "prose": "The end."
