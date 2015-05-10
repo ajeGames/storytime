@@ -1,6 +1,5 @@
 package com.ajegames.storytime.data;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -10,17 +9,17 @@ import java.util.List;
 public class DefaultPersistence implements StoryPersistence {
 
     @Override
-    public List<StoryGraph> loadStories() {
+    public List<StoryBundle> loadStories() {
         throw new IllegalStateException("Failed to initialize repository persistence");
     }
 
     @Override
-    public void saveStory(StoryGraph story) {
+    public void saveStory(StoryBundle story) {
         throw new IllegalStateException("Failed to initialize repository persistence");
     }
 
     @Override
-    public boolean deleteStory(StoryGraph story) {
+    public boolean deleteStory(StoryBundle story) {
         throw new IllegalStateException("Failed to initialize repository persistence");
     }
 }

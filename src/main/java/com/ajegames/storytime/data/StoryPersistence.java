@@ -11,13 +11,13 @@ public interface StoryPersistence {
      * Pulls all of the stories that are stored in persistence into memory.
      * @return list of StoryGraph objects read from persistence
      */
-    List<StoryGraph> loadStories();
+    List<StoryBundle> loadStories();
 
     /**
      * Saves a story to persistent storage.
      * @param story StoryGraph to store
      */
-    void saveStory(StoryGraph story);
+    void saveStory(StoryBundle story);
 
     /**
      * Deletes a story and all associated parts.
@@ -25,5 +25,5 @@ public interface StoryPersistence {
      * @param story The story to delete
      * @return true if story was deleted, otherwise false
      */
-    boolean deleteStory(StoryGraph story);
+    boolean deleteStory(StoryBundle story);
 }

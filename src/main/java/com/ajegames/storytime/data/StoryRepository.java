@@ -45,8 +45,8 @@ public class StoryRepository {
         load(storage.loadStories());
     }
 
-    public void load(List<StoryGraph> stories) {
-        for (StoryGraph graph : stories) {
+    public void load(List<StoryBundle> stories) {
+        for (StoryBundle graph : stories) {
 
         }
     }
@@ -109,6 +109,7 @@ public class StoryRepository {
             story.setFirstScene(firstScene.getKey());
         }
 
+        storage.saveStory(new StoryBundle());
         return story;
     }
 

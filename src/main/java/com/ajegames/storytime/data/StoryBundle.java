@@ -9,8 +9,7 @@ import java.util.List;
 /**
  * Represents how stories are persisted to file, which is different from how they are presented to UI.
  */
-public class
-        StoryGraph {
+public class StoryBundle {
 
     @JsonProperty
     private Story story;

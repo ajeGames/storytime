@@ -35,13 +35,13 @@ public class JSONFilePersistence implements StoryPersistence {
     }
 
     @Override
-    public List<StoryGraph> loadStories() {
-        List<StoryGraph> out = new ArrayList<StoryGraph>();
+    public List<StoryBundle> loadStories() {
+        List<StoryBundle> out = new ArrayList<StoryBundle>();
         File[] storyDataFiles = pathToStories.listFiles();
         if (storyDataFiles != null) {
             for (File datafile : storyDataFiles) {
                 try {
-                    StoryGraph loadedStory = new ObjectMapper().readValue(datafile, StoryGraph.class);
+                    StoryBundle loadedStory = new ObjectMapper().readValue(datafile, StoryBundle.class);
                     out.add(loadedStory);
                 } catch (IOException e) {
                     LOG.error("File could not be read as a story: " + datafile.toString());
@@ -52,7 +52,7 @@ public class JSONFilePersistence implements StoryPersistence {
     }
 
     @Override
-    public void saveStory(StoryGraph story) {
+    public void saveStory(StoryBundle story) {
         try {
             new ObjectMapper().writeValue(buildFilename(story.getStory().getKey()), story);
         } catch (IOException e) {
@@ -61,7 +61,7 @@ public class JSONFilePersistence implements StoryPersistence {
     }
 
     @Override
-    public boolean deleteStory(StoryGraph story) {
+    public boolean deleteStory(StoryBundle story) {
         File fileToDelete = buildFilename(story.getStory().getKey());
         return fileToDelete.delete();
     }
