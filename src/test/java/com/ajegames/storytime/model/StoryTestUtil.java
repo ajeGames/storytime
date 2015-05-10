@@ -15,21 +15,21 @@ public class StoryTestUtil {
     private static RandomString fillGenerator = new RandomString(16);
 
     public static Story generateTestStoryWithKey() {
-        return generateTestStoryWithGivenKey(keyGenerator.nextString());
+        return generateTestStoryWithGivenKey(keyGenerator.nextKey());
     }
 
     public static Story generateTestStoryWithGivenKey(String key) {
-        return Story.createExisting(key, fillGenerator.nextString(), fillGenerator.nextString(),
-                fillGenerator.nextString(), fillGenerator.nextString(), keyGenerator.nextString());
+        return Story.createExisting(key, fillGenerator.nextKey(), fillGenerator.nextKey(),
+                fillGenerator.nextKey(), fillGenerator.nextKey(), keyGenerator.nextKey());
     }
 
     public static Scene generateTestSceneWithKey() {
-        return generateTestSceneWithGivenKey(keyGenerator.nextString());
+        return generateTestSceneWithGivenKey(keyGenerator.nextKey());
     }
 
     public static Scene generateTestSceneWithGivenKey(String key) {
-        return Scene.createExisting(key, fillGenerator.nextString(), fillGenerator.nextString(),
-                fillGenerator.nextString());
+        return Scene.createExisting(key, fillGenerator.nextKey(), fillGenerator.nextKey(),
+                fillGenerator.nextKey());
     }
 
     public static StoryBundle generateStoryBundle() {

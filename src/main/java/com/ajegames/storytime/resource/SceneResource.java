@@ -45,26 +45,26 @@ public class SceneResource {
         return result;
     }
 
-    @GET
-    @Path("{key}")
-    public Scene get(@PathParam("key") String key) {
-        return repo.getScene(key);
-    }
-
-    @PUT
-    @Path("{key}")
-    public void update(@PathParam("key") String key, Scene sceneUpdate) {
-        LOG.info("Receiving changes to scene.");
-        if (!key.equals(sceneUpdate.getKey())) {
-            LOG.error("Key in URI does not match key in data");
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
-        repo.updateScene(sceneUpdate);
-    }
-
-    @DELETE
-    @Path("{key}")
-    public void destroy(@PathParam("key") String key) {
-        repo.removeScene(key);
-    }
+//    @GET
+//    @Path("{key}")
+//    public Scene get(@PathParam("key") String key) {
+//        return repo.getScene(key);
+//    }
+//
+//    @PUT
+//    @Path("{key}")
+//    public void update(@PathParam("key") String key, Scene sceneUpdate) {
+//        LOG.info("Receiving changes to scene.");
+//        if (!key.equals(sceneUpdate.getKey())) {
+//            LOG.error("Key in URI does not match key in data");
+//            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+//        }
+//        repo.updateScene(sceneUpdate);
+//    }
+//
+//    @DELETE
+//    @Path("{key}")
+//    public void destroy(@PathParam("key") String key) {
+//        repo.removeScene(key);
+//    }
 }

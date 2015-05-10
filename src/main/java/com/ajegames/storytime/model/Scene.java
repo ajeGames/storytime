@@ -80,7 +80,9 @@ public class Scene {
 
     public void setNextSceneOptions(List<String> nextSceneOptions) {
         this.nextSceneOptions = new ArrayList<String>();
-        this.nextSceneOptions.addAll(nextSceneOptions);
+        if (nextSceneOptions != null) {
+            this.nextSceneOptions.addAll(nextSceneOptions);
+        }
     }
 
     @Override

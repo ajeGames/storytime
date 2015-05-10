@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class RandomString {
 
+    private static final char[] keySymbols;
     private static final char[] symbols;
 
     static {
@@ -12,6 +13,8 @@ public class RandomString {
             tmp.append(ch);
         for (char ch = 'a'; ch <= 'z'; ++ch)
             tmp.append(ch);
+        keySymbols = tmp.toString().toCharArray();
+        tmp.append(' ');
         symbols = tmp.toString().toCharArray();
     }
 
@@ -25,9 +28,9 @@ public class RandomString {
         buf = new char[length];
     }
 
-    public String nextString() {
+    public String nextKey() {
         for (int idx = 0; idx < buf.length; ++idx)
-            buf[idx] = symbols[random.nextInt(symbols.length)];
+            buf[idx] = keySymbols[random.nextInt(keySymbols.length)];
         return new String(buf);
     }
 }

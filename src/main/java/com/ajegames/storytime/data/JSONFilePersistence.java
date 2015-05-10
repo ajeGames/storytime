@@ -67,7 +67,7 @@ public class JSONFilePersistence implements StoryPersistence {
     }
 
     private File buildFilename(String baseName) {
-        return new File(pathToStories + baseName + ".json");
+        return new File(pathToStories, baseName + ".json");
     }
 
 }
