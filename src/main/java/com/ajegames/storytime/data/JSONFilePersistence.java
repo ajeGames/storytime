@@ -34,7 +34,6 @@ public class JSONFilePersistence implements StoryPersistence {
         }
     }
 
-    @Override
     public List<StoryBundle> loadStories() {
         List<StoryBundle> out = new ArrayList<StoryBundle>();
         File[] storyDataFiles = pathToStories.listFiles();
@@ -51,7 +50,6 @@ public class JSONFilePersistence implements StoryPersistence {
         return out;
     }
 
-    @Override
     public void saveStory(StoryBundle story) {
         try {
             new ObjectMapper().writeValue(buildFilename(story.getStory().getKey()), story);
@@ -60,7 +58,6 @@ public class JSONFilePersistence implements StoryPersistence {
         }
     }
 
-    @Override
     public boolean deleteStory(StoryBundle story) {
         File fileToDelete = buildFilename(story.getStory().getKey());
         return fileToDelete.delete();
