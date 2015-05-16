@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Adventure {
 
+    private int chapterCounter = 1;
+
     @JsonProperty
     private String key;
 
@@ -24,6 +26,15 @@ public class Adventure {
 
     @JsonProperty
     private Chapter firstChapter;
+
+    public static Adventure createNew(String title, String author, String tagLine, String description) {
+        Adventure out = new Adventure();
+        out.setTitle(title);
+        out.setAuthor(author);
+        out.setTagLine(tagLine);
+        out.setDescription(description);
+        return out;
+    }
 
     public String getKey() {
         return key;
@@ -71,6 +82,10 @@ public class Adventure {
 
     public void setFirstChapter(Chapter firstChapter) {
         this.firstChapter = firstChapter;
+    }
+
+    public String generateNextChapterKey() {
+        return key + chapterCounter++;
     }
 
     @Override
