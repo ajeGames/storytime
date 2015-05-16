@@ -2,6 +2,9 @@ package com.ajegames.storytime.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This is the top of the story graph for a multi-path adventure.
  */
@@ -27,6 +30,8 @@ public class Adventure {
     @JsonProperty
     private Chapter firstChapter;
 
+    private Map<Integer, Chapter> chapters;
+
     public static Adventure createNew(String title, String author, String tagLine, String description) {
         Adventure out = new Adventure();
         out.setTitle(title);
@@ -34,6 +39,10 @@ public class Adventure {
         out.setTagLine(tagLine);
         out.setDescription(description);
         return out;
+    }
+
+    public Adventure() {
+        chapters = new HashMap<Integer, Chapter>();
     }
 
     public String getKey() {
@@ -84,8 +93,9 @@ public class Adventure {
         this.firstChapter = firstChapter;
     }
 
-    public String generateNextChapterKey() {
-        return key + chapterCounter++;
+    public Chapter addChapter() {
+        Chapter out = Chapter.create(this, chapterCounter++);
+        return out;
     }
 
     @Override

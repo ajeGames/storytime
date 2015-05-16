@@ -42,5 +42,7 @@ public class AdventureRepository {
         return adv;
     }
 
-
+    public Adventure getAdventure(String key) {
+        return adventures.get(key);
+    }
 }
