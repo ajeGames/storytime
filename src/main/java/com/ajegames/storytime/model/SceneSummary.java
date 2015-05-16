@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SceneSummary {
 
     @JsonProperty
+    private String parentSceneKey;
+
+    @JsonProperty
     private String key;
 
     @JsonProperty

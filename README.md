@@ -9,7 +9,6 @@ Use cases and API methods
 **List stories**
 
 * Return a list of all available stories.
-** Story includes key, title, description
 
 `listStories()`
 
@@ -58,3 +57,29 @@ Use cases and API methods
 * Change the scene with the given `key`.
 
 `editSceneContent(key, prose)`
+
+## JSON Objects
+
+Story
+
+    {
+        "key": "dw8nhv63",
+        "title": "The Three Little Pigs",
+        "author": "Bros. Grimm",
+        "tagLine": "A lesson in economics.",
+        "description": "What happens when forest creatures try to strike a healthy work-life balance?",
+        "firstScene": "dw8nhv63-1"
+    }
+    
+Scene
+
+    {
+      "key": "dw8nhv63-1",
+      "teaser": "A man walks into a bar...",
+      "heading": "This is funny.",
+      "prose": "A man walks into a bar and says, \"Ouch\"",
+      "nextSceneOptions": [
+        "dw8nhv63-2", "dw8nhv63-3"
+      ]
+    }
+    

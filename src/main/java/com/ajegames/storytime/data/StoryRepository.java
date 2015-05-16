@@ -20,12 +20,12 @@ public class StoryRepository {
     private StoryPersistence storage;
     private RandomString keyGenerator;
     private Map<String, StoryBundle> storyBundles;
-    private Map<String, Set<String>> storySceneMap;
+    private Map<String, String> sceneStoryMap;
 
     private StoryRepository() {
         storage = new DefaultPersistence();
         storyBundles = new HashMap<String, StoryBundle>();
-        storySceneMap = new HashMap<String, Set<String>>();
+        sceneStoryMap = new HashMap<String, String>();
         keyGenerator = new RandomString(8);
     }
 
@@ -46,7 +46,7 @@ public class StoryRepository {
      * Establishes approach to persistence and loads repository with whatever stories are available.  Call before
      * using the repository; otherwise things will go badly.
      *
-     * @param persistenceImpl
+     * @param persistenceImpl Instance of StoryPersistence to use
      */
     public void setPersistence(StoryPersistence persistenceImpl) {
         if (persistenceImpl == null) {
@@ -67,20 +67,20 @@ public class StoryRepository {
      * Loads story as-is into repository.  Expected to already have key assigned; otherwise will not load.
      * If another story is already loaded with the same key, the new story will take its place.
      *
-     * @param bundleToLoad
+     * @param bundleToLoad Complete story JSON object to load into memory
      */
     public void loadStoryBundle(StoryBundle bundleToLoad) {
-        String key = bundleToLoad.getStory().getKey();
-        if (key == null) {
+        String storyKey = bundleToLoad.getStory().getKey();
+        if (storyKey == null) {
             throw new IllegalArgumentException("Story must already have key.");
         }
-        if (storyBundles.containsKey(key)) {
+        if (storyBundles.containsKey(storyKey)) {
             LOG.warn("Given story key already in use.  Replacing.");
         }
-        storyBundles.put(key, bundleToLoad);
+        storyBundles.put(storyKey, bundleToLoad);
 
         for (Scene sceneInBundle : bundleToLoad.getScenes()) {
-            addToStorySceneMap(key, sceneInBundle.getKey());
+            mapSceneToStory(sceneInBundle.getKey(), storyKey);
         }
     }
 
@@ -88,8 +88,8 @@ public class StoryRepository {
      * Adds a story to repository.  New stories without a key can be added.  The story that is returned will
      * have a new unique key and empty first scene assigned.
      *
-     * @param story
-     * @return
+     * @param story New story to add to repository
+     * @return Story with newly assigned key
      * @throws Exception
      */
     public Story addStory(Story story) throws Exception {
@@ -102,20 +102,21 @@ public class StoryRepository {
         } while (storyBundles.containsKey(tempKey));
         story.setKey(tempKey);
 
+        StoryBundle bundle = new StoryBundle();
+        bundle.setStory(story);
+        storyBundles.put(story.getKey(), bundle);
+
         // new stories need a first scene
         Scene firstScene = addScene(tempKey, Scene.createNew("First scene", "Scene One", "Open your story"));
         story.setFirstScene(firstScene.getKey());
-
-        StoryBundle bundle = new StoryBundle();
-        bundle.setStory(story);
         bundle.addScene(firstScene);
 
         storage.saveStory(bundle);
         return story;
     }
 
-    public Story getStory(String key) {
-        return storyBundles.get(key).getStory();
+    public Story getStory(String storyKey) {
+        return storyBundles.get(storyKey).getStory();
     }
 
     public void updateStory(Story update) {
@@ -129,17 +130,27 @@ public class StoryRepository {
         story.setDescription(update.getDescription());
     }
 
-    public void removeStory(String key) {
-        StoryBundle bundle = storyBundles.get(key);
+    public void removeStory(String storyKey) {
+        StoryBundle bundle = storyBundles.get(storyKey);
         if (bundle == null) {
             LOG.warn("Story to be removed was not found; doing nothing.");
             return;
         }
-        storyBundles.remove(key);
-        storySceneMap.remove(key);
+        // get scenes out of map
+        for (Scene scene : bundle.getScenes()) {
+            sceneStoryMap.remove(scene.getKey());
+        }
+        storyBundles.remove(storyKey);
         storage.deleteStory(bundle);
     }
 
+    /**
+     * Returns all stories in repository.
+     *
+     * TODO This will be a problem at scale.
+     *
+     * @return
+     */
     public List<Story> getStories() {
         List<Story> out = new ArrayList<Story>();
         for (StoryBundle bundle : storyBundles.values()) {
@@ -148,34 +159,61 @@ public class StoryRepository {
         return out;
     }
 
-    // TODO clean this up
-    private void addToStorySceneMap(String storyKey, String sceneKey) {
-        Set<String> sceneKeys = storySceneMap.get(storyKey);
-        if (sceneKeys == null) {
-            sceneKeys = new HashSet<String>();
-            storySceneMap.put(storyKey, sceneKeys);
-        }
-        sceneKeys.add(sceneKey);
-    }
-
-    // TODO clean this up
     public Scene addScene(String storyKey, Scene scene) {
-        Set<String> sceneKeys = storySceneMap.get(storyKey);
+        StoryBundle bundle = storyBundles.get(storyKey);
+        if (bundle == null) {
+            throw new IllegalArgumentException("Story not found for given key");
+        }
         if (scene.getKey() == null) {
             String tempKey;
             do {
                 tempKey = keyGenerator.nextKey();
-            } while (sceneKeys.contains(tempKey));
+            } while (sceneStoryMap.containsKey(tempKey));
             scene.setKey(tempKey);
         }
-        addToStorySceneMap(storyKey, scene.getKey());
+        bundle.addScene(scene);
+        mapSceneToStory(scene.getKey(), storyKey);
         return scene;
     }
-//
-//    public Scene getScene(String key) {
-//        return scenes.get(key);
-//    }
-//
+
+    private void mapSceneToStory(String sceneKey, String storyKey) {
+        sceneStoryMap.put(sceneKey, storyKey);
+    }
+    /**
+     * Returns Scene for given key
+     *
+     * @param sceneKey Scene key of scene to get
+     * @return Scene
+     */
+    public Scene getScene(String sceneKey) {
+        String storyKey = sceneStoryMap.get(sceneKey);
+        StoryBundle bundle = storyBundles.get(storyKey);
+        return bundle.getScene(sceneKey);
+    }
+
+    /**
+     * Add new scene as an option of the scene with the given key.
+     *
+     * @param parentSceneKey Key of the preceding scene
+     * @param nextScene new scene
+     * @return new scene with new key
+     */
+    public Scene addNextScene(String parentSceneKey, Scene nextScene) {
+
+        // get story key
+        String storyKey = sceneStoryMap.get(parentSceneKey);
+
+        // add scene
+        StoryBundle bundle = storyBundles.get(storyKey);
+        bundle.addScene(nextScene);
+
+        // update parent scene next options
+        Scene parentScene = bundle.getScene(parentSceneKey);
+        parentScene.addNextSceneOption(nextScene.getKey());
+
+        return nextScene;
+    }
+
 //    public Set<Scene> getScenesForStory(String storyKey) {
 //        Set<Scene> fullScenes = new HashSet<Scene>();
 //        Set<String> sceneKeys = storySceneMap.get(storyKey);

@@ -14,6 +14,11 @@ public class StoryTestUtil {
     private static RandomString keyGenerator = new RandomString(8);
     private static RandomString fillGenerator = new RandomString(16);
 
+    public static Story generateTestStoryWithoutKey() {
+        return Story.createNew(fillGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey(),
+                fillGenerator.nextKey());
+    }
+
     public static Story generateTestStoryWithKey() {
         return generateTestStoryWithGivenKey(keyGenerator.nextKey());
     }
@@ -21,6 +26,10 @@ public class StoryTestUtil {
     public static Story generateTestStoryWithGivenKey(String key) {
         return Story.createExisting(key, fillGenerator.nextKey(), fillGenerator.nextKey(),
                 fillGenerator.nextKey(), fillGenerator.nextKey(), keyGenerator.nextKey());
+    }
+
+    public static Scene generateTestSceneWithoutKey() {
+        return Scene.createNew(fillGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey());
     }
 
     public static Scene generateTestSceneWithKey() {
