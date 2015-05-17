@@ -23,11 +23,9 @@ public class AdventureJSONFilePersistenceTest {
         Assert.assertTrue(path.isDirectory(), "Should have created directory for story files");
 
         // try saving
-        Adventure adv1 = AdventureTestUtil.generateAdventureWithoutKey();
-        adv1.setKey("test0001");
+        Adventure adv1 = AdventureTestUtil.generateAdventure();
         storage.saveAdventure(adv1);
-        Adventure adv2 = AdventureTestUtil.generateAdventureWithoutKey();
-        adv2.setKey("test0001");
+        Adventure adv2 = AdventureTestUtil.generateAdventure();
         storage.saveAdventure(adv2);
         Assert.assertEquals(path.listFiles().length, 2, "Expected to find story files");
 
@@ -53,12 +51,7 @@ public class AdventureJSONFilePersistenceTest {
 
         for (Adventure adventure : adventures) {
             String adventureKey = adventure.getKey();
-            Assert.assertTrue(adventureKey.equals("11111111") || adventureKey.equals("22222222"));
-//            if (adventureKey.equals("11111111")) {
-//                Assert.assertEquals(adventure.getChapters().size(), 3);
-//            } else {
-//                Assert.assertEquals(adventure.getScenes().size(), 1);
-//            }
+            Assert.assertTrue(adventureKey.equals("mvghheo8") || adventureKey.equals("ni7l0szw"));
         }
     }
 }

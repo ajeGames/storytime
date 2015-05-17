@@ -1,5 +1,6 @@
 package com.ajegames.storytime.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class Chapter {
 
+    @JsonIgnore
     private Adventure story;
 
     @JsonProperty
@@ -38,6 +40,7 @@ public class Chapter {
         return out;
     }
 
+    @JsonIgnore
     public Adventure getStory() {
         return story;
     }
