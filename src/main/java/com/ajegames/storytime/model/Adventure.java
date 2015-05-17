@@ -95,7 +95,12 @@ public class Adventure {
 
     public Chapter addChapter() {
         Chapter out = Chapter.create(this, chapterCounter++);
+        chapters.put(out.getId(), out);
         return out;
+    }
+
+    public Chapter getChapter(Integer id) {
+        return chapters.get(id);
     }
 
     @Override
