@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AdventureRepository {
@@ -16,6 +17,7 @@ public class AdventureRepository {
 
     private RandomString keyGenerator;
     private Map<String, Adventure> adventures;
+    private AdventurePersistence storage;
 
     public static AdventureRepository getInstance() {
         if (instance == null) {
@@ -27,6 +29,22 @@ public class AdventureRepository {
     private AdventureRepository() {
         this.keyGenerator = new RandomString(8);
         this.adventures = new HashMap<String, Adventure>();
+        this.storage = new NoopAdventurePersistence();
+    }
+
+    public void setPersistence(AdventurePersistence persistenceImpl) {
+        if (persistenceImpl == null) {
+            throw new IllegalArgumentException("Persistence mechanism cannot be null");
+        }
+        this.storage = persistenceImpl;
+        loadAdventures();
+    }
+
+    public void loadAdventures() {
+        List<Adventure> adventures = storage.loadAdventures();
+        for (Adventure adv : adventures) {
+            addAdventure(adv);
+        }
     }
 
     public Adventure addAdventure(Adventure adv) {
