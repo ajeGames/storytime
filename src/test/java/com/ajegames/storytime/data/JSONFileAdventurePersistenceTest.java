@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.util.List;
 
-public class AdventureJSONFilePersistenceTest {
+public class JSONFileAdventurePersistenceTest {
 
     private static final String TEST_PATH = "story-files-test/";
 
@@ -18,7 +18,7 @@ public class AdventureJSONFilePersistenceTest {
         String pathName = "test-" + new RandomString(6).nextKey();  // play somewhere safe
         File path = new File(pathName);
 
-        AdventurePersistence storage = new AdventureJSONFilePersistence(pathName);
+        AdventurePersistence storage = new JSONFileAdventurePersistence(pathName);
         Assert.assertTrue(path.exists(), "Should have found path to story files");
         Assert.assertTrue(path.isDirectory(), "Should have created directory for story files");
 
@@ -45,7 +45,7 @@ public class AdventureJSONFilePersistenceTest {
 
     @Test
     public void testLoadStories() throws Exception {
-        AdventurePersistence storage = new AdventureJSONFilePersistence(TEST_PATH);
+        AdventurePersistence storage = new JSONFileAdventurePersistence(TEST_PATH);
         List<Adventure> adventures = storage.loadAdventures();
         Assert.assertEquals(adventures.size(), 2);
 

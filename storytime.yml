@@ -13,5 +13,5 @@ logging:
     - type: console
 
 persistence:
-  path: story-files-prod/
+  path: adventure-files/
 

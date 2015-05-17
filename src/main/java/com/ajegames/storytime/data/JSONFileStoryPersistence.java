@@ -9,19 +9,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSONFilePersistence implements StoryPersistence {
+public class JSONFileStoryPersistence implements StoryPersistence {
 
     private static final String DEFAULT_STORY_DB_FILEROOT = "story-files-default/";
 
-    private static Logger LOG = LoggerFactory.getLogger(JSONFilePersistence.class);
+    private static Logger LOG = LoggerFactory.getLogger(JSONFileStoryPersistence.class);
 
     private File pathToStories;
 
-    public JSONFilePersistence() {
+    public JSONFileStoryPersistence() {
         this(DEFAULT_STORY_DB_FILEROOT);
     }
 
-    public JSONFilePersistence(String pathToStoryFiles) {
+    public JSONFileStoryPersistence(String pathToStoryFiles) {
         this.pathToStories = new File(pathToStoryFiles);
         if (!pathToStories.exists()) {
             LOG.info("Creating directory to hold story files.");

@@ -11,21 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by dmount on 5/17/15.
+ * This is the implementation of persistence that is meant for production.
  */
-public class AdventureJSONFilePersistence implements AdventurePersistence {
+public class JSONFileAdventurePersistence implements AdventurePersistence {
 
     private static final String DEFAULT_FILEROOT = "adventure-files/";
 
-    private static Logger LOG = LoggerFactory.getLogger(AdventureJSONFilePersistence.class);
+    private static Logger LOG = LoggerFactory.getLogger(JSONFileAdventurePersistence.class);
 
     private File pathToFiles;
 
-    public AdventureJSONFilePersistence() {
+    public JSONFileAdventurePersistence() {
         this(DEFAULT_FILEROOT);
     }
 
-    public AdventureJSONFilePersistence(String pathToFiles) {
+    public JSONFileAdventurePersistence(String pathToFiles) {
         this.pathToFiles = new File(pathToFiles);
         if (!this.pathToFiles.exists()) {
             LOG.info("Creating directory to hold story files.");

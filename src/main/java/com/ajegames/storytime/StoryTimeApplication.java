@@ -1,8 +1,9 @@
 package com.ajegames.storytime;
 
-import com.ajegames.storytime.data.JSONFilePersistence;
-import com.ajegames.storytime.data.StoryRepository;
+import com.ajegames.storytime.data.JSONFileAdventurePersistence;
+import com.ajegames.storytime.data.AdventureRepository;
 import com.ajegames.storytime.health.StoryHealthCheck;
+import com.ajegames.storytime.resource.AdventureResource;
 import com.ajegames.storytime.resource.SceneResource;
 import com.ajegames.storytime.resource.StoryResource;
 import com.ajegames.storytime.resource.StoryTimeResource;
@@ -36,7 +37,7 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
 
     private void loadSampleStories(PersistenceConfiguration config) {
         try {
-            StoryRepository.getInstance().setPersistence(new JSONFilePersistence(config.getPath()));
+            AdventureRepository.getInstance().setPersistence(new JSONFileAdventurePersistence(config.getPath()));
         } catch (Exception e) {
             LOG.error("Unable to load sample stories", e);
         }
@@ -48,7 +49,6 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
         environment.healthChecks().register("story", new StoryHealthCheck());
         environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(new StoryTimeResource());
-        environment.jersey().register(new StoryResource());
-        environment.jersey().register(new SceneResource());
+        environment.jersey().register(new AdventureResource());
     }
 }
