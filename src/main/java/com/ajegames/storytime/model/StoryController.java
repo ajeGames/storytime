@@ -17,6 +17,7 @@ public class StoryController {
         Adventure in = Adventure.createNew(title, author, tagLine, description);
         Adventure out = repo.addAdventure(in);
         out.setFirstChapter(out.addChapter());
+        repo.saveAdventure(out.getKey());
         return out;
     }
 
@@ -43,6 +44,7 @@ public class StoryController {
         if (update.getDescription() != null) {
             adv.setDescription(update.getDescription());
         }
+        repo.saveAdventure(adv.getKey());
         return adv;
     }
 
@@ -65,6 +67,7 @@ public class StoryController {
         if (update.getProse() != null) {
             chap.setProse(update.getProse());
         }
+        repo.saveAdventure(adventureKey);
         return chap;
     }
 
@@ -76,6 +79,7 @@ public class StoryController {
         Chapter chap = adv.addChapter();
         chap.setTeaser(teaser);
         parent.addNextChapter(chap);
+        repo.saveAdventure(adventureKey);
         return chap;
     }
 

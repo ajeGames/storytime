@@ -44,17 +44,19 @@ public class AdventureResource {
 
     @PUT
     @Path("{key}")
-    public void update(@PathParam("key") String key, Adventure update) {
+    public Adventure update(@PathParam("key") String key, Adventure update) {
         LOG.info("Receiving changes to story: " + key);
-        if (!key.equals(update.getKey())) {
+        Adventure result;
+        if (update.getKey() != null && !key.equals(update.getKey())) {
             LOG.error("Key in URI does not match key in data");
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         try {
-            ctrl.updateAdventure(update);
+            result = ctrl.updateAdventure(update);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }
+        return result;
     }
 
     @DELETE

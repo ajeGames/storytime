@@ -46,6 +46,11 @@ public class AdventureRepository {
         }
     }
 
+    public void saveAdventure(String key) {
+        Adventure adv = getAdventure(key);
+        this.storage.saveAdventure(adv);
+    }
+
     public Adventure addAdventure(Adventure adv) {
         // assign key if needed
         String tempKey = adv.getKey();
