@@ -45,4 +45,8 @@ public class AdventureRepository {
     public Adventure getAdventure(String key) {
         return adventures.get(key);
     }
+
+    public void deleteAdventure(String key) {
+        adventures.remove(key);
+    }
 }

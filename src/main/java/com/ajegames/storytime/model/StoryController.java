@@ -20,9 +20,9 @@ public class StoryController {
         return out;
     }
 
-    public Adventure getAdventure(String key) {
-        LOG.info("Retrieving adventure with key: " + key);
-        return repo.getAdventure(key);
+    public Adventure getAdventure(String adventureKey) {
+        LOG.info("Retrieving adventure with key: " + adventureKey);
+        return repo.getAdventure(adventureKey);
     }
 
     public Adventure updateAdventure(Adventure update) {
@@ -67,4 +67,29 @@ public class StoryController {
         }
         return chap;
     }
+
+    public Chapter addNextChapter(String adventureKey, Integer parentChapterId, String teaser) {
+        LOG.info("Creating next chapter options for chapter " + parentChapterId + " of story " + adventureKey + ": "
+                + teaser);
+        Adventure adv = repo.getAdventure(adventureKey);
+        Chapter parent = adv.getChapter(parentChapterId);
+        Chapter chap = adv.addChapter();
+        chap.setTeaser(teaser);
+        parent.addNextChapter(chap);
+        return chap;
+    }
+
+    public void deleteAdventure(String adventureKey) {
+        LOG.info("Deleting adventure: " + adventureKey);
+        repo.deleteAdventure(adventureKey);
+    }
+
+    /**
+     * TODO How is this going to work?
+     * How to detach and reattach chapter chains?
+     * How to detect chapters that are not attached?
+     * Whether to delete an entire chapter chain?
+     * What to do when first chapter is deleted?
+     */
+
 }
