@@ -3,10 +3,7 @@ package com.ajegames.storytime;
 import com.ajegames.storytime.data.JSONFileAdventurePersistence;
 import com.ajegames.storytime.data.AdventureRepository;
 import com.ajegames.storytime.health.StoryHealthCheck;
-import com.ajegames.storytime.resource.AdventureResource;
-import com.ajegames.storytime.resource.SceneResource;
-import com.ajegames.storytime.resource.StoryResource;
-import com.ajegames.storytime.resource.StoryTimeResource;
+import com.ajegames.storytime.resource.*;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -50,5 +47,6 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
         environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(new StoryTimeResource());
         environment.jersey().register(new AdventureResource());
+        environment.jersey().register(new ChapterResource());
     }
 }
