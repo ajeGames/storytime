@@ -1,7 +1,8 @@
 package com.ajegames.storytime.resource;
 
-import com.ajegames.storytime.data.StoryRepository;
-import com.ajegames.storytime.model.Story;
+import com.ajegames.storytime.model.Adventure;
+import com.ajegames.storytime.model.CatalogController;
+import com.ajegames.storytime.model.StoryController;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,8 @@ public class StoryTimeResource {
 
     private static Logger LOG = LoggerFactory.getLogger(StoryTimeResource.class);
 
-    private StoryRepository repo = StoryRepository.getInstance();
+//    private StoryRepository repo = StoryRepository.getInstance();
+    private StoryController ctrl = new StoryController();
 
     @GET
     public String ping() {
@@ -36,12 +38,12 @@ public class StoryTimeResource {
     @GET
     @Timed
     @Path("stories")
-    public List<Story> findStories() {
+    public List<Adventure> findStories() {
         /*
          * TODO: introduce criteria to refine search
          * TODO: limit results returned -- think through how to cache for incremental fetch?
          */
         LOG.info("Find stories: all");
-        return repo.getStories();
+        return new CatalogController().getAllStories();
     }
 }

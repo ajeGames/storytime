@@ -5,6 +5,7 @@ import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,5 +71,11 @@ public class AdventureRepository {
 
     public void deleteAdventure(String key) {
         adventures.remove(key);
+    }
+
+    public List<Adventure> getAllAdventures() {
+        List<Adventure> all = new ArrayList<Adventure>();
+        all.addAll(adventures.values());
+        return all;
     }
 }
