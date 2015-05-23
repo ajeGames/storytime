@@ -9,8 +9,6 @@
     var vm = this;
 
     // === Story summary edit logic ===
-
-//  vm.catalog = listStoriesMock;
     vm.catalog = loadCatalog();
 
     function loadCatalog() {
@@ -25,6 +23,7 @@
     }
 
     function deleteStory(key) {
+      StoryService.deleteStory(key);
       for (var i in vm.catalog) {
         if (vm.catalog[i].key == key) {
           vm.catalog.splice(i, 1);

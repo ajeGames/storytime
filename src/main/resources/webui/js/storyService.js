@@ -18,6 +18,13 @@
       return (request.then(handleSuccess, handleError));
     }
 
+    function deleteStory(key) {
+      var request = $http({
+        method: "delete",
+        url: "api/adventure/{key}"
+      });
+    }
+
     /// "PRIVATE" FUNCTIONS
 
     // unwrap application data
