@@ -1,6 +1,7 @@
 package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.model.Chapter;
+import com.ajegames.storytime.model.NextChapter;
 import com.ajegames.storytime.model.StoryController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,30 @@ public class ChapterResource {
         LOG.info("Retrieving chapter " + id + " for story " + key);
         try {
             return ctrl.getChapter(key, id);
+        } catch (Exception e) {
+            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PUT
+    @Path("{id}")
+    public Chapter update(@PathParam("key") String key, Chapter update) {
+        LOG.info("Receiving changes to story: " + key);
+        if (key == null || update.getId() == null) {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        try {
+            return ctrl.updateChapter(key, update);
+        } catch (Exception e) {
+            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @POST
+    public Chapter addNextChapter(@PathParam("key") String key, NextChapter nextChapter) {
+        LOG.info("Adding next chapter");
+        try {
+            return ctrl.addNextChapter(key, nextChapter.getParentID(), nextChapter.getTeaser());
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }

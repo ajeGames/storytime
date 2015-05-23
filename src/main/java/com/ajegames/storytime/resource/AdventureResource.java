@@ -32,30 +32,26 @@ public class AdventureResource {
     @POST
     public Adventure create(Adventure story) {
         LOG.info("Creating another story for a happier universe.");
-        Adventure result;
         try {
-            result = ctrl.createAdventure(story.getTitle(), story.getAuthor(), story.getTagLine(), story.getDescription());
+            return ctrl.createAdventure(story.getTitle(), story.getAuthor(), story.getTagLine(), story.getDescription());
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }
-        return result;
     }
 
     @PUT
     @Path("{key}")
     public Adventure update(@PathParam("key") String key, Adventure update) {
         LOG.info("Receiving changes to story: " + key);
-        Adventure result;
         if (update.getKey() != null && !key.equals(update.getKey())) {
             LOG.error("Key in URI does not match key in data");
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         try {
-            result = ctrl.updateAdventure(update);
+            return ctrl.updateAdventure(update);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }
-        return result;
     }
 
     @DELETE

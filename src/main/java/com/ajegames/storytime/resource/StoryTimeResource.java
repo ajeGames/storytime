@@ -22,12 +22,9 @@ public class StoryTimeResource {
 
     private static Logger LOG = LoggerFactory.getLogger(StoryTimeResource.class);
 
-//    private StoryRepository repo = StoryRepository.getInstance();
-    private StoryController ctrl = new StoryController();
-
     @GET
     public String ping() {
-        return "The StoryTime server is ready for action.";
+        return "pong";
     }
 
     /**

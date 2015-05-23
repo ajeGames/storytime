@@ -33,6 +33,7 @@ public class AdventureRepository {
     }
 
     public void setPersistence(AdventurePersistence persistenceImpl) {
+        LOG.info("Setting persistence mechanism");
         if (persistenceImpl == null) {
             throw new IllegalArgumentException("Persistence mechanism cannot be null");
         }
@@ -42,17 +43,20 @@ public class AdventureRepository {
 
     public void loadAdventures() {
         List<Adventure> adventures = storage.loadAdventures();
+        LOG.info("Loading " + adventures.size() + " adventures");
         for (Adventure adv : adventures) {
             addAdventure(adv);
         }
     }
 
     public void saveAdventure(String key) {
+        LOG.info("Saving adventure: " + key);
         Adventure adv = getAdventure(key);
         this.storage.saveAdventure(adv);
     }
 
     public Adventure addAdventure(Adventure adv) {
+        LOG.info("Adding adventure: " + adv.getKey());
         // assign key if needed
         String tempKey = adv.getKey();
         if (tempKey == null) {
@@ -70,10 +74,13 @@ public class AdventureRepository {
     }
 
     public void deleteAdventure(String key) {
+        LOG.info("Deleting adventure: " + key);
+        storage.deleteAdventure(getAdventure(key));
         adventures.remove(key);
     }
 
     public List<Adventure> getAllAdventures() {
+        LOG.info("Retrieving full list of adventures");
         List<Adventure> all = new ArrayList<Adventure>();
         all.addAll(adventures.values());
         return all;
