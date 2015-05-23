@@ -1,1 +1,14 @@
-{"key":"x2wrflbt","title":"a title","author":"an author","tagLine":"why you want to read it","description":"what it's about","firstChapter":{"id":1,"teaser":null,"heading":null,"prose":null,"nextChapterOptions":[]}}
+{
+  "key": "x2wrflbt",
+  "title": "a title",
+  "author": "an author",
+  "tagLine": "why you want to read it",
+  "description": "what it's about",
+  "firstChapter": {
+    "id": 1,
+    "teaser": null,
+    "heading": null,
+    "prose": null,
+    "nextChapterOptions": []
+  }
+}
