@@ -1,3 +1,7 @@
+.catalog {
+  margin-right: 20em;
+}
+
 .heading {
   margin: 0 0 0.5em 0;
   padding: 0;
@@ -7,19 +11,14 @@
   border: groove silver 5px;
   padding: 1em;
   margin: 1em;
-  background-color: aquamarine;
+  background-color: aliceblue;
 }
 
 .scroller {
-  border: dotted black 1px;
+  border: dotted black 2px;
   height: 60%;
   overflow-y: auto;
   background-color: white;
-}
-
-.storyListItem {
-  margin: 0.5em;
-  border-bottom: dotted lightgray 1px;
 }
 
 .storyPanel {
@@ -29,8 +28,20 @@
   background-color: lightblue;
 }
 
-.storyTitle {
-  font-style: italic;
+#storyList {
+  padding-bottom: 1em;
+}
+
+.summary {
+  padding: 1em 1em 0 1em;
+}
+
+.title {
+  font-weight: bold;
+  font-size: large;
+}
+
+.author {
   font-size: large;
 }
 
@@ -40,6 +51,18 @@
   background-color: white;
 }
 
-.teaser {
-  width: 50em;
+.tagline {
+  margin: 0.5em 3em;
+  font-style: italic;
+}
+
+.description {
+  border: dotted darkgray 1px;
+  padding: 0.5em;
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+}
+
+#controls {
+  margin: 1em 2em;
 }
