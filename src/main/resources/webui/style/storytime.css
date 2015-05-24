@@ -81,6 +81,17 @@ button {
   overflow-y: scroll;
 }
 
+#editor {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 1em;
+  border: groove silver 5px;
+}
+
+.editorPanel {
+  margin: 1em;
+  padding: 1em;
+}
+
 #prose {
 
 }
@@ -95,8 +106,8 @@ button {
   margin: 0.5em 0;
 }
 
-input {
-  font-size: medium;
+input, textarea {
+  font-size: small;
 }
 
 label {
@@ -104,6 +115,6 @@ label {
 }
 
 textarea {
-  width: 20em;
+  width: 30em;
   height: 10em;
 }

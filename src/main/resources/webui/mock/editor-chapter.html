@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Story Editor</title>
+    <link rel="stylesheet" type="text/css" href="../style/storytime.css"/>
+</head>
+<body>
+<div id="editor">
+    <div class="editorPanel">
+        <div><span class="title">A Tale of Two Cities</span> <span class="author">by Charles Dickens</span>
+            <button>Edit Story Information</button> (<a href="editor.html">Go</a>) </div>
+        <div id="chapter">
+            <div class="header">Chapter Information</div>
+
+            <div><label>Heading: <input type="text" id="chapterTitle" value="A Tale of Two Cities"/></label></div>
+            <div><label>Teaser: <input type="text" id="teaser"
+                                       value="It was the best of stories, it was the worst of stories..."/></label>
+            </div>
+            <div><label>Prose: <textarea id="prose">
+         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel ultricies mi. Proin ipsum lorem, laoreet eget interdum id, condimentum at libero. Pellentesque convallis vel dolor non dictum. Sed ullamcorper, justo sit amet convallis viverra, nulla diam rutrum est, at tempor quam odio sit amet diam. Fusce tortor augue, bibendum non porttitor ut, feugiat non odio. Cras sagittis augue id eros egestas tristique. In nec tincidunt purus, et imperdiet massa. Cras tempor nunc augue. Nam fringilla vel dui at porta. Etiam imperdiet massa sed pellentesque vulputate. Praesent a orci in turpis interdum blandit. Sed porta congue magna a luctus. Phasellus tincidunt, nulla at lobortis lacinia, augue justo porttitor leo, nec tincidunt libero nulla et justo. Etiam sed molestie arcu. Aliquam tincidunt urna at lacus sodales, sit amet venenatis neque consequat.
+        </textarea></label></div>
+            <div>
+                <button>Update Chapter Information</button>
+            </div>
+            <div id="choices">
+                <div class="nextChapterOption">Go to the right.
+                    <button>Edit Chapter</button>
+                </div>
+                <div><label>New Option: <input type="text" id="nextChapter" value="Go to the left."/></label>
+                    <button>Add Chapter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer"><a href="index.html">Home</a></div>
+</body>
+</html>
