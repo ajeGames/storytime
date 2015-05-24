@@ -60,6 +60,7 @@ button {
 }
 
 #story {
+  font-family: Arial, Helvetica, sans-serif;
   margin: 1em;
   border: groove silver 5px;
   padding: 1em;
@@ -92,4 +93,17 @@ button {
 
 .nextChapterOption {
   margin: 0.5em 0;
+}
+
+input {
+  font-size: medium;
+}
+
+label {
+  vertical-align: top;
+}
+
+textarea {
+  width: 20em;
+  height: 10em;
 }
