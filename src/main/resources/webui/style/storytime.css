@@ -1,5 +1,5 @@
-.catalog {
-  margin-right: 20em;
+#catalog {
+  margin-right: 5em;
 }
 
 .heading {
@@ -14,13 +14,12 @@
   background-color: aliceblue;
 }
 
-.scroller {
-  height: 60%;
-  overflow-y: auto;
-}
-
 #storyList {
-  padding-bottom: 1em;
+  border-top: solid lightgrey 1px;
+  border-bottom: solid lightgrey 1px;
+  margin: 0.5em 0;
+  overflow-y: auto;
+  height: 30em;
 }
 
 .summary {
@@ -53,5 +52,9 @@
 }
 
 #controls {
-  margin: 0 2em;
+  margin: 1em 0 0 2em;
+}
+
+button {
+  font-family: cursive;
 }
