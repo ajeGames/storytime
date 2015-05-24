@@ -15,17 +15,8 @@
 }
 
 .scroller {
-  border: dotted black 2px;
   height: 60%;
   overflow-y: auto;
-  background-color: white;
-}
-
-.storyPanel {
-  border: groove silver 5px;
-  margin: 1em;
-  padding: 1em;
-  background-color: lightblue;
 }
 
 #storyList {
@@ -33,7 +24,10 @@
 }
 
 .summary {
+  border: dotted black 2px;
   padding: 1em 1em 0 1em;
+  background-color: white;
+  margin-bottom: 0.5em;
 }
 
 .title {
@@ -43,12 +37,6 @@
 
 .author {
   font-size: large;
-}
-
-.scenePanel {
-  margin-top: 1em;
-  padding: 1em;
-  background-color: white;
 }
 
 .tagline {
@@ -61,8 +49,9 @@
   padding: 0.5em;
   margin-left: 1em;
   margin-bottom: 0.5em;
+  background-color: lavender;
 }
 
 #controls {
-  margin: 1em 2em;
+  margin: 0 2em;
 }
