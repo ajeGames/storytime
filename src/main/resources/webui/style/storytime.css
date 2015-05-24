@@ -2,7 +2,7 @@
   margin-right: 5em;
 }
 
-.heading {
+.header {
   margin: 0 0 0.5em 0;
   padding: 0;
 }
@@ -57,4 +57,39 @@
 
 button {
   font-family: cursive;
+}
+
+#story {
+  margin: 1em;
+  border: groove silver 5px;
+  padding: 1em;
+}
+
+#heading {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: large;
+}
+
+#chapter {
+  padding: 1em;
+}
+
+#readerPanel {
+  height: 30em;
+  overflow-y: scroll;
+}
+
+#prose {
+
+}
+
+#choices {
+  margin: 1em 0.5em 0.5em 0.5em;
+  border: dotted silver 1px;
+  padding: 0.5em;
+}
+
+.nextChapterOption {
+  margin: 0.5em 0;
 }
