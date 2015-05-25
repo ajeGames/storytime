@@ -18,6 +18,10 @@
           });
     }
 
+    function loadStory(key) {
+
+    }
+
     function applyRemoteData(stories) {
       vm.catalog = stories;
     }

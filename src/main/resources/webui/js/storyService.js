@@ -18,6 +18,14 @@
       return (request.then(handleSuccess, handleError));
     }
 
+    function getStory(key) {
+      var request = $http({
+        method: "get",
+        url: "api/adventure/{key}"
+      });
+      return (request.then(handleSuccess, handleError));
+    }
+
     function deleteStory(key) {
       var request = $http({
         method: "delete",

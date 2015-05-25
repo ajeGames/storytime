@@ -1,14 +1,14 @@
 {
   "key": "rgn7ujai",
-  "title": "a title",
-  "author": "an author",
-  "tagLine": "why you want to read it",
-  "description": "what it's about",
+  "title": "The Cave",
+  "author": "Bubba Bubba Gump",
+  "tagLine": "Can you find the treasure?",
+  "description": "Explore an undiscovered cave and see what wonders lie below.  Can you live to tell?",
   "firstChapter": {
     "id": 1,
-    "teaser": null,
-    "heading": null,
-    "prose": null,
+    "teaser": "Grand Opening",
+    "heading": "Grand Opening",
+    "prose": "As you are walking through the woods, you come across an outcrop of rock.  Looking more closely, you notice an opening into the ground.  It seems as if you can step right in.",
     "nextChapterOptions": []
   }
 }

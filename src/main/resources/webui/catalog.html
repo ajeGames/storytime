@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html ng-app="StoryTime">
 <head lang="en">
-  <meta charset="UTF-8">
-  <title>Catalog of Stories</title>
-  <link rel="stylesheet" type="text/css" href="storytime.css" />
+    <meta charset="UTF-8">
+    <title>Catalog of Stories</title>
+    <link rel="stylesheet" type="text/css" href="style/storytime.css"/>
 </head>
 <body>
-  <script src="js/angular.min.js"></script>
-  <script src="js/app.module.js"></script>
-  <script src="js/storyService.js"></script>
-  <script src="js/catalogController.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/app.module.js"></script>
+<script src="js/storyService.js"></script>
+<script src="js/catalogController.js"></script>
 
-  <div ng-controller="CatalogController as catCtrl">
+<div id="catalog" ng-controller="CatalogController as catCtrl">
     <div class="storyListPanel">
-      <h2 class="heading">Catalog of Stories</h2>
-      <div class="scroller">
-        <div ng-repeat="story in catCtrl.catalog" class="storyListItem">
-          <p><a href="#" ng-click="load(story.key)"><em>{{story.title}}</em></a>, by {{story.author}}. ({{story.key}})
-            <button ng-click="edit(story.key)">Edit</button> <button ng-click="catCtrl.deleteStory(story.key)">Delete</button></p>
-          <p>"{{story.tagLine}}"</p>
-          <p>{{story.description}}</p>
+        <h2 class="header">Choose a Story</h2>
+
+        <div id="storyList">
+            <div class="summary" ng-repeat="story in catCtrl.catalog" class="storyListItem">
+                <div><span class="title"><a href="." ng-click="load(story.key)">{{story.title}}</a></span>
+                    <span class="author">by {{story.author}}</span></div>
+                <div class="tagline">{{story.tagLine}}</div>
+                <div class="description">{{story.description}}</div>
+            </div>
         </div>
-      </div>
-      <div><button ng-click="catCtrl.startNewStory()">Start A New Story</button></div>
+        <div id="controls">
+            <button ng-click="startNewStory()">Start A New Story</button> (<a href="editor-new.html">Go</a>)
+        </div>
     </div>
-  </div>
+</div>
 </body>
 </html>
