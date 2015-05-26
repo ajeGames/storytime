@@ -9,9 +9,24 @@
 
         function StoryController($routeParams, StoryService) {
             var vm = this;
+            vm.currentStory = {};
+            vm.currentChapter = {};
             vm.storyKey = $routeParams.key;
-            vm.currentStory = StoryService.getStory($routeParams.key);
-            vm.currentChapter = vm.currentStory.firstChapter;
+
+            getStory($routeParams.key);
+
+            function getStory(key) {
+                StoryService.getStory(key).then(
+                    function (story) {
+                        applyRemoteData(story);
+                    });
+            }
+
+            function applyRemoteData(story) {
+                vm.currentStory = story;
+                vm.currentChapter = story.firstChapter;
+            }
+
         }
 
 })();
