@@ -20,10 +20,11 @@
     }
 
     function getStory(key) {
-      var request = $http({
-        method: "get",
-        url: "../api/adventure/{key}"
-      });
+        var goTo = "../api/adventure/" + key
+        var request = $http({
+            method: "get",
+            url: goTo
+        });
       return (request.then(handleSuccess, handleError));
     }
 

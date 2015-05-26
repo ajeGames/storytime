@@ -8,7 +8,8 @@
         StoryController.$inject = ['$routeParams', 'StoryService'];
 
         function StoryController($routeParams, StoryService) {
-            vm = this;
+            var vm = this;
+            vm.storyKey = $routeParams.key;
             vm.currentStory = StoryService.getStory($routeParams.key);
             vm.currentChapter = vm.currentStory.firstChapter;
         }
