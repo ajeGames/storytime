@@ -7,7 +7,8 @@
 
   function StoryService($http, $q) {
     return ({
-      fetchAllStories: fetchAllStories
+      fetchAllStories: fetchAllStories,
+      getStory: getStory
     });
 
     function fetchAllStories() {
