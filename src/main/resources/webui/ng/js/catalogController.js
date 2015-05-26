@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-      .module('StoryTime')
-      .controller('CatalogController', CatalogController);
+      .module('storyTimeApp')
+      .controller('CatalogCtrl', CatalogController);
 
   function CatalogController(StoryService) {
     var vm = this;

@@ -2,13 +2,22 @@
   'use strict';
 
   angular
-      .module('StoryTime', [])
-      .config(['$routeProvider', function($routeProvider) {
-        $routeProvider
-            .when('/reader/:key', {
-                controller: 'CatalogController',
-                templateUrl: ''
+      .module('storyTimeApp', ['ngRoute'])
+
+      .config(['$routeProvider',
+        function($routeProvider) {
+          $routeProvider
+            .when('/catalog', {
+              templateUrl: 'catalog.html',
+              controller: 'CatalogCtrl'
             })
-      }
+            .when('/reader/:key', {
+                templateUrl: 'reader.html'
+                controller: 'StoryCtrl',
+            })
+            .otherwise({
+              redirectTo: '/catalog'
+            });
+      });
 
 })();

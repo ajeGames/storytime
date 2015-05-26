@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('StoryTime')
+      .module('storyTimeApp')
       .controller('EditorCtrl', EditorController);
 
   function EditorController(StoryService) {

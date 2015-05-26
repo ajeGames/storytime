@@ -1,53 +1,46 @@
-<!DOCTYPE html>
-<html ng-app="StoryTime">
-<head lang="en">
-  <meta charset="UTF-8">
-  <title>Storytime - Authoring</title>
-  <link rel="stylesheet" type="text/css" href="storytime.css" />
-</head>
-<body>
-  <script src="js/angular.min.js"></script>
-  <script src="js/app.module.js"></script>
-  <script src="js/storyService.js"></script>
-  <script src="js/storyController.js"></script>
-
-  <!-- list of stories -->
-  <div ng-controller="StoryCtrl as storyCtrl">
-
+<div>
     <!-- create and edit a single story -->
     <div class="storyPanel">
-      <h2 class="heading">Active Story</h2>
-      <div  ng-show="storyCtrl.isEdit">
-        <p>Key: {{storyCtrl.draft.key}}</p>
-        <p><label>Story Title:<br/><input ng-model="storyCtrl.draft.title" type="text" /></label></p>
-        <p><label>Author:<br/><input ng-model="storyCtrl.draft.author" type="text" /></label></p>
-        <p><label>Tagline:<br/><textarea ng-model="storyCtrl.draft.tagLine" cols="80" rows="4"></textarea></label></p>
-        <p><button ng-click="storyCtrl.save()">Save</button> <button ng-click="storyCtrl.clear()">Clear</button></p>
-      </div>
-      <div ng-hide="storyCtrl.isEdit">
-        <p><span class="storyTitle">{{storyCtrl.draft.title}}</span> by {{storyCtrl.draft.author}}</p>
-        <p>"{{storyCtrl.draft.tagLine}}"</p>
-        <div><button ng-click="storyCtrl.edit(storyCtrl.draft.key)">Edit</button>
-          <button ng-click="storyCtrl.clear()">Clear</button></div>
+        <h2 class="heading">Active Story</h2>
 
-        <div class="scenePanel">
-          <h2 class="heading">Opening Scene</h2>
-          <div>
-            <p>({{storyCtrl.draftScene.key}})
-              <label>Opening Scene Teaser: <input ng-model="storyCtrl.draftScene.teaser" type="text" size="80" class="teaser" /></label></p>
-            <p><label>Scene:<br/><textarea ng-model="storyCtrl.draftScene.prose" cols="80" rows="4"></textarea></label></p>
-            <p><button ng-click="storyCtrl.updateScene()">Update</button></p>
-            <p><input ng-model="storyCtrl.nextSceneTeaser" type="text" class="teaser" />
-              <button ng-click="storyCtrl.addSceneOption()">Add Next Scene</button></p>
-            <div ng-repeat="nextScene in storyCtrl.draftScene.nextSceneOptions">
-              <p>({{storyCtrl.nextScene.key}}) {{storyCtrl.nextScene.teaser}}
-                <button ng-click="storyCtrl.removeSceneOption(storyCtrl.nextScene.key)">Remove Scene</button></p>
-            </div>
-          </div>
+        <div ng-show="storyCtrl.isEdit">
+            <p>Key: {{storyCtrl.draft.key}}</p>
+            <p><label>Story Title:<br/><input ng-model="storyCtrl.draft.title" type="text"/></label></p>
+            <p><label>Author:<br/><input ng-model="storyCtrl.draft.author" type="text"/></label></p>
+            <p><label>Tagline:<br/><textarea ng-model="storyCtrl.draft.tagLine" cols="80" rows="4"></textarea></label></p>
+            <p><button ng-click="storyCtrl.save()">Save</button> <button ng-click="storyCtrl.clear()">Clear</button></p>
         </div>
-      </div>
-    </div>
-  </div>
+        <div ng-hide="storyCtrl.isEdit">
+            <p><span class="storyTitle">{{storyCtrl.draft.title}}</span> by {{storyCtrl.draft.author}}</p>
+            <p>"{{storyCtrl.draft.tagLine}}"</p>
+            <div>
+                <button ng-click="storyCtrl.edit(storyCtrl.draft.key)">Edit</button>
+                <button ng-click="storyCtrl.clear()">Clear</button>
+            </div>
+            <div class="scenePanel">
+                <h2 class="heading">Opening Scene</h2>
+                <div>
+                    <p>({{storyCtrl.draftScene.key}})
+                        <label>Opening Scene Teaser: <input ng-model="storyCtrl.draftScene.teaser" type="text" size="80"
+                                                            class="teaser"/></label></p>
 
-</body>
-</html>
+                    <p><label>Scene:<br/><textarea ng-model="storyCtrl.draftScene.prose" cols="80" rows="4"></textarea></label>
+                    </p>
+
+                    <p>
+                        <button ng-click="storyCtrl.updateScene()">Update</button>
+                    </p>
+                    <p><input ng-model="storyCtrl.nextSceneTeaser" type="text" class="teaser"/>
+                        <button ng-click="storyCtrl.addSceneOption()">Add Next Scene</button>
+                    </p>
+                    <div ng-repeat="nextScene in storyCtrl.draftScene.nextSceneOptions">
+                        <p>({{storyCtrl.nextScene.key}}) {{storyCtrl.nextScene.teaser}}
+                            <button ng-click="storyCtrl.removeSceneOption(storyCtrl.nextScene.key)">Remove Scene
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('StoryTime')
+      .module('storyTimeApp')
       .controller('StoryCtrl', StoryController);
 
   function StoryController(StoryService) {

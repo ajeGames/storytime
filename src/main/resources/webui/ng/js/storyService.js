@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('StoryTime')
+      .module('storyTimeApp')
       .service('StoryService', StoryService);
 
   function StoryService($http, $q) {
