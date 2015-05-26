@@ -1,9 +1,15 @@
-'use strict';
+(function() {
+    'use strict';
 
-storyTimeApp
-    .controller('StoryCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
+    angular
+        .module('storyTimeApp')
+        .controller('StoryController', StoryController);
 
-        $scope.currentStory = StoryService.getStory($routeParams.key);
-        $scope.currentChapter = currentStory.firstChapter;
+        StoryController.$inject = ['$routeParams', 'StoryService'];
 
-}]);
+        function StoryController($routeParams, StoryService) {
+            $scope.currentStory = StoryService.getStory($routeParams.key);
+            $scope.currentChapter = currentStory.firstChapter;
+        }
+
+})();

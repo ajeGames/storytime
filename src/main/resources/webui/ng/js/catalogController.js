@@ -1,19 +1,27 @@
-'use strict';
+(function() {
+    'use strict';
 
-storyTimeApp
-    .controller('CatalogCtrl', ['$scope', function($scope) {
+    angular
+        .module('storyTimeApp')
+        .controller('CatalogController', CatalogController);
 
-        $scope.catalog = loadCatalog();
+    CatalogController.$inject = ['StoryService'];
+
+    function CatalogController(StoryService) {
+
+        var vm = this;
+        vm.catalog = loadCatalog();
 
         function loadCatalog() {
-          StoryService.fetchAllStories().then(
-              function (stories) {
-                applyRemoteData(stories);
-              });
+            StoryService.fetchAllStories().then(
+                function (stories) {
+                    applyRemoteData(stories);
+                });
         }
 
         function applyRemoteData(stories) {
-          $scope.catalog = stories;
+            vm.catalog = stories;
         }
+    }
 
-}]);
+})();
