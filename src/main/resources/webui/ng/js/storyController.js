@@ -1,24 +1,9 @@
-(function () {
-  'use strict';
+'use strict';
 
-  angular
-      .module('storyTimeApp')
-      .controller('StoryCtrl', StoryController);
+storyTimeApp
+    .controller('StoryCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
 
-  function StoryController(StoryService) {
-    var vm = this;
-    vm.currentStory = {};
-    vm.currentChapter = {};
+        $scope.currentStory = StoryService.getStory($routeParams.key);
+        $scope.currentChapter = currentStory.firstChapter;
 
-    vm.loadStory = function (key) {
-        currentStory = StoryService.getStory(key);
-        currentChapter = currentStory.firstChapter;
-    };
-
-    vm.clearStory = function () {
-      vm.currentStory = {};
-      vm.currentChapter = {};
-    };
-  };
-
-})();
+}]);
