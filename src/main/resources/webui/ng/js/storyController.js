@@ -27,6 +27,9 @@
                 vm.currentChapter = story.firstChapter;
             }
 
+            function getChapter(id) {
+                StoryService.getChapter(vm.currentStory.key, id);
+            }
         }
 
 })();
