@@ -1,58 +1,39 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  angular
-      .module('storyTimeApp')
-      .service('StoryService', StoryService);
+    angular
+        .module('storyTimeApp')
+        .factory('storyService', storyService);
 
-  function StoryService() {
-    return ({
-      fetchAllStories: fetchAllStories,
-      getStory: getStory
-    });
+    storyService.$inject = ['connectService'];
 
-    function fetchAllStories() {
-      var request = $http({
-        method: "get",
-        url: "../api/storytime/stories"
-      });
-      return (request.then(handleSuccess, handleError));
+    function storyService(connectService) {
+        var chapters = {};
+        var story = {};
+        return {
+            getChapter: getChapter,
+            getStory: getStory
+        };
+
+        function getStory(storyKey) {
+            if (storyKey != story.key) {
+                loadStory(storyKey);
+            }
+            return story;
+        }
+
+        function loadStory(storyKey) {
+            // TODO implement
+            // connectService.fetchStory(storyKey).then()...
+        }
+
+        function indexSubChapters(chapter) {
+            // TODO implement
+        }
+
+        function getChapter(chapterId) {
+            // TODO implement
+        }
     }
-
-    function getStory(key) {
-        var goTo = "../api/adventure/" + key
-        var request = $http({
-            method: "get",
-            url: goTo
-        });
-      return (request.then(handleSuccess, handleError));
-    }
-
-    function deleteStory(key) {
-      var request = $http({
-        method: "delete",
-        url: "../api/adventure/{key}"
-      });
-    }
-
-    /// "PRIVATE" FUNCTIONS
-
-    // unwrap application data
-    function handleError(response) {
-
-      // handle unexpected format
-      if (!angular.isObject(response.data) || !response.data.message) {
-        return ( $q.reject("An unknown error occurred.") );
-      }
-
-      // Otherwise, use expected error message.
-      return ( $q.reject(response.data.message) );
-    }
-
-    // unwrap application data
-    function handleSuccess(response) {
-      return ( response.data );
-    }
-  }
 
 })();
