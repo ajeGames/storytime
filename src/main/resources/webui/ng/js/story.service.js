@@ -19,7 +19,7 @@
         var story = {};
 
         function getStory(storyKey) {
-            if (storyKey != story.key) {
+            if (story == {} || story.key != storyKey) {
                 loadStory(storyKey);
             }
             return story;
@@ -29,16 +29,22 @@
             connectService.fetchStory(storyKey).then(
                 function(storyIn) {
                     story = storyIn;
+                    indexSubChapters(story.firstChapter);
                 }
             };  // TODO deal with possible async problems
         }
 
         function indexSubChapters(chapter) {
-            // TODO implement
+            if (chapter != null && chapter.id != null) {
+                chapters[chapter.id] = chapter;
+                for (var i=0, tot=chapters.nextChapterOptions.length; i < tot; i++) {
+                    indexSubChapters(chapters.nextChapterOptions[i]);
+                }
+            }
         }
 
         function getChapter(chapterId) {
-            // TODO implement
+            return chapters[chapterId];
         }
     }
 
