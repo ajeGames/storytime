@@ -1,3 +1,5 @@
+/* handles one story at a time */
+
 (function () {
     'use strict';
 
@@ -8,12 +10,13 @@
     storyService.$inject = ['connectService'];
 
     function storyService(connectService) {
-        var chapters = {};
-        var story = {};
         return {
             getChapter: getChapter,
             getStory: getStory
         };
+
+        var chapters = {};
+        var story = {};
 
         function getStory(storyKey) {
             if (storyKey != story.key) {
@@ -23,8 +26,11 @@
         }
 
         function loadStory(storyKey) {
-            // TODO implement
-            // connectService.fetchStory(storyKey).then()...
+            connectService.fetchStory(storyKey).then(
+                function(storyIn) {
+                    story = storyIn;
+                }
+            };  // TODO deal with possible async problems
         }
 
         function indexSubChapters(chapter) {

@@ -5,19 +5,17 @@
         .module('storyTimeApp')
         .controller('StoryController', StoryController);
 
-        StoryController.$inject = ['$routeParams', 'StoryService'];
+        StoryController.$inject = ['$routeParams', 'storyService'];
 
-        function StoryController($routeParams, StoryService) {
+        function StoryController($routeParams, storyService) {
             var vm = this;
             vm.currentStory = {};
             vm.currentChapter = {};
-            vm.storyKey = $routeParams.storyKey;
-            vm.chapterId = $routeParams.chapterId;
 
             getStory($routeParams.key);
 
             function getStory(key) {
-                StoryService.getStory(key).then(
+                storyService.getStory(key).then(
                     function (story) {
                         applyRemoteData(story);
                     });
@@ -29,7 +27,7 @@
             }
 
             function getChapter(chapterId) {
-                StoryService.getChapter(vm.currentStory.key, chapterId);
+                storyService.getChapter(chapterId);
             }
         }
 

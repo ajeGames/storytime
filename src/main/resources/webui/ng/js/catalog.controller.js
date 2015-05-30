@@ -5,15 +5,15 @@
         .module('storyTimeApp')
         .controller('CatalogController', CatalogController);
 
-    CatalogController.$inject = ['StoryService'];
+    CatalogController.$inject = ['connectService'];
 
-    function CatalogController(StoryService) {
+    function CatalogController(connectService) {
 
         var vm = this;
         vm.catalog = loadCatalog();
 
         function loadCatalog() {
-            StoryService.fetchAllStories().then(
+            connectService.fetchAllStories().then(
                 function (stories) {
                     applyRemoteData(stories);
                 });
