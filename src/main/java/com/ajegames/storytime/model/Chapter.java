@@ -81,15 +81,14 @@ public class Chapter {
         return nextChapterOptions;
     }
 
-    public void setNextChapterOptions(List<Chapter> nextChapterOptions) {
-        if (nextChapterOptions == null) {
+    public void setNextChapterOptions(List<Chapter> options) {
+        if (options == null) {
             throw new IllegalArgumentException("Expecting non-null list of chapters");
         }
-        nextChapterOptions.clear();
-        for (Chapter chap : nextChapterOptions) {
-            nextChapterOptions.add(chap);
+        this.nextChapterOptions.clear();
+        for (Chapter chap : options) {
+            addNextChapter(chap);
         }
-        this.nextChapterOptions = nextChapterOptions;
     }
 
     public void addNextChapter(Chapter next) {
