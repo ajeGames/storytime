@@ -11,7 +11,8 @@
             var vm = this;
             vm.currentStory = {};
             vm.currentChapter = {};
-            vm.storyKey = $routeParams.key;
+            vm.storyKey = $routeParams.storyKey;
+            vm.chapterId = $routeParams.chapterId;
 
             getStory($routeParams.key);
 
@@ -27,8 +28,8 @@
                 vm.currentChapter = story.firstChapter;
             }
 
-            function getChapter(id) {
-                StoryService.getChapter(vm.currentStory.key, id);
+            function getChapter(chapterId) {
+                StoryService.getChapter(vm.currentStory.key, chapterId);
             }
         }
 

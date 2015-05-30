@@ -7,8 +7,8 @@
                 {{vm.currentChapter.prose}}
             </div>
             <div id="choices">
-                <div class="nextChapterOption"><a href="reader-winner.html">Go to the right.</a></div>
-                <div class="nextChapterOption"><a href="reader-loser.html">Go to the left.</a></div>
+                <div ng-repeat="option in vm.currentChapter.nextChapterOptions" class="nextChapterOption">
+                    <a href="#/reader/{{story.key}}/{{option.id}}">{{option.teaser}}</a></div>
             </div>
         </div>
     </div>
