@@ -1,6 +1,7 @@
 package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Adventure;
+import com.ajegames.storytime.model.Chapter;
 import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -38,7 +38,6 @@ public class JSONFileAdventurePersistence implements AdventurePersistence {
         }
     }
 
-    @Override
     public List<Adventure> loadAdventures() {
         List<Adventure> out = new ArrayList<Adventure>();
         File[] files = pathToFiles.listFiles();
@@ -55,7 +54,6 @@ public class JSONFileAdventurePersistence implements AdventurePersistence {
         return out;
     }
 
-    @Override
     public void saveAdventure(Adventure adventure) {
         try {
             new ObjectMapper().writeValue(buildFilename(adventure.getKey()), adventure);
@@ -68,7 +66,6 @@ public class JSONFileAdventurePersistence implements AdventurePersistence {
         return new File(pathToFiles, baseName + ".json");
     }
 
-    @Override
     public boolean deleteAdventure(Adventure adventure) {
         File fileToDelete = buildFilename(adventure.getKey());
         return fileToDelete.delete();

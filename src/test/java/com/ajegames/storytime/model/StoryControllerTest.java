@@ -27,7 +27,6 @@ public class StoryControllerTest {
         Assert.assertNotNull(adv.getFirstChapter());
         Assert.assertNotNull(adv.getFirstChapter().getId());
         Assert.assertNull(adv.getFirstChapter().getHeading());
-        Assert.assertEquals(adv.getFirstChapter().getStory(), adv);
     }
 
     @Test
@@ -132,7 +131,6 @@ public class StoryControllerTest {
         Assert.assertNull(chapterFound.getTeaser());
         Assert.assertNull(chapterFound.getHeading());
         Assert.assertNull(chapterFound.getProse());
-        Assert.assertEquals(chapterFound.getStory(), adv);
     }
 
     @Test

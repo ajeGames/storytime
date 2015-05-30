@@ -1,18 +1,11 @@
 package com.ajegames.storytime.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dave on 5/16/15.
- */
 public class Chapter {
-
-    @JsonIgnore
-    private Adventure story;
 
     @JsonProperty
     private Integer id;
@@ -35,14 +28,8 @@ public class Chapter {
 
     public static Chapter create(Adventure story, Integer id) {
         Chapter out = new Chapter();
-        out.story = story;
         out.setId(id);
         return out;
-    }
-
-    @JsonIgnore
-    public Adventure getStory() {
-        return story;
     }
 
     public Integer getId() {
@@ -102,7 +89,6 @@ public class Chapter {
 
         Chapter chapter = (Chapter) o;
 
-        if (story != null ? !story.equals(chapter.story) : chapter.story != null) return false;
         if (id != null ? !id.equals(chapter.id) : chapter.id != null) return false;
         if (teaser != null ? !teaser.equals(chapter.teaser) : chapter.teaser != null) return false;
         if (heading != null ? !heading.equals(chapter.heading) : chapter.heading != null) return false;
@@ -113,8 +99,7 @@ public class Chapter {
 
     @Override
     public int hashCode() {
-        int result = story != null ? story.hashCode() : 0;
-        result = 31 * result + (id != null ? id.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (teaser != null ? teaser.hashCode() : 0);
         result = 31 * result + (heading != null ? heading.hashCode() : 0);
         result = 31 * result + (prose != null ? prose.hashCode() : 0);
