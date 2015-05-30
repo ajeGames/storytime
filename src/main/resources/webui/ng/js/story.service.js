@@ -5,7 +5,7 @@
       .module('storyTimeApp')
       .service('StoryService', StoryService);
 
-  function StoryService($http, $q) {
+  function StoryService() {
     return ({
       fetchAllStories: fetchAllStories,
       getStory: getStory
