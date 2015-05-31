@@ -2,6 +2,7 @@ package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.model.Story;
 import com.ajegames.storytime.model.CatalogController;
+import com.ajegames.storytime.model.view.StorySummary;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,10 +36,9 @@ public class StoryTimeResource {
     @GET
     @Timed
     @Path("stories")
-    public List<Story> findStories() {
+    public List<StorySummary> findStories() {
         /*
          * TODO: introduce criteria to refine search
-         * TODO: limit results returned -- think through how to cache for incremental fetch?
          */
         LOG.info("Find stories: all");
         return new CatalogController().getAllStories();
