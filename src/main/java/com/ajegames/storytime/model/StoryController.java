@@ -13,7 +13,7 @@ public class StoryController {
     private static Logger LOG = LoggerFactory.getLogger(StoryController.class);
 
     public Story createStory(String title, String author, String tagLine, String description) {
-        LOG.info("Creating a new adventure entitled: " + title);
+        LOG.info("Creating a new story entitled: " + title);
         Story in = Story.createNew(title, author, tagLine, description);
         Story out = repo.addStory(in);
         out.setFirstChapter(out.addChapter());
@@ -22,12 +22,12 @@ public class StoryController {
     }
 
     public Story getStory(String storyKey) {
-        LOG.info("Retrieving adventure with key: " + storyKey);
+        LOG.info("Retrieving story with key: " + storyKey);
         return repo.getStory(storyKey);
     }
 
     public Story updateStory(Story update) {
-        LOG.info("Updating adventure information: " + update.getKey());
+        LOG.info("Updating story information: " + update.getKey());
         Story adv = getStory(update.getKey());
         if (adv == null) {
             throw new IllegalArgumentException("Unable to find story to update");
@@ -49,13 +49,13 @@ public class StoryController {
     }
 
     public Chapter getChapter(String storyKey, Integer chapterId) {
-        LOG.info("Retrieving chapter " + chapterId + " for adventure " + storyKey);
+        LOG.info("Retrieving chapter " + chapterId + " for story " + storyKey);
         Story adv = repo.getStory(storyKey);
         return adv.getChapter(chapterId);
     }
 
     public Chapter updateChapter(String storyKey, Chapter update) {
-        LOG.info("Updating chapter " + update.getId() + " for adventure " + storyKey);
+        LOG.info("Updating chapter " + update.getId() + " for story " + storyKey);
         Chapter chap = getChapter(storyKey, update.getId());
         if (update.getTeaser() != null) {
             chap.setTeaser(update.getTeaser());
@@ -82,9 +82,9 @@ public class StoryController {
         return chap;
     }
 
-    public void deleteStory(String adventureKey) {
-        LOG.info("Deleting adventure: " + adventureKey);
-        repo.deleteStory(adventureKey);
+    public void deleteStory(String storyKey) {
+        LOG.info("Deleting story: " + storyKey);
+        repo.deleteStory(storyKey);
     }
 
     /**

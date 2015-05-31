@@ -1,7 +1,7 @@
 package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Story;
-import com.ajegames.storytime.model.AdventureTestUtil;
+import com.ajegames.storytime.model.StoryTestUtil;
 import com.ajegames.util.RandomString;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,9 +23,9 @@ public class JSONFileStoryPersistenceTest {
         Assert.assertTrue(path.isDirectory(), "Should have created directory for story files");
 
         // try saving
-        Story adv1 = AdventureTestUtil.generateAdventure();
+        Story adv1 = StoryTestUtil.generateStory();
         storage.saveStory(adv1);
-        Story adv2 = AdventureTestUtil.generateAdventure();
+        Story adv2 = StoryTestUtil.generateStory();
         storage.saveStory(adv2);
         Assert.assertEquals(path.listFiles().length, 2, "Expected to find story files");
 
@@ -50,8 +50,8 @@ public class JSONFileStoryPersistenceTest {
         Assert.assertEquals(stories.size(), 2);
 
         for (Story story : stories) {
-            String adventureKey = story.getKey();
-            Assert.assertTrue(adventureKey.equals("mvghheo8") || adventureKey.equals("ni7l0szw"));
+            String storyKey = story.getKey();
+            Assert.assertTrue(storyKey.equals("mvghheo8") || storyKey.equals("ni7l0szw"));
         }
     }
 }

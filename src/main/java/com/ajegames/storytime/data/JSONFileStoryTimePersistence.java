@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class JSONFileStoryTimePersistence implements StoryTimePersistence {
 
-    private static final String DEFAULT_FILEROOT = "adventure-files/";
+    private static final String DEFAULT_FILEROOT = "story-files/";
 
     private static Logger LOG = LoggerFactory.getLogger(JSONFileStoryTimePersistence.class);
 
@@ -33,8 +33,8 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
                 throw new RuntimeException("Unable to create path for story files.");
             }
         } else if (!this.pathToFiles.isDirectory()) {
-            LOG.error("Path to adventure files must point to a directory. " + pathToFiles);
-            throw new RuntimeException("Path to adventure files must point to a directory. " + pathToFiles);
+            LOG.error("Path to story files must point to a directory. " + pathToFiles);
+            throw new RuntimeException("Path to story files must point to a directory. " + pathToFiles);
         }
     }
 

@@ -56,7 +56,7 @@ public class StoryTimeRepository {
     }
 
     public Story addStory(Story story) {
-        LOG.info("Adding adventure: " + story.getKey());
+        LOG.info("Adding story: " + story.getKey());
         // assign key if needed
         String tempKey = story.getKey();
         if (tempKey == null) {

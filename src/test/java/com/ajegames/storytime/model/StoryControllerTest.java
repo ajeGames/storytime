@@ -135,8 +135,8 @@ public class StoryControllerTest {
 
     @Test
     public void testUpdateChapter() {
-        Story adv = ctrl.createStory("five", "five", "five", "five");
-        Chapter chap = adv.getFirstChapter();
+        Story story = ctrl.createStory("five", "five", "five", "five");
+        Chapter chap = story.getFirstChapter();
 
         Chapter update = new Chapter();
         update.setId(chap.getId());
@@ -144,77 +144,77 @@ public class StoryControllerTest {
         update.setHeading("update");
         update.setProse("update");
 
-        Chapter result = ctrl.updateChapter(adv.getKey(), update);
+        Chapter result = ctrl.updateChapter(story.getKey(), update);
         Assert.assertEquals(result.getTeaser(), "update");
         Assert.assertEquals(result.getHeading(), "update");
         Assert.assertEquals(result.getProse(), "update");
 
-        Chapter check = ctrl.getChapter(adv.getKey(), chap.getId());
+        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
         Assert.assertEquals(check, result);
     }
 
     @Test
     public void testUpdateChapterTeaser() {
-        Story adv = ctrl.createStory("five", "five", "five", "five");
-        Chapter chap = adv.getFirstChapter();
+        Story story = ctrl.createStory("five", "five", "five", "five");
+        Chapter chap = story.getFirstChapter();
 
         Chapter update = new Chapter();
         update.setId(chap.getId());
         update.setTeaser("update");
 
-        Chapter result = ctrl.updateChapter(adv.getKey(), update);
+        Chapter result = ctrl.updateChapter(story.getKey(), update);
         Assert.assertEquals(result.getTeaser(), "update");
         Assert.assertEquals(result.getHeading(), chap.getHeading());
         Assert.assertEquals(result.getProse(), chap.getProse());
 
-        Chapter check = ctrl.getChapter(adv.getKey(), chap.getId());
+        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
         Assert.assertEquals(check, result);
     }
 
     @Test
     public void testUpdateChapterHeading() {
-        Story adv = ctrl.createStory("five", "five", "five", "five");
-        Chapter chap = adv.getFirstChapter();
+        Story story = ctrl.createStory("five", "five", "five", "five");
+        Chapter chap = story.getFirstChapter();
 
         Chapter update = new Chapter();
         update.setId(chap.getId());
         update.setHeading("update");
 
-        Chapter result = ctrl.updateChapter(adv.getKey(), update);
+        Chapter result = ctrl.updateChapter(story.getKey(), update);
         Assert.assertEquals(result.getTeaser(), chap.getTeaser());
         Assert.assertEquals(result.getHeading(), "update");
         Assert.assertEquals(result.getProse(), chap.getProse());
 
-        Chapter check = ctrl.getChapter(adv.getKey(), chap.getId());
+        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
         Assert.assertEquals(check, result);
     }
 
     @Test
     public void testUpdateChapterProse() {
-        Story adv = ctrl.createStory("five", "five", "five", "five");
-        Chapter chap = adv.getFirstChapter();
+        Story story = ctrl.createStory("five", "five", "five", "five");
+        Chapter chap = story.getFirstChapter();
 
         Chapter update = new Chapter();
         update.setId(chap.getId());
         update.setProse("update");
 
-        Chapter result = ctrl.updateChapter(adv.getKey(), update);
+        Chapter result = ctrl.updateChapter(story.getKey(), update);
         Assert.assertEquals(result.getTeaser(), chap.getTeaser());
         Assert.assertEquals(result.getHeading(), chap.getHeading());
         Assert.assertEquals(result.getProse(), "update");
 
-        Chapter check = ctrl.getChapter(adv.getKey(), chap.getId());
+        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
         Assert.assertEquals(check, result);
     }
 
     @Test
     public void testCreateNextChapter() {
-        Story adv = ctrl.createStory("six", "six", "six", "six");
-        Chapter first = adv.getFirstChapter();
-        Chapter result = ctrl.addNextChapter(adv.getKey(), first.getId(), "Choose me!");
+        Story story = ctrl.createStory("six", "six", "six", "six");
+        Chapter first = story.getFirstChapter();
+        Chapter result = ctrl.addNextChapter(story.getKey(), first.getId(), "Choose me!");
 
-        first = ctrl.getStory(adv.getKey()).getFirstChapter();
-        Chapter check = ctrl.getChapter(adv.getKey(), result.getId());
+        first = ctrl.getStory(story.getKey()).getFirstChapter();
+        Chapter check = ctrl.getChapter(story.getKey(), result.getId());
         Assert.assertNotNull(check);
         Assert.assertNotNull(result);
         Assert.assertEquals(check, result);
@@ -224,17 +224,17 @@ public class StoryControllerTest {
 
     @Test
     public void testCreateChainOfNextChapters() {
-        Story adv = ctrl.createStory("seven", "seven", "seven", "seven");
-        String advKey = adv.getKey();
-        Chapter first = adv.getFirstChapter();
+        Story story = ctrl.createStory("seven", "seven", "seven", "seven");
+        String storyKey = story.getKey();
+        Chapter first = story.getFirstChapter();
         first.setTeaser("first level");
-        Chapter second = ctrl.addNextChapter(advKey, first.getId(), "second level");
-        Chapter third= ctrl.addNextChapter(advKey, second.getId(), "third level");
-        Chapter fourth= ctrl.addNextChapter(advKey, third.getId(), "fourth level");
+        Chapter second = ctrl.addNextChapter(storyKey, first.getId(), "second level");
+        Chapter third= ctrl.addNextChapter(storyKey, second.getId(), "third level");
+        Chapter fourth= ctrl.addNextChapter(storyKey, third.getId(), "fourth level");
 
-        Chapter secondCheck = ctrl.getChapter(advKey, second.getId());
-        Chapter thirdCheck = ctrl.getChapter(advKey, third.getId());
-        Chapter fourthCheck = ctrl.getChapter(advKey, fourth.getId());
+        Chapter secondCheck = ctrl.getChapter(storyKey, second.getId());
+        Chapter thirdCheck = ctrl.getChapter(storyKey, third.getId());
+        Chapter fourthCheck = ctrl.getChapter(storyKey, fourth.getId());
 
         Assert.assertEquals(secondCheck, second);
         Assert.assertEquals(thirdCheck, third);
@@ -243,12 +243,12 @@ public class StoryControllerTest {
 
     @Test
     public void testDeleteStory() {
-        Story adv = ctrl.createStory("eigth", "eigth", "eigth", "eigth");
-        Story check = ctrl.getStory(adv.getKey());
+        Story story = ctrl.createStory("eigth", "eigth", "eigth", "eigth");
+        Story check = ctrl.getStory(story.getKey());
         Assert.assertNotNull(check);
 
         ctrl.deleteStory(check.getKey());
-        check = ctrl.getStory(adv.getKey());
+        check = ctrl.getStory(story.getKey());
         Assert.assertNull(check);
     }
 

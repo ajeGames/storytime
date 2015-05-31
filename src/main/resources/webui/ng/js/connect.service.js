@@ -27,7 +27,7 @@
         }
 
         function fetchStory(key) {
-            var goTo = "../api/adventure/" + key;
+            var goTo = "../api/story/" + key;
             var request = $http({
                 method: "get",
                 url: goTo
@@ -36,7 +36,7 @@
         }
 
         function fetchChapters(storyKey, chapterIds) {
-            var goTo = "../api/adventure/" + storyKey;
+            var goTo = "../api/story/" + storyKey;
             var request = $http({
                 method: "get",
                 url: goTo
@@ -47,7 +47,7 @@
         function deleteStory(key) {
             var request = $http({
                 method: "delete",
-                url: "../api/adventure/{key}"
+                url: "../api/story/{key}"
             });
         }
 

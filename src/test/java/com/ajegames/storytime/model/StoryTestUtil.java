@@ -2,11 +2,11 @@ package com.ajegames.storytime.model;
 
 import com.ajegames.util.RandomString;
 
-public class AdventureTestUtil {
+public class StoryTestUtil {
     private static RandomString keyGenerator = new RandomString(8);
     private static RandomString fillGenerator = new RandomString(16);
 
-    public static Story generateAdventure() {
+    public static Story generateStory() {
         Story adv = Story.createNew(fillGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey(),
                 fillGenerator.nextKey());
         adv.setKey(keyGenerator.nextKey());
