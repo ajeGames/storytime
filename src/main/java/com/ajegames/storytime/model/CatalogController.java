@@ -1,7 +1,7 @@
 package com.ajegames.storytime.model;
 
 import com.ajegames.storytime.data.StoryTimeRepository;
-import com.ajegames.storytime.view.StorySummary;
+import com.ajegames.storytime.resource.view.StorySummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

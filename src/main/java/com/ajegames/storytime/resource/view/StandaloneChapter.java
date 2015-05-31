@@ -1,4 +1,4 @@
-package com.ajegames.storytime.view;
+package com.ajegames.storytime.resource.view;
 
 import com.ajegames.storytime.model.Chapter;
 import com.fasterxml.jackson.annotation.JsonProperty;
