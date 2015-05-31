@@ -1,5 +1,6 @@
 package com.ajegames.storytime.model;
 
+import com.ajegames.storytime.model.view.StandaloneChapter;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -126,7 +127,7 @@ public class StoryControllerTest {
         Story adv = ctrl.createStory("four", "four", "four", "four");
         Chapter chap = adv.getFirstChapter();
 
-        Chapter chapterFound = ctrl.getChapter(adv.getKey(), chap.getId());
+        StandaloneChapter chapterFound = ctrl.getChapter(adv.getKey(), chap.getId());
         Assert.assertNotNull(chapterFound);
         Assert.assertNull(chapterFound.getTeaser());
         Assert.assertNull(chapterFound.getHeading());
@@ -149,7 +150,7 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getHeading(), "update");
         Assert.assertEquals(result.getProse(), "update");
 
-        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
+        StandaloneChapter check = ctrl.getChapter(story.getKey(), chap.getId());
         Assert.assertEquals(check, result);
     }
 
@@ -167,7 +168,7 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getHeading(), chap.getHeading());
         Assert.assertEquals(result.getProse(), chap.getProse());
 
-        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
+        StandaloneChapter check = ctrl.getChapter(story.getKey(), chap.getId());
         Assert.assertEquals(check, result);
     }
 
@@ -185,7 +186,7 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getHeading(), "update");
         Assert.assertEquals(result.getProse(), chap.getProse());
 
-        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
+        StandaloneChapter check = ctrl.getChapter(story.getKey(), chap.getId());
         Assert.assertEquals(check, result);
     }
 

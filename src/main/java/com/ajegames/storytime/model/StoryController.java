@@ -1,6 +1,7 @@
 package com.ajegames.storytime.model;
 
 import com.ajegames.storytime.data.StoryTimeRepository;
+import com.ajegames.storytime.model.view.StandaloneChapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,15 +49,20 @@ public class StoryController {
         return story;
     }
 
-    public Chapter getChapter(String storyKey, Integer chapterId) {
+    public StandaloneChapter getChapter(String storyKey, Integer chapterId) {
         LOG.info("Retrieving chapter " + chapterId + " for story " + storyKey);
+        Chapter chapter = retrieveChapter(storyKey, chapterId);
+        return StandaloneChapter.createFromChapter(chapter);
+    }
+
+    private Chapter retrieveChapter(String storyKey, Integer chapterId) {
         Story story = repo.getStory(storyKey);
         return story.getChapter(chapterId);
     }
 
     public Chapter updateChapter(String storyKey, Chapter update) {
         LOG.info("Updating chapter " + update.getId() + " for story " + storyKey);
-        Chapter chap = getChapter(storyKey, update.getId());
+        Chapter chap = retrieveChapter(storyKey, update.getId());
         if (update.getTeaser() != null) {
             chap.setTeaser(update.getTeaser());
         }
