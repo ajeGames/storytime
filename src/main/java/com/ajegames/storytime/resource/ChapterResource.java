@@ -2,7 +2,7 @@ package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.model.Chapter;
 import com.ajegames.storytime.model.StoryController;
-import com.ajegames.storytime.model.view.StandaloneChapter;
+import com.ajegames.storytime.view.StandaloneChapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
