@@ -1,6 +1,6 @@
 package com.ajegames.storytime.data;
 
-import com.ajegames.storytime.model.Adventure;
+import com.ajegames.storytime.model.Story;
 
 import java.util.List;
 
@@ -8,21 +8,21 @@ public interface AdventurePersistence {
 
     /**
      * Pulls all stories into memory.
-     * @return list of Adventure objects read from persistence
+     * @return list of Story objects read from persistence
      */
-    List<Adventure> loadAdventures();
+    List<Story> loadAdventures();
 
     /**
      * Saves to persistent storage.
-     * @param adventure Adventure to store
+     * @param story Story to store
      */
-    void saveAdventure(Adventure adventure);
+    void saveAdventure(Story story);
 
     /**
      * Deletes a story and all associated parts.
      *
-     * @param adventure The story to delete
+     * @param story The story to delete
      * @return true if story was deleted, otherwise false
      */
-    boolean deleteAdventure(Adventure adventure);
+    boolean deleteAdventure(Story story);
 }

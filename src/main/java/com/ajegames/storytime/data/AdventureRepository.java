@@ -1,7 +1,6 @@
 package com.ajegames.storytime.data;
 
-import com.ajegames.storytime.model.Adventure;
-import com.ajegames.storytime.model.Chapter;
+import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,7 @@ public class AdventureRepository {
     private static Logger LOG = LoggerFactory.getLogger(AdventureRepository.class);
 
     private RandomString keyGenerator;
-    private Map<String, Adventure> adventures;
+    private Map<String, Story> adventures;
     private AdventurePersistence storage;
 
     public static AdventureRepository getInstance() {
@@ -29,7 +28,7 @@ public class AdventureRepository {
 
     private AdventureRepository() {
         this.keyGenerator = new RandomString(8);
-        this.adventures = new HashMap<String, Adventure>();
+        this.adventures = new HashMap<String, Story>();
         this.storage = new NoopAdventurePersistence();
     }
 
@@ -43,20 +42,20 @@ public class AdventureRepository {
     }
 
     public void loadAdventures() {
-        List<Adventure> adventures = storage.loadAdventures();
-        LOG.info("Loading " + adventures.size() + " adventures");
-        for (Adventure adv : adventures) {
+        List<Story> stories = storage.loadAdventures();
+        LOG.info("Loading " + stories.size() + " stories");
+        for (Story adv : stories) {
             addAdventure(adv);
         }
     }
 
     public void saveAdventure(String key) {
         LOG.info("Saving adventure: " + key);
-        Adventure adv = getAdventure(key);
+        Story adv = getAdventure(key);
         this.storage.saveAdventure(adv);
     }
 
-    public Adventure addAdventure(Adventure adv) {
+    public Story addAdventure(Story adv) {
         LOG.info("Adding adventure: " + adv.getKey());
         // assign key if needed
         String tempKey = adv.getKey();
@@ -70,7 +69,7 @@ public class AdventureRepository {
         return adv;
     }
 
-    public Adventure getAdventure(String key) {
+    public Story getAdventure(String key) {
         return adventures.get(key);
     }
 
@@ -80,9 +79,9 @@ public class AdventureRepository {
         adventures.remove(key);
     }
 
-    public List<Adventure> getAllAdventures() {
+    public List<Story> getAllAdventures() {
         LOG.info("Retrieving full list of adventures");
-        List<Adventure> all = new ArrayList<Adventure>();
+        List<Story> all = new ArrayList<Story>();
         all.addAll(adventures.values());
         return all;
     }

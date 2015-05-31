@@ -1,6 +1,6 @@
 package com.ajegames.storytime.data;
 
-import com.ajegames.storytime.model.Adventure;
+import com.ajegames.storytime.model.Story;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,27 +38,27 @@ public class JSONFileAdventurePersistence implements AdventurePersistence {
         }
     }
 
-    public List<Adventure> loadAdventures() {
-        List<Adventure> out = new ArrayList<Adventure>();
+    public List<Story> loadAdventures() {
+        List<Story> out = new ArrayList<Story>();
         File[] files = pathToFiles.listFiles();
         if (files != null) {
             for (File file : files) {
                 try {
-                    Adventure loadedStory = new ObjectMapper().readValue(file, Adventure.class);
+                    Story loadedStory = new ObjectMapper().readValue(file, Story.class);
                     out.add(loadedStory);
                 } catch (IOException e) {
-                    LOG.error("File could not be read as Adventure: " + file.toString(), e);
+                    LOG.error("File could not be read as Story: " + file.toString(), e);
                 }
             }
         }
         return out;
     }
 
-    public void saveAdventure(Adventure adventure) {
+    public void saveAdventure(Story story) {
         try {
-            new ObjectMapper().writeValue(buildFilename(adventure.getKey()), adventure);
+            new ObjectMapper().writeValue(buildFilename(story.getKey()), story);
         } catch (IOException e) {
-            LOG.error("Something went wrong when writing out the adventure", e);
+            LOG.error("Something went wrong when writing out the story", e);
         }
     }
 
@@ -66,8 +66,8 @@ public class JSONFileAdventurePersistence implements AdventurePersistence {
         return new File(pathToFiles, baseName + ".json");
     }
 
-    public boolean deleteAdventure(Adventure adventure) {
-        File fileToDelete = buildFilename(adventure.getKey());
+    public boolean deleteAdventure(Story story) {
+        File fileToDelete = buildFilename(story.getKey());
         return fileToDelete.delete();
     }
 }

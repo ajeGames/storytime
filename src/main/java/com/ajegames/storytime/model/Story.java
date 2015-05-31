@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * This is the top of the story graph for a multi-path adventure.
  */
-public class Adventure {
+public class Story {
 
     private int chapterCounter = 1;
 
@@ -32,8 +32,8 @@ public class Adventure {
 
     private Map<Integer, Chapter> chapters;
 
-    public static Adventure createNew(String title, String author, String tagLine, String description) {
-        Adventure out = new Adventure();
+    public static Story createNew(String title, String author, String tagLine, String description) {
+        Story out = new Story();
         out.setTitle(title);
         out.setAuthor(author);
         out.setTagLine(tagLine);
@@ -41,7 +41,7 @@ public class Adventure {
         return out;
     }
 
-    public Adventure() {
+    public Story() {
         chapters = new HashMap<Integer, Chapter>();
     }
 
@@ -108,15 +108,15 @@ public class Adventure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Adventure adventure = (Adventure) o;
+        Story story = (Story) o;
 
-        if (key != null ? !key.equals(adventure.key) : adventure.key != null) return false;
-        if (title != null ? !title.equals(adventure.title) : adventure.title != null) return false;
-        if (author != null ? !author.equals(adventure.author) : adventure.author != null) return false;
-        if (tagLine != null ? !tagLine.equals(adventure.tagLine) : adventure.tagLine != null) return false;
-        if (description != null ? !description.equals(adventure.description) : adventure.description != null)
+        if (key != null ? !key.equals(story.key) : story.key != null) return false;
+        if (title != null ? !title.equals(story.title) : story.title != null) return false;
+        if (author != null ? !author.equals(story.author) : story.author != null) return false;
+        if (tagLine != null ? !tagLine.equals(story.tagLine) : story.tagLine != null) return false;
+        if (description != null ? !description.equals(story.description) : story.description != null)
             return false;
-        return !(firstChapter != null ? !firstChapter.equals(adventure.firstChapter) : adventure.firstChapter != null);
+        return !(firstChapter != null ? !firstChapter.equals(story.firstChapter) : story.firstChapter != null);
 
     }
 

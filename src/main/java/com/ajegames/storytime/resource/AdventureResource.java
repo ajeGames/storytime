@@ -1,6 +1,6 @@
 package com.ajegames.storytime.resource;
 
-import com.ajegames.storytime.model.Adventure;
+import com.ajegames.storytime.model.Story;
 import com.ajegames.storytime.model.StoryController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class AdventureResource {
 
     @GET
     @Path("{key}")
-    public Adventure get(@PathParam("key") String key) {
+    public Story get(@PathParam("key") String key) {
         LOG.info("Retrieving story for key:" + key);
         try {
             return ctrl.getAdventure(key);
@@ -30,7 +30,7 @@ public class AdventureResource {
     }
 
     @POST
-    public Adventure create(Adventure story) {
+    public Story create(Story story) {
         LOG.info("Creating another story for a happier universe.");
         try {
             return ctrl.createAdventure(story.getTitle(), story.getAuthor(), story.getTagLine(), story.getDescription());
@@ -41,7 +41,7 @@ public class AdventureResource {
 
     @PUT
     @Path("{key}")
-    public Adventure update(@PathParam("key") String key, Adventure update) {
+    public Story update(@PathParam("key") String key, Story update) {
         LOG.info("Receiving changes to story: " + key);
         if (update.getKey() != null && !key.equals(update.getKey())) {
             LOG.error("Key in URI does not match key in data");

@@ -1,6 +1,6 @@
 package com.ajegames.storytime.data;
 
-import com.ajegames.storytime.model.Adventure;
+import com.ajegames.storytime.model.Story;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,16 +10,16 @@ public class NoopAdventurePersistence implements AdventurePersistence {
 
     private static Logger LOG = LoggerFactory.getLogger(NoopAdventurePersistence.class);
 
-    public List<Adventure> loadAdventures() {
+    public List<Story> loadAdventures() {
         LOG.warn("This implementation does nothing, which is fine for testing.");
         return null;
     }
 
-    public void saveAdventure(Adventure adventure) {
+    public void saveAdventure(Story story) {
         LOG.warn("This implementation does nothing, which is fine for testing.");
     }
 
-    public boolean deleteAdventure(Adventure adventure) {
+    public boolean deleteAdventure(Story story) {
         LOG.warn("This implementation does nothing, which is fine for testing.");
         return false;
     }

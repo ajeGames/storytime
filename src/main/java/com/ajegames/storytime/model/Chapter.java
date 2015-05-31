@@ -26,7 +26,7 @@ public class Chapter {
         nextChapterOptions = new ArrayList<Chapter>();
     }
 
-    public static Chapter create(Adventure story, Integer id) {
+    public static Chapter create(Story story, Integer id) {
         Chapter out = new Chapter();
         out.setId(id);
         return out;

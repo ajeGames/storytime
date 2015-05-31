@@ -6,8 +6,8 @@ public class AdventureTestUtil {
     private static RandomString keyGenerator = new RandomString(8);
     private static RandomString fillGenerator = new RandomString(16);
 
-    public static Adventure generateAdventure() {
-        Adventure adv = Adventure.createNew(fillGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey(),
+    public static Story generateAdventure() {
+        Story adv = Story.createNew(fillGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey(),
                 fillGenerator.nextKey());
         adv.setKey(keyGenerator.nextKey());
         adv.setFirstChapter(fillValues(adv.addChapter()));

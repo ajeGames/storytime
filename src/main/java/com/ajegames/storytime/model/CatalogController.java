@@ -14,7 +14,7 @@ public class CatalogController {
     private static AdventureRepository repo = AdventureRepository.getInstance();
     private static Logger LOG = LoggerFactory.getLogger(CatalogController.class);
 
-    public List<Adventure> getAllStories() {
+    public List<Story> getAllStories() {
         LOG.info("Fetching all stories in repository");
         return repo.getAllAdventures();
     }
