@@ -19,18 +19,13 @@
         var story = {};
 
         function getStory(storyKey) {
-            if (story == {} || story.key != storyKey) {
-                loadStory(storyKey);
-            }
+            loadStory(storyKey);
             return story;
         }
 
         function loadStory(storyKey) {
-            connectService.fetchStory(storyKey).then(
-                function(storyIn) {
-                    story = storyIn;
-                    indexChapters(story.firstChapter);
-                });
+            story = connectService.fetchStory(storyKey);
+            indexChapters(story.firstChapter);
         }
 
         function indexChapters(chapter) {

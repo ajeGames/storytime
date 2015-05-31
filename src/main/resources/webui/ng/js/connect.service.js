@@ -26,12 +26,8 @@
         }
 
         function fetchStory(key) {
-            var goTo = "../api/story/" + key;
-            var request = $http({
-                method: "get",
-                url: goTo
-            });
-            return (request.then(handleSuccess, handleError));
+            return $http.get("../api/story/" + key)
+                .then(handleSuccess, handleError);
         }
 
         function fetchChapters(storyKey, chapterIds) {

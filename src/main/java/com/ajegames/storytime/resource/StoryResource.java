@@ -21,7 +21,7 @@ public class StoryResource {
     @GET
     @Path("{key}")
     public Story get(@PathParam("key") String key) {
-        LOG.info("Retrieving story for key:" + key);
+        LOG.info("Retrieving story for key: " + key);
         Story story = ctrl.getStory(key);
         if (story == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
