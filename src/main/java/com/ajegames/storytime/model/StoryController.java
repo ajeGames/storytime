@@ -28,30 +28,30 @@ public class StoryController {
 
     public Story updateStory(Story update) {
         LOG.info("Updating story information: " + update.getKey());
-        Story adv = getStory(update.getKey());
-        if (adv == null) {
+        Story story = getStory(update.getKey());
+        if (story == null) {
             throw new IllegalArgumentException("Unable to find story to update");
         }
         if (update.getTitle() != null) {
-            adv.setTitle(update.getTitle());
+            story.setTitle(update.getTitle());
         }
         if (update.getAuthor() != null) {
-            adv.setAuthor(update.getAuthor());
+            story.setAuthor(update.getAuthor());
         }
         if (update.getTagLine() != null) {
-            adv.setTagLine(update.getTagLine());
+            story.setTagLine(update.getTagLine());
         }
         if (update.getDescription() != null) {
-            adv.setDescription(update.getDescription());
+            story.setDescription(update.getDescription());
         }
-        repo.saveStory(adv.getKey());
-        return adv;
+        repo.saveStory(story.getKey());
+        return story;
     }
 
     public Chapter getChapter(String storyKey, Integer chapterId) {
         LOG.info("Retrieving chapter " + chapterId + " for story " + storyKey);
-        Story adv = repo.getStory(storyKey);
-        return adv.getChapter(chapterId);
+        Story story = repo.getStory(storyKey);
+        return story.getChapter(chapterId);
     }
 
     public Chapter updateChapter(String storyKey, Chapter update) {
@@ -73,9 +73,9 @@ public class StoryController {
     public Chapter addNextChapter(String storyKey, Integer parentChapterId, String teaser) {
         LOG.info("Creating next chapter options for chapter " + parentChapterId + " of story " + storyKey + ": "
                 + teaser);
-        Story adv = repo.getStory(storyKey);
-        Chapter parent = adv.getChapter(parentChapterId);
-        Chapter chap = adv.addChapter();
+        Story story = repo.getStory(storyKey);
+        Chapter parent = story.getChapter(parentChapterId);
+        Chapter chap = story.addChapter();
         chap.setTeaser(teaser);
         parent.addNextChapter(chap);
         repo.saveStory(storyKey);

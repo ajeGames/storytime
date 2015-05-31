@@ -1,5 +1,6 @@
 package com.ajegames.storytime.data;
 
+import com.ajegames.storytime.model.Chapter;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
@@ -46,6 +47,7 @@ public class StoryTimeRepository {
         LOG.info("Loading " + stories.size() + " stories");
         for (Story story : stories) {
             addStory(story);
+            story.indexChapters();
         }
     }
 

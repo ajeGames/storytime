@@ -82,6 +82,10 @@ public class Chapter {
         this.nextChapterOptions.add(next);
     }
 
+    public boolean hasNext() {
+        return nextChapterOptions != null || !nextChapterOptions.isEmpty();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

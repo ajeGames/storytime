@@ -103,6 +103,19 @@ public class Story {
         return chapters.get(id);
     }
 
+    public void indexChapters() {
+        indexChapter(firstChapter);
+    }
+
+    private void indexChapter(Chapter chapter) {
+        chapters.put(chapter.getId(), chapter);
+        if (chapter.hasNext()) {
+            for (Chapter next : chapter.getNextChapterOptions()) {
+                indexChapter(next);
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
