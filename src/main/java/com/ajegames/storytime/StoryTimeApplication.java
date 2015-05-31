@@ -1,7 +1,7 @@
 package com.ajegames.storytime;
 
-import com.ajegames.storytime.data.JSONFileAdventurePersistence;
-import com.ajegames.storytime.data.AdventureRepository;
+import com.ajegames.storytime.data.JSONFileStoryTimePersistence;
+import com.ajegames.storytime.data.StoryTimeRepository;
 import com.ajegames.storytime.health.StoryHealthCheck;
 import com.ajegames.storytime.resource.*;
 import io.dropwizard.Application;
@@ -34,7 +34,7 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
 
     private void loadSampleStories(PersistenceConfiguration config) {
         try {
-            AdventureRepository.getInstance().setPersistence(new JSONFileAdventurePersistence(config.getPath()));
+            StoryTimeRepository.getInstance().setPersistence(new JSONFileStoryTimePersistence(config.getPath()));
         } catch (Exception e) {
             LOG.error("Unable to load sample stories", e);
         }
@@ -46,7 +46,7 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
         environment.healthChecks().register("story", new StoryHealthCheck());
         environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(new StoryTimeResource());
-        environment.jersey().register(new AdventureResource());
+        environment.jersey().register(new StoryResource());
         environment.jersey().register(new ChapterResource());
     }
 }

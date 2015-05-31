@@ -6,20 +6,20 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class NoopAdventurePersistence implements AdventurePersistence {
+public class NoopStoryTimePersistence implements StoryTimePersistence {
 
-    private static Logger LOG = LoggerFactory.getLogger(NoopAdventurePersistence.class);
+    private static Logger LOG = LoggerFactory.getLogger(NoopStoryTimePersistence.class);
 
-    public List<Story> loadAdventures() {
+    public List<Story> loadStories() {
         LOG.warn("This implementation does nothing, which is fine for testing.");
         return null;
     }
 
-    public void saveAdventure(Story story) {
+    public void saveStory(Story story) {
         LOG.warn("This implementation does nothing, which is fine for testing.");
     }
 
-    public boolean deleteAdventure(Story story) {
+    public boolean deleteStory(Story story) {
         LOG.warn("This implementation does nothing, which is fine for testing.");
         return false;
     }

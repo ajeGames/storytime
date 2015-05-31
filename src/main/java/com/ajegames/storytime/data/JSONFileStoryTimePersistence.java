@@ -13,19 +13,19 @@ import java.util.List;
 /**
  * This is the implementation of persistence that is meant for production.
  */
-public class JSONFileAdventurePersistence implements AdventurePersistence {
+public class JSONFileStoryTimePersistence implements StoryTimePersistence {
 
     private static final String DEFAULT_FILEROOT = "adventure-files/";
 
-    private static Logger LOG = LoggerFactory.getLogger(JSONFileAdventurePersistence.class);
+    private static Logger LOG = LoggerFactory.getLogger(JSONFileStoryTimePersistence.class);
 
     private File pathToFiles;
 
-    public JSONFileAdventurePersistence() {
+    public JSONFileStoryTimePersistence() {
         this(DEFAULT_FILEROOT);
     }
 
-    public JSONFileAdventurePersistence(String pathToFiles) {
+    public JSONFileStoryTimePersistence(String pathToFiles) {
         this.pathToFiles = new File(pathToFiles);
         if (!this.pathToFiles.exists()) {
             LOG.info("Creating directory to hold story files.");
@@ -38,7 +38,7 @@ public class JSONFileAdventurePersistence implements AdventurePersistence {
         }
     }
 
-    public List<Story> loadAdventures() {
+    public List<Story> loadStories() {
         List<Story> out = new ArrayList<Story>();
         File[] files = pathToFiles.listFiles();
         if (files != null) {
@@ -54,7 +54,7 @@ public class JSONFileAdventurePersistence implements AdventurePersistence {
         return out;
     }
 
-    public void saveAdventure(Story story) {
+    public void saveStory(Story story) {
         try {
             new ObjectMapper().writeValue(buildFilename(story.getKey()), story);
         } catch (IOException e) {
@@ -66,7 +66,7 @@ public class JSONFileAdventurePersistence implements AdventurePersistence {
         return new File(pathToFiles, baseName + ".json");
     }
 
-    public boolean deleteAdventure(Story story) {
+    public boolean deleteStory(Story story) {
         File fileToDelete = buildFilename(story.getKey());
         return fileToDelete.delete();
     }

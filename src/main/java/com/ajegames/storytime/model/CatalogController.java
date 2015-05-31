@@ -1,6 +1,6 @@
 package com.ajegames.storytime.model;
 
-import com.ajegames.storytime.data.AdventureRepository;
+import com.ajegames.storytime.data.StoryTimeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +11,11 @@ import java.util.List;
  */
 public class CatalogController {
 
-    private static AdventureRepository repo = AdventureRepository.getInstance();
+    private static StoryTimeRepository repo = StoryTimeRepository.getInstance();
     private static Logger LOG = LoggerFactory.getLogger(CatalogController.class);
 
     public List<Story> getAllStories() {
         LOG.info("Fetching all stories in repository");
-        return repo.getAllAdventures();
+        return repo.getAllStories();
     }
 }

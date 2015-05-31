@@ -9,12 +9,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/adventure")
+@Path("/story")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class AdventureResource {
+public class StoryResource {
 
-    private static Logger LOG = LoggerFactory.getLogger(AdventureResource.class);
+    private static Logger LOG = LoggerFactory.getLogger(StoryResource.class);
 
     private StoryController ctrl = new StoryController();
 
@@ -23,7 +23,7 @@ public class AdventureResource {
     public Story get(@PathParam("key") String key) {
         LOG.info("Retrieving story for key:" + key);
         try {
-            return ctrl.getAdventure(key);
+            return ctrl.getStory(key);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }
@@ -33,7 +33,7 @@ public class AdventureResource {
     public Story create(Story story) {
         LOG.info("Creating another story for a happier universe.");
         try {
-            return ctrl.createAdventure(story.getTitle(), story.getAuthor(), story.getTagLine(), story.getDescription());
+            return ctrl.createStory(story.getTitle(), story.getAuthor(), story.getTagLine(), story.getDescription());
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }
@@ -48,7 +48,7 @@ public class AdventureResource {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         try {
-            return ctrl.updateAdventure(update);
+            return ctrl.updateStory(update);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }
@@ -59,7 +59,7 @@ public class AdventureResource {
     public void destroy(@PathParam("key") String key) {
         LOG.info("Eliminating entire story: " + key);
         try {
-            ctrl.deleteAdventure(key);
+            ctrl.deleteStory(key);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }

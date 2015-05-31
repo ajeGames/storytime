@@ -1,6 +1,6 @@
 package com.ajegames.storytime.model;
 
-import com.ajegames.storytime.data.AdventureRepository;
+import com.ajegames.storytime.data.StoryTimeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,26 +9,26 @@ import org.slf4j.LoggerFactory;
  */
 public class StoryController {
 
-    private static AdventureRepository repo = AdventureRepository.getInstance();
+    private static StoryTimeRepository repo = StoryTimeRepository.getInstance();
     private static Logger LOG = LoggerFactory.getLogger(StoryController.class);
 
-    public Story createAdventure(String title, String author, String tagLine, String description) {
+    public Story createStory(String title, String author, String tagLine, String description) {
         LOG.info("Creating a new adventure entitled: " + title);
         Story in = Story.createNew(title, author, tagLine, description);
-        Story out = repo.addAdventure(in);
+        Story out = repo.addStory(in);
         out.setFirstChapter(out.addChapter());
-        repo.saveAdventure(out.getKey());
+        repo.saveStory(out.getKey());
         return out;
     }
 
-    public Story getAdventure(String adventureKey) {
-        LOG.info("Retrieving adventure with key: " + adventureKey);
-        return repo.getAdventure(adventureKey);
+    public Story getStory(String storyKey) {
+        LOG.info("Retrieving adventure with key: " + storyKey);
+        return repo.getStory(storyKey);
     }
 
-    public Story updateAdventure(Story update) {
+    public Story updateStory(Story update) {
         LOG.info("Updating adventure information: " + update.getKey());
-        Story adv = getAdventure(update.getKey());
+        Story adv = getStory(update.getKey());
         if (adv == null) {
             throw new IllegalArgumentException("Unable to find story to update");
         }
@@ -44,20 +44,19 @@ public class StoryController {
         if (update.getDescription() != null) {
             adv.setDescription(update.getDescription());
         }
-        repo.saveAdventure(adv.getKey());
+        repo.saveStory(adv.getKey());
         return adv;
     }
 
-    public Chapter getChapter(String adventureKey, Integer chapterId) {
-        LOG.info("Retrieving chapter " + chapterId + " for adventure " + adventureKey);
-        Story adv = repo.getAdventure(adventureKey);
-        Chapter chap = adv.getChapter(chapterId);
-        return chap;
+    public Chapter getChapter(String storyKey, Integer chapterId) {
+        LOG.info("Retrieving chapter " + chapterId + " for adventure " + storyKey);
+        Story adv = repo.getStory(storyKey);
+        return adv.getChapter(chapterId);
     }
 
-    public Chapter updateChapter(String adventureKey, Chapter update) {
-        LOG.info("Updating chapter " + update.getId() + " for adventure " + adventureKey);
-        Chapter chap = getChapter(adventureKey, update.getId());
+    public Chapter updateChapter(String storyKey, Chapter update) {
+        LOG.info("Updating chapter " + update.getId() + " for adventure " + storyKey);
+        Chapter chap = getChapter(storyKey, update.getId());
         if (update.getTeaser() != null) {
             chap.setTeaser(update.getTeaser());
         }
@@ -67,25 +66,25 @@ public class StoryController {
         if (update.getProse() != null) {
             chap.setProse(update.getProse());
         }
-        repo.saveAdventure(adventureKey);
+        repo.saveStory(storyKey);
         return chap;
     }
 
-    public Chapter addNextChapter(String adventureKey, Integer parentChapterId, String teaser) {
-        LOG.info("Creating next chapter options for chapter " + parentChapterId + " of story " + adventureKey + ": "
+    public Chapter addNextChapter(String storyKey, Integer parentChapterId, String teaser) {
+        LOG.info("Creating next chapter options for chapter " + parentChapterId + " of story " + storyKey + ": "
                 + teaser);
-        Story adv = repo.getAdventure(adventureKey);
+        Story adv = repo.getStory(storyKey);
         Chapter parent = adv.getChapter(parentChapterId);
         Chapter chap = adv.addChapter();
         chap.setTeaser(teaser);
         parent.addNextChapter(chap);
-        repo.saveAdventure(adventureKey);
+        repo.saveStory(storyKey);
         return chap;
     }
 
-    public void deleteAdventure(String adventureKey) {
+    public void deleteStory(String adventureKey) {
         LOG.info("Deleting adventure: " + adventureKey);
-        repo.deleteAdventure(adventureKey);
+        repo.deleteStory(adventureKey);
     }
 
     /**

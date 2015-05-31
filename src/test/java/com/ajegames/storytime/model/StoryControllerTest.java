@@ -18,7 +18,7 @@ public class StoryControllerTest {
 
     @Test
     public void testCreateStory() {
-        Story adv = ctrl.createAdventure("foo", "bar", "baz", "qux");
+        Story adv = ctrl.createStory("foo", "bar", "baz", "qux");
         Assert.assertNotNull(adv.getKey());
         Assert.assertEquals(adv.getTitle(), "foo");
         Assert.assertEquals(adv.getAuthor(), "bar");
@@ -31,99 +31,99 @@ public class StoryControllerTest {
 
     @Test
     public void testGetStory() {
-        Story adv1 = ctrl.createAdventure("one", "one", "one", "one");
-        Story adv2 = ctrl.createAdventure("two", "two", "two", "two");
+        Story adv1 = ctrl.createStory("one", "one", "one", "one");
+        Story adv2 = ctrl.createStory("two", "two", "two", "two");
 
-        Assert.assertNotNull(ctrl.getAdventure(adv1.getKey()));
-        Assert.assertNotNull(ctrl.getAdventure(adv2.getKey()));
+        Assert.assertNotNull(ctrl.getStory(adv1.getKey()));
+        Assert.assertNotNull(ctrl.getStory(adv2.getKey()));
     }
 
     @Test
     public void testUpdateStory() {
-        Story adv = ctrl.createAdventure("three", "three", "three", "three");
+        Story adv = ctrl.createStory("three", "three", "three", "three");
         Story update = new Story();
         update.setKey(adv.getKey());
         update.setTitle("updated");
         update.setAuthor("updated");
         update.setTagLine("updated");
         update.setDescription("updated");
-        Story result = ctrl.updateAdventure(update);
+        Story result = ctrl.updateStory(update);
         Assert.assertEquals(result.getTitle(), "updated");
         Assert.assertEquals(result.getAuthor(), "updated");
         Assert.assertEquals(result.getTagLine(), "updated");
         Assert.assertEquals(result.getDescription(), "updated");
 
-        Story check = ctrl.getAdventure(adv.getKey());
+        Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
     }
 
     @Test
     public void testUpdateStoryTitle() {
-        Story adv = ctrl.createAdventure("three", "three", "three", "three");
+        Story adv = ctrl.createStory("three", "three", "three", "three");
         Story update = new Story();
         update.setKey(adv.getKey());
         update.setTitle("updated");
-        Story result = ctrl.updateAdventure(update);
+        Story result = ctrl.updateStory(update);
         Assert.assertEquals(result.getTitle(), "updated");
         Assert.assertEquals(result.getAuthor(), adv.getAuthor());
         Assert.assertEquals(result.getTagLine(), adv.getTagLine());
         Assert.assertEquals(result.getDescription(), adv.getDescription());
 
-        Story check = ctrl.getAdventure(adv.getKey());
+        Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
     }
 
     @Test
     public void testUpdateStoryAuthor() {
-        Story adv = ctrl.createAdventure("three", "three", "three", "three");
+        Story adv = ctrl.createStory("three", "three", "three", "three");
         Story update = new Story();
         update.setKey(adv.getKey());
         update.setAuthor("updated");
-        Story result = ctrl.updateAdventure(update);
+        Story result = ctrl.updateStory(update);
         Assert.assertEquals(result.getTitle(), adv.getTitle());
         Assert.assertEquals(result.getAuthor(), "updated");
         Assert.assertEquals(result.getTagLine(), adv.getTagLine());
         Assert.assertEquals(result.getDescription(), adv.getDescription());
 
-        Story check = ctrl.getAdventure(adv.getKey());
+        Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
     }
 
     @Test
     public void testUpdateStoryTagLine() {
-        Story adv = ctrl.createAdventure("three", "three", "three", "three");
+        Story adv = ctrl.createStory("three", "three", "three", "three");
         Story update = new Story();
         update.setKey(adv.getKey());
         update.setTagLine("updated");
-        Story result = ctrl.updateAdventure(update);
+        Story result = ctrl.updateStory(update);
         Assert.assertEquals(result.getTitle(), adv.getTitle());
         Assert.assertEquals(result.getAuthor(), adv.getAuthor());
         Assert.assertEquals(result.getTagLine(), "updated");
         Assert.assertEquals(result.getDescription(), adv.getDescription());
 
-        Story check = ctrl.getAdventure(adv.getKey());
+        Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
     }
 
     @Test
     public void testUpdateStoryDescription() {
-        Story adv = ctrl.createAdventure("three", "three", "three", "three");
+        Story adv = ctrl.createStory("three", "three", "three", "three");
         Story update = new Story();
         update.setKey(adv.getKey());
         update.setDescription("updated");
-        Story result = ctrl.updateAdventure(update);
+        Story result = ctrl.updateStory(update);
         Assert.assertEquals(result.getTitle(), adv.getTitle());
         Assert.assertEquals(result.getAuthor(), adv.getAuthor());
         Assert.assertEquals(result.getTagLine(), adv.getTagLine());
         Assert.assertEquals(result.getDescription(), "updated");
 
-        Story check = ctrl.getAdventure(adv.getKey());
+        Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
     }
 
     @Test
     public void testGetChapter() {
-        Story adv = ctrl.createAdventure("four", "four", "four", "four");
+        Story adv = ctrl.createStory("four", "four", "four", "four");
         Chapter chap = adv.getFirstChapter();
 
         Chapter chapterFound = ctrl.getChapter(adv.getKey(), chap.getId());
@@ -135,7 +135,7 @@ public class StoryControllerTest {
 
     @Test
     public void testUpdateChapter() {
-        Story adv = ctrl.createAdventure("five", "five", "five", "five");
+        Story adv = ctrl.createStory("five", "five", "five", "five");
         Chapter chap = adv.getFirstChapter();
 
         Chapter update = new Chapter();
@@ -155,7 +155,7 @@ public class StoryControllerTest {
 
     @Test
     public void testUpdateChapterTeaser() {
-        Story adv = ctrl.createAdventure("five", "five", "five", "five");
+        Story adv = ctrl.createStory("five", "five", "five", "five");
         Chapter chap = adv.getFirstChapter();
 
         Chapter update = new Chapter();
@@ -173,7 +173,7 @@ public class StoryControllerTest {
 
     @Test
     public void testUpdateChapterHeading() {
-        Story adv = ctrl.createAdventure("five", "five", "five", "five");
+        Story adv = ctrl.createStory("five", "five", "five", "five");
         Chapter chap = adv.getFirstChapter();
 
         Chapter update = new Chapter();
@@ -191,7 +191,7 @@ public class StoryControllerTest {
 
     @Test
     public void testUpdateChapterProse() {
-        Story adv = ctrl.createAdventure("five", "five", "five", "five");
+        Story adv = ctrl.createStory("five", "five", "five", "five");
         Chapter chap = adv.getFirstChapter();
 
         Chapter update = new Chapter();
@@ -209,11 +209,11 @@ public class StoryControllerTest {
 
     @Test
     public void testCreateNextChapter() {
-        Story adv = ctrl.createAdventure("six", "six", "six", "six");
+        Story adv = ctrl.createStory("six", "six", "six", "six");
         Chapter first = adv.getFirstChapter();
         Chapter result = ctrl.addNextChapter(adv.getKey(), first.getId(), "Choose me!");
 
-        first = ctrl.getAdventure(adv.getKey()).getFirstChapter();
+        first = ctrl.getStory(adv.getKey()).getFirstChapter();
         Chapter check = ctrl.getChapter(adv.getKey(), result.getId());
         Assert.assertNotNull(check);
         Assert.assertNotNull(result);
@@ -224,7 +224,7 @@ public class StoryControllerTest {
 
     @Test
     public void testCreateChainOfNextChapters() {
-        Story adv = ctrl.createAdventure("seven", "seven", "seven", "seven");
+        Story adv = ctrl.createStory("seven", "seven", "seven", "seven");
         String advKey = adv.getKey();
         Chapter first = adv.getFirstChapter();
         first.setTeaser("first level");
@@ -243,12 +243,12 @@ public class StoryControllerTest {
 
     @Test
     public void testDeleteStory() {
-        Story adv = ctrl.createAdventure("eigth", "eigth", "eigth", "eigth");
-        Story check = ctrl.getAdventure(adv.getKey());
+        Story adv = ctrl.createStory("eigth", "eigth", "eigth", "eigth");
+        Story check = ctrl.getStory(adv.getKey());
         Assert.assertNotNull(check);
 
-        ctrl.deleteAdventure(check.getKey());
-        check = ctrl.getAdventure(adv.getKey());
+        ctrl.deleteStory(check.getKey());
+        check = ctrl.getStory(adv.getKey());
         Assert.assertNull(check);
     }
 

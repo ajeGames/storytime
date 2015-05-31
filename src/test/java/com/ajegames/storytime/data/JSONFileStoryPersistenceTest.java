@@ -18,25 +18,25 @@ public class JSONFileStoryPersistenceTest {
         String pathName = "test-" + new RandomString(6).nextKey();  // play somewhere safe
         File path = new File(pathName);
 
-        AdventurePersistence storage = new JSONFileAdventurePersistence(pathName);
+        StoryTimePersistence storage = new JSONFileStoryTimePersistence(pathName);
         Assert.assertTrue(path.exists(), "Should have found path to story files");
         Assert.assertTrue(path.isDirectory(), "Should have created directory for story files");
 
         // try saving
         Story adv1 = AdventureTestUtil.generateAdventure();
-        storage.saveAdventure(adv1);
+        storage.saveStory(adv1);
         Story adv2 = AdventureTestUtil.generateAdventure();
-        storage.saveAdventure(adv2);
+        storage.saveStory(adv2);
         Assert.assertEquals(path.listFiles().length, 2, "Expected to find story files");
 
         // try loading
-        List<Story> stories = storage.loadAdventures();
+        List<Story> stories = storage.loadStories();
         Assert.assertNotNull(stories, "Did not find stories");
         Assert.assertEquals(stories.size(), 2, "Wrong number of stories loaded");
 
         // try deleting
-        storage.deleteAdventure(adv1);
-        storage.deleteAdventure(adv2);
+        storage.deleteStory(adv1);
+        storage.deleteStory(adv2);
         Assert.assertEquals(path.listFiles().length, 0, "Story files should be gone");
 
         // clean up
@@ -45,8 +45,8 @@ public class JSONFileStoryPersistenceTest {
 
     @Test
     public void testLoadStories() throws Exception {
-        AdventurePersistence storage = new JSONFileAdventurePersistence(TEST_PATH);
-        List<Story> stories = storage.loadAdventures();
+        StoryTimePersistence storage = new JSONFileStoryTimePersistence(TEST_PATH);
+        List<Story> stories = storage.loadStories();
         Assert.assertEquals(stories.size(), 2);
 
         for (Story story : stories) {
