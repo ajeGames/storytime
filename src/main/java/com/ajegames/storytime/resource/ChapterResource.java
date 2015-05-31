@@ -23,11 +23,11 @@ public class ChapterResource {
     @Path("{id}")
     public StandaloneChapter get(@PathParam("key") String key, @PathParam("id") Integer id) {
         LOG.info("Retrieving chapter " + id + " for story " + key);
-        try {
-            return ctrl.getChapter(key, id);
-        } catch (Exception e) {
-            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
+        Chapter chapter = ctrl.getChapter(key, id);
+        if (chapter == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
+        return StandaloneChapter.createFromChapter(chapter);
     }
 
     @PUT

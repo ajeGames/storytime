@@ -49,14 +49,16 @@ public class StoryController {
         return story;
     }
 
-    public StandaloneChapter getChapter(String storyKey, Integer chapterId) {
+    public Chapter getChapter(String storyKey, Integer chapterId) {
         LOG.info("Retrieving chapter " + chapterId + " for story " + storyKey);
-        Chapter chapter = retrieveChapter(storyKey, chapterId);
-        return StandaloneChapter.createFromChapter(chapter);
+        return retrieveChapter(storyKey, chapterId);
     }
 
     private Chapter retrieveChapter(String storyKey, Integer chapterId) {
         Story story = repo.getStory(storyKey);
+        if (story == null) {
+            return null;
+        }
         return story.getChapter(chapterId);
     }
 

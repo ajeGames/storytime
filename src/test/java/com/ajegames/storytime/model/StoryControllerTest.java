@@ -1,6 +1,5 @@
 package com.ajegames.storytime.model;
 
-import com.ajegames.storytime.model.view.StandaloneChapter;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -127,7 +126,7 @@ public class StoryControllerTest {
         Story adv = ctrl.createStory("four", "four", "four", "four");
         Chapter chap = adv.getFirstChapter();
 
-        StandaloneChapter chapterFound = ctrl.getChapter(adv.getKey(), chap.getId());
+        Chapter chapterFound = ctrl.getChapter(adv.getKey(), chap.getId());
         Assert.assertNotNull(chapterFound);
         Assert.assertNull(chapterFound.getTeaser());
         Assert.assertNull(chapterFound.getHeading());
@@ -150,8 +149,8 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getHeading(), "update");
         Assert.assertEquals(result.getProse(), "update");
 
-        StandaloneChapter check = ctrl.getChapter(story.getKey(), chap.getId());
-        Assert.assertEquals(check, StandaloneChapter.createFromChapter(result));
+        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
+        Assert.assertEquals(check, result);
     }
 
     @Test
@@ -168,8 +167,8 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getHeading(), chap.getHeading());
         Assert.assertEquals(result.getProse(), chap.getProse());
 
-        StandaloneChapter check = ctrl.getChapter(story.getKey(), chap.getId());
-        Assert.assertEquals(check, StandaloneChapter.createFromChapter(result));
+        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
+        Assert.assertEquals(check, result);
     }
 
     @Test
@@ -186,8 +185,8 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getHeading(), "update");
         Assert.assertEquals(result.getProse(), chap.getProse());
 
-        StandaloneChapter check = ctrl.getChapter(story.getKey(), chap.getId());
-        Assert.assertEquals(check, StandaloneChapter.createFromChapter(result));
+        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
+        Assert.assertEquals(check, result);
     }
 
     @Test
@@ -204,8 +203,8 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getHeading(), chap.getHeading());
         Assert.assertEquals(result.getProse(), "update");
 
-        StandaloneChapter check = ctrl.getChapter(story.getKey(), chap.getId());
-        Assert.assertEquals(check, StandaloneChapter.createFromChapter(result));
+        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
+        Assert.assertEquals(check, result);
     }
 
     @Test
@@ -215,10 +214,10 @@ public class StoryControllerTest {
         Chapter result = ctrl.addNextChapter(story.getKey(), first.getId(), "Choose me!");
 
         first = ctrl.getStory(story.getKey()).getFirstChapter();
-        StandaloneChapter check = ctrl.getChapter(story.getKey(), result.getId());
+        Chapter check = ctrl.getChapter(story.getKey(), result.getId());
         Assert.assertNotNull(check);
         Assert.assertNotNull(result);
-        Assert.assertEquals(check, StandaloneChapter.createFromChapter(result));
+        Assert.assertEquals(check, result);
         Assert.assertEquals(first.getNextChapterOptions().size(), 1);
         Assert.assertEquals(first.getNextChapterOptions().get(0), result);
     }
@@ -233,13 +232,13 @@ public class StoryControllerTest {
         Chapter third= ctrl.addNextChapter(storyKey, second.getId(), "third level");
         Chapter fourth= ctrl.addNextChapter(storyKey, third.getId(), "fourth level");
 
-        StandaloneChapter secondCheck = ctrl.getChapter(storyKey, second.getId());
-        StandaloneChapter thirdCheck = ctrl.getChapter(storyKey, third.getId());
-        StandaloneChapter fourthCheck = ctrl.getChapter(storyKey, fourth.getId());
+        Chapter secondCheck = ctrl.getChapter(storyKey, second.getId());
+        Chapter thirdCheck = ctrl.getChapter(storyKey, third.getId());
+        Chapter fourthCheck = ctrl.getChapter(storyKey, fourth.getId());
 
-        Assert.assertEquals(secondCheck, StandaloneChapter.createFromChapter(second), "second");
-        Assert.assertEquals(thirdCheck, StandaloneChapter.createFromChapter(third), "third");
-        Assert.assertEquals(fourthCheck, StandaloneChapter.createFromChapter(fourth), "fourth");
+        Assert.assertEquals(secondCheck, second, "second");
+        Assert.assertEquals(thirdCheck, third, "third");
+        Assert.assertEquals(fourthCheck, fourth, "fourth");
     }
 
     @Test

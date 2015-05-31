@@ -22,11 +22,11 @@ public class StoryResource {
     @Path("{key}")
     public Story get(@PathParam("key") String key) {
         LOG.info("Retrieving story for key:" + key);
-        try {
-            return ctrl.getStory(key);
-        } catch (Exception e) {
-            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
+        Story story = ctrl.getStory(key);
+        if (story == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
+        return story;
     }
 
     @POST
