@@ -1,8 +1,8 @@
 package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.model.Chapter;
-import com.ajegames.storytime.model.view.NextChapter;
 import com.ajegames.storytime.model.StoryController;
+import com.ajegames.storytime.model.view.StandaloneChapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ public class ChapterResource {
 
     @GET
     @Path("{id}")
-    public Chapter get(@PathParam("key") String key, @PathParam("id") Integer id) {
+    public StandaloneChapter get(@PathParam("key") String key, @PathParam("id") Integer id) {
         LOG.info("Retrieving chapter " + id + " for story " + key);
         try {
             return ctrl.getChapter(key, id);

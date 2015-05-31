@@ -29,12 +29,11 @@
             connectService.fetchStory(storyKey).then(
                 function(storyIn) {
                     story = storyIn;
-                    indexSubChapters(story.firstChapter);
-                }
-            };  // TODO deal with possible async problems
+                    indexChapters(story.firstChapter);
+                });
         }
 
-        function indexSubChapters(chapter) {
+        function indexChapters(chapter) {
             if (chapter != null && chapter.id != null) {
                 chapters[chapter.id] = chapter;
                 for (var i=0, tot=chapters.nextChapterOptions.length; i < tot; i++) {

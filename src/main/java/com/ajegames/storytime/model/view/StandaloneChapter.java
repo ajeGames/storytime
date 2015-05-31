@@ -80,4 +80,29 @@ public class StandaloneChapter {
     public void setNextChapterOptions(List<NextChapter> nextChapterOptions) {
         this.nextChapterOptions = nextChapterOptions;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StandaloneChapter that = (StandaloneChapter) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (teaser != null ? !teaser.equals(that.teaser) : that.teaser != null) return false;
+        if (heading != null ? !heading.equals(that.heading) : that.heading != null) return false;
+        if (prose != null ? !prose.equals(that.prose) : that.prose != null) return false;
+        return !(nextChapterOptions != null ? !nextChapterOptions.equals(that.nextChapterOptions) : that.nextChapterOptions != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (teaser != null ? teaser.hashCode() : 0);
+        result = 31 * result + (heading != null ? heading.hashCode() : 0);
+        result = 31 * result + (prose != null ? prose.hashCode() : 0);
+        result = 31 * result + (nextChapterOptions != null ? nextChapterOptions.hashCode() : 0);
+        return result;
+    }
 }

@@ -26,8 +26,8 @@
                 vm.currentChapter = story.firstChapter;
             }
 
-            function getChapter(chapterId) {
-                storyService.getChapter(chapterId);
+            function loadChapter(chapterId) {
+                vm.currentChapter = storyService.getChapter(chapterId);
             }
         }
 

@@ -8,7 +8,7 @@
             </div>
             <div id="choices">
                 <div ng-repeat="option in vm.currentChapter.nextChapterOptions" class="nextChapterOption">
-                    <a href="#/reader/{{story.key}}/{{option.id}}">{{option.teaser}}</a></div>
+                    <a ng-click="vm.loadChapter(option.id)" href="#/reader/{{story.key}}/{{option.id}}">{{option.teaser}}</a></div>
             </div>
         </div>
     </div>
