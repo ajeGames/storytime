@@ -10,7 +10,8 @@
     function CatalogController(connectService) {
 
         var vm = this;
-        vm.catalog = loadCatalog();
+        vm.catalog = {};
+        loadCatalog();
 
         function loadCatalog() {
             connectService.fetchAllStories().then(

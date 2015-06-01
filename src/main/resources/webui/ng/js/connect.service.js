@@ -17,7 +17,6 @@
             fetchStory: fetchStory
         };
 
-        // TODO change this to fetchStorySummaries with selection criteria; should return just story info, maybe first chapter
         function fetchAllStories() {
             var request = $http({
                 method: "get",
