@@ -25,7 +25,7 @@ public class StoryTimeResource {
 
     @GET
     public String ping() {
-        return "pong";
+        return "{ message: pong }";
     }
 
     /**
