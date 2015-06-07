@@ -8,17 +8,17 @@
     function config($routeProvider) {
         $routeProvider
             .when('/catalog', {
-                templateUrl: 'catalog.html',
+                templateUrl: 'template/catalog.html',
                 controller: 'CatalogController',
                 controllerAs: 'vm'
             })
             .when('/reader/:storyKey', {
-                templateUrl: 'reader.html',
+                templateUrl: 'template/reader.html',
                 controller: 'StoryController',
                 controllerAs: 'vm'
             })
             .when('/reader/:storyKey/:chapter', {
-                templateUrl: 'reader.html',
+                templateUrl: 'template/reader.html',
                 controller: 'StoryController',
                 controllerAs: 'vm'
             })
