@@ -5,17 +5,18 @@
         .module('storyTimeApp')
         .controller('StoryController', StoryController);
 
-        StoryController.$inject = ['$routeParams', 'storyService', 'connectService'];
+        StoryController.$inject = ['$routeParams', 'storyCache', 'connectService'];
 
-        function StoryController($routeParams, storyService, connectService) {
+        function StoryController($routeParams, storyCache, connectService) {
             var vm = this;
-            vm.currentStory = {};
-            vm.currentChapter = {};
-            vm.chapters = {};
-            vm.requestedChapter = $routeParams.chapter;
+            //vm.storyCache = storyCache;
+            vm.requestedStoryKey = $routeParams.storyKey;
+            vm.requestedChapterId = $routeParams.chapter;
+            vm.currentStory = storyCache.activeStory;
+            vm.currentChapter = storyCache.activeChapters[vm.requestedChapterId];
 
-            if ($routeParams.storyKey != vm.currentStory.key) {
-                getStory($routeParams.storyKey);
+            if (vm.requestedStoryKey != vm.currentStory.key) {
+                getStory(vm.requestedStoryKey);
             }
 
             function getStory(key) {
@@ -25,27 +26,28 @@
                     });
             }
 
-            function applyRemoteData(story, chapter) {
-                vm.currentStory = story;
+            function applyRemoteData(story) {
+                storyCache.activeStory = story;
                 indexChapters(story.firstChapter);
-                if (vm.requestedChapter) {
-                    vm.currentChapter = vm.chapters[vm.requestedChapter];
-                } else {
-                    vm.currentChapter = vm.chapters[1];
-                }
+                getCurrentFromCache();
             }
 
             function indexChapters(chapter) {
                 if (chapter != null && chapter.id != null) {
-                    vm.chapters[chapter.id] = chapter;
+                    storyCache.activeChapters[chapter.id] = chapter;
                     for (var i=0, tot=chapter.nextChapterOptions.length; i < tot; i++) {
                         indexChapters(chapter.nextChapterOptions[i]);
                     }
                 }
             }
 
-            function loadChapter(chapterId) {
-                vm.currentChapter = vm.chapters[chapterId];
+            function getCurrentFromCache() {
+                vm.currentStory = storyCache.activeStory;
+                if (vm.requestedChapterId) {
+                    vm.currentChapter = storyCache.activeChapters[vm.requestedChapterId];
+                } else {
+                    vm.currentChapter = storyCache.activeChapters[1];
+                }
             }
         }
 
