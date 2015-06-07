@@ -12,7 +12,12 @@
                 controller: 'CatalogController',
                 controllerAs: 'vm'
             })
-            .when('/reader/:key', {
+            .when('/reader/:storyKey', {
+                templateUrl: 'reader.html',
+                controller: 'StoryController',
+                controllerAs: 'vm'
+            })
+            .when('/reader/:storyKey/:chapter', {
                 templateUrl: 'reader.html',
                 controller: 'StoryController',
                 controllerAs: 'vm'

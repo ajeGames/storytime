@@ -12,8 +12,11 @@
             vm.currentStory = {};
             vm.currentChapter = {};
             vm.chapters = {};
+            vm.requestedChapter = $routeParams.chapter;
 
-            getStory($routeParams.key);
+            if ($routeParams.storyKey != vm.currentStory.key) {
+                getStory($routeParams.storyKey);
+            }
 
             function getStory(key) {
                 connectService.fetchStory(key).then(
@@ -22,10 +25,14 @@
                     });
             }
 
-            function applyRemoteData(story) {
+            function applyRemoteData(story, chapter) {
                 vm.currentStory = story;
-                vm.currentChapter = story.firstChapter;
                 indexChapters(story.firstChapter);
+                if (vm.requestedChapter) {
+                    vm.currentChapter = vm.chapters[vm.requestedChapter];
+                } else {
+                    vm.currentChapter = vm.chapters[1];
+                }
             }
 
             function indexChapters(chapter) {
@@ -38,7 +45,7 @@
             }
 
             function loadChapter(chapterId) {
-                vm.currentChapter = chapters[chapterId];
+                vm.currentChapter = vm.chapters[chapterId];
             }
         }
 

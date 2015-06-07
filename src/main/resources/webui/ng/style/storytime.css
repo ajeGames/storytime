@@ -31,7 +31,7 @@
   border-bottom: solid lightgrey 1px;
   margin: 0.5em 0;
   overflow-y: auto;
-  height: 30em;
+  height: 70%;
 }
 
 .summary {
@@ -76,6 +76,7 @@ button {
   margin: 1em;
   border: groove silver 5px;
   padding: 1em;
+  height: 70%;
 }
 
 #heading {

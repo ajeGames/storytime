@@ -12,34 +12,38 @@
     function storyService(connectService) {
         return {
             getChapter: getChapter,
-            getStory: getStory
+            activeStory: {},
+            chapters: {}
         };
 
-        var chapters = {};
-        var story = {};
-
-        function getStory(storyKey) {
-            loadStory(storyKey);
-            return story;
+        function getChapter(storyKey, chapterId) {
+            if (storyKey != activeStory.key) {
+                loadStory(storyKey);
+            }
+            return vm.chapters[chapterId];
         }
 
         function loadStory(storyKey) {
-            story = connectService.fetchStory(storyKey);
-            indexChapters(story.firstChapter);
+            connectService.fetchStory(storyKey).then(
+                function (story) {
+                    applyRemoteData(story);
+                });
+        }
+
+        function applyRemoteData(story) {
+            vm.activeStory = story;
+            indexChapters(vm.activeStory.firstChapter);
         }
 
         function indexChapters(chapter) {
             if (chapter != null && chapter.id != null) {
-                chapters[chapter.id] = chapter;
-                for (var i=0, tot=chapters.nextChapterOptions.length; i < tot; i++) {
-                    indexSubChapters(chapters.nextChapterOptions[i]);
+                vm.chapters[chapter.id] = chapter;
+                for (var i=0, tot=chapter.nextChapterOptions.length; i < tot; i++) {
+                    indexChapters(chapter.nextChapterOptions[i]);
                 }
             }
         }
 
-        function getChapter(chapterId) {
-            return chapters[chapterId];
-        }
     }
 
 })();
