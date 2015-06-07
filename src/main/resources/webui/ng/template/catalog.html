@@ -1,9 +1,8 @@
 <div id="header" class="row">
-  <h2>StoryTime</h2>
   <div class="instruction">Choose a Story</div>
 </div>
 <div id="main" class="row scroll-y">
-  <div class="summary" ng-repeat="story in vm.catalog" class="storyListItem">
+  <div class="summary" ng-repeat="story in vm.catalog">
     <div><span class="title"><a href="#/reader/{{story.key}}">{{story.title}}</a></span>
       <span class="author">by {{story.author}}</span></div>
     <div class="tagline">{{story.tagLine}}</div>

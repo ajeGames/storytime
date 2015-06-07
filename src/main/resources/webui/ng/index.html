@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>StoryTime</title>
-    <link rel="stylesheet" type="text/css" href="style/storytime.css" />
+    <link rel="stylesheet" type="text/css" href="style/storytime-base.css" />
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
@@ -15,14 +15,7 @@
 <script src="js/catalog.controller.js"></script>
 <script src="js/story.controller.js"></script>
 
-<div id="header">
-    <h1>StoryTime</h1>
-</div>
+<div ng-view></div>
 
-<div id="main" ng-view></div>
-
-<div id="footer">
-    <p>&copy; 2015 AJE Games</p>
-</div>
 </body>
 </html>
