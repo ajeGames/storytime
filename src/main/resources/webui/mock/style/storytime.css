@@ -77,7 +77,7 @@ button {
 }
 
 #readerPanel {
-  height: 30em;
+  max-height: 50%;
   overflow-y: scroll;
 }
 
