@@ -14,7 +14,7 @@ public class CatalogController {
     private static Logger LOG = LoggerFactory.getLogger(CatalogController.class);
 
     public List<StorySummary> getAllStories() {
-        LOG.debug("Fetching all stories in repository");
+        LOG.info("Fetching all stories in repository");
 
         List<Story> stories = repo.getAllStories();
         List<StorySummary> results = new ArrayList<StorySummary>(stories.size());

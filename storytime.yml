@@ -6,7 +6,8 @@ logging:
 
   # Logger-specific levels.
   loggers:
-    com.ajegames: DEBUG
+    KeyEvent: INFO
+    com.ajegames: WARN
     org.hibernate.SQL: ALL
 
   appenders:

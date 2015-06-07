@@ -5,7 +5,6 @@ import com.ajegames.storytime.model.Chapter;
 import com.ajegames.storytime.model.StoryController;
 import com.ajegames.storytime.resource.view.StandaloneChapter;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

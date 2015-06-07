@@ -13,7 +13,7 @@ public class StoryController {
     private static Logger LOG = LoggerFactory.getLogger(StoryController.class);
 
     public Story createStory(String title, String author, String tagLine, String description) {
-        LOG.debug("Creating a new story entitled: " + title);
+        LOG.info("Creating a new story entitled: " + title);
         Story in = Story.createNew(title, author, tagLine, description);
         Story out = repo.addStory(in);
         out.setFirstChapter(out.addChapter());
@@ -22,12 +22,12 @@ public class StoryController {
     }
 
     public Story getStory(String storyKey) {
-        LOG.debug("Retrieving story with key: " + storyKey);
+        LOG.info("Retrieving story with key: " + storyKey);
         return repo.getStory(storyKey);
     }
 
     public Story updateStory(Story update) {
-        LOG.debug("Updating story information: " + update.getKey());
+        LOG.info("Updating story information: " + update.getKey());
         Story story = getStory(update.getKey());
         if (story == null) {
             throw new IllegalArgumentException("Unable to find story to update");
@@ -49,7 +49,7 @@ public class StoryController {
     }
 
     public Chapter getChapter(String storyKey, Integer chapterId) {
-        LOG.debug("Retrieving chapter " + chapterId + " for story " + storyKey);
+        LOG.info("Retrieving chapter " + chapterId + " for story " + storyKey);
         return retrieveChapter(storyKey, chapterId);
     }
 
@@ -62,7 +62,7 @@ public class StoryController {
     }
 
     public Chapter updateChapter(String storyKey, Chapter update) {
-        LOG.debug("Updating chapter " + update.getId() + " for story " + storyKey);
+        LOG.info("Updating chapter " + update.getId() + " for story " + storyKey);
         Chapter chap = retrieveChapter(storyKey, update.getId());
         if (update.getTeaser() != null) {
             chap.setTeaser(update.getTeaser());
@@ -78,7 +78,7 @@ public class StoryController {
     }
 
     public Chapter addNextChapter(String storyKey, Integer parentChapterId, String teaser) {
-        LOG.debug("Creating next chapter options for chapter " + parentChapterId + " of story " + storyKey + ": "
+        LOG.info("Creating next chapter options for chapter " + parentChapterId + " of story " + storyKey + ": "
                 + teaser);
         Story story = repo.getStory(storyKey);
         Chapter parent = story.getChapter(parentChapterId);
@@ -90,7 +90,7 @@ public class StoryController {
     }
 
     public void deleteStory(String storyKey) {
-        LOG.debug("Deleting story: " + storyKey);
+        LOG.info("Deleting story: " + storyKey);
         repo.deleteStory(storyKey);
     }
 
