@@ -9,6 +9,7 @@
 
     function storyCache() {
         return {
+            summaries: {},
             activeStory: {},
             activeChapters: {}
         };

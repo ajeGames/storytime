@@ -1,5 +1,6 @@
 package com.ajegames.storytime.resource;
 
+import com.ajegames.storytime.StoryTimeApplication;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.storytime.model.StoryController;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import javax.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class StoryResource {
 
-    private static Logger LOG = LoggerFactory.getLogger(StoryResource.class);
+    private static Logger LOG = StoryTimeApplication.KEY_EVENT_LOG;
 
     private StoryController ctrl = new StoryController();
 

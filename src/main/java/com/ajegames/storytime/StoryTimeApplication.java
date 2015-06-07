@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
  */
 public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
 
+    public static Logger KEY_EVENT_LOG = LoggerFactory.getLogger("StoryTimeEvent");
+
     private static Logger LOG = LoggerFactory.getLogger(StoryTimeApplication.class);
 
     public static void main(String[] args) throws Exception {

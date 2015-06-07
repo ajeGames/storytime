@@ -1,5 +1,6 @@
 package com.ajegames.storytime.resource;
 
+import com.ajegames.storytime.StoryTimeApplication;
 import com.ajegames.storytime.model.CatalogController;
 import com.ajegames.storytime.resource.view.StorySummary;
 import com.codahale.metrics.annotation.Timed;
@@ -19,7 +20,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class StoryTimeResource {
 
-    private static Logger LOG = LoggerFactory.getLogger(StoryTimeResource.class);
+    private static Logger LOG = StoryTimeApplication.KEY_EVENT_LOG;
 
     @GET
     public String ping() {

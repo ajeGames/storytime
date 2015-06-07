@@ -5,9 +5,9 @@
         .module('storyTimeApp')
         .controller('StoryController', StoryController);
 
-        StoryController.$inject = ['$routeParams', 'storyCache', 'connectService'];
+        StoryController.$inject = ['$routeParams', 'connectService', 'storyCache'];
 
-        function StoryController($routeParams, storyCache, connectService) {
+        function StoryController($routeParams, connectService, storyCache) {
             var vm = this;
             //vm.storyCache = storyCache;
             vm.requestedStoryKey = $routeParams.storyKey;
