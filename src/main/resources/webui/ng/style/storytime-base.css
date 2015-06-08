@@ -81,8 +81,8 @@ body {
   font-size: large;
 }
 
-#nextChapters {
-  margin: 0em 1.5em;
+.next {
+  margin: 1em 1.5em 0 1.5em;
   border: dotted silver 1px;
   padding: 0.5em;
 }
