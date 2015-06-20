@@ -102,3 +102,7 @@ body {
   border: dotted silver 1px;
   padding: 0.5em;
 }
+
+.hidden {
+  display: none;
+}
