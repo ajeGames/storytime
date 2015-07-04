@@ -2,18 +2,18 @@
     'use strict';
 
     angular
-        .module('storyTimeApp')
+        .module('StoryTime')
         .config(config);
 
     function config($routeProvider) {
         $routeProvider
             .when('/catalog', {
-                templateUrl: 'template/catalog.html',
+                templateUrl: 'templates/pages/catalog/index.html',
                 controller: 'CatalogController',
                 controllerAs: 'vm'
             })
             .when('/reader/:storyKey/:chapter', {
-                templateUrl: 'template/reader.html',
+                templateUrl: 'templates/pages/reader/index.html',
                 controller: 'StoryController',
                 controllerAs: 'vm'
             })

@@ -2,6 +2,6 @@
     'use strict';
 
     angular
-        .module('storyTimeApp', ['ngRoute']);
+        .module('StoryTime', ['ngRoute']);
 
 })();

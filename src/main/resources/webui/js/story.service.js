@@ -4,7 +4,7 @@
     'use strict';
 
     angular
-        .module('storyTimeApp')
+        .module('StoryTime')
         .factory('storyCache', storyCache);
 
     function storyCache() {

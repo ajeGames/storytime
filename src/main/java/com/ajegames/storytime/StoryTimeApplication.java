@@ -31,7 +31,7 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
 
     @Override
     public void initialize(Bootstrap<StoryTimeConfiguration> bootstrap) {
-        bootstrap.addBundle(new AssetsBundle("/webui/", "/", "index.html"));
+        bootstrap.addBundle(new AssetsBundle("/webui/", "/", "storytime.html"));
     }
 
     private void loadSampleStories(PersistenceConfiguration config) {

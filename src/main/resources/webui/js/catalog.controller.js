@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('storyTimeApp')
+        .module('StoryTime')
         .controller('CatalogController', CatalogController);
 
     CatalogController.$inject = ['connectService', 'storyCache'];
