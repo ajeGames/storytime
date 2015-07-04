@@ -13,8 +13,8 @@
       {
         "id": 2,
         "teaser": "Take the strange new path and see where it goes.",
-        "heading": "Goldie Locks feels adventurous and without a moments hesitation bounds along the new path.  Before long, she comes across a lovely little cottage tucked neatly into a small clearing of trees.  It looks like such a lovely little place that she decides she wants to see inside. What does she do?",
-        "prose": "You step inside what appears to be a cave.  There are two ways to go: left and right.  Choose a way forward; there's no turning back.",
+        "heading": "Into the Woods",
+        "prose": "Goldie Locks feels adventurous and without a moments hesitation bounds along the new path.  Before long, she comes across a lovely little cottage tucked neatly into a small clearing of trees.  It looks like such a lovely little place that she decides she wants to see inside. What does she do?",
         "nextChapterOptions": [
           {
             "id": 4,
@@ -46,9 +46,9 @@
       },
       {
         "id": 3,
-        "teaser": "Stay out",
-        "heading": "Life Goes On",
-        "prose": "Well, I guess you are not much for adventure."
+        "teaser": "Stay on the path she knows.",
+        "heading": "Goldie Goes Home",
+        "prose": "Not feeling particularly adventurous that day, Goldie Locks decides to stay on the path as usual, and as usual, the day was rather ordinary."
       }
     ]
   }
