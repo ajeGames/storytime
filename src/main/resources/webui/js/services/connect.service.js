@@ -5,11 +5,11 @@
 
     angular
         .module('StoryTime')
-        .factory('connectService', connectService);
+        .factory('StoryServer', StoryServerAccessFactory);
 
-    connectService.$inject = ['$http', '$q'];
+    StoryServerAccessFactory.$inject = ['$http', '$q'];
 
-    function connectService($http, $q) {
+    function StoryServerAccessFactory($http, $q) {
         return {
             deleteStory: deleteStory,
             fetchAllStories: fetchAllStories,

@@ -5,9 +5,9 @@
 
     angular
         .module('StoryTime')
-        .factory('storyCache', storyCache);
+        .factory('StoryCache', StoryCacheFactory);
 
-    function storyCache() {
+    function StoryCacheFactory() {
         return {
             summaries: {},
             activeStory: {},
