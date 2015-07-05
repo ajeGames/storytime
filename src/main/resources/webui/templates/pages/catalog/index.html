@@ -2,7 +2,7 @@
   <div class="instruction">Choose a Story</div>
 </div>
 <div id="main" class="row scroll-y">
-  <div class="summary" ng-repeat="story in vm.catalog">
+  <div class="summary" ng-repeat="story in catCtrl.catalog">
     <div><span class="title"><a href="#/reader/{{story.key}}">{{story.title}}</a></span>
       <span class="author">by {{story.author}}</span></div>
     <div class="tagline">{{story.tagLine}}</div>
@@ -10,5 +10,5 @@
   </div>
 </div>
 <div id="footer" class="row">
-  <button ng-click="vm.startNewStory()">Start A New Story</button> (<a href="editor-new.html">Go</a>)
+  <button ng-click="catCtrl.startNewStory()">Start A New Story</button> (<a href="editor-new.html">Go</a>)
 </div>

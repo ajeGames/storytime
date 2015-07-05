@@ -10,12 +10,12 @@
             .when('/catalog', {
                 templateUrl: 'templates/pages/catalog/index.html',
                 controller: 'CatalogController',
-                controllerAs: 'vm'
+                controllerAs: 'catCtrl'
             })
             .when('/reader/:storyKey/:chapter', {
                 templateUrl: 'templates/pages/reader/index.html',
                 controller: 'StoryController',
-                controllerAs: 'vm'
+                controllerAs: 'storyCtrl'
             })
             .when('/reader/:storyKey', {
                 redirectTo: '/reader/:storyKey/1'

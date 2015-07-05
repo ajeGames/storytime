@@ -1,17 +1,17 @@
 <div id="header" class="row">
-  <div><span class="title">{{vm.currentStory.title}}</span> <span class="author">by {{vm.currentStory.author}}</span>
+  <div><span class="title">{{storyCtrl.currentStory.title}}</span> <span class="author">by {{storyCtrl.currentStory.author}}</span>
   </div>
-  <div class="chapterTitle">{{vm.currentChapter.heading}}</div>
+  <div class="chapterTitle">{{storyCtrl.currentChapter.heading}}</div>
 </div>
 <div id="main" class="row scroll-y">
-  <div id="prose">{{vm.currentChapter.prose}}</div>
-  <div id="nextChapters" ng-hide="vm.isTheEnd()">
+  <div id="prose">{{storyCtrl.currentChapter.prose}}</div>
+  <div id="nextChapters" ng-hide="storyCtrl.isTheEnd()">
     <div class="instruction">Choose your next step.</div>
-    <div ng-repeat="option in vm.currentChapter.nextChapterOptions" class="nextChapterOption">
-      <a href="#/reader/{{vm.currentStory.key}}/{{option.id}}">{{option.teaser}}</a></div>
+    <div ng-repeat="option in storyCtrl.currentChapter.nextChapterOptions" class="nextChapterOption">
+      <a href="#/reader/{{storyCtrl.currentStory.key}}/{{option.id}}">{{option.teaser}}</a></div>
   </div>
 </div>
 <div id="footer" class="row">
-  <div><a href="#/reader/{{vm.currentStory.key}}/1">Return to Chapter One</a></div>
+  <div><a href="#/reader/{{storyCtrl.currentStory.key}}/1">Return to Chapter One</a></div>
   <div><a href="#/catalog">Choose Another Story</a></div>
 </div>
