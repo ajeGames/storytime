@@ -6,20 +6,39 @@
     <link rel="stylesheet" type="text/css" href="storytime.css"/>
 </head>
 <body>
-<div id="editor">
-    <div class="editorPanel">
+    <div id="header" class="row">
         <h2 class="header">Story Information</h2>
-
-        <div><label>Title: <input type="text" id="title" value="A Tale of Two Cities"/></label></div>
-        <div><label>Author: <input type="text" id="author" value="Charles Dickens"/></label></div>
-        <div><label>Tag Line: <input type="text" id="tagLine"
-                                     value="Say something provocative, yet true to the story, to draw in your reader."/></label>
-        </div>
-        <div><label>Description: <textarea id="description">This is a long description of the story, something that would go on the back cover to entice the reader to spend time reading.</textarea></label>
-        </div>
-        <div><button>Update Story</button> (<a href="editor-chapter.html">Go</a>) </div>
     </div>
-</div>
-<div id="footer"><a href="index.html">Home</a></div>
+    <div id="main" class="row scroll-y">
+        <div class="instruction">Review and Update</div>
+        <form>
+            <ul class="form-style-1">
+                <li>
+                    <label>Title:</label>
+                    <input type="text" name="title" class="field-long" value="A Tale of Two Cities"/>
+                </li>
+                <li>
+                    <label>Author:</label> <input type="text" name="author" class="field-long" value="Charles Dickens"/>
+                </li>
+                <li>
+                    <label>Tag Line:</label> <input type="text" name="tagLine" class="field-long" value="Watch your step for change is upon us."/>
+                </li>
+                <li>
+                    <label>Description:</label>
+                    <textarea name="description" class="field-long field-textarea">This is a long description of the story, something that would go on the back cover to entice the reader to spend time reading.
+                    </textarea>
+                </li>
+                <li>
+                    <!-- TODO adapt style to button element
+                    <button>Create Story</button> (<a href="editor-chapter.html">Go</a>)
+                    -->
+                    <input type="submit" value="Save Changes" /> (<a href="editor-chapter.html">Go</a>)
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="footer" class="row">
+        <a href="index.html">Home</a>
+    </div>
 </body>
 </html>
