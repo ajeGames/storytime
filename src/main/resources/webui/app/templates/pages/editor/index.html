@@ -1,15 +1,34 @@
-<div>
-    <!-- create and edit a single story -->
-    <div class="storyPanel">
-        <h2 class="heading">Active Story</h2>
+    <div id="header" class="row">
+        <h2 class="header">Story Information</h2>
+    </div>
+    <div id="main" class="row scroll-y">
+        <div class="instruction">Review and Update</div>
+        <form>
+            <ul class="form-style-1">
+                <li>
+                    <label>Title:</label>
+                    <input type="text" ng-model="draftStory.title" class="field-long"/>
+                </li>
+                <li>
+                    <label>Author:</label> <input type="text" ng-model="draftStory.author" class="field-long"/>
+                </li>
+                <li>
+                    <label>Tag Line:</label> <input type="text" ng-model="draftStory.tagLine" class="field-long"/>
+                </li>
+                <li>
+                    <label>Description:</label>
+                    <textarea ng-model="draftStory.description" class="field-long field-textarea"></textarea>
+                </li>
+                <li>
+                    <!-- TODO adapt style to button element
+                    <button>Create Story</button> (<a href="editor-chapter.html">Go</a>)
+                    -->
+                    <input type="submit" ng-click="saveDraft()" value="Save Story" /> (<a href="editor-chapter.html">Go</a>)
+                </li>
+            </ul>
+        </form>
 
-        <div ng-show="storyCtrl.isEdit">
-            <p>Key: {{storyCtrl.draft.key}}</p>
-            <p><label>Story Title:<br/><input ng-model="storyCtrl.draft.title" type="text"/></label></p>
-            <p><label>Author:<br/><input ng-model="storyCtrl.draft.author" type="text"/></label></p>
-            <p><label>Tagline:<br/><textarea ng-model="storyCtrl.draft.tagLine" cols="80" rows="4"></textarea></label></p>
-            <p><button ng-click="storyCtrl.save()">Save</button> <button ng-click="storyCtrl.clear()">Clear</button></p>
-        </div>
+        <!-- TODO chapter editing
         <div ng-hide="storyCtrl.isEdit">
             <p><span class="storyTitle">{{storyCtrl.draft.title}}</span> by {{storyCtrl.draft.author}}</p>
             <p>"{{storyCtrl.draft.tagLine}}"</p>
@@ -42,5 +61,9 @@
                 </div>
             </div>
         </div>
+        -->
+
     </div>
-</div>
+    <div id="footer" class="row">
+        <a href="index.html">Home</a>
+    </div>

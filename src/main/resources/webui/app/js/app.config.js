@@ -20,6 +20,16 @@
             .when('/reader/:storyKey', {
                 redirectTo: '/reader/:storyKey/1'
             })
+            .when('/editor/new', {
+                templateUrl: 'templates/pages/editor/index.html',
+                controller: 'EditorController',
+                controllerAs: 'editorCtrl'
+            })
+            .when('/editor/:storyKey', {
+                templateUrl: 'templates/pages/editor/index.html',
+                controller: 'EditorController',
+                controllerAs: 'editorCtrl'
+            })
             .otherwise({
                 redirectTo: '/catalog'
             });

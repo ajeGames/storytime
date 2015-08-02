@@ -3,7 +3,7 @@
 
   angular
       .module('StoryTime')
-      .controller('EditorCtrl', EditorController);
+      .controller('EditorController', EditorController);
 
   function EditorController(StoryService) {
     var vm = this;
