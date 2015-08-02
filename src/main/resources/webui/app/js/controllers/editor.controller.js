@@ -5,31 +5,25 @@
         .module('StoryTime')
         .controller('EditorController', EditorController);
 
-    StoryController.$inject = ['$routeParams', 'StoryServer'];
+    EditorController.$inject = ['$routeParams', 'StoryServer'];
 
-    function EditorController($routeParams, StoryService) {
+    function EditorController($routeParams, StoryServer) {
         console.log('EditorController: constructor')
         var vm = this;
+        vm.draft = {};
 
         // === Story summary edit logic ===
 
-        vm.draft = {};
-        vm.isEdit = true;
-
         vm.save = function () {
-          if (vm.draft.key == null) {
-            vm.draft.key = Date.now();  // TODO backend will do this when hooked up
-            vm.catalog.push(vm.draft);  // new story, so add to list
-          } else {
-            for (var i in vm.catalog) {
-              if (vm.catalog[i].key == vm.draft.key) {
-                vm.catalog[i] = vm.draft;
-              }
+            if (vm.draft.key == null) {
+                StoryServer.createStory(vm.draft);
+            } else {
+                StoryServer.updateStory(vm.draft);
             }
-          }
-          vm.isEdit = false;
+            // TODO update draft with whatever came from server; update cache
         };
 
+/*
         vm.edit = function (key) {
           for (var i in vm.catalog) {
             if (vm.catalog[i].key == key) {
@@ -61,7 +55,6 @@
 
         vm.updateScene = function () {
           if (vm.draftScene.key == null) {
-            vm.draftScene.key = Date.now();  // TODO backend will do this when hooked up
             vm.draftScene.nextSceneOptions = [];
           }
         };
@@ -88,6 +81,6 @@
             }
           }
         };
+*/
     }
-
 })();

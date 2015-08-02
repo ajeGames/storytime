@@ -39,6 +39,25 @@
             return (request.then(handleSuccess, handleError));
         }
 
+        function createStory(story) {
+            var request = $http({
+                method: "post",
+                url: "../api/story",
+                data: story
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function updateStory(story) {
+            var goTo = "../api/story/" + story.storyKey;
+            var request = $http({
+                method: "put",
+                url: goTo,
+                data: story
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
         function deleteStory(key) {
             var request = $http({
                 method: "delete",

@@ -20,10 +20,7 @@
                     <textarea ng-model="draft.description" class="field-long field-textarea"></textarea>
                 </li>
                 <li>
-                    <!-- TODO adapt style to button element
-                    <button>Create Story</button> (<a href="editor-chapter.html">Go</a>)
-                    -->
-                    <input type="submit" ng-click="save()" value="Save Story" /> (<a href="editor-chapter.html">Go</a>)
+                    <button ng-click="editorCtrl.save()">Save Story</button>
                 </li>
             </ul>
         </form>
