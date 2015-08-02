@@ -7,23 +7,23 @@
             <ul class="form-style-1">
                 <li>
                     <label>Title:</label>
-                    <input type="text" ng-model="draftStory.title" class="field-long"/>
+                    <input type="text" ng-model="draft.title" class="field-long"/>
                 </li>
                 <li>
-                    <label>Author:</label> <input type="text" ng-model="draftStory.author" class="field-long"/>
+                    <label>Author:</label> <input type="text" ng-model="draft.author" class="field-long"/>
                 </li>
                 <li>
-                    <label>Tag Line:</label> <input type="text" ng-model="draftStory.tagLine" class="field-long"/>
+                    <label>Tag Line:</label> <input type="text" ng-model="draft.tagLine" class="field-long"/>
                 </li>
                 <li>
                     <label>Description:</label>
-                    <textarea ng-model="draftStory.description" class="field-long field-textarea"></textarea>
+                    <textarea ng-model="draft.description" class="field-long field-textarea"></textarea>
                 </li>
                 <li>
                     <!-- TODO adapt style to button element
                     <button>Create Story</button> (<a href="editor-chapter.html">Go</a>)
                     -->
-                    <input type="submit" ng-click="saveDraft()" value="Save Story" /> (<a href="editor-chapter.html">Go</a>)
+                    <input type="submit" ng-click="save()" value="Save Story" /> (<a href="editor-chapter.html">Go</a>)
                 </li>
             </ul>
         </form>
