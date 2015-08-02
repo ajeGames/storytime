@@ -11,10 +11,12 @@
 
     function StoryServerAccessFactory($http, $q) {
         return {
+            createStory: createStory,
             deleteStory: deleteStory,
             fetchAllStories: fetchAllStories,
             fetchChapters: fetchChapters,
-            fetchStory: fetchStory
+            fetchStory: fetchStory,
+            updateStory: updateStory
         };
 
         function fetchAllStories() {
