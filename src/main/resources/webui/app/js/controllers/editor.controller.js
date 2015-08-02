@@ -10,7 +10,13 @@
     function EditorController($routeParams, StoryServer) {
         console.log('EditorController: constructor')
         var vm = this;
-        vm.draft = {};
+
+        var requestedStoryKey = $routeParams.storyKey;
+        if (requestedStoryKey != null) {
+            vm.draft = StoryServer.fetchStory(requestedStoryKey);
+        } else {
+            vm.draft = {};
+        }
 
         // === Story summary edit logic ===
 
