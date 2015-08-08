@@ -1,7 +1,9 @@
     <div id="header" class="row">
-        <h2 class="header">Story Information</h2>
+        <h2 class="header">Story Editor</h2>
     </div>
+
     <div id="main" class="row scroll-y">
+        <!-- TODO create summary edit panel -->
         <div class="instruction">Review and Update</div>
         <form>
             <ul class="form-style-1">
@@ -25,46 +27,53 @@
             </ul>
         </form>
 
+        <!-- TODO create summary view panel -->
         <p>Form Summary: (as of latest save)<br/>
             ({{editorCtrl.draft.key}}) {{editorCtrl.draft.title}} by {{editorCtrl.draft.author}} <br/>
             Tag Line: {{editorCtrl.draft.tagLine}}<br/>
             Description: {{editorCtrl.draft.description}}
         </p>
 
-        <!-- TODO chapter editing
-        <div ng-hide="storyCtrl.isEdit">
-            <p><span class="storyTitle">{{storyCtrl.draft.title}}</span> by {{storyCtrl.draft.author}}</p>
-            <p>"{{storyCtrl.draft.tagLine}}"</p>
-            <div>
-                <button ng-click="storyCtrl.edit(storyCtrl.draft.key)">Edit</button>
-                <button ng-click="storyCtrl.clear()">Clear</button>
-            </div>
-            <div class="scenePanel">
-                <h2 class="heading">Opening Scene</h2>
-                <div>
-                    <p>({{storyCtrl.draftScene.key}})
-                        <label>Opening Scene Teaser: <input ng-model="storyCtrl.draftScene.teaser" type="text" size="80"
-                                                            class="teaser"/></label></p>
+        <!-- TODO create chapter edit panel -->
+        <div ng-hide="storyCtrl.isNew">
+            <h2 class="heading">Chapter #{{editorCtrl.draftChapter.id}}</h2>
+            <form>
+                <!-- chapter -->
+                <ul>
+                    <li>
+                        <label>Opening Scene Teaser:</label>
+                        <input type="text" ng-model="editorCtrl.draftChapter.teaser" class="field-long"/>
+                    </li>
+                    <li>
+                        <label>Scene:</label>
+                        <textarea ng-model="editorCtrl.draftChapter.prose" class="field-long field-textarea"></textarea>
+                    </li>
+                    <li>
+                        <button ng-click="editorCtrl.saveDraftChapter()">Save Chapter</button>
+                    </li>
+                </ul>
 
-                    <p><label>Scene:<br/><textarea ng-model="storyCtrl.draftScene.prose" cols="80" rows="4"></textarea></label>
-                    </p>
-
-                    <p>
-                        <button ng-click="storyCtrl.updateScene()">Update</button>
-                    </p>
-                    <p><input ng-model="storyCtrl.nextSceneTeaser" type="text" class="teaser"/>
-                        <button ng-click="storyCtrl.addSceneOption()">Add Next Scene</button>
-                    </p>
-                    <div ng-repeat="nextScene in storyCtrl.draftScene.nextSceneOptions">
-                        <p>({{storyCtrl.nextScene.key}}) {{storyCtrl.nextScene.teaser}}
-                            <button ng-click="storyCtrl.removeSceneOption(storyCtrl.nextScene.key)">Remove Scene
-                            </button>
-                        </p>
-                    </div>
-                </div>
-            </div>
+                <!-- next chapter options -->
+                <!-- TODO rename "teaser" to "signpost" -->
+                <ul>
+                    <li>
+                        <label>Next Chapter Options</label>
+                        <div ng-repeat="nextChapter in editorCtrl.draftChapter.nextChapterOptions">
+                            <a href="#/editor/{{editorCtrl.draft.key}}/{{nextChapter.id}}">Chapter #{{nextChapter.id}}</a>
+                            {{nextChapter.teaser}}
+                            <button ng-click="editorCtrl.removeNextChapterOptionFromDraftChapter(nextChapter.id)">Remove</button><br/>
+                        </div>
+                    </li>
+                    <li>
+                        Create Another Option:
+                        <input type="text" ng-model="editorCtrl.nextChapterOption.teaser" class="field-long"/>
+                    </li>
+                    <li>
+                        <button ng-click="editorCtrl.addChapterOption()">Add Next Chapter</button>
+                    </li>
+                </ul>
+            </form>
         </div>
-        -->
 
     </div>
     <div id="footer" class="row">

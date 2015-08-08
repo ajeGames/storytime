@@ -11,8 +11,13 @@
         console.log('EditorController: constructor');
 
         var vm = this;
+
         vm.draft = {};
+        vm.isNew = true;
         vm.save = save;
+        vm.draftChapter = {};
+        vm.saveDraftChapter = saveDraftChapter;
+        vm.removeNextChapterOptionFromDraftChapter = removeNextChapterOptionFromDraftChapter;
 
         initialize($routeParams.storyKey);
 
@@ -20,8 +25,12 @@
             if (storyKey != null) {
                 StoryServer.fetchStory(storyKey).then(function(data) {
                     vm.draft = data;
+                    // TODO handle failure to find story
+                    vm.isNew = false;
+                    vm.draftChapter = vm.draft.firstChapter;
                 });
             } else {
+                vm.isNew = true;
                 vm.draft = {};
             }
         }
@@ -30,6 +39,8 @@
             var result;
             if (vm.draft.key == null) {
                 result = StoryServer.createStory(vm.draft);
+                // TODO determine if there was a problem; otherwise, no longer new
+                isNew = false;
             } else {
                 result = StoryServer.updateStory(vm.draft);
             }
@@ -38,6 +49,13 @@
             });
         };
 
+        function saveDraftChapter() {
+            alert('not implemented');
+        }
+
+        function removeNextChapterOptionFromDraftChapter(id) {
+            alert('not implemented');
+        }
 /*
         vm.edit = function (key) {
           for (var i in vm.catalog) {
