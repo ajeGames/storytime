@@ -8,25 +8,34 @@
     EditorController.$inject = ['$routeParams', 'StoryServer'];
 
     function EditorController($routeParams, StoryServer) {
-        console.log('EditorController: constructor')
-        var vm = this;
+        console.log('EditorController: constructor');
 
-        var requestedStoryKey = $routeParams.storyKey;
-        if (requestedStoryKey != null) {
-            vm.draft = StoryServer.fetchStory(requestedStoryKey);
-        } else {
-            vm.draft = {};
+        var vm = this;
+        vm.draft = {};
+        vm.save = save;
+
+        initialize($routeParams.storyKey);
+
+        function initialize(storyKey) {
+            if (storyKey != null) {
+                StoryServer.fetchStory(storyKey).then(function(data) {
+                    vm.draft = data;
+                });
+            } else {
+                vm.draft = {};
+            }
         }
 
-        // === Story summary edit logic ===
-
-        vm.save = function () {
+        function save() {
+            var result;
             if (vm.draft.key == null) {
-                StoryServer.createStory(vm.draft);
+                result = StoryServer.createStory(vm.draft);
             } else {
-                StoryServer.updateStory(vm.draft);
+                result = StoryServer.updateStory(vm.draft);
             }
-            // TODO update draft with whatever came from server; update cache
+            result.then(function(data) {
+                vm.draft = data;
+            });
         };
 
 /*

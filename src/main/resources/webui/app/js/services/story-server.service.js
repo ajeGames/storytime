@@ -29,7 +29,7 @@
 
         function fetchStory(key) {
             return $http.get("../api/story/" + key)
-                .then(handleSuccess, handleError);
+                .then(handleSuccess).catch(handleError);
         }
 
         function fetchChapters(storyKey, chapterIds) {
@@ -38,7 +38,7 @@
                 method: "get",
                 url: goTo
             });
-            return (request.then(handleSuccess, handleError));
+            return request.then(handleSuccess).catch(handleError);
         }
 
         function createStory(story) {
@@ -47,17 +47,17 @@
                 url: "../api/story",
                 data: story
             });
-            return (request.then(handleSuccess, handleError));
+            return request.then(handleSuccess).catch(handleError);
         }
 
         function updateStory(story) {
-            var goTo = "../api/story/" + story.storyKey;
+            var goTo = "../api/story/" + story.key;
             var request = $http({
                 method: "put",
                 url: goTo,
                 data: story
             });
-            return (request.then(handleSuccess, handleError));
+            return request.then(handleSuccess).catch(handleError);
         }
 
         function deleteStory(key) {
@@ -70,18 +70,20 @@
         // "PRIVATE" FUNCTIONS
 
         function handleSuccess(response) {
-            return ( response.data );
+            return response.data;
         }
 
         function handleError(response) {
 
+            console.log('Problem with call to server: ' + error.data);
+
             // handle unexpected format
             if (!angular.isObject(response.data) || !response.data.message) {
-            return ( $q.reject("An unknown error occurred.") );
+            return $q.reject("An unknown error occurred.");
             }
 
             // Otherwise, use expected error message.
-            return ( $q.reject(response.data.message) );
+            return $q.reject(response.data.message);
         }
     }
 
