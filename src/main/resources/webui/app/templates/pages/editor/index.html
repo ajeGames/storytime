@@ -25,8 +25,8 @@
             </ul>
         </form>
 
-        <p>Form Summary:<br/>
-            {{editorCtrl.draft.title}} by {{editorCtrl.draft.author}} <br/>
+        <p>Form Summary: (as of latest save)<br/>
+            ({{editorCtrl.draft.key}}) {{editorCtrl.draft.title}} by {{editorCtrl.draft.author}} <br/>
             Tag Line: {{editorCtrl.draft.tagLine}}<br/>
             Description: {{editorCtrl.draft.description}}
         </p>
@@ -68,5 +68,6 @@
 
     </div>
     <div id="footer" class="row">
+        <a href="#/catalog">Catalog</a>
         <a href="index.html">Home</a>
     </div>
