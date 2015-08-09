@@ -12,14 +12,16 @@
 
         var vm = this;
 
+        vm.addChapterOption = addChapterOption;
         vm.draft = {};
-        vm.isNew = true;
-        vm.save = save;
         vm.draftChapter = {};
+        vm.isNew = true;
+        vm.nextChapterTeaser = null;
+        vm.removeChapterOption = removeChapterOption;
+        vm.saveDraft = saveDraft;
         vm.saveDraftChapter = saveDraftChapter;
-        vm.removeNextChapterOptionFromDraftChapter = removeNextChapterOptionFromDraftChapter;
 
-        initialize($routeParams.storyKey);
+        initialize($routeParams.storyKey, $routeParams.chapterId);
 
         function initialize(storyKey) {
             if (storyKey != null) {
@@ -35,7 +37,7 @@
             }
         }
 
-        function save() {
+        function saveDraft() {
             var result;
             if (vm.draft.key == null) {
                 result = StoryServer.createStory(vm.draft);
@@ -47,73 +49,34 @@
             result.then(function(data) {
                 vm.draft = data;
             });
-        };
+        }
 
         function saveDraftChapter() {
-            alert('not implemented');
+            alert('!!!NOT IMPLEMENTED: saveDraftChapter');
         }
 
-        function removeNextChapterOptionFromDraftChapter(id) {
-            alert('not implemented');
+        function addChapterOption() {
+            if (vm.nextChapterTeaser != null) {
+                var sceneOption = {'key': Date.now(), 'teaser': vm.nextChapterTeaser};
+                vm.draftChapter.nextChapterOptions.push(chapterOption);
+                vm.nextChapterTeaser = null;
+            } else {
+                alert('Provide some text for the teaser/signpost.');
+            }
+            saveDraftChapter();
         }
-/*
-        vm.edit = function (key) {
-          for (var i in vm.catalog) {
-            if (vm.catalog[i].key == key) {
-              vm.draft = angular.copy(vm.catalog[i]);
-              break;
+
+        function removeChapterOption(id) {
+            if (id === undefined || id === null) {
+                alert('!!!NOT FOUND: chapter ID of the option to remove');
             }
-          }
-          vm.isEdit = true;
-        };
-
-        vm.load = function (key) {
-          for (var i in vm.catalog) {
-            if (vm.catalog[i].key == key) {
-              vm.draft = vm.catalog[i];
-              vm.draftScene = vm.draft.firstScene;
-              if (vm.draftScene.nextSceneOptions == null) {
-                vm.draftScene.nextSceneOptions = [];
-              }
-              break;
+            for (var i in vm.draftChapter.nextChapterOptions) {
+                if (vm.draftChapter.nextChapterOptions[i].key == key) {
+                    vm.draftChapter.nextChapterOptions.splice(i, 1);
+                    break;
+                }
             }
-          }
-          vm.isEdit = false;
-        };
-
-        vm.clear = function () {
-          vm.draft = {};
-          vm.isEdit = true;
-        };
-
-        vm.updateScene = function () {
-          if (vm.draftScene.key == null) {
-            vm.draftScene.nextSceneOptions = [];
-          }
-        };
-
-        // === Scene edit logic ===
-
-        vm.draftScene = {};
-
-        vm.nextSceneTeaser = null;
-
-        vm.addSceneOption = function () {
-          if (vm.nextSceneTeaser != null) {
-            var sceneOption = {'key': Date.now(), 'teaser': vm.nextSceneTeaser};
-            vm.draftScene.nextSceneOptions.push(sceneOption);
-            vm.nextSceneTeaser = null;
-          }
-        };
-
-        vm.removeSceneOption = function (key) {
-          for (var i in vm.draftScene.nextSceneOptions) {
-            if (vm.draftScene.nextSceneOptions[i].key == key) {
-              vm.draftScene.nextSceneOptions.splice(i, 1);
-              break;
-            }
-          }
-        };
-*/
+            saveDraftChapter();
+        }
     }
 })();

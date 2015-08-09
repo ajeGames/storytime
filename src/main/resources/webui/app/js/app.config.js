@@ -30,6 +30,11 @@
                 controller: 'EditorController',
                 controllerAs: 'editorCtrl'
             })
+            .when('/editor/:storyKey/:chapterId', {
+                templateUrl: 'templates/pages/editor/index.html',
+                controller: 'EditorController',
+                controllerAs: 'editorCtrl'
+            })
             .otherwise({
                 redirectTo: '/catalog'
             });
