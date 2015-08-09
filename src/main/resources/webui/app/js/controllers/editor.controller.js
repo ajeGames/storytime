@@ -23,17 +23,23 @@
 
         initialize($routeParams.storyKey, $routeParams.chapterId);
 
-        function initialize(storyKey) {
-            if (storyKey != null) {
-                StoryServer.fetchStory(storyKey).then(function(data) {
-                    vm.draft = data;
-                    // TODO handle failure to find story
-                    vm.isNew = false;
-                    vm.draftChapter = vm.draft.firstChapter;
-                });
-            } else {
+        function initialize(storyKey, chapterId) {
+            if (storyKey === null) {
                 vm.isNew = true;
                 vm.draft = {};
+                vm.draftChapter = {};
+            } else {
+                StoryServer.fetchStory(storyKey).then(function(data) {
+                    // TODO handle failure to find story
+                    vm.draft = data;
+                    vm.isNew = false;
+                    if (chapterId === null) {
+                        vm.draftChapter = vm.draft.firstChapter;
+                    } else {
+                        alert('!!!TODO: load specific chapter');
+                        vm.draftChapter = vm.draft.firstChapter;
+                    }
+                });
             }
         }
 
@@ -52,13 +58,12 @@
         }
 
         function saveDraftChapter() {
-            alert('!!!NOT IMPLEMENTED: saveDraftChapter');
+            alert('!!!TODO: saveDraftChapter');
         }
 
         function addChapterOption() {
             if (vm.nextChapterTeaser != null) {
-                var sceneOption = {'key': Date.now(), 'teaser': vm.nextChapterTeaser};
-                vm.draftChapter.nextChapterOptions.push(chapterOption);
+                vm.draftChapter.nextChapterOptions.push( {'id': '-1', 'teaser': vm.nextChapterTeaser} );
                 vm.nextChapterTeaser = null;
             } else {
                 alert('Provide some text for the teaser/signpost.');
@@ -71,7 +76,7 @@
                 alert('!!!NOT FOUND: chapter ID of the option to remove');
             }
             for (var i in vm.draftChapter.nextChapterOptions) {
-                if (vm.draftChapter.nextChapterOptions[i].key == key) {
+                if (vm.draftChapter.nextChapterOptions[i].id === id) {
                     vm.draftChapter.nextChapterOptions.splice(i, 1);
                     break;
                 }
