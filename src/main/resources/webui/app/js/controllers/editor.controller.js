@@ -12,30 +12,38 @@
 
         var vm = this;
 
+        vm.addChapterOption = addChapterOption;
         vm.draft = {};
-        vm.isNew = true;
-        vm.save = save;
         vm.draftChapter = {};
+        vm.isNew = true;
+        vm.nextChapterTeaser = null;
+        vm.removeChapterOption = removeChapterOption;
+        vm.saveDraft = saveDraft;
         vm.saveDraftChapter = saveDraftChapter;
-        vm.removeNextChapterOptionFromDraftChapter = removeNextChapterOptionFromDraftChapter;
 
-        initialize($routeParams.storyKey);
+        initialize($routeParams.storyKey, $routeParams.chapterId);
 
-        function initialize(storyKey) {
-            if (storyKey != null) {
-                StoryServer.fetchStory(storyKey).then(function(data) {
-                    vm.draft = data;
-                    // TODO handle failure to find story
-                    vm.isNew = false;
-                    vm.draftChapter = vm.draft.firstChapter;
-                });
-            } else {
+        function initialize(storyKey, chapterId) {
+            if (storyKey === null) {
                 vm.isNew = true;
                 vm.draft = {};
+                vm.draftChapter = {};
+            } else {
+                StoryServer.fetchStory(storyKey).then(function(data) {
+                    // TODO handle failure to find story
+                    vm.draft = data;
+                    vm.isNew = false;
+                    if (chapterId === null) {
+                        vm.draftChapter = vm.draft.firstChapter;
+                    } else {
+                        alert('!!!TODO: load specific chapter');
+                        vm.draftChapter = vm.draft.firstChapter;
+                    }
+                });
             }
         }
 
-        function save() {
+        function saveDraft() {
             var result;
             if (vm.draft.key == null) {
                 result = StoryServer.createStory(vm.draft);
@@ -47,73 +55,33 @@
             result.then(function(data) {
                 vm.draft = data;
             });
-        };
+        }
 
         function saveDraftChapter() {
-            alert('not implemented');
+            alert('!!!TODO: saveDraftChapter');
         }
 
-        function removeNextChapterOptionFromDraftChapter(id) {
-            alert('not implemented');
+        function addChapterOption() {
+            if (vm.nextChapterTeaser != null) {
+                vm.draftChapter.nextChapterOptions.push( {'id': '-1', 'teaser': vm.nextChapterTeaser} );
+                vm.nextChapterTeaser = null;
+            } else {
+                alert('Provide some text for the teaser/signpost.');
+            }
+            saveDraftChapter();
         }
-/*
-        vm.edit = function (key) {
-          for (var i in vm.catalog) {
-            if (vm.catalog[i].key == key) {
-              vm.draft = angular.copy(vm.catalog[i]);
-              break;
+
+        function removeChapterOption(id) {
+            if (id === undefined || id === null) {
+                alert('!!!NOT FOUND: chapter ID of the option to remove');
             }
-          }
-          vm.isEdit = true;
-        };
-
-        vm.load = function (key) {
-          for (var i in vm.catalog) {
-            if (vm.catalog[i].key == key) {
-              vm.draft = vm.catalog[i];
-              vm.draftScene = vm.draft.firstScene;
-              if (vm.draftScene.nextSceneOptions == null) {
-                vm.draftScene.nextSceneOptions = [];
-              }
-              break;
+            for (var i in vm.draftChapter.nextChapterOptions) {
+                if (vm.draftChapter.nextChapterOptions[i].id === id) {
+                    vm.draftChapter.nextChapterOptions.splice(i, 1);
+                    break;
+                }
             }
-          }
-          vm.isEdit = false;
-        };
-
-        vm.clear = function () {
-          vm.draft = {};
-          vm.isEdit = true;
-        };
-
-        vm.updateScene = function () {
-          if (vm.draftScene.key == null) {
-            vm.draftScene.nextSceneOptions = [];
-          }
-        };
-
-        // === Scene edit logic ===
-
-        vm.draftScene = {};
-
-        vm.nextSceneTeaser = null;
-
-        vm.addSceneOption = function () {
-          if (vm.nextSceneTeaser != null) {
-            var sceneOption = {'key': Date.now(), 'teaser': vm.nextSceneTeaser};
-            vm.draftScene.nextSceneOptions.push(sceneOption);
-            vm.nextSceneTeaser = null;
-          }
-        };
-
-        vm.removeSceneOption = function (key) {
-          for (var i in vm.draftScene.nextSceneOptions) {
-            if (vm.draftScene.nextSceneOptions[i].key == key) {
-              vm.draftScene.nextSceneOptions.splice(i, 1);
-              break;
-            }
-          }
-        };
-*/
+            saveDraftChapter();
+        }
     }
 })();
