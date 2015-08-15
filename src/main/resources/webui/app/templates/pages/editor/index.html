@@ -4,7 +4,7 @@
 
     <div id="main" class="row scroll-y">
         <!-- TODO create summary edit panel -->
-        <div class="instruction">Review and Update</div>
+        <div class="instruction">Story Information</div>
         <form>
             <ul class="form-style-1">
                 <li>
@@ -22,24 +22,19 @@
                     <textarea ng-model="editorCtrl.draft.description" class="field-long field-textarea"></textarea>
                 </li>
                 <li>
-                    <button ng-click="editorCtrl.save()">Save Story</button>
+                    <button ng-click="editorCtrl.saveDraft()">Save Story</button> (Key: {{editorCtrl.draft.key}})
                 </li>
             </ul>
         </form>
 
-        <!-- TODO create summary view panel -->
-        <p>Form Summary: (as of latest save)<br/>
-            ({{editorCtrl.draft.key}}) {{editorCtrl.draft.title}} by {{editorCtrl.draft.author}} <br/>
-            Tag Line: {{editorCtrl.draft.tagLine}}<br/>
-            Description: {{editorCtrl.draft.description}}
-        </p>
+        <hr/>
 
         <!-- TODO create chapter edit panel -->
         <div ng-hide="storyCtrl.isNew">
-            <h2 class="heading">Chapter #{{editorCtrl.draftChapter.id}}</h2>
+            <div class="instruction">Chapter #{{editorCtrl.draftChapter.id}} Information</div>
             <form>
                 <!-- chapter -->
-                <ul>
+                <ul class="form-style-1">
                     <li>
                         <label>Opening Scene Teaser:</label>
                         <input type="text" ng-model="editorCtrl.draftChapter.teaser" class="field-long"/>
@@ -55,18 +50,18 @@
 
                 <!-- next chapter options -->
                 <!-- TODO rename "teaser" to "signpost" -->
-                <ul>
+                <ul class="form-style-1">
                     <li>
-                        <label>Next Chapter Options</label>
+                        <label>Next Chapter Options:</label>
                         <div ng-repeat="nextChapter in editorCtrl.draftChapter.nextChapterOptions">
                             <a href="#/editor/{{editorCtrl.draft.key}}/{{nextChapter.id}}">Chapter #{{nextChapter.id}}</a>
                             {{nextChapter.teaser}}
-                            <button ng-click="editorCtrl.removeNextChapterOptionFromDraftChapter(nextChapter.id)">Remove</button><br/>
+                            <button ng-click="editorCtrl.removeChapterOption(nextChapter.id)">Remove</button><br/>
                         </div>
                     </li>
                     <li>
                         Create Another Option:
-                        <input type="text" ng-model="editorCtrl.nextChapterOption.teaser" class="field-long"/>
+                        <input type="text" ng-model="editorCtrl.nextChapterTeaser" class="field-long"/>
                     </li>
                     <li>
                         <button ng-click="editorCtrl.addChapterOption()">Add Next Chapter</button>
