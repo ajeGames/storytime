@@ -41,8 +41,8 @@ public class StoryController {
         if (update.getTagLine() != null) {
             story.setTagLine(update.getTagLine());
         }
-        if (update.getDescription() != null) {
-            story.setDescription(update.getDescription());
+        if (update.getAbout() != null) {
+            story.setAbout(update.getAbout());
         }
         repo.saveStory(story.getKey());
         return story;

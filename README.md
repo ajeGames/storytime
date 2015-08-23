@@ -32,7 +32,7 @@ Use cases and API methods
 * Register a new story in the system.
 * Returns the story information that includes a reference to the first scene to be edited.
 
-`startStory(title, description)`
+`startStory(title, about)`
 
 **Add a scene**
 
@@ -67,7 +67,7 @@ Story
         "title": "The Three Little Pigs",
         "author": "Bros. Grimm",
         "tagLine": "A lesson in economics.",
-        "description": "What happens when forest creatures try to strike a healthy work-life balance?",
+        "about": "What happens when forest creatures try to strike a healthy work-life balance?",
         "firstScene": "dw8nhv63-1"
     }
     

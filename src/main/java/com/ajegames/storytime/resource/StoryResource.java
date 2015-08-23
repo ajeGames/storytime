@@ -33,7 +33,7 @@ public class StoryResource {
     public Story create(Story story) {
         LOG.info("Creating another story for a happier universe.");
         try {
-            return ctrl.createStory(story.getTitle(), story.getAuthor(), story.getTagLine(), story.getDescription());
+            return ctrl.createStory(story.getTitle(), story.getAuthor(), story.getTagLine(), story.getAbout());
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }

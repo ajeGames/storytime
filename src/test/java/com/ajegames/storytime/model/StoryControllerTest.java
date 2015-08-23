@@ -23,7 +23,7 @@ public class StoryControllerTest {
         Assert.assertEquals(adv.getTitle(), "foo");
         Assert.assertEquals(adv.getAuthor(), "bar");
         Assert.assertEquals(adv.getTagLine(), "baz");
-        Assert.assertEquals(adv.getDescription(), "qux");
+        Assert.assertEquals(adv.getAbout(), "qux");
         Assert.assertNotNull(adv.getFirstChapter());
         Assert.assertNotNull(adv.getFirstChapter().getId());
         Assert.assertNull(adv.getFirstChapter().getHeading());
@@ -46,12 +46,12 @@ public class StoryControllerTest {
         update.setTitle("updated");
         update.setAuthor("updated");
         update.setTagLine("updated");
-        update.setDescription("updated");
+        update.setAbout("updated");
         Story result = ctrl.updateStory(update);
         Assert.assertEquals(result.getTitle(), "updated");
         Assert.assertEquals(result.getAuthor(), "updated");
         Assert.assertEquals(result.getTagLine(), "updated");
-        Assert.assertEquals(result.getDescription(), "updated");
+        Assert.assertEquals(result.getAbout(), "updated");
 
         Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
@@ -67,7 +67,7 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getTitle(), "updated");
         Assert.assertEquals(result.getAuthor(), adv.getAuthor());
         Assert.assertEquals(result.getTagLine(), adv.getTagLine());
-        Assert.assertEquals(result.getDescription(), adv.getDescription());
+        Assert.assertEquals(result.getAbout(), adv.getAbout());
 
         Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
@@ -83,7 +83,7 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getTitle(), adv.getTitle());
         Assert.assertEquals(result.getAuthor(), "updated");
         Assert.assertEquals(result.getTagLine(), adv.getTagLine());
-        Assert.assertEquals(result.getDescription(), adv.getDescription());
+        Assert.assertEquals(result.getAbout(), adv.getAbout());
 
         Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
@@ -99,7 +99,7 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getTitle(), adv.getTitle());
         Assert.assertEquals(result.getAuthor(), adv.getAuthor());
         Assert.assertEquals(result.getTagLine(), "updated");
-        Assert.assertEquals(result.getDescription(), adv.getDescription());
+        Assert.assertEquals(result.getAbout(), adv.getAbout());
 
         Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");
@@ -110,12 +110,12 @@ public class StoryControllerTest {
         Story adv = ctrl.createStory("three", "three", "three", "three");
         Story update = new Story();
         update.setKey(adv.getKey());
-        update.setDescription("updated");
+        update.setAbout("updated");
         Story result = ctrl.updateStory(update);
         Assert.assertEquals(result.getTitle(), adv.getTitle());
         Assert.assertEquals(result.getAuthor(), adv.getAuthor());
         Assert.assertEquals(result.getTagLine(), adv.getTagLine());
-        Assert.assertEquals(result.getDescription(), "updated");
+        Assert.assertEquals(result.getAbout(), "updated");
 
         Story check = ctrl.getStory(adv.getKey());
         Assert.assertEquals(check, result, "Return value should match stored value");

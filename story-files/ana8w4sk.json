@@ -3,7 +3,7 @@
   "title": "Three Little Pigs",
   "author": "Grimm Brothers",
   "tagLine": "Not by the hair of my chinny chin chin.",
-  "description": "This is the cautionary tale about what happens to pigs who take shortcuts.",
+  "about": "This is the cautionary tale about what happens to pigs who take shortcuts.",
   "firstChapter": {
     "id": 1,
     "teaser": null,

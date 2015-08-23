@@ -25,7 +25,7 @@ public class Story {
     private String tagLine;
 
     @JsonProperty
-    private String description;
+    private String about;
 
     @JsonProperty
     private Chapter firstChapter;
@@ -37,7 +37,7 @@ public class Story {
         out.setTitle(title);
         out.setAuthor(author);
         out.setTagLine(tagLine);
-        out.setDescription(description);
+        out.setAbout(description);
         return out;
     }
 
@@ -77,12 +77,12 @@ public class Story {
         this.tagLine = tagLine;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAbout() {
+        return about;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public Chapter getFirstChapter() {
@@ -127,7 +127,7 @@ public class Story {
         if (title != null ? !title.equals(story.title) : story.title != null) return false;
         if (author != null ? !author.equals(story.author) : story.author != null) return false;
         if (tagLine != null ? !tagLine.equals(story.tagLine) : story.tagLine != null) return false;
-        if (description != null ? !description.equals(story.description) : story.description != null)
+        if (about != null ? !about.equals(story.about) : story.about != null)
             return false;
         return !(firstChapter != null ? !firstChapter.equals(story.firstChapter) : story.firstChapter != null);
 
@@ -139,7 +139,7 @@ public class Story {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (tagLine != null ? tagLine.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (about != null ? about.hashCode() : 0);
         result = 31 * result + (firstChapter != null ? firstChapter.hashCode() : 0);
         return result;
     }

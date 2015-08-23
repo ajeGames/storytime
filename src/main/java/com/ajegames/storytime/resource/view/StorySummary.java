@@ -29,7 +29,7 @@ public class StorySummary {
         summary.title = story.getTitle();
         summary.author = story.getAuthor();
         summary.tagLine = story.getTagLine();
-        summary.description = story.getDescription();
+        summary.description = story.getAbout();
         summary.firstChapter = NextChapter.createFromChapter(story.getFirstChapter());
         return summary;
     }
