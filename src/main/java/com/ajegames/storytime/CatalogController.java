@@ -1,7 +1,8 @@
-package com.ajegames.storytime.model;
+package com.ajegames.storytime;
 
 import com.ajegames.storytime.data.StoryTimeRepository;
-import com.ajegames.storytime.resource.view.StorySummary;
+import com.ajegames.storytime.model.Story;
+import com.ajegames.storytime.model.StorySummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ public class CatalogController {
         List<Story> stories = repo.getAllStories();
         List<StorySummary> results = new ArrayList<StorySummary>(stories.size());
         for (Story story : stories) {
-            results.add(StorySummary.createFromStory(story));
+            results.add(story.getSummary());
         }
         return results;
     }

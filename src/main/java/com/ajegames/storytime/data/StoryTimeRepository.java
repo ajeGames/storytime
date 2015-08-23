@@ -1,6 +1,5 @@
 package com.ajegames.storytime.data;
 
-import com.ajegames.storytime.model.Chapter;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
@@ -47,28 +46,40 @@ public class StoryTimeRepository {
         LOG.info("Loading " + stories.size() + " stories");
         for (Story story : stories) {
             addStory(story);
-            story.indexChapters();
+            story.initializeAfterLoad();
         }
     }
 
-    public void saveStory(String key) {
-        LOG.info("Saving story: " + key);
-        Story story = getStory(key);
-        this.storage.saveStory(story);
+    public void saveStory(Story storyToSave) {
+        LOG.info("Saving story: " + storyToSave.getSummary().getKey());
+        this.stories.put(storyToSave.getSummary().getKey(), storyToSave);
+        this.storage.saveStory(storyToSave);
     }
 
-    public Story addStory(Story story) {
-        LOG.info("Adding story: " + story.getKey());
-        // assign key if needed
-        String tempKey = story.getKey();
-        if (tempKey == null) {
-            do {
-                tempKey = keyGenerator.nextKey();
-            } while (stories.containsKey(tempKey));
-            story.setKey(tempKey);
+    /**
+     * Adds a new story to the repository, assigning a key in the process.
+     * @param story whatever story details are known at the time
+     * @return the story that was passed in, but with a newly minted key
+     */
+    public Story registerNewStory(Story story) {
+        if (story.getSummary().getKey() != null) {
+            throw new IllegalArgumentException("Only call for new stories that need to have a key assigned");
         }
-        stories.put(tempKey, story);
+        LOG.info("Registering story: " + story.getSummary().getTitle());
+        LOG.debug(story.toString());
+
+        String tempKey;
+        do {
+            tempKey = keyGenerator.nextKey();
+        } while (stories.containsKey(tempKey));
+        story.getSummary().setKey(tempKey);
+        addStory(story);
         return story;
+    }
+
+    public void addStory(Story story) {
+        LOG.info("Adding story: " + story.getSummary().getKey());
+        stories.put(story.getSummary().getKey(), story);
     }
 
     public Story getStory(String key) {
