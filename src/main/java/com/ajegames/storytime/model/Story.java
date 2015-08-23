@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class Story {
 
-    private int chapterCounter = 1;
+    private int chapterCounter = 1000;
 
     @JsonProperty
     private String key;
