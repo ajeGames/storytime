@@ -1,22 +1,32 @@
 {
-  "key": "mvghheo8",
-  "title": "0qjj56k2qq7hhkb1",
-  "author": "mpvnfs8otwgmv1od",
-  "tagLine": "sgjkzxnb7r2ztoiy",
-  "description": "i2laa678jn9vsbgn",
-  "firstChapter": {
-    "id": 1,
-    "teaser": "lv5909srqjnic5jy",
-    "heading": "ykj6hrarx4ggug4y",
-    "prose": "0foavkqo9dbh6jc5",
-    "nextChapterOptions": [
-      {
-        "id": 2,
-        "teaser": "uk87txtk5cyfql6u",
-        "heading": "i5smhjigy5xtoen8",
-        "prose": "u08r2er4uhdxrwc8",
-        "nextChapterOptions": []
-      }
-    ]
-  }
+  "summary" : {
+    "key": "mvghheo8",
+    "title": "0qjj56k2qq7hhkb1",
+    "author": "mpvnfs8otwgmv1od",
+    "tagLine": "sgjkzxnb7r2ztoiy",
+    "about": "i2laa678jn9vsbgn",
+    "firstChapter": {
+      "targetChapterId": 1,
+      "teaser": "lv5909srqjnic5jy"
+    }
+  },
+  "chapters" : [
+    {
+      "id": 1,
+      "heading": "ykj6hrarx4ggug4y",
+      "prose": "0foavkqo9dbh6jc5",
+      "nextChapterOptions": [
+        {
+          "targetChapterId": 2,
+          "teaser": "uk87txtk5cyfql6u"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "heading": "i5smhjigy5xtoen8",
+      "prose": "u08r2er4uhdxrwc8",
+      "nextChapterOptions": []
+    }
+  ]
 }

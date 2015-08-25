@@ -50,7 +50,7 @@ public class JSONFileStoryPersistenceTest {
         Assert.assertEquals(stories.size(), 2);
 
         for (Story story : stories) {
-            String storyKey = story.getKey();
+            String storyKey = story.getSummary().getKey();
             Assert.assertTrue(storyKey.equals("mvghheo8") || storyKey.equals("ni7l0szw"));
         }
     }

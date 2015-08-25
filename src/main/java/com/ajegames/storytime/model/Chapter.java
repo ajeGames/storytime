@@ -5,85 +5,109 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chapter {
+/**
+ * Representation for the chapter.
+ */
+public class Chapter implements Comparable {
 
-    @JsonProperty
+    private Story myStory;  // remember story that chapter belongs to
     private Integer id;
-
-    @JsonProperty
-    private String teaser;
-
-    @JsonProperty
     private String heading;
-
-    @JsonProperty
     private String prose;
-
-    @JsonProperty
-    private List<Chapter> nextChapterOptions;
+    private List<ChapterSign> nextChapterOptions;
 
     public Chapter() {
-        nextChapterOptions = new ArrayList<Chapter>();
+        nextChapterOptions = new ArrayList<ChapterSign>();
     }
 
-    public static Chapter create(Story story, Integer id) {
+    public static Chapter create(Story story, Integer id, String heading, String prose) {
         Chapter out = new Chapter();
+        out.setMyStory(story);
         out.setId(id);
+        out.setHeading(heading);
+        out.setProse(prose);
         return out;
     }
 
+    public static Chapter createWithPlaceholderText(Story story, Integer id) {
+        Chapter out = new Chapter();
+        out.setMyStory(story);
+        out.setId(id);
+        out.setHeading("Name This Chapter");
+        out.setProse("Say what happens...");
+        return out;
+    }
+
+    public Story getMyStory() {
+        return myStory;
+    }
+
+    private void setMyStory(Story myStory) {
+        this.myStory = myStory;
+    }
+
+    @JsonProperty
     public Integer getId() {
         return id;
     }
 
+    @JsonProperty
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getTeaser() {
-        return teaser;
-    }
-
-    public void setTeaser(String teaser) {
-        this.teaser = teaser;
-    }
-
+    @JsonProperty
     public String getHeading() {
         return heading;
     }
 
+    @JsonProperty
     public void setHeading(String heading) {
         this.heading = heading;
     }
 
+    @JsonProperty
     public String getProse() {
         return prose;
     }
 
+    @JsonProperty
     public void setProse(String prose) {
         this.prose = prose;
     }
 
-    public List<Chapter> getNextChapterOptions() {
+    @JsonProperty
+    public List<ChapterSign> getNextChapterOptions() {
         return nextChapterOptions;
     }
 
-    public void setNextChapterOptions(List<Chapter> options) {
+    @JsonProperty
+    public void setNextChapterOptions(List<ChapterSign> options) {
         if (options == null) {
             throw new IllegalArgumentException("Expecting non-null list of chapters");
         }
         this.nextChapterOptions.clear();
-        for (Chapter chap : options) {
+        for (ChapterSign chap : options) {
             addNextChapter(chap);
         }
     }
 
-    public void addNextChapter(Chapter next) {
+    public void addNextChapter(ChapterSign next) {
         this.nextChapterOptions.add(next);
     }
 
     public boolean hasNext() {
         return nextChapterOptions != null || !nextChapterOptions.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return "Chapter{" +
+                "id=" + id +
+                ", heading='" + heading + '\'' +
+                ", prose='" + prose + '\'' +
+                ", nextChapterOptions=" + nextChapterOptions +
+                '}';
     }
 
     @Override
@@ -94,7 +118,6 @@ public class Chapter {
         Chapter chapter = (Chapter) o;
 
         if (id != null ? !id.equals(chapter.id) : chapter.id != null) return false;
-        if (teaser != null ? !teaser.equals(chapter.teaser) : chapter.teaser != null) return false;
         if (heading != null ? !heading.equals(chapter.heading) : chapter.heading != null) return false;
         if (prose != null ? !prose.equals(chapter.prose) : chapter.prose != null) return false;
         return !(nextChapterOptions != null ? !nextChapterOptions.equals(chapter.nextChapterOptions) : chapter.nextChapterOptions != null);
@@ -104,10 +127,18 @@ public class Chapter {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (teaser != null ? teaser.hashCode() : 0);
         result = 31 * result + (heading != null ? heading.hashCode() : 0);
         result = 31 * result + (prose != null ? prose.hashCode() : 0);
         result = 31 * result + (nextChapterOptions != null ? nextChapterOptions.hashCode() : 0);
         return result;
+    }
+
+    public int compareTo(Object o) {
+        if (this.equals(o)) return 0;
+        if (o == null) return -1;  // force null objects to the end
+
+        Chapter chapter = (Chapter) o;
+        if (id.equals(chapter.getId())) return 0;
+        return (id < chapter.getId()) ? -1 : 1;
     }
 }

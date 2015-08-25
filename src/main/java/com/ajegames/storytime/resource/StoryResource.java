@@ -2,7 +2,8 @@ package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.StoryTimeApplication;
 import com.ajegames.storytime.model.Story;
-import com.ajegames.storytime.model.StoryController;
+import com.ajegames.storytime.StoryController;
+import com.ajegames.storytime.model.StorySummary;
 import org.slf4j.Logger;
 
 import javax.ws.rs.*;
@@ -20,20 +21,22 @@ public class StoryResource {
 
     @GET
     @Path("{key}")
-    public Story get(@PathParam("key") String key) {
+    public StorySummary get(@PathParam("key") String key) {
         LOG.info("Retrieving story for key: " + key);
         Story story = ctrl.getStory(key);
         if (story == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return story;
+        return story.getSummary();
     }
 
     @POST
-    public Story create(Story story) {
+    public StorySummary create(StorySummary story) {
         LOG.info("Creating another story for a happier universe.");
         try {
-            return ctrl.createStory(story.getTitle(), story.getAuthor(), story.getTagLine(), story.getDescription());
+            Story newStory = ctrl.createStory(story.getTitle(), story.getAuthor(), story.getTagLine(),
+                    story.getAbout());
+            return newStory.getSummary();
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }
@@ -41,14 +44,15 @@ public class StoryResource {
 
     @PUT
     @Path("{key}")
-    public Story update(@PathParam("key") String key, Story update) {
+    public StorySummary update(@PathParam("key") String key, StorySummary update) {
         LOG.info("Receiving changes to story: " + key);
         if (update.getKey() != null && !key.equals(update.getKey())) {
             LOG.error("Key in URI does not match key in data");
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         try {
-            return ctrl.updateStory(update);
+            ctrl.updateSummary(update);
+            return ctrl.getStory(update.getKey()).getSummary();
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }

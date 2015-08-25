@@ -56,7 +56,7 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
 
     public void saveStory(Story story) {
         try {
-            new ObjectMapper().writeValue(buildFilename(story.getKey()), story);
+            new ObjectMapper().writeValue(buildFilename(story.getSummary().getKey()), story);
         } catch (IOException e) {
             LOG.error("Something went wrong when writing out the story", e);
         }
@@ -67,7 +67,7 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
     }
 
     public boolean deleteStory(Story story) {
-        File fileToDelete = buildFilename(story.getKey());
+        File fileToDelete = buildFilename(story.getSummary().getKey());
         return fileToDelete.delete();
     }
 }

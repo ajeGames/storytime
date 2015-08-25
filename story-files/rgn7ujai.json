@@ -3,7 +3,7 @@
   "title": "The Cave",
   "author": "Bubba Bubba Gump",
   "tagLine": "Can you find the treasure?",
-  "description": "Explore an undiscovered cave and see what wonders lie below.  Can you live to tell?",
+  "about": "Explore an undiscovered cave and see what wonders lie below.  Can you live to tell?",
   "firstChapter": {
     "id": 1,
     "teaser": "What lies beneath?",
