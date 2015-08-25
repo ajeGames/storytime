@@ -5,7 +5,7 @@
   "tagLine": "this is a normal tag line",
   "about": "what it is normally about",
   "firstChapter": {
-    "id": 1000,
+    "targetChapterId": 1000,
     "teaser": "once upon a time..."
   }
 }

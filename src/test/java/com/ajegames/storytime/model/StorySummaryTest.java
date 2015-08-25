@@ -21,7 +21,7 @@ public class StorySummaryTest {
                 "this is a normal tag line", "what it is normally about", firstChapter);
 
         final String expected = MAPPER.writeValueAsString(
-                MAPPER.readValue(fixture("fixtures/story-test_normal.json"), Story.class));
+                MAPPER.readValue(fixture("fixtures/StorySummary-normal.json"), StorySummary.class));
 
         Assert.assertEquals(MAPPER.writeValueAsString(story), expected);
     }

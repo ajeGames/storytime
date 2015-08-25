@@ -30,7 +30,6 @@ public class StoryControllerTest {
         Assert.assertEquals(summary.getAbout(), "qux");
         Assert.assertNotNull(summary.getFirstChapter());
         Assert.assertNotNull(summary.getFirstChapter().getTargetChapterId());
-        Assert.assertNull(summary.getFirstChapter().getTeaser());
     }
 
     @Test
