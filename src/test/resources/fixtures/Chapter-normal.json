@@ -1,0 +1,15 @@
+{
+  "id": 1000,
+  "heading": "Chapter 1",
+  "prose": "It was a dark and stormy night.",
+  "nextChapterOptions": [
+    {
+      "targetChapterId": 1001,
+      "teaser": "Take a walk in the rain."
+    },
+    {
+      "targetChapterId": 1002,
+      "teaser": "Stay inside."
+    }
+  ]
+}

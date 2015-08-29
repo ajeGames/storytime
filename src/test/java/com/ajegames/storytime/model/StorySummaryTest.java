@@ -1,28 +1,54 @@
 package com.ajegames.storytime.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.dropwizard.jackson.Jackson;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static io.dropwizard.testing.FixtureHelpers.fixture;
-
 /**
- * Tests the representation class for stories.
+ * Tests the representation.
  */
-public class StorySummaryTest {
+public class StorySummaryTest extends RepresentationTestBase {
 
-    private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
+    private static final StorySummary NORMAL_STORY_SUMMARY = buildStorySummary();
 
     @Test
-    public void testSerializesToJSON() throws Exception {
-        final ChapterSign firstChapter = ChapterSign.createExisting(1000, "once upon a time...");
-        final StorySummary story = StorySummary.createExisting("1234abcd", "normal title", "normal author",
-                "this is a normal tag line", "what it is normally about", firstChapter);
-
-        final String expected = MAPPER.writeValueAsString(
-                MAPPER.readValue(fixture("fixtures/StorySummary-normal.json"), StorySummary.class));
-
-        Assert.assertEquals(MAPPER.writeValueAsString(story), expected);
+    public void testSerializesToJSON_Normal() throws Exception {
+        super.testSerializesToJSON("fixtures/StorySummary-normal.json", StorySummary.class, NORMAL_STORY_SUMMARY);
     }
+
+    @Test
+    public void testDeserializesFromJSON_Normal() throws Exception {
+        super.testDeserializesFromJSON("fixtures/StorySummary-normal.json", StorySummary.class, NORMAL_STORY_SUMMARY);
+    }
+
+    @Test
+    public void testSerializesToJSON_ExtraFields() throws Exception {
+        try {
+            super.testSerializesToJSON("fixtures/StorySummary-extraFields.json", StorySummary.class,
+                    NORMAL_STORY_SUMMARY);
+        } catch (UnrecognizedPropertyException e) {
+            return;
+        }
+        Assert.fail();
+    }
+
+    @Test
+    public void testDeserializesFromJSON_ExtraFields() throws Exception {
+        try {
+            super.testDeserializesFromJSON("fixtures/StorySummary-extraFields.json", StorySummary.class,
+                    NORMAL_STORY_SUMMARY);
+        } catch (UnrecognizedPropertyException e) {
+            return;
+        }
+        Assert.fail();
+    }
+
+    // ==== builders ====
+
+    private static StorySummary buildStorySummary() {
+        final ChapterSign firstChapter = ChapterSign.createExisting(1000, "once upon a time...");
+        return StorySummary.createExisting("1234abcd", "normal title", "normal author",
+                "this is a normal tag line", "what it is normally about", firstChapter);
+    }
+
 }

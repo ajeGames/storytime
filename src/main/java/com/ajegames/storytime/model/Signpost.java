@@ -2,6 +2,7 @@ package com.ajegames.storytime.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public class Signpost {
 
     private Integer fromChapterId;
-    private List<ChapterSign> nextChapterOptions;  // TODO order signs on post
+    private List<ChapterSign> nextChapterOptions = new ArrayList<ChapterSign>();
 
     @JsonProperty
     public Integer getFromChapterId() {
@@ -32,6 +33,10 @@ public class Signpost {
     @JsonProperty
     public void setNextChapterOptions(List<ChapterSign> nextChapterOptions) {
         this.nextChapterOptions = nextChapterOptions;
+    }
+
+    public void addNextChapterOption(ChapterSign option) {
+        this.nextChapterOptions.add(option);
     }
 
     @Override

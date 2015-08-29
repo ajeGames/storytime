@@ -1,0 +1,13 @@
+{
+  "fromChapterId": 1000,
+  "nextChapterOptions": [
+    {
+      "targetChapterId": 1001,
+      "teaser": "Take a walk in the rain."
+    },
+    {
+      "targetChapterId": 1002,
+      "teaser": "Stay inside."
+    }
+  ]
+}

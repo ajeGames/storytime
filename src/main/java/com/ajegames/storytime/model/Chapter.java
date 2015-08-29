@@ -1,5 +1,6 @@
 package com.ajegames.storytime.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -38,10 +39,12 @@ public class Chapter implements Comparable {
         return out;
     }
 
+    @JsonIgnore
     public Story getMyStory() {
         return myStory;
     }
 
+    @JsonIgnore
     private void setMyStory(Story myStory) {
         this.myStory = myStory;
     }
