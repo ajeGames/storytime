@@ -22,7 +22,7 @@ public class StoryController {
         in.setSummary(StorySummary.createNew(title, author, tagLine, description));
         Story out = repo.registerNewStory(in);
         Chapter first = out.addChapter();
-        ChapterSign firstSign = ChapterSign.createExisting(first.getId(), "Your destiny lies ahead.");
+        ChapterSign firstSign = ChapterSign.create(first.getId(), "Your destiny lies ahead.");
         out.getSummary().setFirstChapter(firstSign);
         repo.saveStory(out);
         return out;

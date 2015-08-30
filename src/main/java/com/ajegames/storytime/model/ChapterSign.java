@@ -11,10 +11,10 @@ public class ChapterSign {
     private Integer targetChapterId;
     private String teaser;
 
-    public static ChapterSign createExisting(Integer targetChapterId, String teaser) {
-        ChapterSign sign = new ChapterSign();
-        sign.setTargetChapterId(targetChapterId);
-        sign.setTeaser(teaser);
+    public static ChapterSign create(final Integer targetChapterId, final String teaser) {
+        final ChapterSign sign = new ChapterSign();
+        sign.targetChapterId = targetChapterId;
+        sign.teaser = teaser;
         return sign;
     }
 
@@ -24,18 +24,8 @@ public class ChapterSign {
     }
 
     @JsonProperty
-    public void setTargetChapterId(Integer targetChapterId) {
-        this.targetChapterId = targetChapterId;
-    }
-
-    @JsonProperty
     public String getTeaser() {
         return teaser;
-    }
-
-    @JsonProperty
-    public void setTeaser(String teaser) {
-        this.teaser = teaser;
     }
 
     @Override
@@ -44,25 +34,5 @@ public class ChapterSign {
                 "targetChapterId=" + targetChapterId +
                 ", teaser='" + teaser + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ChapterSign that = (ChapterSign) o;
-
-        if (targetChapterId != null ? !targetChapterId.equals(that.targetChapterId) : that.targetChapterId != null)
-            return false;
-        return !(teaser != null ? !teaser.equals(that.teaser) : that.teaser != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = targetChapterId != null ? targetChapterId.hashCode() : 0;
-        result = 31 * result + (teaser != null ? teaser.hashCode() : 0);
-        return result;
     }
 }

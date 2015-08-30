@@ -34,8 +34,8 @@ public class ChapterTest extends RepresentationTestBase {
 
     private static Chapter buildNormalChapter() {
         Chapter chapter = Chapter.create(null, 1000, "Chapter 1", "It was a dark and stormy night.");
-        chapter.addNextChapter(ChapterSign.createExisting(1001, "Take a walk in the rain."));
-        chapter.addNextChapter(ChapterSign.createExisting(1002, "Stay inside."));
+        chapter.addNextChapter(ChapterSign.create(1001, "Take a walk in the rain."));
+        chapter.addNextChapter(ChapterSign.create(1002, "Stay inside."));
         return chapter;
     }
 

@@ -22,6 +22,6 @@ public class ChapterSignTest extends RepresentationTestBase {
     // ==== builders ====
 
     private static ChapterSign buildNormalChapterSign() {
-        return ChapterSign.createExisting(1000, "Start here");
+        return ChapterSign.create(1000, "Start here");
     }
 }

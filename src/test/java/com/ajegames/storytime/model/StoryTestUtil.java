@@ -8,7 +8,7 @@ public class StoryTestUtil {
 
     public static Story generateStory() {
         Story adv = new Story();
-        ChapterSign firstChapter = ChapterSign.createExisting(1, fillGenerator.nextKey());
+        ChapterSign firstChapter = ChapterSign.create(1, fillGenerator.nextKey());
         adv.setSummary(StorySummary.createExisting(keyGenerator.nextKey(), fillGenerator.nextKey(),
                 fillGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey(), firstChapter));
         return adv;

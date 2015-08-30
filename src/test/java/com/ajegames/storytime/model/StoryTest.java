@@ -43,13 +43,13 @@ public class StoryTest extends RepresentationTestBase {
                 StorySummary.createExisting("0123456789abcdef", "Rain", "Bubba Gump",
                         "Want a fun adventure?  Just add water.",
                         "Come have an adventure.",
-                        ChapterSign.createExisting(1000, "It was a dark and stormy night.")));
+                        ChapterSign.create(1000, "It was a dark and stormy night.")));
 
         SortedSet<Chapter> chapters = new TreeSet<Chapter>();
 
         Chapter chapter = Chapter.create(normal, 1000, "Chapter 1", "It was a dark and stormy night.");
-        chapter.addNextChapter(ChapterSign.createExisting(1001, "Take a walk in the rain."));
-        chapter.addNextChapter(ChapterSign.createExisting(1002, "Stay inside."));
+        chapter.addNextChapter(ChapterSign.create(1001, "Take a walk in the rain."));
+        chapter.addNextChapter(ChapterSign.create(1002, "Stay inside."));
         chapters.add(chapter);
 
         chapter = Chapter.create(normal, 1001, "Chapter 2",

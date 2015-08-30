@@ -35,8 +35,8 @@ public class SignpostTest extends RepresentationTestBase {
     private static Signpost buildNormalSignpost() {
         Signpost post = new Signpost();
         post.setFromChapterId(1000);
-        post.addNextChapterOption(ChapterSign.createExisting(1001, "Take a walk in the rain."));
-        post.addNextChapterOption(ChapterSign.createExisting(1002, "Stay inside."));
+        post.addNextChapterOption(ChapterSign.create(1001, "Take a walk in the rain."));
+        post.addNextChapterOption(ChapterSign.create(1002, "Stay inside."));
         return post;
     }
 
