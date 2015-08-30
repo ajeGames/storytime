@@ -7,5 +7,6 @@ package com.ajegames.storytime.model;
  */
 public class Storybook {
 
-    // TODO think about it
+    Story storyGraph;
+
 }
