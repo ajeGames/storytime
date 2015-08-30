@@ -30,13 +30,13 @@
       "id": 1001,
       "heading": "Chapter 2",
       "prose": "As you step outside, you notice a man with a wide-brimmed hat.  Your adventure has just begun...",
-      "nextChapterOptions": []
+      "nextChapterOptions": null
     },
     {
       "id": 1002,
       "heading": "Chapter 3",
       "prose": "You settle in for a nice evening by the fire.  The End.",
-      "nextChapterOptions": []
+      "nextChapterOptions": null
     }
   ]
 }

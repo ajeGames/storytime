@@ -48,7 +48,7 @@ public class Story {
     }
 
     public Chapter addChapter() {
-        Chapter newChapter = Chapter.createWithPlaceholderText(this, nextChapterId++);
+        Chapter newChapter = Chapter.createWithPlaceholderText(this.getSummary().getKey(), nextChapterId++);
         chapters.add(newChapter);
         chapterIndex.put(newChapter.getId(), newChapter);
         return newChapter;

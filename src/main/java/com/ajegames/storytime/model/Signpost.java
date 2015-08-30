@@ -1,6 +1,8 @@
 package com.ajegames.storytime.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,14 @@ import java.util.List;
 public class Signpost {
 
     private Integer fromChapterId;
-    private List<ChapterSign> nextChapterOptions = new ArrayList<ChapterSign>();
+    private List<ChapterSign> nextChapterOptions;
+
+    public static Signpost create(final Integer fromChapterId, List<ChapterSign> chapterOptions) {
+        Signpost post = new Signpost();
+        post.fromChapterId = fromChapterId;
+        post.nextChapterOptions = new ArrayList<ChapterSign>(chapterOptions);  // TODO make immutable list
+        return post;
+    }
 
     @JsonProperty
     public Integer getFromChapterId() {
@@ -21,22 +30,8 @@ public class Signpost {
     }
 
     @JsonProperty
-    public void setFromChapterId(Integer fromChapterId) {
-        this.fromChapterId = fromChapterId;
-    }
-
-    @JsonProperty
     public List<ChapterSign> getNextChapterOptions() {
         return nextChapterOptions;
-    }
-
-    @JsonProperty
-    public void setNextChapterOptions(List<ChapterSign> nextChapterOptions) {
-        this.nextChapterOptions = nextChapterOptions;
-    }
-
-    public void addNextChapterOption(ChapterSign option) {
-        this.nextChapterOptions.add(option);
     }
 
     @Override
@@ -51,19 +46,13 @@ public class Signpost {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Signpost signpost = (Signpost) o;
-
-        if (fromChapterId != null ? !fromChapterId.equals(signpost.fromChapterId) : signpost.fromChapterId != null)
-            return false;
-        return !(nextChapterOptions != null ? !nextChapterOptions.equals(signpost.nextChapterOptions) : signpost.nextChapterOptions != null);
-
+        return Objects.equal(fromChapterId, signpost.fromChapterId) &&
+                Objects.equal(nextChapterOptions, signpost.nextChapterOptions);
     }
 
     @Override
     public int hashCode() {
-        int result = fromChapterId != null ? fromChapterId.hashCode() : 0;
-        result = 31 * result + (nextChapterOptions != null ? nextChapterOptions.hashCode() : 0);
-        return result;
+        return Objects.hashCode(fromChapterId, nextChapterOptions);
     }
 }

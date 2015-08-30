@@ -2,6 +2,9 @@ package com.ajegames.storytime.model;
 
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Tests the Signpost representation.
  */
@@ -33,11 +36,10 @@ public class SignpostTest extends RepresentationTestBase {
     // ==== builders ====
 
     private static Signpost buildNormalSignpost() {
-        Signpost post = new Signpost();
-        post.setFromChapterId(1000);
-        post.addNextChapterOption(ChapterSign.create(1001, "Take a walk in the rain."));
-        post.addNextChapterOption(ChapterSign.create(1002, "Stay inside."));
-        return post;
+        List<ChapterSign> options = new ArrayList<ChapterSign>();
+        options.add(ChapterSign.create(1001, "Take a walk in the rain."));
+        options.add(ChapterSign.create(1002, "Stay inside."));
+        return Signpost.create(1000, options);
     }
 
     private static Signpost buildEmptySignpost() {

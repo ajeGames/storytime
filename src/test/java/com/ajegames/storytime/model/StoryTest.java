@@ -2,6 +2,8 @@ package com.ajegames.storytime.model;
 
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -46,20 +48,15 @@ public class StoryTest extends RepresentationTestBase {
                         ChapterSign.create(1000, "It was a dark and stormy night.")));
 
         SortedSet<Chapter> chapters = new TreeSet<Chapter>();
-
-        Chapter chapter = Chapter.create(normal, 1000, "Chapter 1", "It was a dark and stormy night.");
-        chapter.addNextChapter(ChapterSign.create(1001, "Take a walk in the rain."));
-        chapter.addNextChapter(ChapterSign.create(1002, "Stay inside."));
-        chapters.add(chapter);
-
-        chapter = Chapter.create(normal, 1001, "Chapter 2",
-                "As you step outside, you notice a man with a wide-brimmed hat.  Your adventure has just begun...");
-        chapters.add(chapter);
-
-        chapter = Chapter.create(normal, 1002, "Chapter 3",
-                "You settle in for a nice evening by the fire.  The End.");
-        chapters.add(chapter);
-
+        List<ChapterSign> options = new ArrayList<ChapterSign>();
+        options.add(ChapterSign.create(1001, "Take a walk in the rain."));
+        options.add(ChapterSign.create(1002, "Stay inside."));
+        chapters.add(Chapter.create(1000, "Chapter 1", "It was a dark and stormy night.", options));
+        chapters.add(Chapter.create(1001, "Chapter 2",
+                "As you step outside, you notice a man with a wide-brimmed hat.  Your adventure has just begun...",
+                null));
+        chapters.add(Chapter.create(1002, "Chapter 3",
+                "You settle in for a nice evening by the fire.  The End.", null));
         normal.setChapters(chapters);
 
         return normal;

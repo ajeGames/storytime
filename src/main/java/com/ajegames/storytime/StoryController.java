@@ -59,7 +59,7 @@ public class StoryController {
     }
 
 //    public Chapter updateChapter(Chapter update) {
-//        LOG.info("Updating chapter " + update.getId() + " for story " + update.getMyStory().getSummary().getKey());
+//        LOG.info("Updating chapter " + update.getId() + " for story " + update.getStoryKey().getSummary().getKey());
 //        Chapter chap = retrieveChapter(storyKey, update.getId());
 //        if (update.getHeading() != null) {
 //            chap.setHeading(update.getHeading());

@@ -1,6 +1,7 @@
 package com.ajegames.storytime.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Objects;
 
 /**
  * Used to explain one of the options before our fair reader.  The chapter ID is that of the chapter the reader will
@@ -34,5 +35,19 @@ public class ChapterSign {
                 "targetChapterId=" + targetChapterId +
                 ", teaser='" + teaser + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChapterSign that = (ChapterSign) o;
+        return Objects.equal(targetChapterId, that.targetChapterId) &&
+                Objects.equal(teaser, that.teaser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(targetChapterId, teaser);
     }
 }
