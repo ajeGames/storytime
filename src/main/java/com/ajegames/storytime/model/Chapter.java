@@ -15,7 +15,8 @@ public class Chapter implements Comparable {
     private String prose;
     private List<ChapterSign> nextChapterOptions;
 
-    public static Chapter create(Integer id, String heading, String prose, List<ChapterSign> options) {
+    public static Chapter create(final Integer id, final String heading, final String prose,
+                                 final List<ChapterSign> options) {
         Chapter chapter = new Chapter();
         chapter.id = id;
         chapter.heading = heading;
@@ -24,7 +25,7 @@ public class Chapter implements Comparable {
         return chapter;
     }
 
-    public static Chapter createWithPlaceholderText(String storyKey, Integer id) {
+    public static Chapter createWithPlaceholderText(Integer id) {
         Chapter chapter = new Chapter();
         chapter.id = id;
         chapter.heading = "Name This Chapter";

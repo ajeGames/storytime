@@ -1,6 +1,8 @@
 package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Story;
+import com.ajegames.storytime.model.StorySummary;
+import com.ajegames.storytime.model.Storybook;
 import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +18,7 @@ public class StoryTimeRepository {
     private static Logger LOG = LoggerFactory.getLogger(StoryTimeRepository.class);
 
     private RandomString keyGenerator;
-    private Map<String, Story> stories;
+    private Map<String, Storybook> stories;
     private StoryTimePersistence storage;
 
     public static StoryTimeRepository getInstance() {
@@ -28,7 +30,7 @@ public class StoryTimeRepository {
 
     private StoryTimeRepository() {
         this.keyGenerator = new RandomString(8);
-        this.stories = new HashMap<String, Story>();
+        this.stories = new HashMap<String, Storybook>();
         this.storage = new NoopStoryTimePersistence();
     }
 
@@ -45,56 +47,57 @@ public class StoryTimeRepository {
         List<Story> stories = storage.loadStories();
         LOG.info("Loading " + stories.size() + " stories");
         for (Story story : stories) {
-            addStory(story);
-            story.initializeAfterLoad();
+            addStory(new Storybook().load(story));
         }
     }
 
-    public void saveStory(Story storyToSave) {
-        LOG.info("Saving story: " + storyToSave.getSummary().getKey());
-        this.stories.put(storyToSave.getSummary().getKey(), storyToSave);
-        this.storage.saveStory(storyToSave);
+    public void saveStory(Storybook book) {
+        LOG.info("Saving story: " + book.getSummary().getKey());
+        this.stories.put(book.getSummary().getKey(), book);
+        this.storage.saveStory(book.getStory());
     }
 
     /**
      * Adds a new story to the repository, assigning a key in the process.
-     * @param story whatever story details are known at the time
+     * @param book whatever story details are known at the time
      * @return the story that was passed in, but with a newly minted key
      */
-    public Story registerNewStory(Story story) {
-        if (story.getSummary().getKey() != null) {
+    public Storybook registerNewStory(Storybook book) {
+        StorySummary summary = book.getSummary();
+        if (summary.getKey() != null) {
             throw new IllegalArgumentException("Only call for new stories that need to have a key assigned");
         }
-        LOG.info("Registering story: " + story.getSummary().getTitle());
-        LOG.debug(story.toString());
+        LOG.info("Registering story: " + summary.getTitle());
+        LOG.debug(book.toString());
 
         String tempKey;
         do {
             tempKey = keyGenerator.nextKey();
         } while (stories.containsKey(tempKey));
-        story.getSummary().setKey(tempKey);
-        addStory(story);
-        return story;
+        book.setSummary(StorySummary.create(tempKey, summary.getTitle(), summary.getAuthor(), summary.getTagLine(),
+                summary.getAbout(), summary.getFirstChapter()));
+        addStory(book);
+        return book;
     }
 
-    public void addStory(Story story) {
-        LOG.info("Adding story: " + story.getSummary().getKey());
-        stories.put(story.getSummary().getKey(), story);
+    public void addStory(Storybook book) {
+        LOG.info("Adding story: " + book.getSummary().getKey());
+        stories.put(book.getSummary().getKey(), book);
     }
 
-    public Story getStory(String key) {
-        return stories.get(key);
+    public Storybook getStorybook(String storyKey) {
+        return stories.get(storyKey);
     }
 
-    public void deleteStory(String key) {
-        LOG.info("Deleting story: " + key);
-        storage.deleteStory(getStory(key));
-        stories.remove(key);
+    public void deleteStory(String storyKey) {
+        LOG.info("Deleting story: " + storyKey);
+        storage.deleteStory(storyKey);
+        stories.remove(storyKey);
     }
 
-    public List<Story> getAllStories() {
+    public List<Storybook> getAllStorybooks() {
         LOG.info("Retrieving full list of stories");
-        List<Story> all = new ArrayList<Story>();
+        List<Storybook> all = new ArrayList<Storybook>();
         all.addAll(stories.values());
         return all;
     }

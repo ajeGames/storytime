@@ -2,7 +2,6 @@ package com.ajegames.storytime.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
-import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ public class Signpost {
     private Integer fromChapterId;
     private List<ChapterSign> nextChapterOptions;
 
-    public static Signpost create(final Integer fromChapterId, List<ChapterSign> chapterOptions) {
+    public static Signpost create(final Integer fromChapterId, final List<ChapterSign> chapterOptions) {
         Signpost post = new Signpost();
         post.fromChapterId = fromChapterId;
         post.nextChapterOptions = new ArrayList<ChapterSign>(chapterOptions);  // TODO make immutable list

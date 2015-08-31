@@ -66,8 +66,8 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
         return new File(pathToFiles, baseName + ".json");
     }
 
-    public boolean deleteStory(Story story) {
-        File fileToDelete = buildFilename(story.getSummary().getKey());
+    public boolean deleteStory(String storyKey) {
+        File fileToDelete = buildFilename(storyKey);
         return fileToDelete.delete();
     }
 }

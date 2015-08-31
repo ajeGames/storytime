@@ -19,7 +19,7 @@ public class NoopStoryTimePersistence implements StoryTimePersistence {
         LOG.warn("This implementation does nothing, which is fine for testing.");
     }
 
-    public boolean deleteStory(Story story) {
+    public boolean deleteStory(String storyKey) {
         LOG.warn("This implementation does nothing, which is fine for testing.");
         return false;
     }

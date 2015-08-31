@@ -17,7 +17,7 @@ public class CatalogController {
     public List<StorySummary> getAllStories() {
         LOG.info("Fetching all stories in repository");
 
-        List<Story> stories = repo.getAllStories();
+        List<Story> stories = repo.getAllStorybooks();
         List<StorySummary> results = new ArrayList<StorySummary>(stories.size());
         for (Story story : stories) {
             results.add(story.getSummary());

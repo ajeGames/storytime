@@ -21,8 +21,8 @@ public interface StoryTimePersistence {
     /**
      * Deletes a story and all associated parts.
      *
-     * @param story The story to delete
+     * @param storyKey The story to delete
      * @return true if story was deleted, otherwise false
      */
-    boolean deleteStory(Story story);
+    boolean deleteStory(String storyKey);
 }
