@@ -36,6 +36,6 @@ public class StoryTimeResource {
          * TODO: introduce criteria to refine search
          */
         LOG.info("Find stories: all");
-        return new CatalogController().getAllStories();
+        return new CatalogController().getAllStorySummaries();
     }
 }

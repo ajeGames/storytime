@@ -31,12 +31,10 @@ public class StoryResource {
     }
 
     @POST
-    public StorySummary create(StorySummary story) {
+    public StorySummary create(StorySummary summary) {
         LOG.info("Creating another story for a happier universe.");
         try {
-            Story newStory = ctrl.createStory(story.getTitle(), story.getAuthor(), story.getTagLine(),
-                    story.getAbout());
-            return newStory.getSummary();
+            return ctrl.createStory(summary);
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }

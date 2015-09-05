@@ -3,6 +3,7 @@ package com.ajegames.storytime;
 import com.ajegames.storytime.data.StoryTimeRepository;
 import com.ajegames.storytime.model.Story;
 import com.ajegames.storytime.model.StorySummary;
+import com.ajegames.storytime.model.Storybook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,13 +15,18 @@ public class CatalogController {
     private static StoryTimeRepository repo = StoryTimeRepository.getInstance();
     private static Logger LOG = LoggerFactory.getLogger(CatalogController.class);
 
-    public List<StorySummary> getAllStories() {
+    /**
+     * Returns all story summaries found in repository.
+     *
+     * @return List of StorySummary
+     */
+    public List<StorySummary> getAllStorySummaries() {
         LOG.info("Fetching all stories in repository");
 
-        List<Story> stories = repo.getAllStorybooks();
+        List<Storybook> stories = repo.getAllStorybooks();
         List<StorySummary> results = new ArrayList<StorySummary>(stories.size());
-        for (Story story : stories) {
-            results.add(story.getSummary());
+        for (Storybook book : stories) {
+            results.add(book.getSummary());
         }
         return results;
     }

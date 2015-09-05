@@ -26,6 +26,17 @@ public class Storybook {
         return this;
     }
 
+    public void setKey(String key) {
+        if (summary != null && summary.getKey() != null) {
+            throw new IllegalStateException("key is already defined; enforcing immutable key");
+        } else if (key == null) {
+            throw new IllegalArgumentException("key cannot be set to null");
+        }
+        StorySummary current = (summary != null) ? summary : new StorySummary();
+        summary = StorySummary.create(key, current.getTitle(), current.getAuthor(), current.getTagLine(),
+                current.getAbout(), current.getFirstChapter());
+    }
+
     public Story getStory() {
         return Story.create(summary, new ArrayList<Chapter>(chapters));
     }

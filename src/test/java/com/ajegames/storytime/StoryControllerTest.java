@@ -21,8 +21,7 @@ public class StoryControllerTest {
 
     @Test
     public void testCreateStory() {
-        Story adv = ctrl.createStory("foo", "bar", "baz", "qux");
-        StorySummary summary = adv.getSummary();
+        StorySummary summary = ctrl.createStory(StorySummary.createUnregistered("foo", "bar", "baz", "qux"));
         Assert.assertNotNull(summary.getKey());
         Assert.assertEquals(summary.getTitle(), "foo");
         Assert.assertEquals(summary.getAuthor(), "bar");
@@ -34,8 +33,8 @@ public class StoryControllerTest {
 
     @Test
     public void testGetStory() {
-        StorySummary adv1 = ctrl.createStory("one", "one", "one", "one").getSummary();
-        StorySummary adv2 = ctrl.createStory("two", "two", "two", "two").getSummary();
+        StorySummary adv1 = ctrl.createStory(StorySummary.createUnregistered("one", "one", "one", "one"));
+        StorySummary adv2 = ctrl.createStory(StorySummary.createUnregistered("two", "two", "two", "two"));
 
         Assert.assertNotNull(ctrl.getStory(adv1.getKey()));
         Assert.assertNotNull(ctrl.getStory(adv2.getKey()));
@@ -43,8 +42,8 @@ public class StoryControllerTest {
 
     @Test
     public void testUpdateStory() {
-        StorySummary adv = ctrl.createStory("three", "three", "three", "three").getSummary();
-        StorySummary update = new StorySummary();
+        StorySummary adv = ctrl.createStory(StorySummary.createUnregistered("three", "three", "three", "three"));
+        StorySummary update = StorySummary.create(adv.getKey(), "updated", );
         update.setKey(adv.getKey());
         update.setTitle("updated");
         update.setAuthor("updated");

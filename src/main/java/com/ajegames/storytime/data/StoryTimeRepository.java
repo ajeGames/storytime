@@ -74,9 +74,23 @@ public class StoryTimeRepository {
         do {
             tempKey = keyGenerator.nextKey();
         } while (stories.containsKey(tempKey));
+
+        // TODO push this onto Storybook class
         book.setSummary(StorySummary.create(tempKey, summary.getTitle(), summary.getAuthor(), summary.getTagLine(),
                 summary.getAbout(), summary.getFirstChapter()));
-        addStory(book);
+        saveStory(book);
+        return book;
+    }
+
+    public Storybook forgeNewStory() {
+        String tempKey;
+        do {
+            tempKey = keyGenerator.nextKey();
+        } while (stories.containsKey(tempKey));
+
+        Storybook book = new Storybook();
+        book.setKey(tempKey);
+        saveStory(book);
         return book;
     }
 
