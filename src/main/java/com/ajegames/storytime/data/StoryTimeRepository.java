@@ -1,7 +1,6 @@
 package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Story;
-import com.ajegames.storytime.model.StorySummary;
 import com.ajegames.storytime.model.Storybook;
 import com.ajegames.util.RandomString;
 import org.slf4j.Logger;
@@ -21,6 +20,11 @@ public class StoryTimeRepository {
     private Map<String, Storybook> stories;
     private StoryTimePersistence storage;
 
+    /**
+     * One source of truth to hold all of the stories.
+     *
+     * @return StoryTimeRepository singleton
+     */
     public static StoryTimeRepository getInstance() {
         if (instance == null) {
             instance = new StoryTimeRepository();
@@ -34,6 +38,11 @@ public class StoryTimeRepository {
         this.storage = new NoopStoryTimePersistence();
     }
 
+    /**
+     * For injecting persistence mechanism.
+     *
+     * @param persistenceImpl
+     */
     public void setPersistence(StoryTimePersistence persistenceImpl) {
         LOG.info("Setting persistence mechanism");
         if (persistenceImpl == null) {
@@ -41,6 +50,22 @@ public class StoryTimeRepository {
         }
         this.storage = persistenceImpl;
         loadStories();
+    }
+
+    /**
+     * Creates and persists new, empty storybook with a unique key, ready to be populated with an intriguing adventure.
+     *
+     * @return freshly minted Storybook
+     */
+    synchronized public Storybook createStorybook() {
+        String tempKey;
+        do {
+            tempKey = keyGenerator.nextKey();
+        } while (stories.containsKey(tempKey));
+
+        Storybook book = new Storybook(tempKey);
+        saveStory(book);
+        return book;
     }
 
     public void loadStories() {
@@ -55,43 +80,6 @@ public class StoryTimeRepository {
         LOG.info("Saving story: " + book.getSummary().getKey());
         this.stories.put(book.getSummary().getKey(), book);
         this.storage.saveStory(book.getStory());
-    }
-
-    /**
-     * Adds a new story to the repository, assigning a key in the process.
-     * @param book whatever story details are known at the time
-     * @return the story that was passed in, but with a newly minted key
-     */
-    public Storybook registerNewStory(Storybook book) {
-        StorySummary summary = book.getSummary();
-        if (summary.getKey() != null) {
-            throw new IllegalArgumentException("Only call for new stories that need to have a key assigned");
-        }
-        LOG.info("Registering story: " + summary.getTitle());
-        LOG.debug(book.toString());
-
-        String tempKey;
-        do {
-            tempKey = keyGenerator.nextKey();
-        } while (stories.containsKey(tempKey));
-
-        // TODO push this onto Storybook class
-        book.setSummary(StorySummary.create(tempKey, summary.getTitle(), summary.getAuthor(), summary.getTagLine(),
-                summary.getAbout(), summary.getFirstChapter()));
-        saveStory(book);
-        return book;
-    }
-
-    public Storybook forgeNewStory() {
-        String tempKey;
-        do {
-            tempKey = keyGenerator.nextKey();
-        } while (stories.containsKey(tempKey));
-
-        Storybook book = new Storybook();
-        book.setKey(tempKey);
-        saveStory(book);
-        return book;
     }
 
     public void addStory(Storybook book) {

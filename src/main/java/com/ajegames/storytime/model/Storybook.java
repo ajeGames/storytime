@@ -9,6 +9,7 @@ import java.util.*;
  */
 public class Storybook {
 
+    private String storyKey;
     private int nextChapterId = 1000;
     private StorySummary summary;
     private SortedSet<Chapter> chapters;
@@ -19,6 +20,11 @@ public class Storybook {
         chapterIndex = new HashMap<Integer, Chapter>();
     }
 
+    public Storybook(String key) {
+        this();
+        setStoryKey(key);
+    }
+
     public Storybook load(Story storyToLoad) {
         this.summary = storyToLoad.getSummary();
         this.chapters.addAll(storyToLoad.getChapters());
@@ -26,14 +32,19 @@ public class Storybook {
         return this;
     }
 
-    public void setKey(String key) {
-        if (summary != null && summary.getKey() != null) {
+    public String getStoryKey() {
+        return storyKey;
+    }
+
+    private void setStoryKey(String key) {
+        if (this.storyKey != null) {
             throw new IllegalStateException("key is already defined; enforcing immutable key");
         } else if (key == null) {
             throw new IllegalArgumentException("key cannot be set to null");
         }
+        this.storyKey = key;
         StorySummary current = (summary != null) ? summary : new StorySummary();
-        summary = StorySummary.create(key, current.getTitle(), current.getAuthor(), current.getTagLine(),
+        summary = StorySummary.create(this.storyKey, current.getTitle(), current.getAuthor(), current.getTagLine(),
                 current.getAbout(), current.getFirstChapter());
     }
 
@@ -76,7 +87,9 @@ public class Storybook {
         return chapterIndex.get(id);
     }
 
-    public void initializeAfterLoad() {
+    private void initializeAfterLoad() {
+        this.storyKey = summary.getKey();
+
         // reload chapter index and set next chapter ID
         int highestChapter = 0;
         if (chapterIndex == null || !chapterIndex.isEmpty()) {
