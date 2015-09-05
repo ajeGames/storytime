@@ -43,12 +43,7 @@ public class StoryControllerTest {
     @Test
     public void testUpdateStory() {
         StorySummary adv = ctrl.createStory(StorySummary.createUnregistered("three", "three", "three", "three"));
-        StorySummary update = StorySummary.create(adv.getKey(), "updated", );
-        update.setKey(adv.getKey());
-        update.setTitle("updated");
-        update.setAuthor("updated");
-        update.setTagLine("updated");
-        update.setAbout("updated");
+        StorySummary update = StorySummary.create(adv.getKey(), "updated", "updated", "updated", "updated", null);
         ctrl.updateSummary(update);
         StorySummary result = ctrl.getStory(update.getKey()).getSummary();
         Assert.assertEquals(result.getTitle(), "updated");

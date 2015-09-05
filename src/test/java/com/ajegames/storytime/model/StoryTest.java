@@ -39,14 +39,6 @@ public class StoryTest extends RepresentationTestBase {
 
     private static Story buildNormalStory() {
 
-        Story normal = new Story();
-
-        normal.setSummary(
-                StorySummary.createExisting("0123456789abcdef", "Rain", "Bubba Gump",
-                        "Want a fun adventure?  Just add water.",
-                        "Come have an adventure.",
-                        ChapterSign.create(1000, "It was a dark and stormy night.")));
-
         SortedSet<Chapter> chapters = new TreeSet<Chapter>();
         List<ChapterSign> options = new ArrayList<ChapterSign>();
         options.add(ChapterSign.create(1001, "Take a walk in the rain."));
@@ -57,9 +49,12 @@ public class StoryTest extends RepresentationTestBase {
                 null));
         chapters.add(Chapter.create(1002, "Chapter 3",
                 "You settle in for a nice evening by the fire.  The End.", null));
-        normal.setChapters(chapters);
 
-        return normal;
+        return Story.create(
+                StorySummary.create("0123456789abcdef", "Rain", "Bubba Gump", "Want a fun adventure?  Just add water.",
+                        "Come have an adventure.",
+                        ChapterSign.create(1000, "It was a dark and stormy night.")),
+                new ArrayList<Chapter>(chapters));
     }
 
     private static Story buildEmptyStory() {
