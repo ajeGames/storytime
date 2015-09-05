@@ -1,10 +1,7 @@
 package com.ajegames.storytime;
 
 import com.ajegames.storytime.data.StoryTimeRepository;
-import com.ajegames.storytime.model.Chapter;
-import com.ajegames.storytime.model.ChapterSign;
-import com.ajegames.storytime.model.Story;
-import com.ajegames.storytime.model.StorySummary;
+import com.ajegames.storytime.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,33 +13,32 @@ public class StoryController {
     private static StoryTimeRepository repo = StoryTimeRepository.getInstance();
     private static Logger LOG = LoggerFactory.getLogger(StoryController.class);
 
-    public Story createStory(String title, String author, String tagLine, String description) {
-        LOG.info("Creating a new story entitled: " + title);
-        Story in = new Story();
-        in.setSummary(StorySummary.createNew(title, author, tagLine, description));
-        Story out = repo.registerNewStory(in);
-        Chapter first = out.addChapter();
-        ChapterSign firstSign = ChapterSign.create(first.getId(), "Your destiny lies ahead.");
-        out.getSummary().setFirstChapter(firstSign);
-        repo.saveStory(out);
-        return out;
+    public StorySummary createStory(StorySummary summary) {
+        LOG.info("Creating a new story entitled: " + summary.getTitle());
+
+        Storybook book = new Storybook();
+        Chapter firstChapter = book.addChapter();
+        ChapterSign firstSign = ChapterSign.create(firstChapter.getId(), "Your destiny lies ahead.");
+        book.setSummary(StorySummary.createUnregistered(summary.getTitle(), summary.getAuthor(), summary.getTagLine(),
+                summary.getAbout(), firstSign));
+        book = repo.registerNewStory(book);
+        repo.saveStory(book);
+        return book.getSummary();
     }
 
     public Story getStory(String storyKey) {
         LOG.info("Retrieving story with key: " + storyKey);
-        return repo.getStory(storyKey);
+        return repo.getStorybook(storyKey).getStory();
     }
-
-    // TODO considering converting to immutable representation classes
 
     public void updateSummary(StorySummary update) {
         LOG.info("Updating story information: " + update.getKey());
-        Story storyToUpdate = getStory(update.getKey());
-        if (storyToUpdate == null) {
+        Storybook bookToUpdate = repo.getStorybook(update.getKey());
+        if (bookToUpdate == null) {
             throw new IllegalArgumentException("Unable to find story to update");
         }
-        storyToUpdate.setSummary(update);
-        repo.saveStory(storyToUpdate);
+        bookToUpdate.setSummary(update);
+        repo.saveStory(bookToUpdate);
     }
 
     public Chapter getChapter(String storyKey, Integer chapterId) {
@@ -51,11 +47,11 @@ public class StoryController {
     }
 
     private Chapter retrieveChapter(String storyKey, Integer chapterId) {
-        Story story = repo.getStory(storyKey);
-        if (story == null) {
+        Storybook book = repo.getStorybook(storyKey);
+        if (book == null) {
             return null;
         }
-        return story.getChapter(chapterId);
+        return book.getChapter(chapterId);
     }
 
 //    public Chapter updateChapter(Chapter update) {
