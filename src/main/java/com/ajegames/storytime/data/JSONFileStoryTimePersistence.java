@@ -15,15 +15,10 @@ import java.util.List;
  */
 public class JSONFileStoryTimePersistence implements StoryTimePersistence {
 
-    private static final String DEFAULT_FILEROOT = "story-files/";
-
-    private static Logger LOG = LoggerFactory.getLogger(JSONFileStoryTimePersistence.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JSONFileStoryTimePersistence.class);
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private File pathToFiles;
-
-    public JSONFileStoryTimePersistence() {
-        this(DEFAULT_FILEROOT);
-    }
 
     public JSONFileStoryTimePersistence(String pathToFiles) {
         this.pathToFiles = new File(pathToFiles);
@@ -44,7 +39,7 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
         if (files != null) {
             for (File file : files) {
                 try {
-                    Story loadedStory = new ObjectMapper().readValue(file, Story.class);
+                    Story loadedStory = MAPPER.readValue(file, Story.class);
                     out.add(loadedStory);
                 } catch (IOException e) {
                     LOG.error("File could not be read as Story: " + file.toString(), e);
@@ -56,7 +51,7 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
 
     public void saveStory(Story story) {
         try {
-            new ObjectMapper().writeValue(buildFilename(story.getSummary().getKey()), story);
+            MAPPER.writeValue(buildFilename(story.getSummary().getKey()), story);
         } catch (IOException e) {
             LOG.error("Something went wrong when writing out the story", e);
         }
