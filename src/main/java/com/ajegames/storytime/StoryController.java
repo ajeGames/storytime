@@ -14,14 +14,16 @@ public class StoryController {
     private static Logger LOG = LoggerFactory.getLogger(StoryController.class);
 
     public StorySummary createStory(StorySummary summary) {
+        if (summary.getKey() != null) {
+            LOG.warn("Given summary has a key, but create is for new stories; perhaps update was intended.");
+            throw new IllegalArgumentException("Either remove key value or do an update");
+        }
         LOG.info("Creating a new story entitled: " + summary.getTitle());
-
-        Storybook book = new Storybook();
+        Storybook book = repo.createStorybook();
         Chapter firstChapter = book.addChapter();
         ChapterSign firstSign = ChapterSign.create(firstChapter.getId(), "Your destiny lies ahead.");
-        book.setSummary(StorySummary.createUnregistered(summary.getTitle(), summary.getAuthor(), summary.getTagLine(),
-                summary.getAbout(), firstSign));
-        book = repo.registerNewStory(book);
+        book.setSummary(StorySummary.create(book.getStoryKey(), summary.getTitle(), summary.getAuthor(),
+                summary.getTagLine(), summary.getAbout(), firstSign));
         repo.saveStory(book);
         return book.getSummary();
     }

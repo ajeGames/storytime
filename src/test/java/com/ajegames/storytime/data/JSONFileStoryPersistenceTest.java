@@ -35,8 +35,8 @@ public class JSONFileStoryPersistenceTest {
         Assert.assertEquals(stories.size(), 2, "Wrong number of stories loaded");
 
         // try deleting
-        storage.deleteStory(adv1);
-        storage.deleteStory(adv2);
+        storage.deleteStory(adv1.getSummary().getKey());
+        storage.deleteStory(adv2.getSummary().getKey());
         Assert.assertEquals(path.listFiles().length, 0, "Story files should be gone");
 
         // clean up

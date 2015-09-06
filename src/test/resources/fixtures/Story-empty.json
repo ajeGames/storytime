@@ -1,11 +1,4 @@
 {
-  "summary" : {
-    "key": null,
-    "title": null,
-    "author": null,
-    "tagLine": null,
-    "about": null,
-    "firstChapter": null
-  },
-  "chapters" : []
+  "summary" : null,
+  "chapters" : null
 }
