@@ -62,27 +62,32 @@ public class StoryTimeRepository {
         do {
             tempKey = keyGenerator.nextKey();
         } while (stories.containsKey(tempKey));
-
+        LOG.info("Creating new story.  key=" + tempKey);
         Storybook book = new Storybook(tempKey);
         saveStory(book);
         return book;
+    }
+
+    public void saveStory(Storybook book) {
+        if (book == null || book.getStoryKey() == null) {
+            LOG.warn("Called with null, or tried to save story without key.");
+            throw new IllegalArgumentException("The storybook must already have an assigned key.  Use createStorybook" +
+                    " to create a storybook with a generated key.");
+        }
+        LOG.info("Saving story: " + book.getSummary().getKey());
+        cacheStorybook(book);
+        this.storage.saveStory(book.getStory());
     }
 
     public void loadStories() {
         List<Story> stories = storage.loadStories();
         LOG.info("Loading " + stories.size() + " stories");
         for (Story story : stories) {
-            addStory(new Storybook().load(story));
+            cacheStorybook(new Storybook().load(story));
         }
     }
 
-    public void saveStory(Storybook book) {
-        LOG.info("Saving story: " + book.getSummary().getKey());
-        this.stories.put(book.getSummary().getKey(), book);
-        this.storage.saveStory(book.getStory());
-    }
-
-    public void addStory(Storybook book) {
+    private void cacheStorybook(Storybook book) {
         LOG.info("Adding story: " + book.getSummary().getKey());
         stories.put(book.getSummary().getKey(), book);
     }

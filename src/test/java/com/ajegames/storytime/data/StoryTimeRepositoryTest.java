@@ -2,6 +2,7 @@ package com.ajegames.storytime.data;
 
 import com.ajegames.storytime.model.Storybook;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
@@ -9,7 +10,21 @@ import org.testng.annotations.Test;
  */
 public class StoryTimeRepositoryTest {
 
-    private StoryTimeRepository repo = StoryTimeRepository.getInstance();
+    private static StoryTimeRepository repo = null;
+    private static StoryTimePersistenceTestMock persistenceMock = new StoryTimePersistenceTestMock();
+
+    @BeforeClass
+    public void setup() {
+        repo = StoryTimeRepository.getInstance();
+        repo.setPersistence(persistenceMock);
+    }
+
+    @Test
+    public void testGetInstance() {
+        // repo is singleton
+        StoryTimeRepository test = StoryTimeRepository.getInstance();
+        Assert.assertEquals(test, repo);
+    }
 
     @Test
     public void testCreateStorybook() {
@@ -19,5 +34,39 @@ public class StoryTimeRepositoryTest {
 
         Storybook test = repo.getStorybook(book.getStoryKey());
         Assert.assertEquals(test, book);
+
+        Assert.assertTrue(persistenceMock.hasStory(book.getStoryKey()));
+    }
+
+    @Test
+    public void testSaveEmptyStorybook() {
+        Storybook book = repo.createStorybook();  // creates with new key; also saves
+        repo.saveStory(book);  // make sure can be saved again
+    }
+
+    @Test
+    public void testSaveStoryWithoutKey() {
+        try {
+            repo.saveStory(new Storybook());
+        } catch (IllegalArgumentException e) {
+            // success
+            return;
+        }
+        Assert.fail();
+    }
+
+    @Test
+    public void testLoadStory() {
+
+    }
+
+    @Test
+    public void testDeleteStory() {
+
+    }
+
+    @Test
+    public void testGetAllStorybooks() {
+
     }
 }
