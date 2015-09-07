@@ -82,6 +82,27 @@ public class Storybook {
         return chapterIndex.get(id);
     }
 
+    public Chapter getFirstChapter() {
+        return (summary != null) ?
+                getChapter(getSummary().getFirstChapter().getTargetChapterId()) :
+                null;
+    }
+
+    public void updateChapter(Chapter update) {
+        if (update == null || update.getId() == null) {
+            throw new IllegalArgumentException("Chapter and ID cannot be null");
+        }
+        Chapter toUpdate = getChapter(update.getId());
+        if (toUpdate == null) {
+            throw new IllegalArgumentException("Chapter not found; cannot update");
+        }
+        chapters.remove(toUpdate);
+        chapterIndex.remove(toUpdate.getId());
+
+        chapters.add(update);
+        chapterIndex.put(update.getId(), update);
+    }
+
     private void initializeAfterLoad() {
         this.storyKey = summary.getKey();
         reindexChapters();

@@ -1,24 +1,17 @@
 package com.ajegames.storytime.model;
 
-import com.ajegames.storytime.data.NoopStoryTimePersistence;
 import com.ajegames.storytime.data.StoryTimeRepository;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import javax.validation.constraints.AssertTrue;
+import java.util.Iterator;
+import java.util.SortedSet;
 
 /**
  * Test Storybook, which is the dynamic center of the model.
  */
 public class StorybookTest {
-
-    private StoryTimeRepository repo;
-
-    @BeforeMethod
-    public void setupEachTime() {
-        // get a clean instance that is not the singleton to avoid problems with multithreading
-        repo = StoryTimeRepository.create();
-        repo.setPersistence(new NoopStoryTimePersistence());
-    }
 
     @Test
     public void testLoadStory() {
@@ -57,23 +50,111 @@ public class StorybookTest {
         Assert.assertEquals(bookOut.getSummary(), update);
     }
 
-//    @Test
-//    public void testAddChapterMultipleTimes() {
-//
-//    }
-//
-//    @Test
-//    public void testUpdateChapter() {
-//
-//    }
-//
+    @Test
+    public void testGetFirstChapter() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        Assert.assertNotNull(bookOut.getFirstChapter());
+    }
+
+    @Test
+    public void testAddChapterIncrementsChapterNumber() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+
+        Chapter chapterA = bookOut.addChapter();
+        Chapter chapterB = bookOut.addChapter();
+        Chapter chapterC = bookOut.addChapter();
+        Assert.assertEquals(chapterB.getId().intValue(), chapterA.getId() + 1);
+        Assert.assertEquals(chapterC.getId().intValue(), chapterB.getId() + 1);
+    }
+
+    @Test
+    public void testGetChapters() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+
+        SortedSet<Chapter> chapters = bookOut.getChapters();
+        Assert.assertEquals(chapters.size(), 3);  // all accounted for?
+
+        // sorted properly?
+        int previousChapter = 0;
+        for (Chapter next : chapters) {
+            Assert.assertTrue(previousChapter < next.getId());
+            previousChapter = next.getId();
+        }
+    }
+
+    @Test
+    public void testUpdateChapter() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        int chapterCount = bookOut.getChapters().size();
+        Chapter first = bookOut.getFirstChapter();
+        Chapter update = Chapter.create(first.getId(), "update", "update", first.getNextChapterOptions());
+        bookOut.updateChapter(update);
+        Assert.assertEquals(bookOut.getChapter(first.getId()), update);
+        Assert.assertEquals(bookOut.getChapters().size(), chapterCount);
+    }
+
+    @Test
+    public void testUpdateChapterFailsWhenChapterNotFound() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        Chapter first = bookOut.getFirstChapter();
+        Chapter update = Chapter.create(10001, "update", "update", first.getNextChapterOptions());
+        try {
+            bookOut.updateChapter(update);
+        } catch (Exception e) {
+            // success
+            return;
+        }
+        Assert.fail();
+    }
+
+    @Test
+    public void testUpdateChapterFailsWithNull() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        Chapter first = bookOut.getFirstChapter();
+        Chapter update = Chapter.create(null, "update", "update", first.getNextChapterOptions());
+        try {
+            bookOut.updateChapter(update);
+        } catch (Exception e) {
+            // success
+            return;
+        }
+        Assert.fail();
+    }
+
+    @Test
+    public void testUpdateChapterFailsWhenChapterIsNull() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        try {
+            bookOut.updateChapter(null);
+        } catch (Exception e) {
+            // success
+            return;
+        }
+        Assert.fail();
+    }
+
 //    @Test
 //    public void testUpdateChapterNextChapterOptions() {
 //
 //    }
-//
+
 //    @Test
 //    public void testDeleteChapter() {
+//        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+//        Storybook bookOut = Storybook.load(testStory);
+//
+//        bookOut.deleteChapter()
+//    }
+
+//    @Test
+//    public void testDeleteChapterDoesNotLeaveChapterSignsPointingToNowhere() {
 //
 //    }
 
