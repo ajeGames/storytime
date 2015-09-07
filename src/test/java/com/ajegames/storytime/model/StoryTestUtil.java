@@ -37,8 +37,13 @@ public class StoryTestUtil {
 
     public static Story generateStoryWithoutKey() {
         return Story.create(
-                StorySummary.createUnregistered(fillGenerator.nextKey(), fillGenerator.nextKey(),
+                createWithoutKey(fillGenerator.nextKey(), fillGenerator.nextKey(),
                         fillGenerator.nextKey(), fillGenerator.nextKey()),
                 null);
     }
+
+    public static StorySummary createWithoutKey(String title, String author, String tagLine, String about) {
+        return StorySummary.create(null, title, author, tagLine, about, null);
+    }
+
 }
