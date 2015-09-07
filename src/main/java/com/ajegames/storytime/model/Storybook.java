@@ -62,6 +62,20 @@ public class Storybook {
         this.summary = summary;
     }
 
+    public Chapter addNextChapterOption(Integer sourceChapterId, String teaser) {
+        Chapter fromChapter = getChapter(sourceChapterId);
+        if (fromChapter == null) {
+            throw new IllegalArgumentException("Source chapter not found");
+        }
+        Chapter toChapter = addChapter();
+        List<ChapterSign> nextChapterOptions = new ArrayList<ChapterSign>(fromChapter.getNextChapterOptions());
+        nextChapterOptions.add(ChapterSign.create(toChapter.getId(), teaser));
+        fromChapter = Chapter.create(fromChapter.getId(), fromChapter.getHeading(), fromChapter.getProse(),
+                nextChapterOptions);
+        updateChapter(fromChapter);
+        return fromChapter;
+    }
+
     public SortedSet<Chapter> getChapters() {
         return chapters;
     }

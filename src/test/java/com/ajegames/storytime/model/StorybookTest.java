@@ -1,10 +1,8 @@
 package com.ajegames.storytime.model;
 
-import com.ajegames.storytime.data.StoryTimeRepository;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import javax.validation.constraints.AssertTrue;
 import java.util.Iterator;
 import java.util.SortedSet;
 
@@ -140,10 +138,26 @@ public class StorybookTest {
         Assert.fail();
     }
 
-//    @Test
-//    public void testUpdateChapterNextChapterOptions() {
-//
-//    }
+    @Test
+    public void testAddNextChapterOption() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        Chapter sourceChapter = bookOut.getFirstChapter();
+
+        int numOptions = sourceChapter.getNextChapterOptions().size();
+        Chapter updatedSourceChapter = bookOut.addNextChapterOption(sourceChapter.getId(), "Choose Me");
+
+        Assert.assertNotNull(updatedSourceChapter);
+        Assert.assertEquals(updatedSourceChapter.getNextChapterOptions().size(), numOptions + 1);
+        for (ChapterSign sign : updatedSourceChapter.getNextChapterOptions()) {
+            if (sign.getTeaser().equals("Choose Me")) {
+                Assert.assertNotNull(sign.getTargetChapterId());
+                Assert.assertNotNull(bookOut.getChapter(sign.getTargetChapterId()));
+                return;
+            }
+        }
+        Assert.fail();
+    }
 
 //    @Test
 //    public void testDeleteChapter() {
@@ -157,11 +171,5 @@ public class StorybookTest {
 //    public void testDeleteChapterDoesNotLeaveChapterSignsPointingToNowhere() {
 //
 //    }
-
-    // helper methods
-
-    private StoryTimeRepository createRepo() {
-        return StoryTimeRepository.create();
-    }
 
 }
