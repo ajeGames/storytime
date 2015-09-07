@@ -38,33 +38,44 @@ public class StorybookTest {
 
     @Test
     public void testGetStory() {
-
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        Story testOut = bookOut.getStory();
+        Assert.assertEquals(testOut, testStory);
     }
 
     @Test
     public void testUpdateStorySummary() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        StorySummary testSummary = testStory.getSummary();
 
+        StorySummary update = StorySummary.create(testSummary.getKey(), "update", "update", "update", "update",
+                ChapterSign.create(9999, "update"));
+        bookOut.setSummary(update);
+
+        Assert.assertEquals(bookOut.getSummary(), update);
     }
 
-    @Test
-    public void testAddChapterMultipleTimes() {
-
-    }
-
-    @Test
-    public void testUpdateChapter() {
-
-    }
-
-    @Test
-    public void testUpdateChapterNextChapterOptions() {
-
-    }
-
-    @Test
-    public void testDeleteChapter() {
-
-    }
+//    @Test
+//    public void testAddChapterMultipleTimes() {
+//
+//    }
+//
+//    @Test
+//    public void testUpdateChapter() {
+//
+//    }
+//
+//    @Test
+//    public void testUpdateChapterNextChapterOptions() {
+//
+//    }
+//
+//    @Test
+//    public void testDeleteChapter() {
+//
+//    }
 
     // helper methods
 
