@@ -15,21 +15,23 @@ public class Storybook {
     private SortedSet<Chapter> chapters;
     private Map<Integer, Chapter> chapterIndex;
 
-    public Storybook() {
+    public static Storybook createWithKey(String key) {
+        Storybook book = new Storybook();
+        book.setStoryKey(key);
+        return book;
+    }
+
+    public static Storybook load(Story storyToLoad) {
+        Storybook book = new Storybook();
+        book.setSummary(storyToLoad.getSummary());
+        book.chapters.addAll(storyToLoad.getChapters());
+        book.initializeAfterLoad();
+        return book;
+    }
+
+    private Storybook() {
         chapters = new TreeSet<Chapter>();
         chapterIndex = new HashMap<Integer, Chapter>();
-    }
-
-    public Storybook(String key) {
-        this();
-        setStoryKey(key);
-    }
-
-    public Storybook load(Story storyToLoad) {
-        setSummary(storyToLoad.getSummary());
-        this.chapters.addAll(storyToLoad.getChapters());
-        this.initializeAfterLoad();
-        return this;
     }
 
     public String getStoryKey() {

@@ -23,18 +23,17 @@ public class StorybookTest {
     @Test
     public void testLoadStory() {
         Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
-        Storybook book = new Storybook();
-        Storybook bookOut = book.load(testStory);
+        Storybook bookOut = Storybook.load(testStory);
 
-        Assert.assertEquals(bookOut.getStoryKey(), book.getStoryKey());
-        Assert.assertEquals(bookOut.getSummary(), book.getSummary());
-        Assert.assertEquals(bookOut.getChapters().size(), book.getChapters().size());
-
+        Assert.assertEquals(bookOut.getStoryKey(), testStory.getSummary().getKey());
+        Assert.assertEquals(bookOut.getSummary(), testStory.getSummary());
+        Assert.assertEquals(bookOut.getChapters().size(), testStory.getChapters().size());
     }
 
     @Test
-    public void testSetStoryKeyWorksOnStoryWithoutKey() {
-
+    public void testCreateInstanceWithKey() {
+        Storybook testStory = Storybook.createWithKey("MYFANCYKEY");
+        Assert.assertEquals(testStory.getStoryKey(), "MYFANCYKEY");
     }
 
     @Test

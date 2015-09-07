@@ -1,11 +1,8 @@
 package com.ajegames.storytime.data;
 
-import com.ajegames.storytime.model.ChapterSign;
-import com.ajegames.storytime.model.Story;
-import com.ajegames.storytime.model.StorySummary;
-import com.ajegames.storytime.model.Storybook;
+import com.ajegames.storytime.model.*;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -16,20 +13,21 @@ import java.util.List;
  */
 public class StoryTimeRepositoryTest {
 
-    private static StoryTimeRepository repo = null;
-    private static StoryTimePersistenceTestMock persistenceMock = new StoryTimePersistenceTestMock();
+    private StoryTimeRepository repo;
+    private StoryTimePersistenceTestMock persistenceMock;
 
-    @BeforeClass
+    @BeforeMethod
     public void setup() {
-        repo = StoryTimeRepository.getInstance();
+        repo = StoryTimeRepository.create();
+        persistenceMock = new StoryTimePersistenceTestMock();
         repo.setPersistence(persistenceMock);
     }
 
     @Test
     public void testGetInstance() {
-        // repo is singleton
-        StoryTimeRepository test = StoryTimeRepository.getInstance();
-        Assert.assertEquals(test, repo);
+        StoryTimeRepository repo1 = StoryTimeRepository.getInstance();
+        StoryTimeRepository repo2 = StoryTimeRepository.getInstance();
+        Assert.assertEquals(repo1, repo2);
     }
 
     @Test
@@ -52,8 +50,9 @@ public class StoryTimeRepositoryTest {
 
     @Test
     public void testSaveStoryWithoutKey() {
+        Storybook testBook = Storybook.load(StoryTestUtil.generateStoryWithoutKey());
         try {
-            repo.saveStory(new Storybook());
+            repo.saveStory(testBook);
         } catch (IllegalArgumentException e) {
             // success
             return;

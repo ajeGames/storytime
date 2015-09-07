@@ -35,4 +35,10 @@ public class StoryTestUtil {
                 new ArrayList<Chapter>(chapters));
     }
 
+    public static Story generateStoryWithoutKey() {
+        return Story.create(
+                StorySummary.createUnregistered(fillGenerator.nextKey(), fillGenerator.nextKey(),
+                        fillGenerator.nextKey(), fillGenerator.nextKey()),
+                null);
+    }
 }

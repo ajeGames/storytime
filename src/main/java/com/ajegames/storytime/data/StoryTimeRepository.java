@@ -49,7 +49,7 @@ public class StoryTimeRepository {
     /**
      * For injecting persistence mechanism.
      *
-     * @param persistenceImpl
+     * @param persistenceImpl mechanism to handle persistence
      */
     public void setPersistence(StoryTimePersistence persistenceImpl) {
         LOG.info("Setting persistence mechanism");
@@ -71,7 +71,7 @@ public class StoryTimeRepository {
             tempKey = keyGenerator.nextKey();
         } while (stories.containsKey(tempKey));
         LOG.info("Creating new story.  key=" + tempKey);
-        Storybook book = new Storybook(tempKey);
+        Storybook book = Storybook.createWithKey(tempKey);
         saveStory(book);
         return book;
     }
@@ -91,7 +91,7 @@ public class StoryTimeRepository {
         List<Story> stories = storage.loadStories();
         LOG.info("Loading " + stories.size() + " stories");
         for (Story story : stories) {
-            cacheStorybook(new Storybook().load(story));
+            cacheStorybook(Storybook.load(story));
         }
     }
 
