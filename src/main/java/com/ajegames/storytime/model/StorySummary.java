@@ -27,10 +27,6 @@ public class StorySummary {
         return summary;
     }
 
-    public static StorySummary createUnregistered(String title, String author, String tagLine, String about) {
-        return create(null, title, author, tagLine, about, null);
-    }
-
     @JsonProperty
     public String getKey() {
         return key;

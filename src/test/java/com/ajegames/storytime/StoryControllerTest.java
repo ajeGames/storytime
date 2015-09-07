@@ -1,8 +1,7 @@
 package com.ajegames.storytime;
 
-import com.ajegames.storytime.model.Chapter;
-import com.ajegames.storytime.model.Story;
 import com.ajegames.storytime.model.StorySummary;
+import com.ajegames.storytime.model.StoryTestUtil;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -21,7 +20,7 @@ public class StoryControllerTest {
 
     @Test
     public void testCreateStory() {
-        StorySummary summary = ctrl.createStory(StorySummary.createUnregistered("foo", "bar", "baz", "qux"));
+        StorySummary summary = ctrl.createStory(StoryTestUtil.createWithoutKey("foo", "bar", "baz", "qux"));
         Assert.assertNotNull(summary.getKey());
         Assert.assertEquals(summary.getTitle(), "foo");
         Assert.assertEquals(summary.getAuthor(), "bar");
@@ -33,8 +32,8 @@ public class StoryControllerTest {
 
     @Test
     public void testGetStory() {
-        StorySummary adv1 = ctrl.createStory(StorySummary.createUnregistered("one", "one", "one", "one"));
-        StorySummary adv2 = ctrl.createStory(StorySummary.createUnregistered("two", "two", "two", "two"));
+        StorySummary adv1 = ctrl.createStory(StoryTestUtil.createWithoutKey("one", "one", "one", "one"));
+        StorySummary adv2 = ctrl.createStory(StoryTestUtil.createWithoutKey("two", "two", "two", "two"));
 
         Assert.assertNotNull(ctrl.getStory(adv1.getKey()));
         Assert.assertNotNull(ctrl.getStory(adv2.getKey()));
@@ -42,7 +41,7 @@ public class StoryControllerTest {
 
     @Test
     public void testUpdateStory() {
-        StorySummary adv = ctrl.createStory(StorySummary.createUnregistered("three", "three", "three", "three"));
+        StorySummary adv = ctrl.createStory(StoryTestUtil.createWithoutKey("three", "three", "three", "three"));
         StorySummary update = StorySummary.create(adv.getKey(), "updated", "updated", "updated", "updated", null);
         ctrl.updateSummary(update);
         StorySummary result = ctrl.getStory(update.getKey()).getSummary();
