@@ -72,7 +72,7 @@ public class Storybook {
     }
 
     public Chapter addChapter() {
-        Chapter newChapter = Chapter.createWithPlaceholderText(nextChapterId++);
+        Chapter newChapter = Chapter.createWithID(nextChapterId++);
         chapters.add(newChapter);
         chapterIndex.put(newChapter.getId(), newChapter);
         return newChapter;

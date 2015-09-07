@@ -25,11 +25,9 @@ public class Chapter implements Comparable {
         return chapter;
     }
 
-    public static Chapter createWithPlaceholderText(Integer id) {
+    public static Chapter createWithID(Integer id) {
         Chapter chapter = new Chapter();
         chapter.id = id;
-        chapter.heading = "Name This Chapter";
-        chapter.prose = "Say what happens...";
         return chapter;
     }
 
