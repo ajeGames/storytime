@@ -37,11 +37,6 @@ public class StorybookTest {
     }
 
     @Test
-    public void testSetStoryKeyFailsWhenAlreadySet() {
-
-    }
-
-    @Test
     public void testGetStory() {
 
     }
