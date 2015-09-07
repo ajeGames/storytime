@@ -14,5 +14,5 @@ logging:
     - type: console
 
 persistence:
-  path: story-files/
+  path: repo/
 
