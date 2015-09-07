@@ -32,6 +32,14 @@ public class StoryTimeRepository {
         return instance;
     }
 
+    /**
+     * DO NOT USE except for testing.  Normally the repository should be a singleton, which is
+     * available via getInstance.
+     */
+    public static StoryTimeRepository create() {
+        return new StoryTimeRepository();
+    }
+
     private StoryTimeRepository() {
         this.keyGenerator = new RandomString(8);
         this.stories = new HashMap<String, Storybook>();

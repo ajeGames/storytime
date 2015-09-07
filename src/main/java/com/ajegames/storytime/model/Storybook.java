@@ -26,7 +26,7 @@ public class Storybook {
     }
 
     public Storybook load(Story storyToLoad) {
-        this.summary = storyToLoad.getSummary();
+        setSummary(storyToLoad.getSummary());
         this.chapters.addAll(storyToLoad.getChapters());
         this.initializeAfterLoad();
         return this;
@@ -66,14 +66,7 @@ public class Storybook {
 
     public void setChapters(Set<Chapter> chapters) {
         this.chapters.addAll(chapters);
-    }
-
-    public Map<Integer, Chapter> getChapterIndex() {
-        return chapterIndex;
-    }
-
-    public void setChapterIndex(Map<Integer, Chapter> chapterIndex) {
-        this.chapterIndex = chapterIndex;
+        reindexChapters();
     }
 
     public Chapter addChapter() {
@@ -89,13 +82,15 @@ public class Storybook {
 
     private void initializeAfterLoad() {
         this.storyKey = summary.getKey();
+        reindexChapters();
+    }
 
+    private void reindexChapters() {
         // reload chapter index and set next chapter ID
         int highestChapter = 0;
         if (chapterIndex == null || !chapterIndex.isEmpty()) {
             chapterIndex = new HashMap<Integer, Chapter>();
         }
-        chapterIndex = new HashMap<Integer, Chapter>();
         for (Chapter chapter : chapters) {
             chapterIndex.put(chapter.getId(), chapter);
             if (chapter.getId() > highestChapter) {
