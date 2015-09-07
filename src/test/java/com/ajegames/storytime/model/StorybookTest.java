@@ -1,10 +1,8 @@
 package com.ajegames.storytime.model;
 
-import com.ajegames.storytime.data.StoryTimeRepository;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import javax.validation.constraints.AssertTrue;
 import java.util.Iterator;
 import java.util.SortedSet;
 
@@ -140,28 +138,40 @@ public class StorybookTest {
         Assert.fail();
     }
 
-//    @Test
-//    public void testUpdateChapterNextChapterOptions() {
-//
-//    }
+    @Test
+    public void testAddNextChapterOption() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        Chapter sourceChapter = bookOut.getFirstChapter();
 
-//    @Test
-//    public void testDeleteChapter() {
-//        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
-//        Storybook bookOut = Storybook.load(testStory);
-//
-//        bookOut.deleteChapter()
-//    }
+        int numOptions = sourceChapter.getNextChapterOptions().size();
+        Chapter updatedSourceChapter = bookOut.addNextChapterOption(sourceChapter.getId(), "Choose Me");
 
-//    @Test
-//    public void testDeleteChapterDoesNotLeaveChapterSignsPointingToNowhere() {
-//
-//    }
-
-    // helper methods
-
-    private StoryTimeRepository createRepo() {
-        return StoryTimeRepository.create();
+        Assert.assertNotNull(updatedSourceChapter);
+        Assert.assertEquals(updatedSourceChapter.getNextChapterOptions().size(), numOptions + 1);
+        for (ChapterSign sign : updatedSourceChapter.getNextChapterOptions()) {
+            if (sign.getTeaser().equals("Choose Me")) {
+                Assert.assertNotNull(sign.getTargetChapterId());
+                Assert.assertNotNull(bookOut.getChapter(sign.getTargetChapterId()));
+                return;
+            }
+        }
+        Assert.fail();
     }
 
+    @Test
+    public void testDeleteChapter() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        int chapterCount = bookOut.getChapters().size();
+
+        bookOut.deleteChapter(bookOut.getFirstChapter().getId());
+        Assert.assertEquals(bookOut.getChapters().size(), chapterCount - 1);
+    }
+
+
+    @Test
+    public void testDeleteFirstChapterDoesWhatNow() {
+        // TODO figure out what should happen when the top of the chain is removed -- is that like starting over?
+    }
 }
