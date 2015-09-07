@@ -248,9 +248,9 @@ public class StoryControllerTest {
 //        check = ctrl.getStory(story.getKey());
 //        Assert.assertNull(check);
 //    }
-
-    @Test
-    public void testDeleteChapter() {
-
-    }
+//
+//    @Test
+//    public void testDeleteChapter() {
+//
+//    }
 }
