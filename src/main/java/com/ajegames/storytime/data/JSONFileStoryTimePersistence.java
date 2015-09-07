@@ -42,7 +42,7 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
                     Story loadedStory = MAPPER.readValue(file, Story.class);
                     out.add(loadedStory);
                 } catch (IOException e) {
-                    LOG.error("File could not be read as Story: " + file.toString(), e);
+                    LOG.error("File could not be read as Story: " + file.toString());
                 }
             }
         }

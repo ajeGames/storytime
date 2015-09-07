@@ -1,4 +1,4 @@
 {
-  valid-json: true,
-  invalid-story: false
+  "valid-json": true,
+  "invalid-story": false
 }
