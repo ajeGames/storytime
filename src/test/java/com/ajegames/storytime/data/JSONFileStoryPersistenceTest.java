@@ -11,7 +11,8 @@ import java.util.List;
 
 public class JSONFileStoryPersistenceTest {
 
-    private static final String TEST_PATH = "story-files-test/";
+    private static final String TEST_PATH = "repo-test/good-examples/";
+    private static final String TEST_PATH_BAD_LOAD = "repo-test/bad-load/";
 
     @Test
     public void testStoryPersistenceAPI() throws Exception {
@@ -52,6 +53,35 @@ public class JSONFileStoryPersistenceTest {
         for (Story story : stories) {
             String storyKey = story.getSummary().getKey();
             Assert.assertTrue(storyKey.equals("mvghheo8") || storyKey.equals("ni7l0szw"));
+        }
+    }
+
+    @Test
+    public void testThrowsWhenPathToRepoIsDirectory() {
+        try {
+            new JSONFileStoryTimePersistence(TEST_PATH + "mvghheo8.json");
+        } catch (Exception e) {
+            return;
+        }
+        Assert.fail("Was not supposed to allow path to non-directory");
+    }
+
+    @Test
+    public void testThrowsWhenCannotCreateDirectory() {
+        try {
+            new JSONFileStoryTimePersistence("/forbidden/");  // root ought to be protected
+        } catch (Exception e) {
+            return;
+        }
+        Assert.fail("Was not supposed to allow path to non-directory");
+    }
+
+    @Test
+    public void testHandlesUnknownDataStructureGracefully() {
+        try {
+            new JSONFileStoryTimePersistence(TEST_PATH_BAD_LOAD).loadStories();
+        } catch (Exception e) {
+            Assert.fail("Was not supposed to handle gracefully");
         }
     }
 }
