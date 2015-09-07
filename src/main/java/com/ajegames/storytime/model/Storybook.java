@@ -15,21 +15,23 @@ public class Storybook {
     private SortedSet<Chapter> chapters;
     private Map<Integer, Chapter> chapterIndex;
 
-    public Storybook() {
+    public static Storybook createWithKey(String key) {
+        Storybook book = new Storybook();
+        book.setStoryKey(key);
+        return book;
+    }
+
+    public static Storybook load(Story storyToLoad) {
+        Storybook book = new Storybook();
+        book.setSummary(storyToLoad.getSummary());
+        book.chapters.addAll(storyToLoad.getChapters());
+        book.initializeAfterLoad();
+        return book;
+    }
+
+    private Storybook() {
         chapters = new TreeSet<Chapter>();
         chapterIndex = new HashMap<Integer, Chapter>();
-    }
-
-    public Storybook(String key) {
-        this();
-        setStoryKey(key);
-    }
-
-    public Storybook load(Story storyToLoad) {
-        this.summary = storyToLoad.getSummary();
-        this.chapters.addAll(storyToLoad.getChapters());
-        this.initializeAfterLoad();
-        return this;
     }
 
     public String getStoryKey() {
@@ -66,14 +68,7 @@ public class Storybook {
 
     public void setChapters(Set<Chapter> chapters) {
         this.chapters.addAll(chapters);
-    }
-
-    public Map<Integer, Chapter> getChapterIndex() {
-        return chapterIndex;
-    }
-
-    public void setChapterIndex(Map<Integer, Chapter> chapterIndex) {
-        this.chapterIndex = chapterIndex;
+        reindexChapters();
     }
 
     public Chapter addChapter() {
@@ -89,13 +84,15 @@ public class Storybook {
 
     private void initializeAfterLoad() {
         this.storyKey = summary.getKey();
+        reindexChapters();
+    }
 
+    private void reindexChapters() {
         // reload chapter index and set next chapter ID
         int highestChapter = 0;
         if (chapterIndex == null || !chapterIndex.isEmpty()) {
             chapterIndex = new HashMap<Integer, Chapter>();
         }
-        chapterIndex = new HashMap<Integer, Chapter>();
         for (Chapter chapter : chapters) {
             chapterIndex.put(chapter.getId(), chapter);
             if (chapter.getId() > highestChapter) {

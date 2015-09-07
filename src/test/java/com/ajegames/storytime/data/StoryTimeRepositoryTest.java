@@ -1,29 +1,33 @@
 package com.ajegames.storytime.data;
 
-import com.ajegames.storytime.model.Storybook;
+import com.ajegames.storytime.model.*;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tests the repository which holds the Storybook instances and deals with persistence.
  */
 public class StoryTimeRepositoryTest {
 
-    private static StoryTimeRepository repo = null;
-    private static StoryTimePersistenceTestMock persistenceMock = new StoryTimePersistenceTestMock();
+    private StoryTimeRepository repo;
+    private StoryTimePersistenceTestMock persistenceMock;
 
-    @BeforeClass
+    @BeforeMethod
     public void setup() {
-        repo = StoryTimeRepository.getInstance();
+        repo = StoryTimeRepository.create();
+        persistenceMock = new StoryTimePersistenceTestMock();
         repo.setPersistence(persistenceMock);
     }
 
     @Test
     public void testGetInstance() {
-        // repo is singleton
-        StoryTimeRepository test = StoryTimeRepository.getInstance();
-        Assert.assertEquals(test, repo);
+        StoryTimeRepository repo1 = StoryTimeRepository.getInstance();
+        StoryTimeRepository repo2 = StoryTimeRepository.getInstance();
+        Assert.assertEquals(repo1, repo2);
     }
 
     @Test
@@ -46,8 +50,9 @@ public class StoryTimeRepositoryTest {
 
     @Test
     public void testSaveStoryWithoutKey() {
+        Storybook testBook = Storybook.load(StoryTestUtil.generateStoryWithoutKey());
         try {
-            repo.saveStory(new Storybook());
+            repo.saveStory(testBook);
         } catch (IllegalArgumentException e) {
             // success
             return;
@@ -57,16 +62,46 @@ public class StoryTimeRepositoryTest {
 
     @Test
     public void testLoadStory() {
+        List<Story> toLoad = new ArrayList<Story>();
+        toLoad.add(
+                Story.create(
+                        StorySummary.create("loadStoryTest1", "title", "author", "tag line", "about",
+                                ChapterSign.create(1000, "teaser")),
+                        null));
+        toLoad.add(
+                Story.create(
+                        StorySummary.create("loadStoryTest2", "title", "author", "tag line", "about",
+                                ChapterSign.create(1000, "teaser")),
+                        null));
+        persistenceMock.setStoriesToLoad(toLoad);
 
+        repo.loadStories();
+        Assert.assertNotNull(repo.getStorybook("loadStoryTest1"));
+        Assert.assertNotNull(repo.getStorybook("loadStoryTest2"));
     }
 
     @Test
     public void testDeleteStory() {
+        Storybook book = repo.createStorybook();
+        String testKey = book.getStoryKey();
+        Assert.assertNotNull(repo.getStorybook(testKey));
+        Assert.assertTrue(persistenceMock.hasStory(testKey));
 
+        repo.deleteStory(testKey);
+        Assert.assertNull(repo.getStorybook(testKey));
+        Assert.assertFalse(persistenceMock.hasStory(testKey));
     }
 
     @Test
     public void testGetAllStorybooks() {
-
+        Storybook book1 = repo.createStorybook();
+        Storybook book2 = repo.createStorybook();
+        Storybook book3 = repo.createStorybook();
+        Storybook book4 = repo.createStorybook();
+        List<Storybook> books = repo.getAllStorybooks();
+        Assert.assertTrue(books.contains(book1));
+        Assert.assertTrue(books.contains(book2));
+        Assert.assertTrue(books.contains(book3));
+        Assert.assertTrue(books.contains(book4));
     }
 }

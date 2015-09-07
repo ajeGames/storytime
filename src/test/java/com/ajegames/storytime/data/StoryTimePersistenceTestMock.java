@@ -17,10 +17,11 @@ public class StoryTimePersistenceTestMock implements StoryTimePersistence {
     private static Logger LOG = LoggerFactory.getLogger(StoryTimePersistenceTestMock.class);
 
     private Map<String, Story> testStoryMap = new HashMap<String, Story>();
+    private List<Story> toLoad = new ArrayList<Story>();
 
     public List<Story> loadStories() {
         LOG.info("Called loadStories");
-        return new ArrayList<Story>(testStoryMap.values());
+        return toLoad;
     }
 
     public void saveStory(Story story) {
@@ -36,7 +37,23 @@ public class StoryTimePersistenceTestMock implements StoryTimePersistence {
 
     // added methods for probing persistence mock
 
+    /**
+     * For determining if save / delete have worked.
+     * @param storyKey key of story to look for
+     * @return
+     */
     public boolean hasStory(String storyKey) {
         return testStoryMap.containsKey(storyKey);
+    }
+
+    /**
+     * Populates stories "to be loaded."
+     *
+     * NOTE: This is not written for multi-threading.
+     *
+     * @return
+     */
+    public void setStoriesToLoad(List<Story> storiesToLoad) {
+        toLoad = storiesToLoad;
     }
 }

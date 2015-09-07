@@ -3,7 +3,7 @@ package com.ajegames.storytime.health;
 import com.codahale.metrics.health.HealthCheck;
 
 /**
- * Created by dmount on 2/22/15.
+ * Bare-bones health check.
  */
 public class StoryHealthCheck extends HealthCheck {
 
