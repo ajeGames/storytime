@@ -117,6 +117,17 @@ public class Storybook {
         chapterIndex.put(update.getId(), update);
     }
 
+    public void deleteChapter(Integer chapterId) {
+        Chapter toDelete = getChapter(chapterId);
+        if (toDelete == null) {
+            return;
+        }
+        chapters.remove(toDelete);
+        chapterIndex.remove(toDelete.getId());
+
+        // TODO think through what should happen with invalid chapter signs
+    }
+
     private void initializeAfterLoad() {
         this.storyKey = summary.getKey();
         reindexChapters();

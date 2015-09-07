@@ -159,17 +159,19 @@ public class StorybookTest {
         Assert.fail();
     }
 
-//    @Test
-//    public void testDeleteChapter() {
-//        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
-//        Storybook bookOut = Storybook.load(testStory);
-//
-//        bookOut.deleteChapter()
-//    }
+    @Test
+    public void testDeleteChapter() {
+        Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
+        Storybook bookOut = Storybook.load(testStory);
+        int chapterCount = bookOut.getChapters().size();
 
-//    @Test
-//    public void testDeleteChapterDoesNotLeaveChapterSignsPointingToNowhere() {
-//
-//    }
+        bookOut.deleteChapter(bookOut.getFirstChapter().getId());
+        Assert.assertEquals(bookOut.getChapters().size(), chapterCount - 1);
+    }
 
+
+    @Test
+    public void testDeleteFirstChapterDoesWhatNow() {
+        // TODO figure out what should happen when the top of the chain is removed -- is that like starting over?
+    }
 }
