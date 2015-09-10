@@ -1,7 +1,6 @@
 package com.ajegames.storytime;
 
 import com.ajegames.storytime.data.StoryTimeRepository;
-import com.ajegames.storytime.model.Story;
 import com.ajegames.storytime.model.StorySummary;
 import com.ajegames.storytime.model.Storybook;
 import org.slf4j.Logger;
@@ -12,8 +11,19 @@ import java.util.List;
 
 public class CatalogController {
 
-    private static StoryTimeRepository repo = StoryTimeRepository.getInstance();
     private static Logger LOG = LoggerFactory.getLogger(CatalogController.class);
+
+    private StoryTimeRepository repo = StoryTimeRepository.getInstance();
+
+    public static CatalogController create() {
+        return new CatalogController();
+    }
+
+    public static CatalogController createWithMockControllerForTesting(StoryTimeRepository testRepo) {
+        CatalogController ctrl = new CatalogController();
+        ctrl.repo = testRepo;
+        return ctrl;
+    }
 
     /**
      * Returns all story summaries found in repository.
