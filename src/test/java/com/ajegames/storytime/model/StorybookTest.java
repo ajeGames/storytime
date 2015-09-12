@@ -159,12 +159,6 @@ public class StorybookTest {
     }
 
     @Test
-    public void testAddNextChapterOptionToNewStory() {
-        Storybook bookOut = Storybook.createWithKey("BlargyBlargy");
-        Assert.fail();
-    }
-
-    @Test
     public void testDeleteChapter() {
         Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
         Storybook bookOut = Storybook.load(testStory);
@@ -173,7 +167,6 @@ public class StorybookTest {
         bookOut.deleteChapter(bookOut.getFirstChapter().getId());
         Assert.assertEquals(bookOut.getChapters().size(), chapterCount - 1);
     }
-
 
     @Test
     public void testDeleteFirstChapterDoesWhatNow() {
