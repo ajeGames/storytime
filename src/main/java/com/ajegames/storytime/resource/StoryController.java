@@ -1,4 +1,4 @@
-package com.ajegames.storytime;
+package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.data.StoryTimeRepository;
 import com.ajegames.storytime.model.*;
