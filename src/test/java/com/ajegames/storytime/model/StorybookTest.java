@@ -168,8 +168,8 @@ public class StorybookTest {
         Assert.assertEquals(bookOut.getChapters().size(), chapterCount - 1);
     }
 
-    @Test
-    public void testDeleteFirstChapterDoesWhatNow() {
-        // TODO figure out what should happen when the top of the chain is removed -- is that like starting over?
-    }
+//    @Test
+//    public void testDeleteFirstChapterDoesWhatNow() {
+//        // TODO figure out what should happen when the top of the chain is removed -- is that like starting over?
+//    }
 }
