@@ -16,7 +16,7 @@ public class StoryResource {
 
     private static Logger LOG = StoryTimeApplication.KEY_EVENT_LOG;
 
-    private StoryController ctrl = new StoryController();
+    private StoryController ctrl = StoryController.create();
 
     @GET
     @Path("{key}")

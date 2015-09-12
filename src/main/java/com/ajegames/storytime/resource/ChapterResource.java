@@ -15,7 +15,7 @@ public class ChapterResource {
 
     private static Logger LOG = StoryTimeApplication.KEY_EVENT_LOG;
 
-    private StoryController ctrl = new StoryController();
+    private StoryController ctrl = StoryController.create();
 
     @GET
     @Path("{id}")
