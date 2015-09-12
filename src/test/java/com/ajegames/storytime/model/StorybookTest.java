@@ -3,7 +3,6 @@ package com.ajegames.storytime.model;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Iterator;
 import java.util.SortedSet;
 
 /**
@@ -156,6 +155,12 @@ public class StorybookTest {
                 return;
             }
         }
+        Assert.fail();
+    }
+
+    @Test
+    public void testAddNextChapterOptionToNewStory() {
+        Storybook bookOut = Storybook.createWithKey("BlargyBlargy");
         Assert.fail();
     }
 
