@@ -10,8 +10,21 @@ import org.slf4j.LoggerFactory;
  */
 public class StoryController {
 
-    private static StoryTimeRepository repo = StoryTimeRepository.getInstance();
     private static Logger LOG = LoggerFactory.getLogger(StoryController.class);
+
+    private StoryTimeRepository repo = StoryTimeRepository.getInstance();
+
+    public static StoryController create() {
+        return new StoryController();
+    }
+
+    public static StoryController createWithMockControllerForTesting(StoryTimeRepository testRepo) {
+        StoryController ctrl = new StoryController();
+        ctrl.repo = testRepo;
+        return ctrl;
+    }
+
+    private StoryController() {}
 
     public StorySummary createStory(StorySummary summary) {
         if (summary.getKey() != null) {

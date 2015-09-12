@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controls actions related to stories in bulk.
+ */
 public class CatalogController {
 
     private static Logger LOG = LoggerFactory.getLogger(CatalogController.class);
@@ -24,6 +27,8 @@ public class CatalogController {
         ctrl.repo = testRepo;
         return ctrl;
     }
+
+    private CatalogController() {}
 
     /**
      * Returns all story summaries found in repository.

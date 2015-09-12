@@ -1,11 +1,13 @@
 package com.ajegames.storytime;
 
+import com.ajegames.storytime.data.StoryTimePersistenceTestMock;
+import com.ajegames.storytime.data.StoryTimeRepository;
 import com.ajegames.storytime.model.Chapter;
 import com.ajegames.storytime.model.ChapterSign;
 import com.ajegames.storytime.model.StorySummary;
 import com.ajegames.storytime.model.StoryTestUtil;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -18,9 +20,11 @@ public class StoryControllerTest {
 
     private StoryController ctrl;
 
-    @BeforeClass
+    @BeforeMethod
     public void setup() {
-        ctrl = new StoryController();
+        StoryTimeRepository repo = StoryTimeRepository.create();
+        repo.setPersistence(new StoryTimePersistenceTestMock());
+        ctrl = StoryController.createWithMockControllerForTesting(repo);
     }
 
     @Test
