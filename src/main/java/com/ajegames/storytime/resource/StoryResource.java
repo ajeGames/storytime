@@ -2,7 +2,6 @@ package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.StoryTimeApplication;
 import com.ajegames.storytime.model.Story;
-import com.ajegames.storytime.StoryController;
 import com.ajegames.storytime.model.StorySummary;
 import org.slf4j.Logger;
 
@@ -17,7 +16,7 @@ public class StoryResource {
 
     private static Logger LOG = StoryTimeApplication.KEY_EVENT_LOG;
 
-    private StoryController ctrl = new StoryController();
+    private StoryController ctrl = StoryController.create();
 
     @GET
     @Path("{key}")

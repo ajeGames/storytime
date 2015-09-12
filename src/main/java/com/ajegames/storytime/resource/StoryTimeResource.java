@@ -1,7 +1,6 @@
 package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.StoryTimeApplication;
-import com.ajegames.storytime.CatalogController;
 import com.ajegames.storytime.model.StorySummary;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
@@ -36,6 +35,6 @@ public class StoryTimeResource {
          * TODO: introduce criteria to refine search
          */
         LOG.info("Find stories: all");
-        return new CatalogController().getAllStorySummaries();
+        return CatalogController.create().getAllStorySummaries();
     }
 }

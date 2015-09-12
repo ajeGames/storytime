@@ -1,4 +1,4 @@
-package com.ajegames.storytime;
+package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.data.StoryTimeRepository;
 import com.ajegames.storytime.model.*;
@@ -10,8 +10,21 @@ import org.slf4j.LoggerFactory;
  */
 public class StoryController {
 
-    private static StoryTimeRepository repo = StoryTimeRepository.getInstance();
     private static Logger LOG = LoggerFactory.getLogger(StoryController.class);
+
+    private StoryTimeRepository repo = StoryTimeRepository.getInstance();
+
+    public static StoryController create() {
+        return new StoryController();
+    }
+
+    public static StoryController createWithMockControllerForTesting(StoryTimeRepository testRepo) {
+        StoryController ctrl = new StoryController();
+        ctrl.repo = testRepo;
+        return ctrl;
+    }
+
+    private StoryController() {}
 
     public StorySummary createStory(StorySummary summary) {
         if (summary.getKey() != null) {
@@ -29,7 +42,7 @@ public class StoryController {
     }
 
     public Story getStory(String storyKey) {
-        LOG.info("Retrieving story with key: " + storyKey);
+        LOG.debug("Retrieving story with key: " + storyKey);
         return repo.getStorybook(storyKey).getStory();
     }
 
@@ -44,7 +57,7 @@ public class StoryController {
     }
 
     public Chapter getChapter(String storyKey, Integer chapterId) {
-        LOG.info("Retrieving chapter " + chapterId + " for story " + storyKey);
+        LOG.debug("Retrieving chapter " + chapterId + " for story " + storyKey);
         return retrieveChapter(storyKey, chapterId);
     }
 
@@ -56,34 +69,31 @@ public class StoryController {
         return book.getChapter(chapterId);
     }
 
-//    public Chapter updateChapter(Chapter update) {
-//        LOG.info("Updating chapter " + update.getId() + " for story " + update.getStoryKey().getSummary().getKey());
-//        Chapter chap = retrieveChapter(storyKey, update.getId());
-//        if (update.getHeading() != null) {
-//            chap.setHeading(update.getHeading());
-//        }
-//        if (update.getProse() != null) {
-//            chap.setProse(update.getProse());
-//        }
-//        repo.saveStory(update.getStory());
-//        return chap;
-//    }
-//
-//    public Chapter addNextChapter(String storyKey, Integer parentChapterId, String teaser) {
-//        LOG.info("Creating next chapter options for chapter " + parentChapterId + " of story " + storyKey + ": "
-//                + teaser);
-//        Story story = repo.getStory(storyKey);
-//        Chapter parent = story.getChapter(parentChapterId);
-//        Chapter chap = story.addChapter();
-//        chap.setTeaser(teaser);
-//        parent.addNextChapter(chap);
-//        repo.saveStory(storyKey);
-//        return chap;
-//    }
+    public void updateChapter(String storyKey, Chapter update) {
+        LOG.debug("Updating chapter " + update.getId() + " for story " + storyKey);
+
+        Storybook book = repo.getStorybook(storyKey);
+        book.updateChapter(update);
+        repo.saveStory(book);
+    }
+
+    public Chapter addNextChapter(String storyKey, Integer parentChapterId, String teaser) {
+        LOG.debug("Adding chapter to story: " + storyKey + " from chapter: " + parentChapterId
+                + " with teaser: " + teaser);
+        Storybook story = repo.getStorybook(storyKey);
+        Chapter result = story.addNextChapterOption(parentChapterId, teaser);
+        repo.saveStory(story);
+        return result;
+    }
 
     public void deleteStory(String storyKey) {
-        LOG.info("Deleting story: " + storyKey);
+        LOG.debug("Deleting story: " + storyKey);
         repo.deleteStory(storyKey);
+    }
+
+    public Chapter getFirstChapter(String key) {
+        Storybook book = repo.getStorybook(key);
+        return book.getFirstChapter();
     }
 
     /**
