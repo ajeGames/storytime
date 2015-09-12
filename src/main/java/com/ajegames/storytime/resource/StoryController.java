@@ -42,7 +42,7 @@ public class StoryController {
     }
 
     public Story getStory(String storyKey) {
-        LOG.debug("Retrieving story with key: " + storyKey);
+        LOG.info("Retrieving story with key: " + storyKey);
         return repo.getStorybook(storyKey).getStory();
     }
 
@@ -57,7 +57,7 @@ public class StoryController {
     }
 
     public Chapter getChapter(String storyKey, Integer chapterId) {
-        LOG.debug("Retrieving chapter " + chapterId + " for story " + storyKey);
+        LOG.info("Retrieving chapter " + chapterId + " for story " + storyKey);
         return retrieveChapter(storyKey, chapterId);
     }
 
@@ -70,7 +70,7 @@ public class StoryController {
     }
 
     public void updateChapter(String storyKey, Chapter update) {
-        LOG.debug("Updating chapter " + update.getId() + " for story " + storyKey);
+        LOG.info("Updating chapter " + update.getId() + " for story " + storyKey);
 
         Storybook book = repo.getStorybook(storyKey);
         book.updateChapter(update);
