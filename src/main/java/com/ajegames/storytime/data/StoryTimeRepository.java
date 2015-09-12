@@ -52,7 +52,7 @@ public class StoryTimeRepository {
      * @param persistenceImpl mechanism to handle persistence
      */
     public void setPersistence(StoryTimePersistence persistenceImpl) {
-        LOG.info("Setting persistence mechanism");
+        LOG.debug("Setting persistence mechanism");
         if (persistenceImpl == null) {
             throw new IllegalArgumentException("Persistence mechanism cannot be null");
         }
@@ -70,7 +70,7 @@ public class StoryTimeRepository {
         do {
             tempKey = keyGenerator.nextKey();
         } while (stories.containsKey(tempKey));
-        LOG.info("Creating new story.  key=" + tempKey);
+        LOG.debug("Creating new story.  key=" + tempKey);
         Storybook book = Storybook.createWithKey(tempKey);
         saveStory(book);
         return book;
@@ -82,21 +82,21 @@ public class StoryTimeRepository {
             throw new IllegalArgumentException("The storybook must already have an assigned key.  Use createStorybook" +
                     " to create a storybook with a generated key.");
         }
-        LOG.info("Saving story: " + book.getSummary().getKey());
+        LOG.debug("Saving story: " + book.getSummary().getKey());
         cacheStorybook(book);
         this.storage.saveStory(book.getStory());
     }
 
     public void loadStories() {
         List<Story> stories = storage.loadStories();
-        LOG.info("Loading " + stories.size() + " stories");
+        LOG.debug("Loading " + stories.size() + " stories");
         for (Story story : stories) {
             cacheStorybook(Storybook.load(story));
         }
     }
 
     private void cacheStorybook(Storybook book) {
-        LOG.info("Adding story: " + book.getSummary().getKey());
+        LOG.debug("Adding story: " + book.getSummary().getKey());
         stories.put(book.getSummary().getKey(), book);
     }
 
@@ -105,13 +105,13 @@ public class StoryTimeRepository {
     }
 
     public void deleteStory(String storyKey) {
-        LOG.info("Deleting story: " + storyKey);
+        LOG.debug("Deleting story: " + storyKey);
         storage.deleteStory(storyKey);
         stories.remove(storyKey);
     }
 
     public List<Storybook> getAllStorybooks() {
-        LOG.info("Retrieving full list of stories");
+        LOG.debug("Retrieving full list of stories");
         List<Storybook> all = new ArrayList<Storybook>();
         all.addAll(stories.values());
         return all;

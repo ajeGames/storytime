@@ -94,15 +94,24 @@ public class StoryControllerTest {
         StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("six", "six", "six", "six"));
         Chapter first = ctrl.getFirstChapter(story.getKey());
         Chapter result = ctrl.addNextChapter(story.getKey(), first.getId(), "Choose me!");
+
+        // check that source chapter was updated with new option
         Assert.assertNotNull(result);
+        Assert.assertNotEquals(result, first);
+        Assert.assertEquals(first.getNextChapterOptions().size(), 0);
+        Assert.assertEquals(result.getNextChapterOptions().size(), 1);
 
+        // make sure update was preserved, not just returned the first time
         Chapter updatedFirst = ctrl.getFirstChapter(story.getKey());
-        Assert.assertEquals(updatedFirst.getNextChapterOptions().size(), 1);
-        Assert.assertEquals(updatedFirst.getNextChapterOptions().get(0).getTargetChapterId(), result.getId());
+        Assert.assertEquals(updatedFirst, result);
 
-        Chapter check = ctrl.getChapter(story.getKey(), result.getId());
-        Assert.assertNotNull(check);
-        Assert.assertEquals(check, result);
+        // check the sign to the new chapter
+        ChapterSign newChapterSign = result.getNextChapterOptions().get(0);
+        Assert.assertEquals(newChapterSign.getTeaser(), "Choose me!");
+
+        // make sure new chapter exists
+        Chapter newChapter = ctrl.getChapter(story.getKey(), newChapterSign.getTargetChapterId());
+        Assert.assertNotNull(newChapter);
     }
 
 //    @Test

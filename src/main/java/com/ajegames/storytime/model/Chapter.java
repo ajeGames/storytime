@@ -3,6 +3,7 @@ package com.ajegames.storytime.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +29,10 @@ public class Chapter implements Comparable {
     public static Chapter createWithID(Integer id) {
         Chapter chapter = new Chapter();
         chapter.id = id;
+        chapter.nextChapterOptions = new ArrayList<ChapterSign>();
         return chapter;
     }
+
 
     @JsonProperty
     public Integer getId() {

@@ -23,7 +23,7 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
     public JSONFileStoryTimePersistence(String pathToFiles) {
         this.pathToFiles = new File(pathToFiles);
         if (!this.pathToFiles.exists()) {
-            LOG.info("Creating directory to hold story files.");
+            LOG.warn("Creating directory to hold story files.");
             if (!this.pathToFiles.mkdir()) {
                 throw new RuntimeException("Unable to create path for story files.");
             }
