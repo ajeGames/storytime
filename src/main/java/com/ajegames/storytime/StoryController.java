@@ -56,19 +56,14 @@ public class StoryController {
         return book.getChapter(chapterId);
     }
 
-//    public Chapter updateChapter(Chapter update) {
-//        LOG.info("Updating chapter " + update.getId() + " for story " + update.getStoryKey().getSummary().getKey());
-//        Chapter chap = retrieveChapter(storyKey, update.getId());
-//        if (update.getHeading() != null) {
-//            chap.setHeading(update.getHeading());
-//        }
-//        if (update.getProse() != null) {
-//            chap.setProse(update.getProse());
-//        }
-//        repo.saveStory(update.getStory());
-//        return chap;
-//    }
-//
+    public void updateChapter(String storyKey, Chapter update) {
+        LOG.info("Updating chapter " + update.getId() + " for story " + storyKey);
+
+        Storybook book = repo.getStorybook(storyKey);
+        book.updateChapter(update);
+        repo.saveStory(book);
+    }
+
 //    public Chapter addNextChapter(String storyKey, Integer parentChapterId, String teaser) {
 //        LOG.info("Creating next chapter options for chapter " + parentChapterId + " of story " + storyKey + ": "
 //                + teaser);
@@ -84,6 +79,11 @@ public class StoryController {
     public void deleteStory(String storyKey) {
         LOG.info("Deleting story: " + storyKey);
         repo.deleteStory(storyKey);
+    }
+
+    public Chapter getFirstChapter(String key) {
+        Storybook book = repo.getStorybook(key);
+        return book.getFirstChapter();
     }
 
     /**

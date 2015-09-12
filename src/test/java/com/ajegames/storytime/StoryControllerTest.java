@@ -1,10 +1,15 @@
 package com.ajegames.storytime;
 
+import com.ajegames.storytime.model.Chapter;
+import com.ajegames.storytime.model.ChapterSign;
 import com.ajegames.storytime.model.StorySummary;
 import com.ajegames.storytime.model.StoryTestUtil;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Tests methods for handling story creation, retrieval and updates.
@@ -54,102 +59,32 @@ public class StoryControllerTest {
         Assert.assertEquals(check, result, "Return value should match stored value");
     }
 
-//    @Test
-//    public void testUpdateStoryTitle() {
-//        Story adv = ctrl.createStory("three", "three", "three", "three");
-//        Story update = new Story();
-//        update.setKey(adv.getKey());
-//        update.setTitle("updated");
-//        Story result = ctrl.updateSummary(update);
-//        Assert.assertEquals(result.getTitle(), "updated");
-//        Assert.assertEquals(result.getAuthor(), adv.getAuthor());
-//        Assert.assertEquals(result.getTagLine(), adv.getTagLine());
-//        Assert.assertEquals(result.getAbout(), adv.getAbout());
-//
-//        Story check = ctrl.getStory(adv.getKey());
-//        Assert.assertEquals(check, result, "Return value should match stored value");
-//    }
-//
-//    @Test
-//    public void testUpdateStoryAuthor() {
-//        Story adv = ctrl.createStory("three", "three", "three", "three");
-//        Story update = new Story();
-//        update.setKey(adv.getKey());
-//        update.setAuthor("updated");
-//        Story result = ctrl.updateSummary(update);
-//        Assert.assertEquals(result.getTitle(), adv.getTitle());
-//        Assert.assertEquals(result.getAuthor(), "updated");
-//        Assert.assertEquals(result.getTagLine(), adv.getTagLine());
-//        Assert.assertEquals(result.getAbout(), adv.getAbout());
-//
-//        Story check = ctrl.getStory(adv.getKey());
-//        Assert.assertEquals(check, result, "Return value should match stored value");
-//    }
-//
-//    @Test
-//    public void testUpdateStoryTagLine() {
-//        Story adv = ctrl.createStory("three", "three", "three", "three");
-//        Story update = new Story();
-//        update.setKey(adv.getKey());
-//        update.setTagLine("updated");
-//        Story result = ctrl.updateSummary(update);
-//        Assert.assertEquals(result.getTitle(), adv.getTitle());
-//        Assert.assertEquals(result.getAuthor(), adv.getAuthor());
-//        Assert.assertEquals(result.getTagLine(), "updated");
-//        Assert.assertEquals(result.getAbout(), adv.getAbout());
-//
-//        Story check = ctrl.getStory(adv.getKey());
-//        Assert.assertEquals(check, result, "Return value should match stored value");
-//    }
-//
-//    @Test
-//    public void testUpdateStoryDescription() {
-//        Story adv = ctrl.createStory("three", "three", "three", "three");
-//        Story update = new Story();
-//        update.setKey(adv.getKey());
-//        update.setAbout("updated");
-//        Story result = ctrl.updateSummary(update);
-//        Assert.assertEquals(result.getTitle(), adv.getTitle());
-//        Assert.assertEquals(result.getAuthor(), adv.getAuthor());
-//        Assert.assertEquals(result.getTagLine(), adv.getTagLine());
-//        Assert.assertEquals(result.getAbout(), "updated");
-//
-//        Story check = ctrl.getStory(adv.getKey());
-//        Assert.assertEquals(check, result, "Return value should match stored value");
-//    }
-//
-//    @Test
-//    public void testGetChapter() {
-//        Story adv = ctrl.createStory("four", "four", "four", "four");
-//        Chapter chap = adv.getFirstChapter();
-//
-//        Chapter chapterFound = ctrl.getChapter(adv.getKey(), chap.getId());
-//        Assert.assertNotNull(chapterFound);
-//        Assert.assertNull(chapterFound.getTeaser());
-//        Assert.assertNull(chapterFound.getHeading());
-//        Assert.assertNull(chapterFound.getProse());
-//    }
-//
-//    @Test
-//    public void testUpdateChapter() {
-//        Story story = ctrl.createStory("five", "five", "five", "five");
-//        Chapter chap = story.getFirstChapter();
-//
-//        Chapter update = new Chapter();
-//        update.setId(chap.getId());
-//        update.setTeaser("update");
-//        update.setHeading("update");
-//        update.setProse("update");
-//
-//        Chapter result = ctrl.updateChapter(story.getKey(), update);
-//        Assert.assertEquals(result.getTeaser(), "update");
-//        Assert.assertEquals(result.getHeading(), "update");
-//        Assert.assertEquals(result.getProse(), "update");
-//
-//        Chapter check = ctrl.getChapter(story.getKey(), chap.getId());
-//        Assert.assertEquals(check, result);
-//    }
-//
+    @Test
+    public void testGetChapter() {
+        StorySummary adv = ctrl.createStory(StoryTestUtil.createWithoutKey("four", "four", "four", "four"));
+        Chapter chapterFound = ctrl.getFirstChapter(adv.getKey());
+        Assert.assertNotNull(chapterFound);
+    }
+
+    @Test
+    public void testUpdateChapter() {
+        StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("five", "five", "five", "five"));
+        Chapter chap = ctrl.getFirstChapter(story.getKey());
+
+        List<ChapterSign> options = new ArrayList<ChapterSign>();
+        options.add(ChapterSign.create(2000, "update"));
+        options.add(ChapterSign.create(2001, "update"));
+        Chapter update = Chapter.create(chap.getId(), "update", "update", options);
+        ctrl.updateChapter(story.getKey(), update);
+
+        Chapter result = ctrl.getFirstChapter(story.getKey());
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.getHeading(), "update");
+        Assert.assertEquals(result.getProse(), "update");
+        Assert.assertEquals(result.getNextChapterOptions().size(), 2);
+        Assert.assertEquals(result, update);
+    }
+
 //    @Test
 //    public void testUpdateChapterTeaser() {
 //        Story story = ctrl.createStory("five", "five", "five", "five");
