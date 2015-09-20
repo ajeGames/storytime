@@ -114,25 +114,21 @@ public class StoryControllerTest {
         Assert.assertNotNull(newChapter);
     }
 
-//    @Test
-//    public void testCreateChainOfNextChapters() {
-//        Story story = ctrl.createStory("seven", "seven", "seven", "seven");
-//        String storyKey = story.getKey();
-//        Chapter first = story.getFirstChapter();
-//        first.setTeaser("first level");
-//        Chapter second = ctrl.addNextChapter(storyKey, first.getId(), "second level");
-//        Chapter third= ctrl.addNextChapter(storyKey, second.getId(), "third level");
-//        Chapter fourth= ctrl.addNextChapter(storyKey, third.getId(), "fourth level");
-//
-//        Chapter secondCheck = ctrl.getChapter(storyKey, second.getId());
-//        Chapter thirdCheck = ctrl.getChapter(storyKey, third.getId());
-//        Chapter fourthCheck = ctrl.getChapter(storyKey, fourth.getId());
-//
-//        Assert.assertEquals(secondCheck, second, "second");
-//        Assert.assertEquals(thirdCheck, third, "third");
-//        Assert.assertEquals(fourthCheck, fourth, "fourth");
-//    }
-//
+    @Test
+    public void testCreateChainOfNextChapters() {
+        StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("seven", "seven", "seven", "seven"));
+        String storyKey = story.getKey();
+
+        Chapter node = ctrl.getFirstChapter(storyKey);
+        for (int i=1; i <= 4; i++) {
+            Assert.assertEquals(node.getNextChapterOptions().size(), 0);
+            node = ctrl.addNextChapter(storyKey, node.getId(), "level " + i);
+            Assert.assertEquals(node.getNextChapterOptions().size(), 1);
+            node = ctrl.getChapter(storyKey, node.getNextChapterOptions().get(0).getTargetChapterId());
+            Assert.assertNotNull(node);
+        }
+    }
+
 //    @Test
 //    public void testDeleteStory() {
 //        Story story = ctrl.createStory("eigth", "eigth", "eigth", "eigth");
