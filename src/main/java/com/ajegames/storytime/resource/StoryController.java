@@ -104,4 +104,8 @@ public class StoryController {
      * What to do when first chapter is deleted?
      */
 
+    public void deleteChapter(String key, Integer id) {
+
+    }
+
 }

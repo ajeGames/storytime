@@ -2,10 +2,7 @@ package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.data.StoryTimePersistenceTestMock;
 import com.ajegames.storytime.data.StoryTimeRepository;
-import com.ajegames.storytime.model.Chapter;
-import com.ajegames.storytime.model.ChapterSign;
-import com.ajegames.storytime.model.StorySummary;
-import com.ajegames.storytime.model.StoryTestUtil;
+import com.ajegames.storytime.model.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -129,19 +126,25 @@ public class StoryControllerTest {
         }
     }
 
-//    @Test
-//    public void testDeleteStory() {
-//        Story story = ctrl.createStory("eigth", "eigth", "eigth", "eigth");
-//        Story check = ctrl.getStory(story.getKey());
-//        Assert.assertNotNull(check);
-//
-//        ctrl.deleteStory(check.getKey());
-//        check = ctrl.getStory(story.getKey());
-//        Assert.assertNull(check);
-//    }
-//
-//    @Test
-//    public void testDeleteChapter() {
-//
-//    }
+    @Test
+    public void testDeleteStory() {
+        StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("eight", "eight", "eight", "eight"));
+        Assert.assertNotNull(ctrl.getStory(story.getKey()));
+        ctrl.deleteStory(story.getKey());
+        Assert.assertNull(ctrl.getStory(story.getKey()));
+    }
+
+    @Test
+    public void testDeleteChapter() {
+        StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("eight", "eight", "eight", "eight"));
+        Chapter sourceChapter = ctrl.addNextChapter(story.getKey(), ctrl.getFirstChapter(story.getKey()).getId(),
+                "chapter two");
+        Assert.assertEquals(sourceChapter.getNextChapterOptions().size(), 1);
+        Chapter next = ctrl.getChapter(story.getKey(),
+                sourceChapter.getNextChapterOptions().get(0).getTargetChapterId());
+        Assert.assertNotNull(next);
+
+        ctrl.deleteChapter(story.getKey(), next.getId());
+        Assert.assertNull(ctrl.getChapter(story.getKey(), next.getId()));
+    }
 }
