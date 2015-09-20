@@ -43,7 +43,8 @@ public class StoryController {
 
     public Story getStory(String storyKey) {
         LOG.info("Retrieving story with key: " + storyKey);
-        return repo.getStorybook(storyKey).getStory();
+        Storybook book = repo.getStorybook(storyKey);
+        return book != null ? repo.getStorybook(storyKey).getStory() : null;
     }
 
     public void updateSummary(StorySummary update) {
@@ -105,7 +106,11 @@ public class StoryController {
      */
 
     public void deleteChapter(String key, Integer id) {
-
+        Storybook book = repo.getStorybook(key);
+        if (book == null) {
+            throw new IllegalArgumentException("Book with key " + key + " not found");
+        }
+        book.deleteChapter(id);
     }
 
 }
