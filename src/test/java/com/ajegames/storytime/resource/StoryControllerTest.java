@@ -2,10 +2,7 @@ package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.data.StoryTimePersistenceTestMock;
 import com.ajegames.storytime.data.StoryTimeRepository;
-import com.ajegames.storytime.model.Chapter;
-import com.ajegames.storytime.model.ChapterSign;
-import com.ajegames.storytime.model.StorySummary;
-import com.ajegames.storytime.model.StoryTestUtil;
+import com.ajegames.storytime.model.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -114,38 +111,40 @@ public class StoryControllerTest {
         Assert.assertNotNull(newChapter);
     }
 
-//    @Test
-//    public void testCreateChainOfNextChapters() {
-//        Story story = ctrl.createStory("seven", "seven", "seven", "seven");
-//        String storyKey = story.getKey();
-//        Chapter first = story.getFirstChapter();
-//        first.setTeaser("first level");
-//        Chapter second = ctrl.addNextChapter(storyKey, first.getId(), "second level");
-//        Chapter third= ctrl.addNextChapter(storyKey, second.getId(), "third level");
-//        Chapter fourth= ctrl.addNextChapter(storyKey, third.getId(), "fourth level");
-//
-//        Chapter secondCheck = ctrl.getChapter(storyKey, second.getId());
-//        Chapter thirdCheck = ctrl.getChapter(storyKey, third.getId());
-//        Chapter fourthCheck = ctrl.getChapter(storyKey, fourth.getId());
-//
-//        Assert.assertEquals(secondCheck, second, "second");
-//        Assert.assertEquals(thirdCheck, third, "third");
-//        Assert.assertEquals(fourthCheck, fourth, "fourth");
-//    }
-//
-//    @Test
-//    public void testDeleteStory() {
-//        Story story = ctrl.createStory("eigth", "eigth", "eigth", "eigth");
-//        Story check = ctrl.getStory(story.getKey());
-//        Assert.assertNotNull(check);
-//
-//        ctrl.deleteStory(check.getKey());
-//        check = ctrl.getStory(story.getKey());
-//        Assert.assertNull(check);
-//    }
-//
-//    @Test
-//    public void testDeleteChapter() {
-//
-//    }
+    @Test
+    public void testCreateChainOfNextChapters() {
+        StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("seven", "seven", "seven", "seven"));
+        String storyKey = story.getKey();
+
+        Chapter node = ctrl.getFirstChapter(storyKey);
+        for (int i=1; i <= 4; i++) {
+            Assert.assertEquals(node.getNextChapterOptions().size(), 0);
+            node = ctrl.addNextChapter(storyKey, node.getId(), "level " + i);
+            Assert.assertEquals(node.getNextChapterOptions().size(), 1);
+            node = ctrl.getChapter(storyKey, node.getNextChapterOptions().get(0).getTargetChapterId());
+            Assert.assertNotNull(node);
+        }
+    }
+
+    @Test
+    public void testDeleteStory() {
+        StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("eight", "eight", "eight", "eight"));
+        Assert.assertNotNull(ctrl.getStory(story.getKey()));
+        ctrl.deleteStory(story.getKey());
+        Assert.assertNull(ctrl.getStory(story.getKey()));
+    }
+
+    @Test
+    public void testDeleteChapter() {
+        StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("eight", "eight", "eight", "eight"));
+        Chapter sourceChapter = ctrl.addNextChapter(story.getKey(), ctrl.getFirstChapter(story.getKey()).getId(),
+                "chapter two");
+        Assert.assertEquals(sourceChapter.getNextChapterOptions().size(), 1);
+        Chapter next = ctrl.getChapter(story.getKey(),
+                sourceChapter.getNextChapterOptions().get(0).getTargetChapterId());
+        Assert.assertNotNull(next);
+
+        ctrl.deleteChapter(story.getKey(), next.getId());
+        Assert.assertNull(ctrl.getChapter(story.getKey(), next.getId()));
+    }
 }

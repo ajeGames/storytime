@@ -62,6 +62,13 @@ public class Storybook {
         this.summary = summary;
     }
 
+    /**
+     * Adds another chapter and the chapter sign that points to it.
+     *
+     * @param sourceChapterId
+     * @param teaser
+     * @return updated source chapter
+     */
     public Chapter addNextChapterOption(Integer sourceChapterId, String teaser) {
         Chapter fromChapter = getChapter(sourceChapterId);
         if (fromChapter == null) {
