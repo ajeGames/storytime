@@ -1,15 +1,24 @@
 package com.ajegames.storytime.resource;
 
-import junit.framework.Assert;
+import io.dropwizard.testing.junit.ResourceTestRule;
+import org.junit.ClassRule;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import javax.ws.rs.core.Response;
 
 /**
  * Test as a resource.
  */
 public class StoryTimeResourceTest {
 
+    @ClassRule
+    public static final ResourceTestRule resources = ResourceTestRule.builder()
+            .addResource(new StoryTimeResource()).build();
+
     @Test
     public void testPing() {
-        Assert.fail();
+        Response response = resources.client().target("api/storytime").request().get();
+        Assert.assertNotNull(response);
     }
 }
