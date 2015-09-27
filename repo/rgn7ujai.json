@@ -22,7 +22,7 @@
         },
         {
           "targetChapterId": 3,
-          "teaser": "Stay out",
+          "teaser": "Stay out"
         }
       ]
     },
@@ -50,13 +50,13 @@
     {
       "id": 4,
       "heading": "You Win!",
-      "prose": "You discover the long lost booty of the dread pirate Stevens.  You are set for the rest of your long and enjoyable life."
+      "prose": "You discover the long lost booty of the dread pirate Stevens.  You are set for the rest of your long and enjoyable life.",
       "nextChapterOptions": []
     },
     {
       "id": 5,
       "heading": "You Die!",
-      "prose": "You take the passageway to the right, which goes ends in a drop-off.  Unfortunately, the cave is so dark at this point that you do not see where the floor disappears, and you fall to an untimely death."
+      "prose": "You take the passageway to the right, which goes ends in a drop-off.  Unfortunately, the cave is so dark at this point that you do not see where the floor disappears, and you fall to an untimely death.",
       "nextChapterOptions": []
     }
   ]
