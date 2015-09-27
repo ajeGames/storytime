@@ -29,6 +29,17 @@ public class StoryResource {
         return story.getSummary();
     }
 
+    @GET
+    @Path("{key}/full")
+    public Story getFull(@PathParam("key") String key) {
+        LOG.info("Retrieving story for key: " + key);
+        Story story = ctrl.getStory(key);
+        if (story == null) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return story;
+    }
+
     @POST
     public StorySummary create(StorySummary summary) {
         LOG.info("Creating another story for a happier universe.");

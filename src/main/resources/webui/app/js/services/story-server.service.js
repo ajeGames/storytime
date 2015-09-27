@@ -14,7 +14,6 @@
             createStory: createStory,
             deleteStory: deleteStory,
             fetchAllStories: fetchAllStories,
-            fetchChapters: fetchChapters,
             fetchStory: fetchStory,
             updateStory: updateStory
         };
@@ -27,18 +26,14 @@
             return (request.then(handleSuccess, handleError));
         }
 
-        function fetchStory(key) {
+        function fetchStorySummary(key) {
             return $http.get("../api/story/" + key)
                 .then(handleSuccess).catch(handleError);
         }
 
-        function fetchChapters(storyKey, chapterIds) {
-            var goTo = "../api/story/" + storyKey;
-            var request = $http({
-                method: "get",
-                url: goTo
-            });
-            return request.then(handleSuccess).catch(handleError);
+        function fetchStory(key) {
+            return $http.get("../api/story/" + key + "/full")
+                .then(handleSuccess).catch(handleError);
         }
 
         function createStory(story) {

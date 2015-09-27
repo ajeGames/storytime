@@ -4,11 +4,13 @@
 </div>
 <div id="main" class="row scroll-y">
   <div class="summary" ng-repeat="story in catCtrl.catalog">
-    <div><span class="title"><a href="#/reader/{{story.key}}">{{story.title}}</a></span>
-      <span class="author">by {{story.author}}</span>  </div>
+    <div>
+        <span class="title"><a href="#/reader/{{story.key}}">{{story.title}}</a></span>
+        <span class="author">by {{story.author}}</span>
+        <a ng-href="#/editor/{{story.key}}"><img src="img/icon-edit.jpg" width="32px"></a>
+    </div>
     <div class="tagline">{{story.tagLine}}</div>
     <div class="description">{{story.about}}</div>
-      <a ng-href="#/editor/{{story.key}}">Edit</a>
   </div>
 </div>
 <div id="footer" class="row">

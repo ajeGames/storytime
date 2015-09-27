@@ -10,20 +10,13 @@
     function StoryController($routeParams, StoryServer, StoryCache) {
         console.log('StoryController: called constructor');
         var vm = this;
-        //vm.StoryCache = StoryCache;
-        vm.requestedStoryKey = $routeParams.storyKey;
-        vm.requestedChapterId = $routeParams.chapter;
         vm.currentStory = StoryCache.activeStory;
-        vm.currentChapter = StoryCache.activeChapters[vm.requestedChapterId];
+        vm.isTheEnd = isNoNextChapters;
+        vm.requestedChapterId = $routeParams.chapter;
+        vm.requestedStoryKey = $routeParams.storyKey;
 
         if (vm.requestedStoryKey != vm.currentStory.key) {
             getStory(vm.requestedStoryKey);
-        }
-
-        vm.isTheEnd = function() {
-            console.log('StoryController: called isTheEnd');
-            return vm.currentChapter.nextChapterOptions === undefined
-                    || vm.currentChapter.nextChapterOptions.length === 0;
         }
 
         function getStory(key) {
@@ -36,29 +29,39 @@
 
         function applyRemoteData(story) {
             console.log('StoryController: called applyRemoteData');
-            StoryCache.activeStory = story;
-            indexChapters(story.firstChapter);
-            getCurrentFromCache();
+            StoryCache.activeStory = story.summary;
+            indexChapters(story.chapters);
+            setCurrentFromCache();
         }
 
-        function indexChapters(chapter) {
+        function indexChapters(chapters) {
             console.log('StoryController: called indexChapters');
-            if (chapter != null && chapter.id != null) {
-                StoryCache.activeChapters[chapter.id] = chapter;
-                for (var i=0, tot=chapter.nextChapterOptions.length; i < tot; i++) {
-                    indexChapters(chapter.nextChapterOptions[i]);
-                }
+            for (var i=0, max=chapters.length; i < max; i++) {
+                console.log('StoryController: indexing chapter ' + chapters[i].id);
+                StoryCache.activeChapters[chapters[i].id] = chapters[i];
             }
         }
 
-        function getCurrentFromCache() {
+        function setCurrentFromCache() {
             console.log('StoryController: called getCurrentFromCache');
             vm.currentStory = StoryCache.activeStory;
             if (vm.requestedChapterId) {
                 vm.currentChapter = StoryCache.activeChapters[vm.requestedChapterId];
             } else {
-                vm.currentChapter = StoryCache.activeChapters[1];
+                vm.currentChapter = StoryCache.activeChapters[StoryCache.activeStory.firstChapter.targetChapterId];
             }
+            console.log('hello');
         }
+
+        function isNoNextChapters() {
+            console.log('StoryController: called isTheEnd');
+            if (vm.currentChapter === undefined) {
+                console.log('StoryController: called isNoNextChapters with current chapter undefined');
+                return false;
+            }
+            return vm.currentChapter.nextChapterOptions === undefined
+                    || vm.currentChapter.nextChapterOptions.length === 0;
+        }
+
     }
 })();
