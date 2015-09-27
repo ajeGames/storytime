@@ -46,7 +46,6 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
     public void run(StoryTimeConfiguration config, Environment environment) throws Exception {
         loadSampleStories(config.getPersistence());
         environment.healthChecks().register("story", new StoryHealthCheck());
-        environment.jersey().setUrlPattern("/api/*");
         environment.jersey().register(new StoryTimeResource());
         environment.jersey().register(new StoryResource());
         environment.jersey().register(new ChapterResource());
