@@ -9,9 +9,9 @@
 
     function StoryCacheFactory() {
         return {
-            summaries: {},
+            activeChapters: {},
             activeStory: {},
-            activeChapters: {}
+            summaries: {}
         };
     }
 
