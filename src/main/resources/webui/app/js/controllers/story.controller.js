@@ -17,6 +17,8 @@
 
         if (vm.requestedStoryKey != vm.currentStory.key) {
             getStory(vm.requestedStoryKey);
+        } else {
+            setCurrentChapter();
         }
 
         function getStory(key) {
@@ -45,12 +47,15 @@
         function setCurrentFromCache() {
             console.log('StoryController: called getCurrentFromCache');
             vm.currentStory = StoryCache.activeStory;
+            setCurrentChapter();
+        }
+
+        function setCurrentChapter() {
             if (vm.requestedChapterId) {
                 vm.currentChapter = StoryCache.activeChapters[vm.requestedChapterId];
             } else {
                 vm.currentChapter = StoryCache.activeChapters[StoryCache.activeStory.firstChapter.targetChapterId];
             }
-            console.log('hello');
         }
 
         function isNoNextChapters() {

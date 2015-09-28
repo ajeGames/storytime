@@ -12,7 +12,7 @@
     <div id="nextChapters" ng-hide="storyCtrl.isTheEnd()">
     <div class="instruction">Choose your next step.</div>
     <div ng-repeat="option in storyCtrl.currentChapter.nextChapterOptions" class="nextChapterOption">
-        <a href="#/reader/{{storyCtrl.currentStory.key}}/{{option.id}}">{{option.teaser}}</a></div>
+        <a href="#/reader/{{storyCtrl.currentStory.key}}/{{option.targetChapterId}}">{{option.teaser}}</a></div>
     </div>
 </div>
 
