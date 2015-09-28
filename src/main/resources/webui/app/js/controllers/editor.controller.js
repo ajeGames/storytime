@@ -31,7 +31,7 @@
             } else {
                 StoryServer.fetchStory(storyKey).then(function(data) {
                     // TODO handle failure to find story
-                    vm.draft = data;
+                    vm.draft = data.summary;
                     vm.isNew = false;
                     if (chapterId === null) {
                         vm.draftChapter = vm.draft.firstChapter;
