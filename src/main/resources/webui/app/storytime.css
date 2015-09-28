@@ -26,6 +26,10 @@ body {
   overflow-y: auto;
 }
 
+#header h2 {
+	margin: 0;
+}
+
 #header.row {
   height: 75px;
   top: 0;
@@ -36,7 +40,7 @@ body {
   top: 75px;
   bottom: 50px;
   margin: 0.5em 1.0em;
-  border: groove silver 5px;
+  border: groove green 4px;
   padding: 1.0em;
 }
 
