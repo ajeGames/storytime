@@ -5,9 +5,9 @@
         .module('StoryTime')
         .controller('EditorController', EditorController);
 
-    EditorController.$inject = ['$routeParams', 'StoryServer'];
+    EditorController.$inject = ['$routeParams', 'StoryServer', 'StoryCache'];
 
-    function EditorController($routeParams, StoryServer) {
+    function EditorController($routeParams, StoryServer, StoryCache) {
         console.log('EditorController: constructor');
 
         var vm = this;

@@ -36,6 +36,8 @@
             setCurrentFromCache();
         }
 
+    // TODO move some of this logic into StoryCache to simply and share with other controllers
+    
         function indexChapters(chapters) {
             console.log('StoryController: called indexChapters');
             for (var i=0, max=chapters.length; i < max; i++) {
