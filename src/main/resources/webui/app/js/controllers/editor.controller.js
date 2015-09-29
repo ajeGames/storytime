@@ -46,15 +46,15 @@
 
         function saveDraftSummary() {
             var result;
-            if (vm.draft.key == null) {
-                result = StoryServer.createStory(vm.draft);
+            if (vm.draftSummary.key == null) {
+                result = StoryServer.createStory(vm.draftSummary);
                 // TODO determine if there was a problem; otherwise, no longer new
                 isNew = false;
             } else {
-                result = StoryServer.updateStory(vm.draft);
+                result = StoryServer.updateStory(vm.draftSummary);
             }
             result.then(function(data) {
-                vm.draft = data;
+                vm.draftSummary = data;
             });
         }
 
