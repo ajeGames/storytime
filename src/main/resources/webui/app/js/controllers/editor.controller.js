@@ -9,41 +9,42 @@
 
     function EditorController($routeParams, StoryServer, StoryCache) {
         console.log('EditorController: constructor');
-
         var vm = this;
-
         vm.addChapterOption = addChapterOption;
-        vm.draft = {};
+        vm.draftSummary = {};
         vm.draftChapter = {};
         vm.isNew = true;
         vm.nextChapterTeaser = null;
         vm.removeChapterOption = removeChapterOption;
-        vm.saveDraft = saveDraft;
+        vm.saveDraftSummary = saveDraftSummary;
         vm.saveDraftChapter = saveDraftChapter;
 
         initialize($routeParams.storyKey, $routeParams.chapterId);
 
         function initialize(storyKey, chapterId) {
+            console.log('EditorController.initialize');
             if (storyKey === null) {
                 vm.isNew = true;
                 vm.draft = {};
                 vm.draftChapter = {};
             } else {
-                StoryServer.fetchStory(storyKey).then(function(data) {
-                    // TODO handle failure to find story
-                    vm.draft = data.summary;
-                    vm.isNew = false;
-                    if (chapterId === null) {
-                        vm.draftChapter = vm.draft.firstChapter;
-                    } else {
-                        alert('!!!TODO: load specific chapter');
-                        vm.draftChapter = vm.draft.firstChapter;
-                    }
-                });
+                StoryServer.fetchStory(storyKey).then(
+                    function(story) {
+                        prepStoryAsDraft(story, chapterId);
+                    });
+                // TODO handle failure to find story
             }
         }
 
-        function saveDraft() {
+        function prepStoryAsDraft(story, chapterId) {
+            StoryCache.cacheStory(story);
+            vm.isNew = false;
+            vm.draftSummary = StoryCache.getStory();
+            var chapterToFetch = (chapterId != null) ? chapterId : vm.draftSummary.firstChapter.targetChapterId;
+            vm.draftChapter = StoryCache.getChapter(chapterToFetch);
+        }
+
+        function saveDraftSummary() {
             var result;
             if (vm.draft.key == null) {
                 result = StoryServer.createStory(vm.draft);

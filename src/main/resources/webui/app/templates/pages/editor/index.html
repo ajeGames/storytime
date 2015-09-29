@@ -9,35 +9,38 @@
             <ul class="form-style-1">
                 <li>
                     <label>Title:</label>
-                    <input type="text" ng-model="editorCtrl.draft.title" class="field-long"/>
+                    <input type="text" ng-model="editorCtrl.draftSummary.title" class="field-long"/>
                 </li>
                 <li>
-                    <label>Author:</label> <input type="text" ng-model="editorCtrl.draft.author" class="field-long"/>
+                    <label>Author:</label> <input type="text" ng-model="editorCtrl.draftSummary.author" class="field-long"/>
                 </li>
                 <li>
-                    <label>Tag Line:</label> <input type="text" ng-model="editorCtrl.draft.tagLine" class="field-long"/>
+                    <label>Tag Line:</label> <input type="text" ng-model="editorCtrl.draftSummary.tagLine" class="field-long"/>
                 </li>
                 <li>
                     <label>Description:</label>
-                    <textarea ng-model="editorCtrl.draft.about" class="field-long field-textarea"></textarea>
+                    <textarea ng-model="editorCtrl.draftSummary.about" class="field-long field-textarea"></textarea>
                 </li>
                 <li>
-                    <button ng-click="editorCtrl.saveDraft()">Save Story</button> (Key: {{editorCtrl.draft.key}})
+                    <label>Opening Scene Teaser:</label>
+                    <input type="text" ng-model="editorCtrl.draftSummary.firstChapter.teaser" class="field-long"/>
+                </li>
+                <li>
+                    <button ng-click="editorCtrl.saveDraftSummary()">Save Story</button> (Key: {{editorCtrl.draftSummary.key}})
                 </li>
             </ul>
         </form>
 
         <hr/>
 
-        <!-- TODO create chapter edit panel -->
         <div ng-hide="editorCtrl.isNew">
             <div class="instruction">Chapter #{{editorCtrl.draftChapter.id}} Information</div>
             <form>
                 <!-- chapter -->
                 <ul class="form-style-1">
                     <li>
-                        <label>Opening Scene Teaser:</label>
-                        <input type="text" ng-model="editorCtrl.draftChapter.teaser" class="field-long"/>
+                        <label>Chapter Header:</label>
+                        <input type="text" ng-model="editorCtrl.draftChapter.heading" class="field-long"/>
                     </li>
                     <li>
                         <label>Scene:</label>
@@ -49,7 +52,6 @@
                 </ul>
 
                 <!-- next chapter options -->
-                <!-- TODO rename "teaser" to "signpost" -->
                 <ul class="form-style-1">
                     <li>
                         <label>Next Chapter Options:</label>
