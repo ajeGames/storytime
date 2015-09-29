@@ -28,28 +28,42 @@ public class ChapterResource {
         return chapter;
     }
 
-//    @PUT
-//    @Path("{id}")
-//    public Chapter update(@PathParam("key") String key, Chapter update) {
-//        LOG.info("Receiving changes to story: " + key);
-//        if (key == null || update.getId() == null) {
-//            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-//        }
-//        try {
-//            return ctrl.updateChapter(update);
-//        } catch (Exception e) {
-//            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @PUT
+    @Path("{id}")
+    public Chapter update(@PathParam("key") String key, @PathParam("id") Integer id, Chapter update) {
+        LOG.info("Receiving changes to story: " + key);
+        if (key == null || update.getId() == null || !id.equals(update.getId())) {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        try {
+            ctrl.updateChapter(key, update);
+            return ctrl.getChapter(key, update.getId());
+        } catch (Exception e) {
+            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-//    @POST
-//    public Chapter addNextChapter(@PathParam("key") String key, Chapter nextChapter) {
-//        LOG.info("Adding next chapter");
-//        try {
-//            return ctrl.addNextChapter(key, nextChapter.getParentID(), nextChapter.getTeaser());
-//        } catch (Exception e) {
-//            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @POST
+    @Path("{id}")
+    public Chapter addChapterOption(@PathParam("key") String key, @PathParam("id") Integer fromChapterId,
+                                    String teaser) {
+        LOG.info("Adding next chapter");
+        try {
+            return ctrl.addNextChapter(key, fromChapterId, teaser);
+        } catch (Exception e) {
+            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    public void destroy(@PathParam("key") String key, @PathParam("id") Integer chapterId) {
+        LOG.info("Removing chapter");
+        try {
+            ctrl.deleteChapter(key, chapterId);
+        } catch (Exception e) {
+            throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
