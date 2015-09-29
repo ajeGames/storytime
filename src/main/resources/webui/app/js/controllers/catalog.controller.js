@@ -10,7 +10,7 @@
     function CatalogController(StoryServer, StoryCache) {
 
         var vm = this;
-        vm.catalog = StoryCache.summaries;
+        vm.catalog = StoryCache.getSummaries();
 
         if (!hasCachedSummaries()) {
             loadCatalog();
@@ -33,7 +33,7 @@
         }
 
         function applyRemoteData(stories) {
-            StoryCache.summaries = stories;
+            StoryCache.cacheSummaries(stories);
             vm.catalog = stories;
         }
     }

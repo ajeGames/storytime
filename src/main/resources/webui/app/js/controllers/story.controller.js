@@ -10,8 +10,8 @@
     function StoryController($routeParams, StoryServer, StoryCache) {
         console.log('StoryController: called constructor');
         var vm = this;
-        vm.currentStory = StoryCache.activeStory;
-        vm.isTheEnd = isNoNextChapters;
+        vm.currentStory = StoryCache.getStory();
+        vm.isTheEnd = isEndNode;
         vm.requestedChapterId = $routeParams.chapter;
         vm.requestedStoryKey = $routeParams.storyKey;
 
@@ -31,36 +31,20 @@
 
         function applyRemoteData(story) {
             console.log('StoryController: called applyRemoteData');
-            StoryCache.activeStory = story.summary;
-            indexChapters(story.chapters);
-            setCurrentFromCache();
-        }
-
-    // TODO move some of this logic into StoryCache to simply and share with other controllers
-    
-        function indexChapters(chapters) {
-            console.log('StoryController: called indexChapters');
-            for (var i=0, max=chapters.length; i < max; i++) {
-                console.log('StoryController: indexing chapter ' + chapters[i].id);
-                StoryCache.activeChapters[chapters[i].id] = chapters[i];
-            }
-        }
-
-        function setCurrentFromCache() {
-            console.log('StoryController: called getCurrentFromCache');
-            vm.currentStory = StoryCache.activeStory;
+            StoryCache.cacheStory(story);
+            vm.currentStory = StoryCache.getStory();
             setCurrentChapter();
         }
 
         function setCurrentChapter() {
             if (vm.requestedChapterId) {
-                vm.currentChapter = StoryCache.activeChapters[vm.requestedChapterId];
+                vm.currentChapter = StoryCache.getChapter(vm.requestedChapterId);
             } else {
-                vm.currentChapter = StoryCache.activeChapters[StoryCache.activeStory.firstChapter.targetChapterId];
+                vm.currentChapter = StoryCache.getChapter(currentStory.firstChapter.targetChapterId);
             }
         }
 
-        function isNoNextChapters() {
+        function isEndNode() {
             console.log('StoryController: called isTheEnd');
             if (vm.currentChapter === undefined) {
                 console.log('StoryController: called isNoNextChapters with current chapter undefined');
