@@ -11,11 +11,15 @@
 
     function StoryServerAccessFactory($http, $q) {
         return {
+            createChapter: createChapter,
             createStory: createStory,
+            deleteChapter: deleteChapter,
             deleteStory: deleteStory,
             fetchAllStories: fetchAllStories,
+            fetchChapter: fetchChapter,
             fetchStory: fetchStory,
-            updateStory: updateStory
+            updateStory: updateStory,
+            updateChapter: updateChapter
         };
 
         function fetchAllStories() {
@@ -56,9 +60,45 @@
         }
 
         function deleteStory(key) {
+            var goTo = "../api/story/" + key;
             var request = $http({
                 method: "delete",
-                url: "../api/story/{key}"
+                url: goTo
+            });
+        }
+
+        // chapter functions
+
+        function fetchChapter(storyKey, id) {
+            return $http.get("../api/story/" + key + "/chapter/" + id)
+                .then(handleSuccess).catch(handleError);
+        }
+
+        function updateChapter(storyKey, chapter) {
+            var goTo = "../api/story/" + storyKey + "/chapter/" + chapter.id;
+            var request = $http({
+                method: "put",
+                url: goTo,
+                data: chapter
+            });
+            return request.then(handleSuccess).catch(handleError);
+        }
+
+        function createChapter(storyKey, fromChapterId, teaser) {
+            var goTo = "../api/story/" + storyKey + "/chapter/" + fromChapterId;
+            var request = $http({
+                method: "post",
+                url: goTo,
+                data: teaser
+            });
+            return request.then(handleSuccess).catch(handleError);
+        }
+
+        function deleteChapter(storyKey, chapterId) {
+            var goTo = "../api/story/" + storyKey + "/chapter/" + chapterId;
+            var request = $http({
+                method: "delete",
+                url: goTo
             });
         }
 

@@ -56,9 +56,9 @@
                     <li>
                         <label>Next Chapter Options:</label>
                         <div ng-repeat="nextChapter in editorCtrl.draftChapter.nextChapterOptions">
-                            <a href="#/editor/{{editorCtrl.draft.key}}/{{nextChapter.id}}">Chapter #{{nextChapter.id}}</a>
+                            <a href="#/editor/{{editorCtrl.draftSummary.key}}/{{nextChapter.targetChapterId}}">Chapter #{{nextChapter.targetChapterId}}</a>
                             {{nextChapter.teaser}}
-                            <button ng-click="editorCtrl.removeChapterOption(nextChapter.id)">Remove</button><br/>
+                            <button ng-click="editorCtrl.removeChapterOption(nextChapter.targetChapterId)">Remove</button><br/>
                         </div>
                     </li>
                     <li>

@@ -59,30 +59,27 @@
         }
 
         function saveDraftChapter() {
-            alert('!!!TODO: saveDraftChapter');
+            StoryServer.updateChapter(vm.draftSummary.key, vm.draftChapter);
+            initialize(vm.draftSummary.key, vm.draftChapter.id);
         }
 
         function addChapterOption() {
             if (vm.nextChapterTeaser != null) {
+                StoryServer.createChapter(vm.draftSummary.key, vm.draftChapter.id, vm.nextChapterTeaser);
                 vm.draftChapter.nextChapterOptions.push( {'id': '-1', 'teaser': vm.nextChapterTeaser} );
                 vm.nextChapterTeaser = null;
             } else {
                 alert('Provide some text for the teaser/signpost.');
             }
-            saveDraftChapter();
+            initialize(vm.draftSummary.key, vm.draftChapter.id);
         }
 
         function removeChapterOption(id) {
             if (id === undefined || id === null) {
                 alert('!!!NOT FOUND: chapter ID of the option to remove');
             }
-            for (var i in vm.draftChapter.nextChapterOptions) {
-                if (vm.draftChapter.nextChapterOptions[i].id === id) {
-                    vm.draftChapter.nextChapterOptions.splice(i, 1);
-                    break;
-                }
-            }
-            saveDraftChapter();
+            StoryServer.deleteChapter(vm.draftSummary.key, id);
+            initialize(vm.draftSummary.key, null);
         }
     }
 })();
