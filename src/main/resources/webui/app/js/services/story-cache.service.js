@@ -41,14 +41,12 @@
         };
 
         function indexChapters(chapters) {
-            console.log('StoryCache: indexChapters');
             for (var i=0, max=chapters.length; i < max; i++) {
                 cacheChapter(chapters[i]);
             }
         };
 
         function cacheChapter(chapter) {
-            console.log('StoryCache: cacheChapter ' + chapter.id);
             activeChapters[chapter.id] = chapter;
         }
 
