@@ -14,8 +14,8 @@
             })
             .when('/reader/:storyKey/:chapter', {
                 templateUrl: 'templates/pages/reader/index.html',
-                controller: 'StoryController',
-                controllerAs: 'storyCtrl'
+                controller: 'ReaderController',
+                controllerAs: 'readerCtrl'
             })
             .when('/reader/:storyKey', {
                 redirectTo: '/reader/:storyKey/1'

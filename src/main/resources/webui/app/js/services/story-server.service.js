@@ -5,11 +5,11 @@
 
     angular
         .module('StoryTime')
-        .factory('StoryServer', StoryServerAccessFactory);
+        .factory('Backend', BackendAccessFactory);
 
-    StoryServerAccessFactory.$inject = ['$http', '$q'];
+    BackendAccessFactory.$inject = ['$http', '$q'];
 
-    function StoryServerAccessFactory($http, $q) {
+    function BackendAccessFactory($http, $q) {
         return {
             createChapter: createChapter,
             createStory: createStory,

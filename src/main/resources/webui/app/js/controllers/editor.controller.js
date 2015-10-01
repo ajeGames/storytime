@@ -5,9 +5,9 @@
         .module('StoryTime')
         .controller('EditorController', EditorController);
 
-    EditorController.$inject = ['$routeParams', 'StoryServer', 'StoryCache'];
+    EditorController.$inject = ['$routeParams', 'Backend', 'StoryCache'];
 
-    function EditorController($routeParams, StoryServer, StoryCache) {
+    function EditorController($routeParams, Backend, StoryCache) {
         console.log('EditorController: constructor');
         var vm = this;
         vm.addChapterOption = addChapterOption;
@@ -28,7 +28,7 @@
                 vm.draft = {};
                 vm.draftChapter = {};
             } else {
-                StoryServer.fetchStory(storyKey).then(
+                Backend.fetchStory(storyKey).then(
                     function(story) {
                         prepStoryAsDraft(story, chapterId);
                     });
@@ -47,11 +47,11 @@
         function saveDraftSummary() {
             var result;
             if (vm.draftSummary.key == null) {
-                result = StoryServer.createStory(vm.draftSummary);
+                result = Backend.createStory(vm.draftSummary);
                 // TODO determine if there was a problem; otherwise, no longer new
                 isNew = false;
             } else {
-                result = StoryServer.updateStory(vm.draftSummary);
+                result = Backend.updateStory(vm.draftSummary);
             }
             result.then(function(data) {
                 vm.draftSummary = data;
@@ -59,13 +59,13 @@
         }
 
         function saveDraftChapter() {
-            StoryServer.updateChapter(vm.draftSummary.key, vm.draftChapter);
+            Backend.updateChapter(vm.draftSummary.key, vm.draftChapter);
             initialize(vm.draftSummary.key, vm.draftChapter.id);
         }
 
         function addChapterOption() {
             if (vm.nextChapterTeaser != null) {
-                StoryServer.createChapter(vm.draftSummary.key, vm.draftChapter.id, vm.nextChapterTeaser);
+                Backend.createChapter(vm.draftSummary.key, vm.draftChapter.id, vm.nextChapterTeaser);
                 vm.draftChapter.nextChapterOptions.push( {'id': '-1', 'teaser': vm.nextChapterTeaser} );
                 vm.nextChapterTeaser = null;
             } else {
@@ -78,7 +78,7 @@
             if (id === undefined || id === null) {
                 alert('!!!NOT FOUND: chapter ID of the option to remove');
             }
-            StoryServer.deleteChapter(vm.draftSummary.key, id);
+            Backend.deleteChapter(vm.draftSummary.key, id);
             initialize(vm.draftSummary.key, null);
         }
     }

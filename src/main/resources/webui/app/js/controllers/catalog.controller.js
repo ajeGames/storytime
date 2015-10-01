@@ -5,9 +5,9 @@
         .module('StoryTime')
         .controller('CatalogController', CatalogController);
 
-    CatalogController.$inject = ['StoryServer', 'StoryCache'];
+    CatalogController.$inject = ['Backend', 'StoryCache'];
 
-    function CatalogController(StoryServer, StoryCache) {
+    function CatalogController(Backend, StoryCache) {
 
         var vm = this;
         vm.catalog = StoryCache.getSummaries();
@@ -26,7 +26,7 @@
         }
 
         function loadCatalog() {
-            StoryServer.fetchAllStories().then(
+            Backend.fetchAllStories().then(
                 function (stories) {
                     applyRemoteData(stories);
                 });

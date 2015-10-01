@@ -3,12 +3,12 @@
 
     angular
         .module('StoryTime')
-        .controller('StoryController', StoryController);
+        .controller('ReaderController', ReaderController);
 
-    StoryController.$inject = ['$routeParams', 'StoryServer', 'StoryCache'];
+    ReaderController.$inject = ['$routeParams', 'Backend', 'StoryCache'];
 
-    function StoryController($routeParams, StoryServer, StoryCache) {
-        console.log('StoryController: called constructor');
+    function ReaderController($routeParams, Backend, StoryCache) {
+        console.log('ReaderController: called constructor');
         var vm = this;
         vm.currentStory = StoryCache.getStory();
         vm.isTheEnd = isEndNode;
@@ -22,15 +22,15 @@
         }
 
         function getStory(key) {
-            console.log('StoryController: called getStory');
-            StoryServer.fetchStory(key).then(
+            console.log('ReaderController: called getStory');
+            Backend.fetchStory(key).then(
                 function (story) {
                     applyRemoteData(story);
                 });
         }
 
         function applyRemoteData(story) {
-            console.log('StoryController: called applyRemoteData');
+            console.log('ReaderController: called applyRemoteData');
             StoryCache.cacheStory(story);
             vm.currentStory = StoryCache.getStory();
             setCurrentChapter();
@@ -45,9 +45,9 @@
         }
 
         function isEndNode() {
-            console.log('StoryController: called isTheEnd');
+            console.log('ReaderController: called isTheEnd');
             if (vm.currentChapter === undefined) {
-                console.log('StoryController: called isNoNextChapters with current chapter undefined');
+                console.log('ReaderController: called isNoNextChapters with current chapter undefined');
                 return false;
             }
             return vm.currentChapter.nextChapterOptions === undefined
