@@ -29,7 +29,12 @@
         function cacheStory(fullStory) {
             console.log('StoryCache: cacheStory')
 
-            // TODO check input parameter
+            // cursory check
+            if (fullStory == null || fullStory.summary === undefined
+                    || fullStory.chapters === undefined) {
+                console.alert('attempted to cache story with parts missing');
+                return;
+            }
 
             activeStory = fullStory.summary;
             indexChapters(fullStory.chapters);
@@ -38,10 +43,18 @@
         function indexChapters(chapters) {
             console.log('StoryCache: indexChapters');
             for (var i=0, max=chapters.length; i < max; i++) {
-                console.log('StoryCache: indexing chapter ' + chapters[i].id);
-                activeChapters[chapters[i].id] = chapters[i];
+                cacheChapter(chapters[i]);
             }
         };
+
+        function cacheChapter(chapter) {
+            console.log('StoryCache: cacheChapter ' + chapter.id);
+            activeChapters[chapter.id] = chapter;
+        }
+
+        function removeChapter(id) {
+
+        }
 
         function getSummaries() {
             return summaries;
