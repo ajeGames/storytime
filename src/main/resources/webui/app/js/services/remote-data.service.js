@@ -18,7 +18,7 @@
             fetchAllSummaries: fetchAllSummaries,
             fetchChapter: fetchChapter,
             fetchStory: fetchStory,
-            fetchStory: fetchStorySummary,
+            fetchStorySummary: fetchStorySummary,
             updateStory: updateStory,
             updateChapter: updateChapter
         };
@@ -34,6 +34,7 @@
         }
 
         function fetchStory(key) {
+            console.log('RemoteDataAccessFactory: fetchStory with key ' + key);
             return $http.get("../api/story/" + key + "/full")
                 .then(handleSuccess).catch(handleError);
         }

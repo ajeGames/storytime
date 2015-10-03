@@ -10,9 +10,9 @@
     <div class="chapterTitle">{{readerCtrl.activeChapter.heading}}</div>
     <div id="prose">{{readerCtrl.activeChapter.prose}}</div>
     <div id="nextChapters" ng-hide="readerCtrl.isTheEnd()">
-    <div class="instruction">Choose your next step.</div>
-    <div ng-repeat="option in readerCtrl.activeChapter.nextChapterOptions" class="nextChapterOption">
-        <a href="#/reader/{{readerCtrl.storySummary.key}}/{{option.targetChapterId}}">{{option.teaser}}</a></div>
+        <div class="instruction">Choose your next step.</div>
+        <div ng-repeat="option in readerCtrl.activeChapter.nextChapterOptions" class="nextChapterOption">
+            <a href="#/reader/{{readerCtrl.storySummary.key}}/{{option.targetChapterId}}">{{option.teaser}}</a></div>
     </div>
 </div>
 

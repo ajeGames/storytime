@@ -32,7 +32,7 @@
             // cursory check
             if (fullStory == null || fullStory.summary === undefined
                     || fullStory.chapters === undefined) {
-                console.alert('attempted to cache story with parts missing');
+                console.log('attempted to cache story with parts missing');
                 return;
             }
 
