@@ -3,37 +3,42 @@
     </div>
 
     <div id="main" class="row scroll-y">
-        <!-- TODO create summary edit panel -->
         <div class="instruction">Story Information</div>
-        <form>
-            <ul class="form-style-1">
-                <li>
-                    <label>Title:</label>
-                    <input type="text" ng-model="editorCtrl.draftSummary.title" class="field-long"/>
-                </li>
-                <li>
-                    <label>Author:</label> <input type="text" ng-model="editorCtrl.draftSummary.author" class="field-long"/>
-                </li>
-                <li>
-                    <label>Tag Line:</label> <input type="text" ng-model="editorCtrl.draftSummary.tagLine" class="field-long"/>
-                </li>
-                <li>
-                    <label>Description:</label>
-                    <textarea ng-model="editorCtrl.draftSummary.about" class="field-long field-textarea"></textarea>
-                </li>
-                <li>
-                    <label>Opening Scene Teaser:</label>
-                    <input type="text" ng-model="editorCtrl.draftSummary.firstChapter.teaser" class="field-long"/>
-                </li>
-                <li>
-                    <button ng-click="editorCtrl.saveDraftSummary()">Save Story</button> (Key: {{editorCtrl.draftSummary.key}})
-                </li>
-            </ul>
-        </form>
-
-        <hr/>
-
-        <div ng-hide="editorCtrl.isNew">
+        <div ng-show="editorCtrl.isEditSummary()">
+            <form>
+                <ul class="form-style-1">
+                    <li>
+                        <label>Title:</label>
+                        <input type="text" ng-model="editorCtrl.draftSummary.title" class="field-long"/>
+                    </li>
+                    <li>
+                        <label>Author:</label> <input type="text" ng-model="editorCtrl.draftSummary.author" class="field-long"/>
+                    </li>
+                    <li>
+                        <label>Tag Line:</label> <input type="text" ng-model="editorCtrl.draftSummary.tagLine" class="field-long"/>
+                    </li>
+                    <li>
+                        <label>Description:</label>
+                        <textarea ng-model="editorCtrl.draftSummary.about" class="field-long field-textarea"></textarea>
+                    </li>
+                    <li>
+                        <label>Opening Scene Teaser:</label>
+                        <input type="text" ng-model="editorCtrl.draftSummary.firstChapter.teaser" class="field-long"/>
+                    </li>
+                    <li>
+                        <button ng-click="editorCtrl.saveDraftSummary()">Save Story</button> (Key: {{editorCtrl.draftSummary.key}})
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div ng-show="editorCtrl.isEditChapter()">
+            <div>Title: {{editor.draftSummary.title}}  By: {{editorCtrl.draftSummary.author}}
+                <a ng-href="#/editor/{{story.key}}"><img src="img/icon-edit.jpg" width="32px"></a></div>
+            <div>Tag Line: {{editor.draftSummary.tagLine}}</div>
+            <div>About: {{editor.draftSummary.about}}</div>
+            <hr/>
+        </div>
+        <div ng-show="editorCtrl.isChapter()">
             <div class="instruction">Chapter #{{editorCtrl.draftChapter.id}} Information</div>
             <form>
                 <!-- chapter -->
@@ -50,7 +55,6 @@
                         <button ng-click="editorCtrl.saveDraftChapter()">Save Chapter</button>
                     </li>
                 </ul>
-
                 <!-- next chapter options -->
                 <ul class="form-style-1">
                     <li>
