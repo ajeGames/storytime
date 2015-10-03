@@ -5,29 +5,27 @@
 
     angular
         .module('StoryTime')
-        .factory('Backend', BackendAccessFactory);
+        .factory('RemoteData', RemoteDataAccessFactory);
 
-    BackendAccessFactory.$inject = ['$http', '$q'];
+    RemoteDataAccessFactory.$inject = ['$http', '$q'];
 
-    function BackendAccessFactory($http, $q) {
+    function RemoteDataAccessFactory($http, $q) {
         return {
             createChapter: createChapter,
             createStory: createStory,
             deleteChapter: deleteChapter,
             deleteStory: deleteStory,
-            fetchAllStories: fetchAllStories,
+            fetchAllSummaries: fetchAllSummaries,
             fetchChapter: fetchChapter,
             fetchStory: fetchStory,
+            fetchStory: fetchStorySummary,
             updateStory: updateStory,
             updateChapter: updateChapter
         };
 
-        function fetchAllStories() {
-            var request = $http({
-                method: "get",
-                url: "../api/storytime/stories"
-            });
-            return (request.then(handleSuccess, handleError));
+        function fetchAllSummaries() {
+            return $http.get("../api/storytime/stories")
+                .then(handleSuccess).catch(handleError);
         }
 
         function fetchStorySummary(key) {
@@ -41,33 +39,19 @@
         }
 
         function createStory(story) {
-            var request = $http({
-                method: "post",
-                url: "../api/story",
-                data: story
-            });
-            return request.then(handleSuccess).catch(handleError);
+            return $http.post("../api/story", story)
+                .then(handleSuccess).catch(handleError);
         }
 
         function updateStory(story) {
-            var goTo = "../api/story/" + story.key;
-            var request = $http({
-                method: "put",
-                url: goTo,
-                data: story
-            });
-            return request.then(handleSuccess).catch(handleError);
+            return $http.put("../api/story/" + story.key, story)
+                .then(handleSuccess).catch(handleError);
         }
 
         function deleteStory(key) {
-            var goTo = "../api/story/" + key;
-            var request = $http({
-                method: "delete",
-                url: goTo
-            });
+            return $http.delete("../api/story/" + key)
+                .then(handleSuccess).catch(handleError);
         }
-
-        // chapter functions
 
         function fetchChapter(storyKey, id) {
             return $http.get("../api/story/" + key + "/chapter/" + id)
@@ -75,31 +59,18 @@
         }
 
         function updateChapter(storyKey, chapter) {
-            var goTo = "../api/story/" + storyKey + "/chapter/" + chapter.id;
-            var request = $http({
-                method: "put",
-                url: goTo,
-                data: chapter
-            });
-            return request.then(handleSuccess).catch(handleError);
+            return $http.put("../api/story/" + storyKey + "/chapter/" + chapter.id, chapter)
+                .then(handleSuccess).catch(handleError);
         }
 
         function createChapter(storyKey, fromChapterId, teaser) {
-            var goTo = "../api/story/" + storyKey + "/chapter/" + fromChapterId;
-            var request = $http({
-                method: "post",
-                url: goTo,
-                data: teaser
-            });
-            return request.then(handleSuccess).catch(handleError);
+            return $http.post("../api/story/" + storyKey + "/chapter/" + fromChapterId, teaser)
+                .then(handleSuccess).catch(handleError);
         }
 
         function deleteChapter(storyKey, chapterId) {
-            var goTo = "../api/story/" + storyKey + "/chapter/" + chapterId;
-            var request = $http({
-                method: "delete",
-                url: goTo
-            });
+            return $http.delete("../api/story/" + storyKey + "/chapter/" + chapterId)
+                .then(handleSuccess).catch(handleError);
         }
 
         // "PRIVATE" FUNCTIONS

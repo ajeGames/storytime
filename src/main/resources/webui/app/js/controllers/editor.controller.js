@@ -5,9 +5,9 @@
         .module('StoryTime')
         .controller('EditorController', EditorController);
 
-    EditorController.$inject = ['$routeParams', 'Backend', 'StoryCache'];
+    EditorController.$inject = ['$routeParams', 'RemoteData', 'StoryContext'];
 
-    function EditorController($routeParams, Backend, StoryCache) {
+    function EditorController($routeParams, RemoteData, StoryContext) {
         console.log('EditorController: constructor');
         var vm = this;
         vm.addChapterOption = addChapterOption;
@@ -28,7 +28,7 @@
                 vm.draft = {};
                 vm.draftChapter = {};
             } else {
-                Backend.fetchStory(storyKey).then(
+                RemoteData.fetchStory(storyKey).then(
                     function(story) {
                         prepStoryAsDraft(story, chapterId);
                     });
@@ -37,21 +37,21 @@
         }
 
         function prepStoryAsDraft(story, chapterId) {
-            StoryCache.cacheStory(story);
+            StoryContext.cacheStory(story);
             vm.isNew = false;
-            vm.draftSummary = StoryCache.getStory();
+            vm.draftSummary = StoryContext.getStory();
             var chapterToFetch = (chapterId != null) ? chapterId : vm.draftSummary.firstChapter.targetChapterId;
-            vm.draftChapter = StoryCache.getChapter(chapterToFetch);
+            vm.draftChapter = StoryContext.getChapter(chapterToFetch);
         }
 
         function saveDraftSummary() {
             var result;
             if (vm.draftSummary.key == null) {
-                result = Backend.createStory(vm.draftSummary);
+                result = RemoteData.createStory(vm.draftSummary);
                 // TODO determine if there was a problem; otherwise, no longer new
                 isNew = false;
             } else {
-                result = Backend.updateStory(vm.draftSummary);
+                result = RemoteData.updateStory(vm.draftSummary);
             }
             result.then(function(data) {
                 vm.draftSummary = data;
@@ -59,13 +59,13 @@
         }
 
         function saveDraftChapter() {
-            Backend.updateChapter(vm.draftSummary.key, vm.draftChapter);
+            RemoteData.updateChapter(vm.draftSummary.key, vm.draftChapter);
             initialize(vm.draftSummary.key, vm.draftChapter.id);
         }
 
         function addChapterOption() {
             if (vm.nextChapterTeaser != null) {
-                Backend.createChapter(vm.draftSummary.key, vm.draftChapter.id, vm.nextChapterTeaser);
+                RemoteData.createChapter(vm.draftSummary.key, vm.draftChapter.id, vm.nextChapterTeaser);
                 vm.draftChapter.nextChapterOptions.push( {'id': '-1', 'teaser': vm.nextChapterTeaser} );
                 vm.nextChapterTeaser = null;
             } else {
@@ -78,7 +78,7 @@
             if (id === undefined || id === null) {
                 alert('!!!NOT FOUND: chapter ID of the option to remove');
             }
-            Backend.deleteChapter(vm.draftSummary.key, id);
+            RemoteData.deleteChapter(vm.draftSummary.key, id);
             initialize(vm.draftSummary.key, null);
         }
     }

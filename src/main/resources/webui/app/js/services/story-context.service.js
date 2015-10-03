@@ -5,9 +5,9 @@
 
     angular
         .module('StoryTime')
-        .factory('StoryCache', StoryCacheFactory);
+        .factory('StoryContext', StoryContextFactory);
 
-    function StoryCacheFactory() {
+    function StoryContextFactory() {
         var activeChapters = {};
         var activeStory = {};
         var summaries = {};
@@ -15,19 +15,19 @@
         var service = {
             cacheStory: cacheStory,
             cacheSummaries: cacheSummaries,
+            getActiveStorySummary: getActiveStorySummary,
             getChapter: getChapter,
-            getStory: getStory,
             getSummaries: getSummaries
         };
         return service;
 
         function cacheSummaries(storySummaries) {
-            console.log('StoryCache: cacheSummaries');
+            console.log('StoryContext: cacheSummaries');
             summaries = storySummaries;
         };
 
         function cacheStory(fullStory) {
-            console.log('StoryCache: cacheStory')
+            console.log('StoryContext: cacheStory')
 
             // cursory check
             if (fullStory == null || fullStory.summary === undefined
@@ -58,7 +58,7 @@
             return summaries;
         };
 
-        function getStory() {
+        function getActiveStorySummary() {
             return activeStory;
         };
 

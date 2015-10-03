@@ -5,43 +5,45 @@
         .module('StoryTime')
         .controller('ReaderController', ReaderController);
 
-    ReaderController.$inject = ['$routeParams', 'Backend', 'StoryCache'];
+    ReaderController.$inject = ['$routeParams', 'RemoteData', 'StoryContext'];
 
-    function ReaderController($routeParams, Backend, StoryCache) {
+    function ReaderController($routeParams, RemoteData, StoryContext) {
         console.log('ReaderController: called constructor');
         var vm = this;
-        vm.currentStory = StoryCache.getStory();
+        vm.activeChapter = {};
         vm.isTheEnd = isEndNode;
-        vm.requestedChapterId = $routeParams.chapter;
-        vm.requestedStoryKey = $routeParams.storyKey;
+        vm.paramChapterId = $routeParams.chapterId;
+        vm.paramStoryKey = $routeParams.storyKey;
+        vm.storySummary = {};
 
-        if (vm.requestedStoryKey != vm.currentStory.key) {
-            getStory(vm.requestedStoryKey);
-        } else {
-            setCurrentChapter();
+        activate();
+
+        function activate() {
+            if (vm.paramStoryKey != vm.currentStory.key) {
+                loadStory().then(function() {
+                    console.log('loaded story: ' + vm.storySummary.key);
+                    setActiveChapter();
+                });
+            }
+            setActiveChapter();
         }
 
-        function getStory(key) {
+        function loadStory() {
             console.log('ReaderController: called getStory');
-            Backend.fetchStory(key).then(
-                function (story) {
-                    applyRemoteData(story);
+            return RemoteData.fetchStory(vm.paramStoryKey)
+                .then(function (story) {
+                    StoryContext.cacheStory(story);
+                    vm.storySummary = StoryContext.getActiveStorySummary();
                 });
         }
 
-        function applyRemoteData(story) {
-            console.log('ReaderController: called applyRemoteData');
-            StoryCache.cacheStory(story);
-            vm.currentStory = StoryCache.getStory();
-            setCurrentChapter();
-        }
-
-        function setCurrentChapter() {
-            if (vm.requestedChapterId) {
-                vm.currentChapter = StoryCache.getChapter(vm.requestedChapterId);
-            } else {
-                vm.currentChapter = StoryCache.getChapter(currentStory.firstChapter.targetChapterId);
+        function setActiveChapter() {
+            var idToLoad = vm.paramChapterId;
+            if (idToLoad === undefined || idToLoad === 0) {
+                idToLoad = currentStory.firstChapter.targetChapterId;
             }
+            console.log('showing chapter ' + idToLoad);
+            vm.activeChapter = StoryContext.getChapter(idToLoad);
         }
 
         function isEndNode() {
