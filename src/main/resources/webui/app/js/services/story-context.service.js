@@ -48,7 +48,7 @@
         }
 
         function removeChapter(id) {
-
+            alert('StoryContext.removeChapter -- not implemented')
         }
 
         function getSummaries() {
