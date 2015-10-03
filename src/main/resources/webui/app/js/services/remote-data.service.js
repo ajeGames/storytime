@@ -34,7 +34,6 @@
         }
 
         function fetchStory(key) {
-            console.log('RemoteDataAccessFactory: fetchStory with key ' + key);
             return $http.get("../api/story/" + key + "/full")
                 .then(handleSuccess).catch(handleError);
         }

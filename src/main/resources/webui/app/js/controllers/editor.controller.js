@@ -8,7 +8,6 @@
     EditorController.$inject = ['$routeParams', 'RemoteData', 'StoryContext'];
 
     function EditorController($routeParams, RemoteData, StoryContext) {
-        console.log('EditorController.constructor');
         var vm = this;
         vm.addChapterOption = addChapterOption;
         vm.draftChapter = {};
@@ -26,7 +25,6 @@
         activate();
 
         function activate() {
-            console.log('EditorController.activate');
             if (vm.paramStoryKey != undefined) {
                 if (vm.paramStoryKey != vm.draftSummary.key) {
                     loadStory().then(function() {
@@ -43,7 +41,6 @@
         }
 
         function loadStory() {
-            console.log('EditorController.loadStory');
             return RemoteData.fetchStory(vm.paramStoryKey)
                 .then(function(story) {
                     StoryContext.cacheStory(story);

@@ -8,7 +8,6 @@
     ReaderController.$inject = ['$routeParams', 'RemoteData', 'StoryContext'];
 
     function ReaderController($routeParams, RemoteData, StoryContext) {
-        console.log('ReaderController: called constructor');
         var vm = this;
         vm.activeChapter = {};
         vm.isTheEnd = isEndNode;
@@ -21,7 +20,6 @@
         function activate() {
             if (vm.paramStoryKey != vm.storySummary.key) {
                 loadStory().then(function() {
-                    console.log('loaded story: ' + vm.storySummary.key);
                     setActiveChapter();
                 });
             } else {
@@ -30,7 +28,6 @@
         }
 
         function loadStory() {
-            console.log('ReaderController: loadStory');
             return RemoteData.fetchStory(vm.paramStoryKey)
                 .then(function(story) {
                     StoryContext.cacheStory(story);
@@ -39,19 +36,16 @@
         }
 
         function setActiveChapter() {
-            console.log('ReaderController: setActiveChapter');
             var idToLoad = vm.paramChapterId;
             if (idToLoad === undefined || idToLoad === "0") {
                 idToLoad = vm.storySummary.firstChapter.targetChapterId;
             }
-            console.log('showing chapter ' + idToLoad);
             vm.activeChapter = StoryContext.getChapter(idToLoad);
         }
 
         function isEndNode() {
-            console.log('ReaderController: isEndNode');
             if (vm.activeChapter === undefined) {
-                console.log('ReaderController: called isNoNextChapters with current chapter undefined');
+                alert('ReaderController: called isNoNextChapters with current chapter undefined');
                 return false;
             }
             return vm.activeChapter.nextChapterOptions === undefined

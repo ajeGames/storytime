@@ -22,17 +22,14 @@
         return service;
 
         function cacheSummaries(storySummaries) {
-            console.log('StoryContext: cacheSummaries');
             summaries = storySummaries;
         };
 
         function cacheStory(fullStory) {
-            console.log('StoryContext: cacheStory')
-
             // cursory check
             if (fullStory == null || fullStory.summary === undefined
                     || fullStory.chapters === undefined) {
-                console.log('attempted to cache story with parts missing');
+                alert('attempted to cache story with parts missing');
                 return;
             }
 
