@@ -13,8 +13,10 @@
         var summaries = {};
 
         var service = {
+            cacheChapter: cacheChapter,
             cacheStory: cacheStory,
             cacheSummaries: cacheSummaries,
+            cacheSummary: cacheSummary,
             getActiveStorySummary: getActiveStorySummary,
             getChapter: getChapter,
             getSummaries: getSummaries
@@ -36,6 +38,10 @@
             activeStory = fullStory.summary;
             indexChapters(fullStory.chapters);
         };
+
+        function cacheSummary(summary) {
+            activeStory = summary;
+        }
 
         function indexChapters(chapters) {
             for (var i=0, max=chapters.length; i < max; i++) {

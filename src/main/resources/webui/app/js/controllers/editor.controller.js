@@ -73,7 +73,8 @@
                 result = RemoteData.updateStory(vm.draftSummary);
             }
             result.then(function(data) {
-                vm.draftSummary = data;
+                StoryContext.cacheSummary(data);
+                vm.draftSummary = StoryContext.getActiveStorySummary();
             });
         }
 
