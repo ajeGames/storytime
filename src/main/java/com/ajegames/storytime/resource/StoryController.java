@@ -34,7 +34,13 @@ public class StoryController {
         LOG.info("Creating a new story entitled: " + summary.getTitle());
         Storybook book = repo.createStorybook();
         Chapter firstChapter = book.addChapter();
-        ChapterSign firstSign = ChapterSign.create(firstChapter.getId(), "Your destiny lies ahead.");
+        ChapterSign firstSign;
+        if (summary.getFirstChapter() != null
+                && summary.getFirstChapter().getTeaser() != null) {
+            firstSign = ChapterSign.create(firstChapter.getId(), summary.getFirstChapter().getTeaser());
+        } else {
+            firstSign = ChapterSign.create(firstChapter.getId(), "Your destiny lies ahead.");
+        }
         book.setSummary(StorySummary.create(book.getStoryKey(), summary.getTitle(), summary.getAuthor(),
                 summary.getTagLine(), summary.getAbout(), firstSign));
         repo.saveStory(book);
