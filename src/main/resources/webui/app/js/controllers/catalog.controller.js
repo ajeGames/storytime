@@ -11,6 +11,7 @@
 
         var vm = this;
         vm.catalog = StoryContext.getSummaries();
+        vm.reload = reload;
 
         if (!hasCachedSummaries()) {
             loadCatalog();
@@ -28,9 +29,12 @@
         function loadCatalog() {
             RemoteData.fetchAllSummaries()
                 .then(function(stories) {
-                    StoryContext.cacheSummaries(stories);
-                    vm.catalog = stories;
+                    vm.catalog = StoryContext.cacheSummaries(stories);
                 });
+        }
+
+        function reload() {
+            loadCatalog();
         }
     }
 
