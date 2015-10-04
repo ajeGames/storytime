@@ -26,19 +26,20 @@
                         <input type="text" ng-model="editorCtrl.draftSummary.firstChapter.teaser" class="field-long"/>
                     </li>
                     <li>
-                        <button ng-click="editorCtrl.saveDraftSummary()">Save Story</button> (Key: {{editorCtrl.draftSummary.key}})
+                        <button ng-click="editorCtrl.saveDraftSummary()">Save Story</button> (Key: {{editorCtrl.draftSummary.key}})<br/>
+                        <a ng-hide="editorCtrl.draftSummary.key === undefined" ng-href="#/editor/{{editorCtrl.draftSummary.key}}/{{editorCtrl.draftSummary.firstChapter.targetChapterId}}">Edit First Chapter</a>
                     </li>
                 </ul>
             </form>
         </div>
         <div ng-show="editorCtrl.isEditChapter()">
-            <div>Title: {{editor.draftSummary.title}}  By: {{editorCtrl.draftSummary.author}}
-                <a ng-href="#/editor/{{story.key}}"><img src="img/icon-edit.jpg" width="32px"></a></div>
-            <div>Tag Line: {{editor.draftSummary.tagLine}}</div>
-            <div>About: {{editor.draftSummary.about}}</div>
+            <div>Title: {{editorCtrl.draftSummary.title}}  By: {{editorCtrl.draftSummary.author}}
+                <a ng-href="#/editor/{{editorCtrl.draftSummary.key}}"><img src="img/icon-edit.jpg" width="32px"></a></div>
+            <div>Tag Line: {{editorCtrl.draftSummary.tagLine}}</div>
+            <div>About: {{editorCtrl.draftSummary.about}}</div>
             <hr/>
         </div>
-        <div ng-show="editorCtrl.isChapter()">
+        <div ng-show="editorCtrl.isEditChapter()">
             <div class="instruction">Chapter #{{editorCtrl.draftChapter.id}} Information</div>
             <form>
                 <!-- chapter -->

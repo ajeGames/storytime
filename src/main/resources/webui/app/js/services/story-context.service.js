@@ -34,7 +34,6 @@
                 alert('attempted to cache story with parts missing');
                 return;
             }
-
             activeStory = fullStory.summary;
             indexChapters(fullStory.chapters);
         };
@@ -44,6 +43,7 @@
         }
 
         function indexChapters(chapters) {
+            activeChapters = {};
             for (var i=0, max=chapters.length; i < max; i++) {
                 cacheChapter(chapters[i]);
             }
