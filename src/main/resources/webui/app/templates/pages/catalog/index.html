@@ -8,6 +8,7 @@
         <span class="title"><a href="#/reader/{{story.key}}">{{story.title}}</a></span>
         <span class="author">by {{story.author}}</span>
         <a ng-href="#/editor/{{story.key}}"><img src="img/icon-edit.jpg" width="32px"></a>
+        <span ng-click="catCtrl.deleteStory(story.key)"><img src="img/icon-delete.png" width="24px"></span>
     </div>
     <div class="tagline">{{story.tagLine}}</div>
     <div class="description">{{story.about}}</div>
