@@ -77,8 +77,11 @@
         }
 
         function saveDraftChapter() {
-            RemoteData.updateChapter(vm.draftSummary.key, vm.draftChapter);
-            initialize(vm.draftSummary.key, vm.draftChapter.id);
+            RemoteData.updateChapter(vm.draftSummary.key, vm.draftChapter)
+                .then(function(chapter) {
+                    StoryContext.cacheChapter(chapter);
+                    vm.draftChapter = StoryContext.getChapter(chapter.id);
+                });
         }
 
         function addChapterOption() {
