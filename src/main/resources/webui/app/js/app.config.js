@@ -12,13 +12,13 @@
                 controller: 'CatalogController',
                 controllerAs: 'catCtrl'
             })
-            .when('/reader/:storyKey/:chapter', {
+            .when('/reader/:storyKey/:chapterId', {
                 templateUrl: 'templates/pages/reader/index.html',
-                controller: 'StoryController',
-                controllerAs: 'storyCtrl'
+                controller: 'ReaderController',
+                controllerAs: 'readerCtrl'
             })
             .when('/reader/:storyKey', {
-                redirectTo: '/reader/:storyKey/1'
+                redirectTo: '/reader/:storyKey/0'
             })
             .when('/editor/new', {
                 templateUrl: 'templates/pages/editor/index.html',

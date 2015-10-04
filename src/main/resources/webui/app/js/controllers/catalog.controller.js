@@ -5,12 +5,12 @@
         .module('StoryTime')
         .controller('CatalogController', CatalogController);
 
-    CatalogController.$inject = ['StoryServer', 'StoryCache'];
+    CatalogController.$inject = ['RemoteData', 'StoryContext'];
 
-    function CatalogController(StoryServer, StoryCache) {
+    function CatalogController(RemoteData, StoryContext) {
 
         var vm = this;
-        vm.catalog = StoryCache.getSummaries();
+        vm.catalog = StoryContext.getSummaries();
 
         if (!hasCachedSummaries()) {
             loadCatalog();
@@ -26,15 +26,11 @@
         }
 
         function loadCatalog() {
-            StoryServer.fetchAllStories().then(
-                function (stories) {
-                    applyRemoteData(stories);
+            RemoteData.fetchAllSummaries()
+                .then(function(stories) {
+                    StoryContext.cacheSummaries(stories);
+                    vm.catalog = stories;
                 });
-        }
-
-        function applyRemoteData(stories) {
-            StoryCache.cacheSummaries(stories);
-            vm.catalog = stories;
         }
     }
 

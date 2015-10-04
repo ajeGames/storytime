@@ -5,49 +5,63 @@
 
     angular
         .module('StoryTime')
-        .factory('StoryCache', StoryCacheFactory);
+        .factory('StoryContext', StoryContextFactory);
 
-    function StoryCacheFactory() {
+    function StoryContextFactory() {
         var activeChapters = {};
         var activeStory = {};
         var summaries = {};
 
         var service = {
+            cacheChapter: cacheChapter,
             cacheStory: cacheStory,
             cacheSummaries: cacheSummaries,
+            cacheSummary: cacheSummary,
+            getActiveStorySummary: getActiveStorySummary,
             getChapter: getChapter,
-            getStory: getStory,
             getSummaries: getSummaries
         };
         return service;
 
         function cacheSummaries(storySummaries) {
-            console.log('StoryCache: cacheSummaries');
             summaries = storySummaries;
         };
 
         function cacheStory(fullStory) {
-            console.log('StoryCache: cacheStory')
-
-            // TODO check input parameter
-
+            // cursory check
+            if (fullStory == null || fullStory.summary === undefined
+                    || fullStory.chapters === undefined) {
+                alert('attempted to cache story with parts missing');
+                return;
+            }
             activeStory = fullStory.summary;
             indexChapters(fullStory.chapters);
         };
 
+        function cacheSummary(summary) {
+            activeStory = summary;
+        }
+
         function indexChapters(chapters) {
-            console.log('StoryCache: indexChapters');
+            activeChapters = {};
             for (var i=0, max=chapters.length; i < max; i++) {
-                console.log('StoryCache: indexing chapter ' + chapters[i].id);
-                activeChapters[chapters[i].id] = chapters[i];
+                cacheChapter(chapters[i]);
             }
         };
+
+        function cacheChapter(chapter) {
+            activeChapters[chapter.id] = chapter;
+        }
+
+        function removeChapter(id) {
+            alert('StoryContext.removeChapter -- not implemented')
+        }
 
         function getSummaries() {
             return summaries;
         };
 
-        function getStory() {
+        function getActiveStorySummary() {
             return activeStory;
         };
 
