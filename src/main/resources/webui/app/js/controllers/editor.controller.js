@@ -11,7 +11,7 @@
         var vm = this;
         vm.addChapterOption = addChapterOption;
         vm.draftChapter = {};
-        vm.draftSummary = StoryContext.getActiveStorySummary();
+        vm.draftSummary = ($routeParams.storyKey === undefined) ? {} : StoryContext.getActiveStorySummary();
         vm.isEditChapter = isEditChapter;
         vm.isEditSummary = isEditSummary;
         vm.mode = "summary";
@@ -67,8 +67,6 @@
             var result;
             if (vm.draftSummary.key == null) {
                 result = RemoteData.createStory(vm.draftSummary);
-                // TODO determine if there was a problem; otherwise, no longer new
-                isNew = false;
             } else {
                 result = RemoteData.updateStory(vm.draftSummary);
             }
