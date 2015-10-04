@@ -162,14 +162,15 @@ public class StorybookTest {
     public void testDeleteChapter() {
         Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
         Storybook bookOut = Storybook.load(testStory);
-        int chapterCount = bookOut.getChapters().size();
 
-        bookOut.deleteChapter(bookOut.getFirstChapter().getId());
-        Assert.assertEquals(bookOut.getChapters().size(), chapterCount - 1);
+        Assert.assertEquals(bookOut.getChapters().size(), 3);
+        Assert.assertEquals(bookOut.getFirstChapter().getNextChapterOptions().size(), 2);
+
+        bookOut.deleteChapter(1002);
+        Assert.assertNull(bookOut.getChapter(1002));
+        Assert.assertEquals(bookOut.getChapters().size(), 2);
+        Assert.assertEquals(bookOut.getFirstChapter().getNextChapterOptions().size(), 1);
+        Assert.assertEquals(bookOut.getFirstChapter().getNextChapterOptions().get(0).getTargetChapterId().intValue(), 1001);
     }
 
-//    @Test
-//    public void testDeleteFirstChapterDoesWhatNow() {
-//        // TODO figure out what should happen when the top of the chain is removed -- is that like starting over?
-//    }
 }

@@ -25,6 +25,7 @@
 
         function cacheSummaries(storySummaries) {
             summaries = storySummaries;
+            return summaries;
         };
 
         function cacheStory(fullStory) {

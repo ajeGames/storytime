@@ -27,9 +27,7 @@
         function activate() {
             if (vm.paramStoryKey != undefined) {
                 if (vm.paramStoryKey != vm.draftSummary.key) {
-                    loadStory().then(function() {
-                        setDraftChapter();
-                    });
+                    reload();
                 } else {
                     setDraftChapter();
                 }
@@ -38,6 +36,12 @@
                 vm.draftChapter = {};
                 vm.mode = "summary";
             }
+        }
+
+        function reload() {
+            loadStory().then(function() {
+                setDraftChapter();
+            });
         }
 
         function loadStory() {
@@ -70,34 +74,40 @@
             } else {
                 result = RemoteData.updateStory(vm.draftSummary);
             }
-            result.then(function(data) {
-                StoryContext.cacheSummary(data);
-                vm.draftSummary = StoryContext.getActiveStorySummary();
+            result.then(function(summary) {
+                vm.paramStoryKey = summary.key;
+                reload();
             });
         }
 
         function saveDraftChapter() {
-            RemoteData.updateChapter(vm.draftSummary.key, vm.draftChapter);
-            initialize(vm.draftSummary.key, vm.draftChapter.id);
+            RemoteData.updateChapter(vm.draftSummary.key, vm.draftChapter)
+                .then(function(chapter) {
+                    reload();
+                });
         }
 
         function addChapterOption() {
-            if (vm.nextChapterTeaser != null) {
-                RemoteData.createChapter(vm.draftSummary.key, vm.draftChapter.id, vm.nextChapterTeaser);
-                vm.draftChapter.nextChapterOptions.push( {'id': '-1', 'teaser': vm.nextChapterTeaser} );
-                vm.nextChapterTeaser = null;
-            } else {
-                alert('Provide some text for the teaser/signpost.');
+            if (vm.nextChapterTeaser === null) {
+                alert('Provide some text for the teaser.');
+                return;
             }
-            initialize(vm.draftSummary.key, vm.draftChapter.id);
+            RemoteData.createChapter(vm.draftSummary.key, vm.draftChapter.id, vm.nextChapterTeaser)
+                .then(function(chapter) {
+                    vm.nextChapterTeaser = null;
+                    reload();
+                });
         }
 
         function removeChapterOption(id) {
             if (id === undefined || id === null) {
-                alert('!!!NOT FOUND: chapter ID of the option to remove');
+                alert('Chapter ID was not provided');
+                return;
             }
-            RemoteData.deleteChapter(vm.draftSummary.key, id);
-            initialize(vm.draftSummary.key, null);
+            RemoteData.deleteChapter(vm.draftSummary.key, id)
+                .then(function(data) {
+                    reload();
+                });
         }
     }
 })();

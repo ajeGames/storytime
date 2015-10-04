@@ -34,6 +34,26 @@ public class Storybook {
         chapterIndex = new HashMap<Integer, Chapter>();
     }
 
+    private void initializeAfterLoad() {
+        this.storyKey = summary.getKey();
+        reindexChapters();
+    }
+
+    private void reindexChapters() {
+        // reload chapter index and set next chapter ID
+        int highestChapter = 0;
+        if (chapterIndex == null || !chapterIndex.isEmpty()) {
+            chapterIndex = new HashMap<Integer, Chapter>();
+        }
+        for (Chapter chapter : chapters) {
+            chapterIndex.put(chapter.getId(), chapter);
+            if (chapter.getId() > highestChapter) {
+                highestChapter = chapter.getId();
+            }
+        }
+        nextChapterId = highestChapter + 1;
+    }
+
     public String getStoryKey() {
         return storyKey;
     }
@@ -131,28 +151,21 @@ public class Storybook {
         }
         chapters.remove(toDelete);
         chapterIndex.remove(toDelete.getId());
-
-        // TODO think through what should happen with invalid chapter signs
+        removeSignsToChapter(chapterId);
     }
 
-    private void initializeAfterLoad() {
-        this.storyKey = summary.getKey();
-        reindexChapters();
-    }
-
-    private void reindexChapters() {
-        // reload chapter index and set next chapter ID
-        int highestChapter = 0;
-        if (chapterIndex == null || !chapterIndex.isEmpty()) {
-            chapterIndex = new HashMap<Integer, Chapter>();
-        }
-        for (Chapter chapter : chapters) {
-            chapterIndex.put(chapter.getId(), chapter);
-            if (chapter.getId() > highestChapter) {
-                highestChapter = chapter.getId();
+    private void removeSignsToChapter(Integer chapterId) {
+        for (Chapter chap : chapters) {
+            if (chap.getNextChapterOptions() == null) {
+                continue;
+            }
+            Iterator<ChapterSign> signIter = chap.getNextChapterOptions().iterator();
+            while (signIter.hasNext()) {
+                ChapterSign sign = signIter.next();
+                if (chapterId.equals(sign.getTargetChapterId())) {
+                    signIter.remove();
+                }
             }
         }
-        nextChapterId = highestChapter + 1;
-    }
-
+     }
 }

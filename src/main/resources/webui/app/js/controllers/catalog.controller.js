@@ -11,6 +11,8 @@
 
         var vm = this;
         vm.catalog = StoryContext.getSummaries();
+        vm.reload = reload;
+        vm.deleteStory = deleteStory;
 
         if (!hasCachedSummaries()) {
             loadCatalog();
@@ -28,8 +30,18 @@
         function loadCatalog() {
             RemoteData.fetchAllSummaries()
                 .then(function(stories) {
-                    StoryContext.cacheSummaries(stories);
-                    vm.catalog = stories;
+                    vm.catalog = StoryContext.cacheSummaries(stories);
+                });
+        }
+
+        function reload() {
+            loadCatalog();
+        }
+
+        function deleteStory(storyKey) {
+            RemoteData.deleteStory(storyKey)
+                .then(function(data) {
+                    reload();
                 });
         }
     }

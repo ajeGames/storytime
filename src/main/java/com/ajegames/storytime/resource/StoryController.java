@@ -34,7 +34,13 @@ public class StoryController {
         LOG.info("Creating a new story entitled: " + summary.getTitle());
         Storybook book = repo.createStorybook();
         Chapter firstChapter = book.addChapter();
-        ChapterSign firstSign = ChapterSign.create(firstChapter.getId(), "Your destiny lies ahead.");
+        ChapterSign firstSign;
+        if (summary.getFirstChapter() != null
+                && summary.getFirstChapter().getTeaser() != null) {
+            firstSign = ChapterSign.create(firstChapter.getId(), summary.getFirstChapter().getTeaser());
+        } else {
+            firstSign = ChapterSign.create(firstChapter.getId(), "Your destiny lies ahead.");
+        }
         book.setSummary(StorySummary.create(book.getStoryKey(), summary.getTitle(), summary.getAuthor(),
                 summary.getTagLine(), summary.getAbout(), firstSign));
         repo.saveStory(book);
@@ -98,11 +104,11 @@ public class StoryController {
     }
 
     /**
-     * TODO How is this going to work?
-     * How to detach and reattach chapter chains?
-     * How to detect chapters that are not attached?
-     * Whether to delete an entire chapter chain?
-     * What to do when first chapter is deleted?
+     * TODO use cases for manipulating chapter chains
+     * 1. How to detach and reattach chapter chains? -- enable selecting next chapter from list of existing
+     * 2. How to detect chapters that are not attached?
+     * 3. Whether to delete an entire chapter chain? -- have to be careful of loops; simpler to not allow but have a way to show orphan chains
+     * 4. What to do when first chapter is deleted? -- don't allow
      */
 
     public void deleteChapter(String key, Integer id) {
