@@ -74,7 +74,8 @@
             } else {
                 result = RemoteData.updateStory(vm.draftSummary);
             }
-            result.then(function(data) {
+            result.then(function(summary) {
+                vm.paramStoryKey = summary.key;
                 reload();
             });
         }
@@ -93,6 +94,7 @@
             }
             RemoteData.createChapter(vm.draftSummary.key, vm.draftChapter.id, vm.nextChapterTeaser)
                 .then(function(chapter) {
+                    vm.nextChapterTeaser = null;
                     reload();
                 });
         }
