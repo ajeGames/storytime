@@ -1,0 +1,36 @@
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+  /* Set your content font stack here: */
+  font-family: Georgia, Times, "Times New Roman", serif;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.reader {
+  margin-bottom: 3em;
+  height: 20em;
+}
+.titlebar {
+  top: 0;
+  height: 2em;
+  margin: 3em 1em 0 1em;
+}
+.title {
+  font-size: 1.5em;
+}
+.reading-panel {
+  text-align: left;
+  margin: 2em 1em;
+  padding: 1em;
+  border: black solid 1px;
+  overflow-y: auto;
+  top: 100px;
+  bottom: 50px;
+}
+.footer {
+  bottom: 0;
+  height: 50px;
+  margin: 1em;
+}
