@@ -1,0 +1,16 @@
+{
+  "name": "storytime-react-client",
+  "version": "0.1.0",
+  "description": "React-based client to the StoryTime server",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AJE Games",
+  "license": "ISC"
+}
