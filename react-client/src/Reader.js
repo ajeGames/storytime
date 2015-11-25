@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 /*
 Components:
 
@@ -10,26 +13,25 @@ Components:
       Suggestion
 */
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-
-var TitleBar = React.createClass({
-  render: function() {
+class TitleBar extends React.Component {
+  render() {
     return (
       <div>
         <span class="title">{this.props.summary.title}</span>
         <span class="author">by {this.props.summary.author}</span>
       </div>
     );
-  }
-});
+  };
+}
 
 var Chapter = React.createClass({
   render: function() {
     return (
+      <div>
       <div class="chapterTitle">{this.props.chapter.heading}</div>
       <div id="prose">
         {this.props.chapter.prose}
+      </div>
       </div>
     );
   }
@@ -63,6 +65,7 @@ var SignPost = React.createClass({
 var Reader = React.createClass({
   render: function() {
     return (
+    <div>
       <div id="header" class="row">
         <TitleBar summary={this.props.story.summary} />
       </div>
@@ -70,6 +73,7 @@ var Reader = React.createClass({
         <Chapter chapter={this.props.story.chapters[0]} />
         <SignPost next={chapter.nextChapterOptions} />
       </div>
+    </div>
     );
   }
 });
@@ -116,5 +120,7 @@ var SHORT_SAMPLE_STORY = {
 
 ReactDOM.render(
     <Reader story={SHORT_SAMPLE_STORY} />,
-    document.getElementById('reader')
+    document.getElementById('reader-node')
 );
+
+export default Reader
