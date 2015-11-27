@@ -1,84 +1,73 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-/*
-Components:
-
-  Reader
-    Title Bar
-    Chapter
-    SignPost
-      Sign
-    Ending (suggestions for what to do next)
-      Suggestion
-*/
+require("./storytime.css");
 
 class TitleBar extends React.Component {
   render() {
     return (
       <div>
-        <span class="title">{this.props.summary.title}</span>
-        <span class="author">by {this.props.summary.author}</span>
+        <span className="title">{this.props.summary.title}</span> <span className="author">by {this.props.summary.author}</span>
       </div>
     );
   };
 }
 
-var Chapter = React.createClass({
-  render: function() {
+class Chapter extends React.Component {
+  render() {
     return (
       <div>
-      <div class="chapterTitle">{this.props.chapter.heading}</div>
-      <div id="prose">
-        {this.props.chapter.prose}
-      </div>
+        <div className="chapterTitle">{this.props.chapter.targetChapterId}</div>
+        <div id="prose">
+          {this.props.chapter.teaser}
+        </div>
       </div>
     );
-  }
-});
+  };
+}
 
-var Sign = React.createClass({
-  render: function() {
+class Sign extends React.Component {
+  render() {
     return (
-      <div class="nextChapterOption"><a href="#STORY_KEY/{this.props.option.targetChapterId}">{this.props.option.teaser}</a></div>
+      <div className="nextChapterOption"><a href="#STORY_KEY/{this.props.option.targetChapterId}">{this.props.option.teaser}</a></div>
     );
-  }
-});
+  };
+}
 
-var SignPost = React.createClass({
-  render: function() {
-    var choices = [];
+class SignPost extends React.Component {
+  render() {
+    let choices = [];
 
     // TODO different options if end of story
 
     this.props.chapter.nextChapterOptions.forEach(function(option) {
-        rows.push(<Sign option={option} />)
+      rows.push(<Sign option={option} />)
     });
+
     return (
       <div id="nextChapters">
         {choices}
       </div>
     );
   }
-});
+}
 
-var Reader = React.createClass({
-  render: function() {
+class Reader extends React.Component {
+  render() {
     return (
-    <div>
-      <div id="header" class="row">
-        <TitleBar summary={this.props.story.summary} />
+      <div>
+        <div id="header" className="row">
+          <TitleBar summary={this.props.story.summary} />
+        </div>
+        <div id="main" className="row scroll-y">
+          <Chapter chapter={this.props.story.summary.firstChapter} />
+        </div>
       </div>
-      <div id="main" class="row scroll-y">
-        <Chapter chapter={this.props.story.chapters[0]} />
-        <SignPost next={chapter.nextChapterOptions} />
-      </div>
-    </div>
     );
-  }
-});
+  };
+}
 
-var SHORT_SAMPLE_STORY = {
+let SHORT_SAMPLE_STORY = {
   summary : {
     key : "o9s0toym",
     title : "The Cave",
@@ -119,8 +108,8 @@ var SHORT_SAMPLE_STORY = {
 };
 
 ReactDOM.render(
-    <Reader story={SHORT_SAMPLE_STORY} />,
-    document.getElementById('reader-node')
+  <Reader story={SHORT_SAMPLE_STORY} />,
+  document.getElementById('reader')
 );
 
 export default Reader
