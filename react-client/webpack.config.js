@@ -1,8 +1,7 @@
 module.exports = {
-  entry: "./App.js",
+  entry: "./app/components/Reader.js",
   output: {
-    path: "./",
-    filename: "index.js"
+    filename: "public/bundle.js"
   },
   devServer: {
     inline: true,

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Chapter from './Chapter'
 
-require("./storytime.css");
+require("./../public/storytime.css");
 
 class TitleBar extends React.Component {
   render() {
@@ -14,31 +14,31 @@ class TitleBar extends React.Component {
   };
 }
 
-class Sign extends React.Component {
-  render() {
-    return (
-      <div className="nextChapterOption"><a href="#STORY_KEY/{this.props.option.targetChapterId}">{this.props.option.teaser}</a></div>
-    );
-  };
-}
+//class Sign extends React.Component {
+//  render() {
+//    return (
+//      <div className="nextChapterOption"><a href="#STORY_KEY/{this.props.option.targetChapterId}">{this.props.option.teaser}</a></div>
+//    );
+//  };
+//}
 
-class SignPost extends React.Component {
-  render() {
-    let choices = [];
-
-    // TODO different options if end of story
-
-    this.props.chapter.nextChapterOptions.forEach(function(option) {
-      rows.push(<Sign option={option} />)
-    });
-
-    return (
-      <div id="nextChapters">
-        {choices}
-      </div>
-    );
-  }
-}
+//class SignPost extends React.Component {
+//  render() {
+//    let choices = [];
+//
+//    // TODO different options if end of story
+//
+//    this.props.chapter.nextChapterOptions.forEach(function(option) {
+//      rows.push(<Sign option={option} />)
+//    });
+//
+//    return (
+//      <div id="nextChapters">
+//        {choices}
+//      </div>
+//    );
+//  }
+//}
 
 class Reader extends React.Component {
   render() {
