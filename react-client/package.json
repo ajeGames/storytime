@@ -2,7 +2,7 @@
   "name": "storytime-react-client",
   "version": "0.1.0",
   "description": "React-based client to the StoryTime server",
-  "main": "bundle.js",
+  "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server"
   },

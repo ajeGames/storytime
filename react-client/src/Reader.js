@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Chapter from './Chapter'
 
 require("./storytime.css");
 
@@ -8,19 +9,6 @@ class TitleBar extends React.Component {
     return (
       <div>
         <span className="title">{this.props.summary.title}</span> <span className="author">by {this.props.summary.author}</span>
-      </div>
-    );
-  };
-}
-
-class Chapter extends React.Component {
-  render() {
-    return (
-      <div>
-        <div className="chapterTitle">{this.props.chapter.targetChapterId}</div>
-        <div id="prose">
-          {this.props.chapter.teaser}
-        </div>
       </div>
     );
   };
