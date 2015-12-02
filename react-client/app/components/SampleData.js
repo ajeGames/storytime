@@ -1,61 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Chapter from './Chapter'
-
-require("./../public/storytime.css");
-
-class TitleBar extends React.Component {
-  render() {
-    return (
-      <div>
-        <span className="title">{this.props.summary.title}</span> <span className="author">by {this.props.summary.author}</span>
-      </div>
-    );
-  };
-}
-
-//class Sign extends React.Component {
-//  render() {
-//    return (
-//      <div className="nextChapterOption"><a href="#STORY_KEY/{this.props.option.targetChapterId}">{this.props.option.teaser}</a></div>
-//    );
-//  };
-//}
-
-//class SignPost extends React.Component {
-//  render() {
-//    let choices = [];
-//
-//    // TODO different options if end of story
-//
-//    this.props.chapter.nextChapterOptions.forEach(function(option) {
-//      rows.push(<Sign option={option} />)
-//    });
-//
-//    return (
-//      <div id="nextChapters">
-//        {choices}
-//      </div>
-//    );
-//  }
-//}
-
-class Reader extends React.Component {
-  render() {
-    return (
-      <div>
-        <div id="header" className="row">
-          <TitleBar summary={this.props.story.summary} />
-        </div>
-        <div id="main" className="row scroll-y">
-          <Chapter chapter={this.props.story.summary.firstChapter} />
-        </div>
-      </div>
-    );
-  };
-}
-
-let SHORT_SAMPLE_STORY = {
+const STORY1 = {
   summary : {
     key : "o9s0toym",
     title : "The Cave",
@@ -95,9 +38,5 @@ let SHORT_SAMPLE_STORY = {
   ]
 };
 
-ReactDOM.render(
-  <Reader story={SHORT_SAMPLE_STORY} />,
-  document.getElementById('reader')
-);
+export default STORY1;
 
-export default Reader
