@@ -4,13 +4,13 @@ class Chapter extends React.Component {
   render() {
     return (
         <div>
-          <div className="chapterTitle">{this.props.chapter.targetChapterId}</div>
+          <div className="chapterTitle">{this.props.chapter.heading}</div>
           <div id="prose">
-            {this.props.chapter.teaser}
+            {this.props.chapter.prose}
           </div>
         </div>
     );
   };
 }
 
-export default { Chapter };
+export default Chapter;
