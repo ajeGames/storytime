@@ -51,8 +51,4 @@ class Reader extends React.Component {
   }
 }
 
-ReactDOM.render(
-    <Reader />,
-    document.getElementById('app')
-)
-
+export default Reader;

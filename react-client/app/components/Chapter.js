@@ -1,4 +1,5 @@
 import React from 'react';
+import SignPost from './SignPost'
 
 class Chapter extends React.Component {
   render() {
@@ -8,6 +9,7 @@ class Chapter extends React.Component {
           <div id="prose">
             {this.props.chapter.prose}
           </div>
+          <SignPost signs={this.props.chapter.nextChapterOptions} />
         </div>
     );
   };
