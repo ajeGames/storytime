@@ -26,27 +26,35 @@ body {
   overflow-y: auto;
 }
 
-#header h2 {
-	margin: 0;
+#header {
+  top: 0;
 }
 
-#header.row {
+#footer {
+  bottom: 0;
+}
+
+#reader-titlebar h2 {
+  margin: 0;
+}
+
+#reader-titlebar.row {
   height: 75px;
-  top: 0;
+  top: 75px;
   margin: 0.5em;
 }
 
-#main.row {
-  top: 75px;
-  bottom: 50px;
+#reader-main.row {
+  top: 150px;
+  bottom: 100px;
   margin: 0.5em 1.0em;
   border: groove green 4px;
   padding: 1.0em;
 }
 
-#footer.row {
+#reader-shortcuts.row {
   height: 50px;
-  bottom: 0;
+  bottom: 50px;
   margin: 0 0.5em;
 }
 

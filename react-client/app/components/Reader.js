@@ -36,13 +36,13 @@ class Reader extends React.Component {
 
     return (
       <div>
-        <div id="header" className="row">
+        <div id="reader-titlebar" className="row">
           <TitleBar summary={summary} />
         </div>
-        <div id="main" className="row scroll-y">
+        <div id="reader-main" className="row scroll-y">
           <Chapter chapter={chapter} />
         </div>
-        <div id="footer" className="row">
+        <div id="reader-shortcuts" className="row">
           <div><a href="#/reader/{{this.props.storyKey}}">Return to Chapter One</a></div>
           <div><a href="#/catalog">Choose Another Story</a></div>
         </div>

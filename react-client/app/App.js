@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link } from 'react-router';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Reader from './components/Reader';
 
 class App extends React.Component {
   render() {
     return (
     <div>
-      <h1>Choose Your Own Destiny</h1>
-      <h2>Follow an adventure</h2>
+      <Header />
       {this.props.children}
+      <Footer />
     </div>
   )};
 }
