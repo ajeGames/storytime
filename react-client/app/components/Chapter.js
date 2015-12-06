@@ -9,7 +9,7 @@ class Chapter extends React.Component {
           <div id="prose">
             {this.props.chapter.prose}
           </div>
-          <SignPost signs={this.props.chapter.nextChapterOptions} />
+          <h3>Choose what to do next</h3>
         </div>
     );
   };

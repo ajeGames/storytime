@@ -3,7 +3,7 @@ import React from 'react';
 class Sign extends React.Component {
   render() {
     return (
-        <div className="nextChapterOption"><a href="#STORY_KEY/{this.props.sign.targetChapterId}">{this.props.sign.teaser}</a></div>
+        <div id='nextChapter{this.props.sign.targetChapterId}' className="nextChapterOption"><a href="#STORY_KEY/{this.props.sign.targetChapterId}">{this.props.sign.teaser}</a></div>
     );
   };
 }
