@@ -9,7 +9,7 @@ body {
 
 .section {
     margin: 0.5em;
-    border-width: 1px;
+    border: groove lightcyan 4px;
     padding: 0.5em;
     background-color: #4B99AD;
 }
@@ -24,4 +24,19 @@ body {
 
 #masthead {
     text-align: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: large;
+}
+
+.author {
+    font-size: large;
+}
+
+.chapterTitle {
+    margin: 0.5em 0;
+    font-weight: bold;
+    font-size: large;
 }
