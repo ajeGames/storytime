@@ -1,5 +1,5 @@
 import React from 'react';
-import SignPost from './SignPost'
+import SignPost from './DecisionPoint'
 
 class Chapter extends React.Component {
   render() {

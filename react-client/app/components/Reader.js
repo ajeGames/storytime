@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import TitleBar from './TitleBar';
 import Chapter from './Chapter';
 
-require("../../public/storytime.css");
-
 class Reader extends React.Component {
   render() {
     const summary = {
@@ -35,7 +33,7 @@ class Reader extends React.Component {
     };
 
     return (
-      <div>
+      <div id="reader">
         <div id="reader-titlebar" className="row">
           <TitleBar summary={summary} />
         </div>

@@ -8,7 +8,7 @@ class Sign extends React.Component {
   };
 }
 
-class SignPost extends React.Component {
+class DecisionPoint extends React.Component {
   render() {
     let choices = [];
 
@@ -26,4 +26,4 @@ class SignPost extends React.Component {
   }
 }
 
-export default SignPost;
+export default DecisionPoint;

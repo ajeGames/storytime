@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, Link } from 'react-router';
+import { render } from 'react-dom';
+import { Router, Route, IndexRoute, Link } from 'react-router';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Reader from './components/Reader';
+import Catalog from './components/Catalog';
 
 class App extends React.Component {
   render() {
@@ -16,10 +17,11 @@ class App extends React.Component {
   )};
 }
 
-ReactDOM.render((
+render((
     <Router>
       <Route path="/" component={App}>
-        <Route path='/reader' component={Reader}/>
+        <IndexRoute component={Catalog}/>
+        <Route path="/reader" component={Reader}/>
       </Route>
     </Router>
 ), document.getElementById('app'));
