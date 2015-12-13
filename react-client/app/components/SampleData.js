@@ -1,27 +1,27 @@
 const STORY1 = {
   summary : {
     key : "o9s0toym",
-    title : "The Cave",
-    author : "Bubba Gump",
-    tagLine : "What lies beneath",
-    about : "See where your choices lead.  You can choose your own destiny, but can you escape fate?",
+    title : "The Dark Cave",
+    author : "Mr. Bubba Gump",
+    tagLine : "What lies beneath may kill you",
+    about : "See where your choices lead.  You can choose your own destiny, but can you escape fate?  Unlikely.",
     firstChapter : {
       targetChapterId : 1000,
-      teaser : "This might be a good day to take some risks."
+      teaser : "This might be a good day to take some risks.  Or to stay in bed."
     }
   },
   chapters : [
     {
       id : 1000,
       heading : "The Cave",
-      prose : "It's a nice day, so you decide to go for a walk.  As you stroll along, you see a clearing with an outcrop of rocks.  Something is unusual about these rocks, some blackness unlike the surrounding soil.  You notice that this is an opening to a cave.  It is dark inside, and you wonder how far it goes.\n\nWhat would you like to do?",
+      prose : "It's a nice day, so you decide to go for a walk.  You should know better by now.  As you stroll along, you see a clearing with an outcrop of rocks.  Something is unusual about these rocks, some blackness unlike the surrounding soil.  You notice that this is an opening to a cave.  It is dark inside, and you wonder how far it goes.\n\nWhat would you like to do?",
       nextChapterOptions : [
         {
           targetChapterId : 1001,
-          teaser : "Step inside."
+          teaser : "Go on.  Step inside."
         },{
           targetChapterId : 1002,
-          teaser : "Continue walking."
+          teaser : "Better keep walking."
         }
       ]
     },{

@@ -1,15 +1,17 @@
 import React from 'react';
-import SignPost from './SignPost'
+import DecisionPoint from './DecisionPoint'
 
 class Chapter extends React.Component {
   render() {
+    let chapter = this.props.chapter;
+
     return (
-        <div>
-          <div className="chapterTitle">{this.props.chapter.heading}</div>
+        <div id="chapter" className="section">
+          <div className="chapterTitle">{chapter.heading}</div>
           <div id="prose">
-            {this.props.chapter.prose}
+            {chapter.prose}
           </div>
-          <SignPost signs={this.props.chapter.nextChapterOptions} />
+          <DecisionPoint storyKey={this.props.storyKey} nextOptions={chapter.nextChapterOptions} />
         </div>
     );
   };
