@@ -2,13 +2,10 @@ import React from 'react';
 import { Link } from 'react-router';
 
 class Sign extends React.Component {
-
-//<li>{this.props.option.teaser}</li>
-
   render() {
     let uri = "/reader/" + this.props.storyKey + "/" + this.props.option.targetChapterId;
     return (
-        <li><a href={uri}>{this.props.option.teaser}</a></li>
+        <li><Link to={uri}>{this.props.option.teaser}</Link></li>
     );
   }
 }
@@ -25,11 +22,14 @@ class DecisionPoint extends React.Component {
     //</ul>
 
     return (
-      <ul id="decisionPoint">
+      <div id="decisionPoint">
+        <h3>Choose what to do next</h3>
+        <ul id="decisionPoint">
           {this.props.nextOptions.map(function(option) {
-            return <Sign key={option.targetChapterId} storyKey={storyKey} option={option} />;
-          })}
-      </ul>
+              return <Sign key={option.targetChapterId} storyKey={storyKey} option={option} />;
+            })}
+        </ul>
+      </div>
     );
   }
 }

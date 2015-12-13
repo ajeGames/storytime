@@ -2,42 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TitleBar from './TitleBar';
 import Chapter from './Chapter';
+import STORY1 from './SampleData';  // local test data
 
 class Reader extends React.Component {
   render() {
-    const summary = {
-      key : "o9s0toym",
-      title : "The Cave",
-      author : "Bubba Gump",
-      tagLine : "What lies beneath",
-      about : "See where your choices lead.  You can choose your own destiny, but can you escape fate?",
-      firstChapter : {
-        targetChapterId : 1000,
-        teaser : "This might be a good day to take some risks."
-      }
-    };
+    let storyKeyParam = this.props.params.storyKey;
+    let chapterIdParam = this.props.params.chapterId;
 
-    const chapter = {
-      id : 1000,
-      heading : "The Cave",
-      prose : "It's a nice day, so you decide to go for a walk.  As you stroll along, you see a clearing with an outcrop of rocks.  Something is unusual about these rocks, some blackness unlike the surrounding soil.  You notice that this is an opening to a cave.  It is dark inside, and you wonder how far it goes.\n\nWhat would you like to do?",
-      nextChapterOptions : [
-        {
-          targetChapterId : 1001,
-          teaser : "Step inside."
-        },{
-          targetChapterId : 1002,
-          teaser : "Continue walking."
-        }
-      ]
-    };
+    // use local test data for now
+    const summary = STORY1.summary;
+    const chapter = STORY1.chapters[0];
+
+    if (storyKeyParam === undefined) {
+      return (
+          <div id="reader">
+            <h1>Unknown Story</h1>
+          </div>
+      );
+    } else {
+      // go fetch the story
+    }
 
     return (
       <div id="reader">
         <TitleBar summary={summary} />
+        <p>(story key: {storyKeyParam}, chapter ID: {chapterIdParam})</p>
         <Chapter chapter={chapter} storyKey={summary.key} />
       </div>
-    )
+    );
   }
 }
 

@@ -11,7 +11,6 @@ class Chapter extends React.Component {
           <div id="prose">
             {chapter.prose}
           </div>
-          <h3>Choose what to do next</h3>
           <DecisionPoint storyKey={this.props.storyKey} nextOptions={chapter.nextChapterOptions} />
         </div>
     );

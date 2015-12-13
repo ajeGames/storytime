@@ -21,7 +21,11 @@ render((
     <Router>
       <Route path="/" component={App}>
         <IndexRoute component={Catalog}/>
-        <Route path="/reader" component={Reader}/>
+        <Route path="/reader" component={Reader}>
+          <Route path=":storyKey" component={Reader}>
+            <Route path=":chapterId" component={Reader} />
+          </Route>
+        </Route>
       </Route>
     </Router>
 ), document.getElementById('app'));
