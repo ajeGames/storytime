@@ -5,6 +5,10 @@ import Chapter from './Chapter';
 import STORY1 from './SampleData';  // local test data
 
 class Reader extends React.Component {
+  constructor() {
+    this.state = {};
+  }
+
   render() {
     let storyKeyParam = this.props.params.storyKey;
     let chapterIdParam = this.props.params.chapterId;
