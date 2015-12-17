@@ -2,7 +2,7 @@ const STORY1 = {
   summary : {
     key : "o9s0toym",
     title : "The Dark Cave",
-    author : "Mr. Bubba Gump",
+    author : "Mr. Bubba Gumpz",
     tagLine : "What lies beneath may kill you",
     about : "See where your choices lead.  You can choose your own destiny, but can you escape fate?  Unlikely.",
     firstChapter : {

@@ -6,7 +6,11 @@ import STORY1 from './SampleData';  // local test data
 
 class Reader extends React.Component {
   constructor() {
-    this.state = {};
+    super();
+    this.state = {
+      summary: STORY1.summary,
+      chapters: STORY1.chapters
+    };
   }
 
   render() {
@@ -14,8 +18,8 @@ class Reader extends React.Component {
     let chapterIdParam = this.props.params.chapterId;
 
     // use local test data for now
-    const summary = STORY1.summary;
-    const chapter = STORY1.chapters[0];
+    //const summary = STORY1.summary;
+    //const chapter = STORY1.chapters[0];
 
     if (storyKeyParam === undefined) {
       return (
@@ -29,9 +33,9 @@ class Reader extends React.Component {
 
     return (
       <div id="reader">
-        <TitleBar summary={summary} />
+        <TitleBar summary={this.state.summary} />
         <p>(story key: {storyKeyParam}, chapter ID: {chapterIdParam})</p>
-        <Chapter chapter={chapter} storyKey={summary.key} />
+        <Chapter chapter={this.state.chapters[0]} storyKey={this.state.summary.key} />
       </div>
     );
   }
