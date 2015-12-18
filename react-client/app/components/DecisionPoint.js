@@ -14,21 +14,28 @@ class DecisionPoint extends React.Component {
   render() {
 
     let storyKey = this.props.storyKey;
+    let isTheEnd = this.props.nextOptions === undefined || this.props.nextOptions.length === 0;
+
+    let theEndOptions = !isTheEnd ? '' : <ul>
+      <li><Link to={"/reader/" + this.props.storyKey}>Return to Chapter One</Link></li>
+      <li><Link to="/">Choose Another Story</Link></li>
+    </ul>;
 
     // TODO different options if end of story
     //<ul>
-    //  <li><a href="#/reader/{this.props.storyKey}">Return to Chapter One</a></li>
-    //  <li><a href="#/catalog">Choose Another Story</a></li>
+    //  <li><Link to={beginning}>Return to Chapter One</Link></li>
+    //  <li><Link to="/">Choose Another Story</Link></li>
     //</ul>
 
     return (
       <div id="decisionPoint">
         <h3>Choose what to do next</h3>
-        <ul id="decisionPoint">
+        <ul>
           {this.props.nextOptions.map(function(option) {
               return <Sign key={option.targetChapterId} storyKey={storyKey} option={option} />;
             })}
         </ul>
+        {theEndOptions}
       </div>
     );
   }

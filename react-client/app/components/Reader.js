@@ -8,27 +8,23 @@ class Reader extends React.Component {
   constructor() {
     super();
 
+    // establish story and chapter being read
     let chapterIndex = new Map();
     STORY1.chapters.forEach(chapter => {
-      chapterIndex.set(chapter.id, chapter);
+      chapterIndex.set(chapter.id.toString(), chapter);
     });
 
     this.state = {
       summary: STORY1.summary,
       chapters: chapterIndex,
-      currentChapterId: STORY1.summary.firstChapter.targetChapterId
     };
   }
-
-  // TODO respond to change in chapter by updating currentChapterId
 
   render() {
     let storyKeyParam = this.props.params.storyKey;
     let chapterIdParam = this.props.params.chapterId;
 
-    // use local test data for now
-    //const summary = STORY1.summary;
-    //const chapter = STORY1.chapters[0];
+    let openChapter = chapterIdParam || this.state.summary.firstChapter.targetChapterId.toString();
 
     if (storyKeyParam === undefined) {
       return (
@@ -43,8 +39,7 @@ class Reader extends React.Component {
     return (
       <div id="reader">
         <TitleBar summary={this.state.summary} />
-        <p>(story key: {storyKeyParam}, chapter ID: {chapterIdParam})</p>
-        <Chapter chapter={this.state.chapters.get(this.state.currentChapterId)} storyKey={this.state.summary.key} />
+        <Chapter chapter={this.state.chapters.get(openChapter)} storyKey={this.state.summary.key} />
       </div>
     );
   }
