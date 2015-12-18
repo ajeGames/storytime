@@ -14,6 +14,7 @@ class Catalog extends React.Component {
         </form>
         <div>Results:
           <ul>
+            <li><a href="#/reader/o9s0toym">The Cave</a>, by Bubba Gump.<br/>See what you'll find when you stuble upon a cave in the woods.</li>
             <li><a href="#/reader">How the West Was Won</a>, by Billy the Kid.<br/>Gunslingers and pioneers make choices that keep them alive or bring them to doom.</li>
             <li><a href="#/reader">The Three Bears</a>, by Bubba Grimm.<br/>Goldie Lockes never knew what could have been if she had only explored the basement.</li>
           </ul>
