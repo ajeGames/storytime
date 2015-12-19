@@ -30,6 +30,7 @@ class Catalog extends React.Component {
               </ul>
             </li>
             <li>Target ages / "movie" ratings</li>
+            <li>Reader voting -- 'like' a story</li>
           </ul>
         </div>
       </div>
