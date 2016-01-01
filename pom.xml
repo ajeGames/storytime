@@ -6,14 +6,11 @@
 
     <groupId>com.ajegames</groupId>
     <artifactId>storytime</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.1-SNAPSHOT</version>
-    <modules>
-        <module>react-client</module>
-    </modules>
 
     <properties>
-        <dropwizard.version>0.8.2</dropwizard.version>
+        <dropwizard.version>0.9.1</dropwizard.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -53,20 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>1.6</version>
-                <configuration>
-                    <createDependencyReducedPom>true</createDependencyReducedPom>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>META-INF/*.SF</exclude>
-                                <exclude>META-INF/*.DSA</exclude>
-                                <exclude>META-INF/*.RSA</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
-                </configuration>
+                <version>2.4.2</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
