@@ -26,6 +26,10 @@ body {
   overflow-y: auto;
 }
 
+#header h2 {
+	margin: 0;
+}
+
 #header.row {
   height: 75px;
   top: 0;
@@ -36,7 +40,7 @@ body {
   top: 75px;
   bottom: 50px;
   margin: 0.5em 1.0em;
-  border: groove silver 5px;
+  border: groove green 4px;
   padding: 1.0em;
 }
 
@@ -114,15 +118,6 @@ body {
 	max-width: 400px;
 	padding: 20px 12px 10px 20px;
 	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}
-.form-style-1a {
-	margin:10px auto;
-	max-width: 400px;
-	padding: 20px 12px 10px 20px;
-	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}
-.form-style-1a li {
-    margin-left: 20px;
 }
 .form-style-1 li {
 	padding: 0;
