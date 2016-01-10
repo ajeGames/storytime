@@ -25025,7 +25025,7 @@
 	    function BackendAccess() {
 	        _classCallCheck(this, BackendAccess);
 
-	        this.uriBase = 'http://localhost/storytime/api/';
+	        this.uriBase = '/api/';
 	    }
 
 	    _createClass(BackendAccess, [{
