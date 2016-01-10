@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 class BackendAccess {
     constructor() {
-        this.uriBase = 'http://localhost/storytime/api/';
+        this.uriBase = '/api/';
     }
 
     loadSummaries(context) {
