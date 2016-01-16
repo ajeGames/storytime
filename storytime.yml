@@ -17,4 +17,9 @@ persistence:
   path: repo/
 
 server:
+  type: simple
   rootPath: '/api/*'
+  connector:
+    type: http
+    port: 8080
+
