@@ -5,3 +5,4 @@ target
 node_modules/
 dist
 dependency-reduced-pom.xml
+.sass-cache/

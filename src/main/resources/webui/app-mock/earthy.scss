@@ -1,0 +1,25 @@
+$color1: #d1c5b7;
+$color2: #85b941;
+$color3: #735d41;
+$color4: #0193b7;
+$color5: #063e53;
+
+#masthead {
+  background-color: $color2;
+}
+
+#catalog {
+  background-color: $color1;
+}
+
+#reader {
+  background-color: $color4;
+}
+
+#titlebar {
+  background-color: $color5;
+}
+
+#footer {
+  background-color: $color3;
+}
