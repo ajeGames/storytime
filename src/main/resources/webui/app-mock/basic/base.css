@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#header {
+  padding: 0.5em 3em;
+  background-color: #063e53;
+  color: #f8f8f8;
+  font-size: x-large;
+  font-weight: bold;
+  text-align: center;
+}
+
+#title {
+  padding: 0.5em;
+  background-color: #88D5E9;
+  text-align: center;
+}
+
+#reader {
+  width: 70%;
+  float: left;
+}
+
+#chapter {
+  background-color: #fff6de;
+}
+
+#chapter_title {
+  padding: 0.5em;
+  background-color: #E9DC51;
+  text-align: center;
+}
+
+#prose {
+  padding: 0 1em;
+}
+
+#middle{
+  margin: 0 2em;
+}
+
+#sidebar {
+  float: right;
+  margin-top: 5em;
+}
+
+#footer {
+  clear: both;
+}
+
+p {
+  margin-top: 1em;
+}
