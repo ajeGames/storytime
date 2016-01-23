@@ -1,0 +1,62 @@
+@import 'global-styles';
+
+#header {
+  padding: 0.5em 3em;
+  background-color: $color-page-header;
+  color: #333333;
+  font-size: x-large;
+  font-weight: bold;
+  text-align: center;
+}
+
+#title {
+  padding: 0.5em;
+  background-color: $color-title-bar;
+  text-align: center;
+}
+
+#reader {
+  width: 80%;
+  float: left;
+}
+
+#chapter {
+  background-color: $color-reader;
+}
+
+#chapter_title {
+  padding: 0.5em;
+  background-color: $color-chapter-title;
+  text-align: center;
+}
+
+#prose {
+  padding: 0.5em 2em 2em 2em;
+}
+
+#middle{
+  margin: 0 2em 0 0;
+}
+
+#sidebar {
+  float: right;
+  margin-top: 5em;
+}
+
+#footer {
+  clear: both;
+}
+
+p {
+  margin-top: 1em;
+}
+
+.adbox {
+  padding-bottom: 2em;
+}
+
+#signpost {
+  ul {
+    margin-left: 3em;
+  }
+}

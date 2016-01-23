@@ -1,0 +1,16 @@
+@import 'reset';
+@import 'font-stacks';
+@import 'color-palettes';
+
+$site-fonts: $font-stack-verdana;
+$reader-fonts: $font-stack-georgia;
+
+$color-chapter-title: $palette-babybluegray-color1;
+$color-reader: $palette-babybluegray-color2;
+$color-title-bar: $palette-babybluegray-color3;
+$color-page-header: $palette-babybluegray-color4;
+
+.swatch {
+  margin: 0;
+  height: 3em;
+}
