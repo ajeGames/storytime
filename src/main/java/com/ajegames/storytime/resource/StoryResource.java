@@ -20,7 +20,7 @@ public class StoryResource {
 
     @GET
     @Path("{key}")
-    public StorySummary get(@PathParam("key") String key) {
+    public StorySummary getStorySummary(@PathParam("key") String key) {
         LOG.info("Retrieving story for key: " + key);
         Story story = ctrl.getStory(key);
         if (story == null) {
@@ -31,7 +31,7 @@ public class StoryResource {
 
     @GET
     @Path("{key}/full")
-    public Story getFull(@PathParam("key") String key) {
+    public Story getFullStory(@PathParam("key") String key) {
         LOG.info("Retrieving story for key: " + key);
         Story story = ctrl.getStory(key);
         if (story == null) {
@@ -41,7 +41,7 @@ public class StoryResource {
     }
 
     @POST
-    public StorySummary create(StorySummary summary) {
+    public StorySummary createStory(StorySummary summary) {
         LOG.info("Creating another story for a happier universe.");
         try {
             return ctrl.createStory(summary);
@@ -52,7 +52,7 @@ public class StoryResource {
 
     @PUT
     @Path("{key}")
-    public StorySummary update(@PathParam("key") String key, StorySummary update) {
+    public StorySummary updateStory(@PathParam("key") String key, StorySummary update) {
         LOG.info("Receiving changes to story: " + key);
         if (update.getKey() != null && !key.equals(update.getKey())) {
             LOG.error("Key in URI does not match key in data");
@@ -68,7 +68,7 @@ public class StoryResource {
 
     @DELETE
     @Path("{key}")
-    public void destroy(@PathParam("key") String key) {
+    public void destroyStory(@PathParam("key") String key) {
         LOG.info("Eliminating entire story: " + key);
         try {
             ctrl.deleteStory(key);
