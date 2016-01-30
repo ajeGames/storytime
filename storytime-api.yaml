@@ -20,25 +20,25 @@ produces:
   - application/json
 
 paths:
-  /players:
+  /storytime:
     get:
-      summary: Returns list of all active players
+      summary: Ping server to see if it is responsive.
       description:
-        Returns summary information for all players that are active in the system.
-      operationId: getAllActivePlayers
+        Can be called to determine if the server is responding to requests in general.  Returns the message 'pong'
+        if alive.  Anonymous access is expected.
+      operationId: ping
       responses:
         '200':
-          description: A list of players
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Player'
-  /players/{screenName}:
+          description: The message 'pong'
+          type: string
+  /storytime/stories:
     get:
-      summary: Returns player identified by screen name
+      summary: Returns summaries of all available stories.
       description:
-        Returns player that matches the given screen name.
-      operationId: getPlayer
+        Retrieves array of summaries of all published stories.  This is for use by 'reader' clients as a simple means
+        for browsing the catalog of stories.  At some point, this will have to be refactored to handle the millions
+        of published stories.  Anonymous access to this list is expected.
+      operationId: findPublishedStories
       parameters:
         - name: screenName
           in: path
@@ -47,24 +47,37 @@ paths:
           required: true
       responses:
         '200':
-          description: A player
+          description: An array of summaries of published stories.
           schema:
-            $ref: '#/definitions/Player'
+            type: array
+            items:
+              $ref: '#/definitions/StorySummary'
 
 definitions:
-  Player:
+  StorySummary:
     type: object
     required:
-      - screenName
     properties:
-      id:
-        type: integer
-        format: int64
-      screenName:
+      key:
         type: string
-      emailAddress:
+      title:
         type: string
-      givenName:
+      author:
         type: string
-      sirName:
+      tagLine:
         type: string
+      about:
+        type: string
+      firstChapter:
+        type: object
+        $ref: '#/definitions/ChapterSign'
+  ChapterSign:
+    type: object
+    required:
+    properties:
+      targetChapterId:
+        type: int
+      teaser:
+        type: string
+
+
