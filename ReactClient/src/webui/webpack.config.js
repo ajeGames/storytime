@@ -1,7 +1,7 @@
 module.exports = {
   entry: "./app/App.js",
   output: {
-    filename: "public/bundle.js"
+    filename: "../../../src/main/resources/webui/app-react/public/bundle.js"
   },
   devServer: {
     inline: true,

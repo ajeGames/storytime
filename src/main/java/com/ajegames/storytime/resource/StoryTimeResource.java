@@ -20,7 +20,7 @@ public class StoryTimeResource {
     @GET
     public String ping() {
         LOG.debug("StoryTime service pinged...");
-        return "{ message: pong }";
+        return "{ \"message\": \"pong\" }";
     }
 
     /**
