@@ -1,5 +1,5 @@
 import React from 'react';
-require("../../public/plain-mock.css");
+require("../plain-mock.css");
 
 class Header extends React.Component {
   render() {
