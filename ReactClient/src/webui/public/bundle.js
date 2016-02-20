@@ -72,7 +72,7 @@
 
 	var _Editor2 = _interopRequireDefault(_Editor);
 
-	var _Catalog = __webpack_require__(221);
+	var _Catalog = __webpack_require__(222);
 
 	var _Catalog2 = _interopRequireDefault(_Catalog);
 
@@ -34919,7 +34919,136 @@
 /* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TitleInput = __webpack_require__(221);
+
+	var _TitleInput2 = _interopRequireDefault(_TitleInput);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Editor = function (_React$Component) {
+	  _inherits(Editor, _React$Component);
+
+	  function Editor() {
+	    _classCallCheck(this, Editor);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Editor).apply(this, arguments));
+	  }
+
+	  _createClass(Editor, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'editor' },
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Editor'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          null,
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(_TitleInput2.default, null)
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Author:'
+	              ),
+	              ' ',
+	              _react2.default.createElement('input', { type: 'text', 'ng-model': 'editorCtrl.draftSummary.author' })
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Tag Line:'
+	              ),
+	              ' ',
+	              _react2.default.createElement('input', { type: 'text', 'ng-model': 'editorCtrl.draftSummary.tagLine' })
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Description:'
+	              ),
+	              _react2.default.createElement('textarea', { 'ng-model': 'editorCtrl.draftSummary.about' })
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Opening Scene Teaser:'
+	              ),
+	              _react2.default.createElement('input', { type: 'text', 'ng-model': 'editorCtrl.draftSummary.firstChapter.teaser' })
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'button',
+	                { 'ng-click': 'editorCtrl.saveDraftSummary()' },
+	                'Save Story'
+	              ),
+	              '(Key: editorCtrl.draftSummary.key)',
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'a',
+	                { 'ng-hide': 'editorCtrl.draftSummary.key === undefined',
+	                  'ng-href': '#/editor/editorCtrl.draftSummary.key/editorCtrl.draftSummary.firstChapter.targetChapterId' },
+	                'Edit First Chapter'
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Editor;
+	}(_react2.default.Component);
+
+	exports.default = Editor;
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -34939,37 +35068,44 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Editor = function (_React$Component) {
-	  _inherits(Editor, _React$Component);
+	var TitleInput = function (_React$Component) {
+	  _inherits(TitleInput, _React$Component);
 
-	  function Editor() {
-	    _classCallCheck(this, Editor);
+	  function TitleInput() {
+	    _classCallCheck(this, TitleInput);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Editor).call(this));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TitleInput).call(this));
+
+	    _this.state = {
+	      value: 'The Big One'
+	    };
+	    return _this;
 	  }
 
-	  _createClass(Editor, [{
-	    key: "render",
+	  _createClass(TitleInput, [{
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.setState({ value: event.target.value });
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "div",
-	        { id: "editor" },
-	        _react2.default.createElement(
-	          "h1",
-	          null,
-	          "Editor"
-	        )
+	        'label',
+	        null,
+	        'Title:',
+	        _react2.default.createElement('input', { type: 'text', value: this.state.value, onChange: this.handleChange })
 	      );
 	    }
 	  }]);
 
-	  return Editor;
+	  return TitleInput;
 	}(_react2.default.Component);
 
-	exports.default = Editor;
+	exports.default = TitleInput;
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
