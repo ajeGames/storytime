@@ -4,7 +4,7 @@ class Footer extends React.Component {
   render() {
     return (
         <div id="footer" className="frame">
-          <p>&copy; 2015 AJE Games.  All rights reserved.</p>
+          <p>&copy; 2016 AJE Games.  All rights reserved.</p>
         </div>
     );
   }
