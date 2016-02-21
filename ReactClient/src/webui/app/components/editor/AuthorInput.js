@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TitleInput extends React.Component {
+class AuthorInput extends React.Component {
   constructor() {
     super();
   }
@@ -11,7 +11,7 @@ class TitleInput extends React.Component {
   render() {
     return (
         <div>
-          <label>Title:
+          <label>Author:
             <input type="text" value="" onChange={this.handleChange}/>
           </label>
         </div>

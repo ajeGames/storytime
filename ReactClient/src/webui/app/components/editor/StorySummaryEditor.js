@@ -11,9 +11,27 @@ class StorySummaryEditor extends React.Component {
     return (
         <div>
           <h2>StorySummaryEditor</h2>
-          <TitleInput />
-          <p>Plus more inputs...AuthorInput, TagLineInput, DescriptionInput</p>
-          <p>And a SaveStorySummary button</p>
+          <div>
+            <label>Title:
+              <input type="text" />
+            </label>
+          </div>
+          <div>
+            <label>Author:
+              <input type="text" />
+            </label>
+          </div>
+          <div>
+            <label>Tag Line:
+              <input type="text" />
+            </label>
+          </div>
+          <div>
+            <label>Description:
+              <textarea></textarea>
+            </label>
+          </div>
+          <button>Save Story Summary</button>
         </div>
     );
   }
