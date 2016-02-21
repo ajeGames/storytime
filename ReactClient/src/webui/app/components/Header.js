@@ -1,14 +1,10 @@
-import React from 'react';
-require("../plain-mock.css");
+import React from 'react'
+require("../plain-mock.css")
 
-class Header extends React.Component {
-  render() {
-    return (
-        <div id="masthead" className="frame">
-          <h1>StoryTime - Choose Your Own Destiny</h1>
-        </div>
-    );
-  }
-}
+const Header = ( { heading } ) => (
+    <div id="masthead" className="frame">
+      <h1>{heading}</h1>
+    </div>
+)
 
-export default Header;
+export default Header

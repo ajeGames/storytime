@@ -23,7 +23,7 @@ class StorySummaryEditor extends React.Component {
   render() {
     return (
         <div>
-          <h2>StorySummaryEditor</h2>
+          <h3>StorySummaryEditor</h3>
           <div className="section">
             <div>Key: jk3jko8w</div>
             <TitleInput text="The Cave" edit="true" onChange={this.handleFieldChange} />

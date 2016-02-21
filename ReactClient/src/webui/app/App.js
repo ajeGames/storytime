@@ -11,7 +11,7 @@ class App extends React.Component {
   render() {
     return (
         <div>
-          <Header />
+          <Header heading="Choose Your Own Destiny" />
           {this.props.children}
           <Footer />
         </div>

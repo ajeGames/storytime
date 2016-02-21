@@ -30,7 +30,7 @@ class Editor extends React.Component {
   render() {
     return (
         <div id="editor">
-          <h1>Create Your Story</h1>
+          <h2>Create Your Story</h2>
           <StorySummaryEditor />
         </div>
     );
