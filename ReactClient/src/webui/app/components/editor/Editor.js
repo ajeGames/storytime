@@ -1,38 +1,35 @@
 import React from 'react';
-import TitleInput from './TitleInput';
+import StorySummaryEditor from './StorySummaryEditor';
+
+/*
+  This is the top-level component for editing stories.  A story has a few parts:
+
+    1. The summary, including title, author, description, date published, etc.
+    2. One or more chapters.
+
+  A chapter has a few parts as well:
+
+    1. The chapter number and title.
+    2. The prose.
+    3. A signpost with any number of signs pointing to subsequent chapters.
+      3a. A sign has a description of the choice being offered to the reader.
+      3b. During editing, a sign can point to an existing chapter or indicate a new chapter to be created.
+
+ import ChapterEditor from './ChapterEditor';
+ <ChapterEditor />
+ */
 
 class Editor extends React.Component {
+
+  constructor() {
+    super();
+  }
 
   render() {
     return (
         <div id="editor">
-          <h1>Editor</h1>
-          <form>
-            <ul>
-              <li><TitleInput /></li>
-              <li>
-                <label>Author:</label> <input type="text" ng-model="editorCtrl.draftSummary.author"/>
-              </li>
-              <li>
-                <label>Tag Line:</label> <input type="text" ng-model="editorCtrl.draftSummary.tagLine"/>
-              </li>
-              <li>
-                <label>Description:</label>
-                            <textarea ng-model="editorCtrl.draftSummary.about"></textarea>
-              </li>
-              <li>
-                <label>Opening Scene Teaser:</label>
-                <input type="text" ng-model="editorCtrl.draftSummary.firstChapter.teaser"/>
-              </li>
-              <li>
-                <button ng-click="editorCtrl.saveDraftSummary()">Save Story</button>
-                (Key: editorCtrl.draftSummary.key)<br/>
-                <a ng-hide="editorCtrl.draftSummary.key === undefined"
-                   ng-href="#/editor/editorCtrl.draftSummary.key/editorCtrl.draftSummary.firstChapter.targetChapterId">Edit
-                  First Chapter</a>
-              </li>
-            </ul>
-          </form>
+          <h1>Create Your Story</h1>
+          <StorySummaryEditor />
         </div>
     );
   }
