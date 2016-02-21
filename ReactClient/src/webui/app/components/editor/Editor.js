@@ -2,18 +2,18 @@ import React from 'react';
 import StorySummaryEditor from './StorySummaryEditor';
 
 /*
-  This is the top-level component for editing stories.  A story has a few parts:
+  This is the top-level component for editing stories.  This editor consists of the following parts:
 
-    1. The summary, including title, author, description, date published, etc.
-    2. One or more chapters.
+    1. The summary, including fields for title, author, description, date published, etc., that can be in read-only or
+        edit mode.  New summaries start in edit mode.  Existing summaries start in read-only mode.  There is a button
+        to enter edit mode or save and enter read-only mode.  Changes to fields are preserved in draft copy of summary.
+        Saving commits changes to server.  In edit mode, a 'Cancel' button drops edits, returning to read-only mode.
+        Any action to leave the summary while editing other than 'Cancel' results in an implicit save.  Commits are
+        only sent to the server if changes were made.
 
-  A chapter has a few parts as well:
-
-    1. The chapter number and title.
-    2. The prose.
-    3. A signpost with any number of signs pointing to subsequent chapters.
-      3a. A sign has a description of the choice being offered to the reader.
-      3b. During editing, a sign can point to an existing chapter or indicate a new chapter to be created.
+    2. Chapter management, for creating new chapters, selecting chapters to edit, and deleting chapters.
+    3. A chapter in draft mode that is being edited.  Chapters consist of a header and prose.
+    4. A sign post editor for the selected chapter that manages links to other chapters and the "teaser" text that explains the choice.
 
  import ChapterEditor from './ChapterEditor';
  <ChapterEditor />

@@ -7,6 +7,14 @@ let stateShape = {
     about: "See where your choices lead.  You can choose your own destiny, but can you escape fate?",
     firstChapter: 1000
   },
+  storySummaryDraft: {
+    key: "o9s0toym",
+    title: "The Cave",
+    author: "Bubba Gump",
+    tagLine: "What lies beneath",
+    about: "See where your choices lead.  You can choose your own destiny, but can you escape fate?",
+    firstChapter: 1000
+  },
   draftChapter: {
     id: 1000,
     heading: "The Cave",
