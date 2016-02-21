@@ -2,7 +2,7 @@ import React from 'react';
 import StorySummaryEditor from './StorySummaryEditor';
 
 /*
-  This is the top-level component for editing stories.  This editor consists of the following parts:
+  This is the top-level container component for editing stories.  This editor consists of the following parts:
 
     1. The summary, including fields for title, author, description, date published, etc., that can be in read-only or
         edit mode.  New summaries start in edit mode.  Existing summaries start in read-only mode.  There is a button
@@ -14,6 +14,8 @@ import StorySummaryEditor from './StorySummaryEditor';
     2. Chapter management, for creating new chapters, selecting chapters to edit, and deleting chapters.
     3. A chapter in draft mode that is being edited.  Chapters consist of a header and prose.
     4. A sign post editor for the selected chapter that manages links to other chapters and the "teaser" text that explains the choice.
+
+  Editor is a subscriber to the Redux store.
 
  import ChapterEditor from './ChapterEditor';
  <ChapterEditor />

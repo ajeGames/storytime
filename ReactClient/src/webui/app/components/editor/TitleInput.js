@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { PropTypes } from 'react'
 
-class TitleInput extends React.Component {
-  constructor() {
-    super();
-  }
-
-  handleChange(event) {
-  }
-
-  render() {
+const TitleInput = ({ text, edit, onChange }) => {
+  if (edit === "true") {
     return (
         <div>
           <label>Title:
-            <input type="text" value="" onChange={this.handleChange}/>
+            <input type="text" value={text} onChange={onChange} />
           </label>
         </div>
-    );
+    )
+  } else {
+    return (
+        <div>
+          <div>Title: {text}</div>
+        </div>
+    )
   }
+};
+
+TitleInput.propTypes = {
+  text: PropTypes.string.isRequired
 }
 
-export default TitleInput;
+export default TitleInput
