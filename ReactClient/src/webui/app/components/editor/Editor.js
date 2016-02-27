@@ -1,38 +1,37 @@
 import React from 'react';
-import TitleInput from './TitleInput';
+import StorySummaryEditor from './StorySummaryEditor';
+
+/*
+  This is the top-level container component for editing stories.  This editor consists of the following parts:
+
+    1. The summary, including fields for title, author, description, date published, etc., that can be in read-only or
+        edit mode.  New summaries start in edit mode.  Existing summaries start in read-only mode.  There is a button
+        to enter edit mode or save and enter read-only mode.  Changes to fields are preserved in draft copy of summary.
+        Saving commits changes to server.  In edit mode, a 'Cancel' button drops edits, returning to read-only mode.
+        Any action to leave the summary while editing other than 'Cancel' results in an implicit save.  Commits are
+        only sent to the server if changes were made.
+
+    2. Chapter management, for creating new chapters, selecting chapters to edit, and deleting chapters.
+    3. A chapter in draft mode that is being edited.  Chapters consist of a header and prose.
+    4. A sign post editor for the selected chapter that manages links to other chapters and the "teaser" text that explains the choice.
+
+  Editor is a subscriber to the Redux store.
+
+ import ChapterEditor from './ChapterEditor';
+ <ChapterEditor />
+ */
 
 class Editor extends React.Component {
+
+  constructor() {
+    super();
+  }
 
   render() {
     return (
         <div id="editor">
-          <h1>Editor</h1>
-          <form>
-            <ul>
-              <li><TitleInput /></li>
-              <li>
-                <label>Author:</label> <input type="text" ng-model="editorCtrl.draftSummary.author"/>
-              </li>
-              <li>
-                <label>Tag Line:</label> <input type="text" ng-model="editorCtrl.draftSummary.tagLine"/>
-              </li>
-              <li>
-                <label>Description:</label>
-                            <textarea ng-model="editorCtrl.draftSummary.about"></textarea>
-              </li>
-              <li>
-                <label>Opening Scene Teaser:</label>
-                <input type="text" ng-model="editorCtrl.draftSummary.firstChapter.teaser"/>
-              </li>
-              <li>
-                <button ng-click="editorCtrl.saveDraftSummary()">Save Story</button>
-                (Key: editorCtrl.draftSummary.key)<br/>
-                <a ng-hide="editorCtrl.draftSummary.key === undefined"
-                   ng-href="#/editor/editorCtrl.draftSummary.key/editorCtrl.draftSummary.firstChapter.targetChapterId">Edit
-                  First Chapter</a>
-              </li>
-            </ul>
-          </form>
+          <h2>Create Your Story</h2>
+          <StorySummaryEditor />
         </div>
     );
   }
