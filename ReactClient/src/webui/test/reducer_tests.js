@@ -1,44 +1,56 @@
 import {expect} from 'chai';
-import {List, Map} from 'immutable';
+import {List, Map, fromJS} from 'immutable';
 
-import {setTitle, setAuthor, setTagLine, setAbout} from '../app/reducers';
+import reducer from '../app/reducers';
 
-describe('reducer logic', () => {
+describe('storytime reducer', () => {
 
-  describe('setTitle', () => {
-    it('sets title', () => {
-      const state = Map();
-      const title = 'The Cave';
-      const nextState = setTitle(state, title);
-      expect(nextState.get('title')).to.equal(title);
-    });
+  it('has an initial state', () => {
+    const action = {type: 'SET_TITLE', title: 'LOST'};
+    const nextState = reducer(undefined, action);
+    expect(nextState).to.equal(fromJS({
+      title: 'LOST'
+    }));
   });
 
-  describe('setAuthor', () => {
-    it('sets author', () => {
-      const state = Map();
-      const author = 'Bubba Gump';
-      const nextState = setAuthor(state, author);
-      expect(nextState.get('author')).to.equal(author);
-    });
+  it('handles SET_TITLE', () => {
+    const initialState = Map();
+    const action = {type: 'SET_TITLE', title: 'My Wild Adventure'};
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      title: 'My Wild Adventure'
+    }));
   });
 
-  describe('setTagLine', () => {
-    it('sets tag line', () => {
-      const state = Map();
-      const tagLine = 'It\'s dark in there';
-      const nextState = setTagLine(state, tagLine);
-      expect(nextState.get('tagLine')).to.equal(tagLine);
-    });
+  it('handles SET_AUTHOR', () => {
+    const initialState = Map();
+    const action = {type: 'SET_AUTHOR', author: 'Mark Twain'};
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      author: 'Mark Twain'
+    }));
   });
 
-  describe('setAbout', () => {
-    it('sets about', () => {
-      const state = Map();
-      const about = 'The Cave';
-      const nextState = setAbout(state, about);
-      expect(nextState.get('about')).to.equal(about);
-    });
+  it('handles SET_TAG_LINE', () => {
+    const initialState = Map();
+    const action = {type: 'SET_TAG_LINE', tagLine: 'What troubles lie ahead.'};
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      tagLine: 'What troubles lie ahead.'
+    }));
+  });
+
+  it('handles SET_ABOUT', () => {
+    const initialState = Map();
+    const action = {type: 'SET_ABOUT', about: 'About this story...'};
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      about: 'About this story...'
+    }));
   });
 
 });
