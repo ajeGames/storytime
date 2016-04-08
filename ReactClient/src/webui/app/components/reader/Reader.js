@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TitleBar from './TitleBar';
 import Chapter from './Chapter';
-import BackendAccess from './remote/BackendAccess';
+import BackendAccess from './../remote/BackendAccess';
 
 
 class Reader extends React.Component {
