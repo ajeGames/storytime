@@ -5,7 +5,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <Catalog class=""/>
+        <Catalog />
       </div>
     );
   }

@@ -1,5 +1,4 @@
 import React from 'react'
-require("../../public/plain-mock.css")
 
 const Header = ( { heading } ) => (
     <div id="masthead" className="frame">

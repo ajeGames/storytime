@@ -21,8 +21,8 @@ class Catalog extends React.Component {
   render() {
     return (
         <div id="catalog" className="section">
-        <h1>Catalog</h1>
-        <h2>Choose an adventure:</h2>
+        <h1>Library</h1>
+        <h2>Which story would you like to try?</h2>
     <div>
     <ul>
     {this.state.summaries.map(function(summary) {
