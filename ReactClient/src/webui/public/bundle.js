@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0e20c6ebcbf8c07635a2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "064760857322624ff7ee"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -678,7 +678,7 @@
 		}
 	}
 
-	/* WEBPACK VAR INJECTION */}.call(exports, "?http://localhost:8080"))
+	/* WEBPACK VAR INJECTION */}.call(exports, "?http://localhost:3000"))
 
 /***/ },
 /* 2 */
@@ -28387,7 +28387,11 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Catalog2.default, null)
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Hello, Adventurer!'
+	        )
 	      );
 	    }
 	  }]);
@@ -28438,26 +28442,30 @@
 	  function Catalog() {
 	    _classCallCheck(this, Catalog);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Catalog).call(this));
-
-	    _this.state = { summaries: [] };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Catalog).apply(this, arguments));
 	  }
 
 	  _createClass(Catalog, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var backend = new _BackendAccess2.default();
-	      backend.loadSummaries(this);
-	    }
-	  }, {
-	    key: '_handleSuccess',
-	    value: function _handleSuccess(summaries) {
-	      this.setState({ summaries: summaries });
-	    }
-	  }, {
 	    key: 'render',
+
+
+	    //constructor() {
+	    //  super();
+	    //  //this.state = { summaries: [] }
+	    //}
+
+	    //componentDidMount() {
+	    //  let backend = new BackendAccess();
+	    //  backend.loadSummaries(this);
+	    //}
+	    //
+	    //_handleSuccess(summaries) {
+	    //  this.setState( { summaries: summaries });
+	    //}
+
 	    value: function render() {
+	      var summaries = this.props.storySummaries;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'catalog', className: 'section' },
@@ -28477,7 +28485,7 @@
 	          _react2.default.createElement(
 	            'ul',
 	            null,
-	            this.state.summaries.map(function (summary) {
+	            summaries.map(function (summary) {
 	              return _react2.default.createElement(
 	                'li',
 	                { key: summary.key },
