@@ -2,11 +2,11 @@ import $ from 'jquery';
 
 class BackendAccess {
   constructor() {
-    this.uriBase = '/api/';
+    this.uriBase = '/api';
   }
 
   loadSummaries(context) {
-    let endpoint = this.uriBase + 'storytime/stories';
+    let endpoint = this.uriBase + '/storytime/stories';
     $.ajax({
       url: endpoint,
       dataType: 'json',
@@ -21,7 +21,7 @@ class BackendAccess {
   }
 
   loadStory(context, storyKey) {
-    let endpoint = this.uriBase + 'story/' + storyKey + '/full';
+    let endpoint = this.uriBase + '/story/' + storyKey + '/full';
     $.ajax({
       url: endpoint,
       dataType: 'json',

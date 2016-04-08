@@ -4,13 +4,13 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './app/index.jsx'
+    './app/index.js'
   ],
   module: {
     loaders: [
       {test: /\.css$/, loader: "style!css"},
       {
-        test: /\.jsx$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'react-hot!babel'
       }
@@ -20,13 +20,16 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   output: {
-    path: __dirname + 'public',
+    path: __dirname + '/public',
     publicPath: '/',
     filename: 'bundle.js'
   },
   devServer: {
     contentBase: './public',
-    hot: true
+    hot: true,
+    proxy: {
+      '/api/*': 'http://localhost:8081'
+    }
   },
   plugins: [
       new webpack.HotModuleReplacementPlugin()
