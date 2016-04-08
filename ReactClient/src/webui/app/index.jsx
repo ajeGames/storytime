@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Reader from './components/Reader'
+import Home from './components/Home'
 
 ReactDOM.render(
-    <Catalog />,
+    <Home />,
     document.getElementById('app')
 );
