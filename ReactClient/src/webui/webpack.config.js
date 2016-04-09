@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
     './app/index.js'
   ],
@@ -26,9 +26,10 @@ module.exports = {
   },
   devServer: {
     contentBase: './public',
+    port: 3000,
     hot: true,
     proxy: {
-      '/api/*': 'http://localhost:8081'
+      '/api/*': 'http://localhost:8080'
     }
   },
   plugins: [

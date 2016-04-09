@@ -19,14 +19,16 @@ class Catalog extends React.Component {
   }
 
   render() {
+    let summaries = this.props.storySummaries || this.state.summaries;
+
     return (
         <div id="catalog" className="section">
-        <h1>Catalog</h1>
-        <h2>Choose an adventure:</h2>
+        <h1>Library</h1>
+        <h2>Which story would you like to try?</h2>
     <div>
     <ul>
-    {this.state.summaries.map(function(summary) {
-      return <li key={summary.key}><Link to={'/reader/' + summary.key}>{summary.title}</Link> by {summary.author}<br/>{summary.tagLine}</li>
+    {summaries.map(function(summary) {
+      return <li key={summary.key}><Link to={'/story/' + summary.key}>{summary.title}</Link> by {summary.author}<br/>{summary.tagLine}</li>
     })}
   </ul>
     </div>
