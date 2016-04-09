@@ -1,11 +1,21 @@
-import {List, Map} from 'immutable';
+import {Map} from 'immutable';
+import StoryReducers from './story_reducers';
 
-export function setStory(state, story) {
-
-  return state;
+export function loadStory(state, storyFromServer) {
+  return state.set('storySummary', mapSummary(storyFromServer.summary))
+      .set('chapters', [])
+      .set('signpost', []);
 }
 
-function setSummary(state, summary) {
+function mapSummary(summary) {
+  return new Map({
+    key: summary.key,
+    title: summary.title,
+    author: summary.author,
+    tagLine: summary.tagLine,
+    about: summary.about,
+    firstChapter: summary.firstChapter.targetChapterId
+  });
 
 }
 
