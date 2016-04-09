@@ -22,7 +22,7 @@ class DecisionPoint extends React.Component {
         </ul>;
 
         return (
-            <div id="decisionPoint">
+            <div id="signpost">
                 <h3>Choose what to do next</h3>
                 <ul>
                     {options.map(function(option) {

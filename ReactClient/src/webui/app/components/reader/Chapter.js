@@ -7,7 +7,7 @@ class Chapter extends React.Component {
 
     return (
         <div id="chapter" className="section">
-          <div className="chapterTitle">{chapter.heading}</div>
+          <div className="chapter_title">{chapter.heading}</div>
           <div id="prose">
             {chapter.prose}
           </div>
