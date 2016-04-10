@@ -20,6 +20,7 @@ describe('story mappers to convert from server payload to internal state', () =>
     let transformed = mapSummary(story.summary);
     expect(transformed).to.be.ok;
     expect(transformed.get('key')).to.equal('ABCD1234');
+    expect(transformed.get('firstChapter').get('targetChapterId')).to.equal(1);
   });
 
 });
