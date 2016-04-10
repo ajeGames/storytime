@@ -17,48 +17,46 @@ describe('storytime reducer', () => {
     const initialState = Map();
     const action = {
       type: 'LOAD_STORY',
-      story: Map({
-        summary: Map({
+      story: {
+        summary: {
           key: "Key",
           title: "Title",
           author: "Author",
           tagLine: "Tag Line",
           about: "About",
-          firstChapter: Map({
+          firstChapter: {
             targetChapterId: 1,
             teaser: "Teaser"
-          })
-        }),
-        chapters: List.of(
-            Map({
-              id: 1,
-              heading: "Heading 1",
-              prose: "Prose 1",
-              nextChapterOptions: List.of(
-                  Map({
-                    targetChapterId: 2,
-                    teaser: "Chapter 2"
-                  }),
-                  Map({
-                    targetChapterId: 3,
-                    teaser: "Chapter 3"
-                  })
-              )
-            }),
-            Map({
-              id: 2,
-              heading: "Heading 2",
-              prose: "Prose 2",
-              nextChapterOptions: List.of()
-            }),
-            Map({
-              id: 3,
-              heading: "Heading 3",
-              prose: "Prose 3",
-              nextChapterOptions: List.of()
-            })
-        )
-      })
+          }
+        },
+        chapters: [
+          {
+            id: 1,
+            heading: "Heading 1",
+            prose: "Prose 1",
+            nextChapterOptions: [
+              {
+                targetChapterId: 2,
+                teaser: "Chapter 2"
+              },
+              {
+                targetChapterId: 3,
+                teaser: "Chapter 3"
+              }
+            ]
+          }, {
+            id: 2,
+            heading: "Heading 2",
+            prose: "Prose 2",
+            nextChapterOptions: []
+          }, {
+            id: 3,
+            heading: "Heading 3",
+            prose: "Prose 3",
+            nextChapterOptions: []
+          }
+        ]
+      }
     };
     const nextState = reducer(initialState, action);
     expect(nextState).to.equal(fromJS({
@@ -70,37 +68,39 @@ describe('storytime reducer', () => {
         about: "About",
         firstChapter: 1
       },
-      chapters: [
-        {
-          1: {
-            heading: "Heading 1",
-            prose: "Prose 1"
-          }
-        }, {
-          2: {
-            heading: "Heading 2",
-            prose: "Prose 2"
-          }
-        }, {
-          3: {
-            heading: "Heading 3",
-            prose: "Prose 3"
-          }
-        }
-      ],
-      signpost: [
-        {
-          1: [
-            {
-              chapterId: 2,
-              teaser: "Chapter 2"
-            }, {
-              chapterId: 3,
-              teaser: "Chapter 3"
-            }
-          ]
-        }
-      ]
+      chapters: [],
+      signpost: []
+      //chapters: [
+      //  {
+      //    1: {
+      //      heading: "Heading 1",
+      //      prose: "Prose 1"
+      //    }
+      //  }, {
+      //    2: {
+      //      heading: "Heading 2",
+      //      prose: "Prose 2"
+      //    }
+      //  }, {
+      //    3: {
+      //      heading: "Heading 3",
+      //      prose: "Prose 3"
+      //    }
+      //  }
+      //],
+      //signpost: [
+      //  {
+      //    1: [
+      //      {
+      //        chapterId: 2,
+      //        teaser: "Chapter 2"
+      //      }, {
+      //        chapterId: 3,
+      //        teaser: "Chapter 3"
+      //      }
+      //    ]
+      //  }
+      //]
     }));
   });
 
@@ -144,5 +144,4 @@ describe('storytime reducer', () => {
     }));
   });
 
-})
-;
+});
