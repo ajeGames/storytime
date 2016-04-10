@@ -1,9 +1,12 @@
 import {Map} from 'immutable';
+import { loadStory, setAbout, setAuthor, setTagLine, setTitle } from './story_reducers';
 
 const INITIAL_STATE = Map();
 
 export default function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case 'LOAD_STORY':
+      return loadStory(state, action.story);
     case 'SET_TITLE':
       return setTitle(state, action.title);
     case 'SET_AUTHOR':
@@ -14,20 +17,4 @@ export default function reducer(state = INITIAL_STATE, action) {
       return setAbout(state, action.about);
   }
   return state;
-}
-
-export function setTitle(state, title) {
-  return state.set('title', title);
-}
-
-export function setAuthor(state, author) {
-  return state.set('author', author);
-}
-
-export function setTagLine(state, tagLine) {
-  return state.set('tagLine', tagLine);
-}
-
-export function setAbout(state, about) {
-  return state.set('about', about);
 }
