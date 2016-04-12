@@ -3,8 +3,8 @@ import StoryReducers from './story_reducers';
 
 export function loadStory(state, storyFromServer) {
   return state.set('storySummary', mapSummary(storyFromServer.summary))
-      .set('chapters', List.of())
-      .set('signpost', List.of());
+      .set('chapters', mapChapters(storyFromServer.chapters))
+      .set('signpost', mapSignpost(storyFromServer.chapters));
 }
 
 export function mapSummary(summary) {
@@ -16,7 +16,23 @@ export function mapSummary(summary) {
     about: summary.about,
     firstChapter: summary.firstChapter.targetChapterId
   });
+}
 
+export function mapChapters(chapters) {
+  let out = Map();
+  chapters.forEach(function (chapter) {
+    out = out.set(chapter.id.toString(), Map({
+      heading: chapter.heading,
+      prose: chapter.prose
+    }));
+  });
+  return out;
+}
+
+export function mapSignpost(chapters) {
+  let out = List();
+
+  return out;
 }
 
 export function setTitle(state, title) {
