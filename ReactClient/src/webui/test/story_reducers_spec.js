@@ -44,14 +44,14 @@ describe('mappers to convert story from server payload to internal state', () =>
     ]
   };
 
-  const expectedStoryMapping = Map({
+  const expectedStoryMapping = {
     key: "ABCD1234",
     title: "Title",
     author: "Author",
     tagLine: "Tag Line",
     about: "About",
     firstChapter: 1
-  });
+  };
 
   const expectedChapterMapping = {
     1: {
@@ -68,23 +68,22 @@ describe('mappers to convert story from server payload to internal state', () =>
     }
   };
 
-  const expectedSignpostMapping = fromJS({
-        1000: [
-          {
-            chapterId: 2,
-            teaser: "Teaser 1-1"
-          }, {
-            chapterId: 3,
-            teaser: "Teaser 1-2"
-          }
-        ]
+  const expectedSignpostMapping = {
+    1: [
+      {
+        chapterId: 2,
+        teaser: "Teaser 1-1"
+      }, {
+        chapterId: 3,
+        teaser: "Teaser 1-2"
       }
-  );
+    ]
+  };
 
   it('maps summary correctly', () => {
     let transformed = mapSummary(STORY_IN_SERVER_FORMAT.summary);
     expect(transformed).to.be.ok;
-    expect(transformed).to.equal(expectedStoryMapping);
+    expect(transformed).to.equal(fromJS(expectedStoryMapping));
   });
 
   it('maps chapters correctly', () => {
@@ -96,7 +95,7 @@ describe('mappers to convert story from server payload to internal state', () =>
   it('creates signpost correctly', () => {
     let transformed = mapSignpost(STORY_IN_SERVER_FORMAT.chapters);
     expect(transformed).to.be.ok;
-    expect(transformed).to.equal(expectedSignpostMapping);
+    expect(transformed).to.equal(fromJS(expectedSignpostMapping));
   });
 
   it('loads story correctly', () => {

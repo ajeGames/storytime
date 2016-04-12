@@ -30,8 +30,20 @@ export function mapChapters(chapters) {
 }
 
 export function mapSignpost(chapters) {
-  let out = List();
-
+  let out = Map();
+  let signs = List();
+  chapters.forEach(function (chapter) {
+    chapter.nextChapterOptions.forEach(function (option) {
+      if (out.get(chapter.id.toString()) === undefined) {
+        out = out.set(chapter.id.toString(), List());
+      }
+      signs = out.getIn(chapter.id.toString()).push(Map({
+        chapterId: option.targetChapterId,
+        teaser: option.teaser
+      }));
+      out = out.set(chapter.id.toString(), signs);
+    });
+  });
   return out;
 }
 
