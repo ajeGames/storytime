@@ -20,6 +20,6 @@ const summaries = List.of(
 
 export default React.createClass({
   render: function() {
-    return React.cloneElement(this.props.children, {storySummaries: undefined});
+    return React.cloneElement(this.props.children, {storySummaries: summaries});
   }
 });

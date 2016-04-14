@@ -1,7 +1,7 @@
 @import 'global-styles';
 
 body {
-  font-family: $font-stack-verdana;
+  font-family: $font-stack-trebuchet;
 }
 
 #header, #footer {
@@ -69,6 +69,7 @@ p {
 #signpost {
   ul {
     margin-left: 5em;
+    list-style: katakana-iroha;
     li {
       padding-bottom: 0.5em;
     }
