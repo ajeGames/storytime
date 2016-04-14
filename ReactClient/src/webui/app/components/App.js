@@ -1,6 +1,8 @@
 import React from 'react';
 import {List} from 'immutable';
 
+require('../../style/storytime.scss');
+
 const summaries = List.of(
   {
     key: "11111111",
