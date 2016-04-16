@@ -32,8 +32,9 @@ class Catalog extends React.Component {
           <div>
             <ul>
               {summaries.map(function (summary) {
-                return <li key={summary.key}><Link to={'/story/' + summary.key}>{summary.title}</Link>
-                  by {summary.author}<br/>{summary.tagLine}</li>
+                return <li key={summary.key}>
+                  <Link to={'/story/' + summary.key}>{summary.title}</Link> by {summary.author} - {summary.tagLine}
+                </li>
               })}
             </ul>
           </div>

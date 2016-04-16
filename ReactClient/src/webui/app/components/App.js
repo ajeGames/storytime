@@ -1,6 +1,8 @@
 import React from 'react';
 import {List} from 'immutable';
 
+require('../../style/storytime.scss');
+
 const summaries = List.of(
   {
     key: "11111111",
@@ -18,6 +20,6 @@ const summaries = List.of(
 
 export default React.createClass({
   render: function() {
-    return React.cloneElement(this.props.children, {storySummaries: undefined});
+    return React.cloneElement(this.props.children, {storySummaries: summaries});
   }
 });
