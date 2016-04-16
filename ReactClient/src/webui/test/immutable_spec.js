@@ -67,4 +67,18 @@ describe('immutability', () => {
     });
   });
 
+  describe('using keypath', () => {
+    it('works with nested maps', () => {
+      let state = Map({
+        story: Map({
+          summary: Map({
+            title: 'The Pokey Little Puppy'
+          })
+        })
+      });
+
+      expect(state.getIn(['story', 'summary', 'title'])).to.equal('The Pokey Little Puppy');
+    });
+  });
+
 });
