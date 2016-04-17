@@ -1,4 +1,4 @@
-export const STORY1 = {
+const STORY1 = {
   summary : {
     key : "o9s0toym",
     title : "The Dark Cave",
@@ -38,7 +38,7 @@ export const STORY1 = {
   ]
 };
 
-export const SAMPLE2 = {
+const SAMPLE2 = {
   summary: {
     key: "ABCD1234",
     title: "Title",
@@ -77,3 +77,5 @@ export const SAMPLE2 = {
     }
   ]
 };
+
+export default SAMPLE2;

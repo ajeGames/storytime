@@ -20,7 +20,7 @@ class Reader extends React.Component {
 
   _handleSuccess(story) {
 
-    // TODO out to refactor chapter indexing into helper method
+    // TODO push this into redux store
     let chapterIndex = new Map();
     story.chapters.forEach(chapter => {
       chapterIndex.set(chapter.id.toString(), chapter);
