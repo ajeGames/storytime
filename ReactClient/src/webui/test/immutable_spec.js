@@ -76,9 +76,16 @@ describe('immutability', () => {
           })
         })
       });
-
       expect(state.getIn(['story', 'summary', 'title'])).to.equal('The Pokey Little Puppy');
     });
+
+    it('works to create intermediate maps', () => {
+      let state = Map();
+      state = state.setIn(['my', 'fun', 'secret', 'word', 'is'], 'bubbagump');
+      state = state.setIn(['my', 'fun', 'secret', 'number', 'is'], 42);
+      expect(state.getIn(['my', 'fun', 'secret', 'word', 'is'])).to.equal('bubbagump');
+      expect(state.getIn(['my', 'fun', 'secret', 'number', 'is'])).to.equal(42);
+    })
   });
 
 });
