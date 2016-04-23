@@ -1,4 +1,4 @@
-let stateShape = {
+const stateShape = {
   story: {
     summary: {
       key: "o9s0toym",

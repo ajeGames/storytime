@@ -2,6 +2,21 @@ import {Map, List} from 'immutable';
 
 const INITIAL_STATE = Map();
 
+export const summary = (state = INITIAL_STATE, action) => {
+  switch(action.type) {
+    case 'SET_TITLE':
+      return state.set('title', action.title);
+    case 'SET_AUTHOR':
+      return state.set('author', action.author);
+    case 'SET_TAG_LINE':
+      return state.set('tagLine', action.tagLine);
+    case 'SET_ABOUT':
+      return state.set('about', action.about);
+    default:
+      return state;
+  }
+};
+
 export function loadStory(state = INITIAL_STATE, storyFromServer) {
   let stateOut = state.setIn(['story','summary'], mapSummary(storyFromServer.summary));
   stateOut = stateOut.setIn(['story','chapters'], mapChapters(storyFromServer.chapters));
@@ -48,20 +63,4 @@ export function mapSignpost(chapters) {
     });
   });
   return out;
-}
-
-export function setTitle(state, title) {
-  return state.set('title', title);
-}
-
-export function setAuthor(state, author) {
-  return state.set('author', author);
-}
-
-export function setTagLine(state, tagLine) {
-  return state.set('tagLine', tagLine);
-}
-
-export function setAbout(state, about) {
-  return state.set('about', about);
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import TitleBar from './TitleBar';
 import Chapter from './Chapter';
 import BackendAccess from './../remote/BackendAccess';
-
 
 class Reader extends React.Component {
   constructor() {
@@ -20,7 +20,6 @@ class Reader extends React.Component {
 
   _handleSuccess(story) {
 
-    // TODO push this into redux store
     let chapterIndex = new Map();
     story.chapters.forEach(chapter => {
       chapterIndex.set(chapter.id.toString(), chapter);
@@ -32,6 +31,14 @@ class Reader extends React.Component {
           chapters: chapterIndex,
           loaded: true
         });
+  }
+
+  mapStateToProps(state) {
+    return {
+      summary: state.getIn(['story', 'summary']),
+      chapters: state.getIn(['story', 'chapters']),
+      signpost: state.getIn(['story', 'signpost'])
+    }
   }
 
   render() {
