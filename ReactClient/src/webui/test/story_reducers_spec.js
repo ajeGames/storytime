@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Map, List, fromJS } from 'immutable';
-import { summary, mapSummary, mapChapters, mapSignpost, loadStory } from '../app/reducers/story_reducers';
+import { summary, chapter, mapSummary, mapChapters, mapSignpost, loadStory } from '../app/reducers/story_reducers';
 import { SAMPLE2 } from './SampleData';
 
 describe('setting summary details', () => {
@@ -14,12 +14,12 @@ describe('setting summary details', () => {
   });
 
   it('returns initial state when none given', () => {
-    const nextState = summary(undefined, { type: "BLARBY_GARBY" });
+    const nextState = summary(undefined, { type: 'BLARBY_GARBY' });
     expect(nextState).to.equal(Map());
   });
 
   it('handles unknown action', () => {
-    const nextState = summary(START_SUMMARY, { type: "BLARBY_GARBY" });
+    const nextState = summary(START_SUMMARY, { type: 'BLARBY_GARBY' });
     expect(nextState).to.equal(START_SUMMARY);
   });
 
@@ -29,35 +29,55 @@ describe('setting summary details', () => {
     expect(nextState.get('title')).to.equal('My Wild Adventure');
   });
 
-  //it('handles SET_AUTHOR', () => {
-  //  const initialState = Map();
-  //  const action = {type: 'SET_AUTHOR', author: 'Mark Twain'};
-  //  const nextState = reducer(initialState, action);
-  //
-  //  expect(nextState).to.equal(fromJS({
-  //    author: 'Mark Twain'
-  //  }));
-  //});
-  //
-  //it('handles SET_TAG_LINE', () => {
-  //  const initialState = Map();
-  //  const action = {type: 'SET_TAG_LINE', tagLine: 'What troubles lie ahead.'};
-  //  const nextState = reducer(initialState, action);
-  //
-  //  expect(nextState).to.equal(fromJS({
-  //    tagLine: 'What troubles lie ahead.'
-  //  }));
-  //});
-  //
-  //it('handles SET_ABOUT', () => {
-  //  const initialState = Map();
-  //  const action = {type: 'SET_ABOUT', about: 'About this story...'};
-  //  const nextState = reducer(initialState, action);
-  //
-  //  expect(nextState).to.equal(fromJS({
-  //    about: 'About this story...'
-  //  }));
-  //});
+  it('handles SET_AUTHOR', () => {
+    const action = {type: 'SET_AUTHOR', author: 'Mark Twain'};
+    const nextState = summary(START_SUMMARY, action);
+    expect(nextState.get('author')).to.equal('Mark Twain');
+  });
+
+  it('handles SET_TAG_LINE', () => {
+    const action = {type: 'SET_TAG_LINE', tagLine: 'What troubles lie ahead.'};
+    const nextState = summary(START_SUMMARY, action);
+    expect(nextState.get('tagLine')).to.equal('What troubles lie ahead.');
+  });
+
+  it('handles SET_ABOUT', () => {
+    const action = {type: 'SET_ABOUT', about: 'About this story...'};
+    const nextState = summary(START_SUMMARY, action);
+    expect(nextState.get('about')).to.equal('About this story...');
+  });
+
+});
+
+describe('setting chapter details', () => {
+
+  const CHAPTER = Map({
+    id: 1000,
+    heading: 'heading in',
+    prose: 'prose in.'
+  });
+
+  it('return initial state when none given', () => {
+    const nextState = chapter(undefined, { type: 'BLARBY_GARBY' });
+    expect(nextState).to.equal(Map());
+  });
+
+  it('handles unknown action', () => {
+    const nextState = chapter(CHAPTER, { type: 'BLARBY_GARBY' });
+    expect(nextState).to.equal(CHAPTER);
+  });
+
+  it('handles SET_HEADING', () => {
+    const action = {type: 'SET_HEADING', heading: 'A New Beginning'};
+    const nextState = chapter(CHAPTER, action);
+    expect(nextState.get('heading')).to.equal('A New Beginning');
+  })
+
+  it('handles SET_PROSE', () => {
+    const action = {type: 'SET_PROSE', prose: 'It started out as any summer does.'};
+    const nextState = chapter(CHAPTER, action);
+    expect(nextState.get('prose')).to.equal('It started out as any summer does.');
+  })
 
 });
 

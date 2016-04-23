@@ -17,6 +17,21 @@ export const summary = (state = INITIAL_STATE, action) => {
   }
 };
 
+export const chapter = (state = INITIAL_STATE, action) => {
+  switch(action.type) {
+    case 'SET_HEADING':
+      return state.set('heading', action.heading);
+    case 'SET_PROSE':
+      return state.set('prose', action.prose);
+    default:
+      return state;
+  }
+};
+
+export const draft = (state = INITIAL_STATE, action) => {
+
+};
+
 export function loadStory(state = INITIAL_STATE, storyFromServer) {
   let stateOut = state.setIn(['story','summary'], mapSummary(storyFromServer.summary));
   stateOut = stateOut.setIn(['story','chapters'], mapChapters(storyFromServer.chapters));
