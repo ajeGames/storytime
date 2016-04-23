@@ -1,38 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, hashHistory} from 'react-router';
+import { Router, Route, hashHistory } from 'react-router';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers/reducers';
 import App from './components/App';
-import Catalog from './components/Catalog';
 import Home from './components/Home';
+import Catalog from './components/Catalog';
 import Reader from './components/reader/Reader';
 import Editor from './components/editor/Editor';
+import { SAMPLE2 } from '../test/SampleData';  // TODO remove this reference -- should come out once story is loaded from server
+
+const store = createStore(reducer);
+store.dispatch({
+  type: 'LOAD_STORY',
+  payload: SAMPLE2
+});
 
 const routes = <Route component={App}>
-  <Route path="/" component={Catalog}/>
-  <Route path="/hello" component={Home}/>
+  <Route path="/" component={Catalog} />
+  <Route path="/hello" component={Home} />
   <Route path="/story" component={Reader}>
     <Route path=":storyKey" component={Reader}>
-      <Route path=":chapterId" component={Reader}/>
+      <Route path=":chapterId" component={Reader} />
     </Route>
   </Route>
-  <Route path="/editor" component={Editor}/>
+  <Route path="/editor" component={Editor} />
 </Route>;
 
 ReactDOM.render(
-    <Router history={hashHistory}>{routes}</Router>,
+    <Provider store={store}>
+      <Router history={hashHistory}>{routes}</Router>
+    </Provider>,
     document.getElementById('app')
 );
-
-//render((
-//    <Router>
-//      <Route path="/" component={App}>
-//        <IndexRoute component={Catalog} />
-//        <Route path="/reader" component={Reader}>
-//          <Route path=":storyKey" component={Reader}>
-//            <Route path=":chapterId" component={Reader} />
-//          </Route>
-//        </Route>
-//        <Route path="/editor" component={Editor} />
-//      </Route>
-//    </Router>
-//), document.getElementById('app'));

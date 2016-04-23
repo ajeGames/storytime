@@ -38,5 +38,44 @@ const STORY1 = {
   ]
 };
 
-export default STORY1;
+const SAMPLE2 = {
+  summary: {
+    key: "ABCD1234",
+    title: "Title",
+    author: "Author",
+    tagLine: "Tag Line",
+    about: "About",
+    firstChapter: {
+      targetChapterId: 1,
+      teaser: "Teaser"
+    }
+  },
+  chapters: [
+    {
+      id: 1,
+      heading: "Heading 1",
+      prose: "Prose 1",
+      nextChapterOptions: [
+        {
+          targetChapterId: 2,
+          teaser: "Teaser 1-1"
+        }, {
+          targetChapterId: 3,
+          teaser: "Teaser 1-2"
+        }
+      ]
+    }, {
+      id: 2,
+      heading: "Heading 2",
+      prose: "Prose 2",
+      nextChapterOptions: []
+    }, {
+      id: 3,
+      heading: "Heading 3",
+      prose: "Prose 3",
+      nextChapterOptions: []
+    }
+  ]
+};
 
+export default SAMPLE2;
