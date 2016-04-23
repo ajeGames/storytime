@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Map, List, fromJS } from 'immutable';
-import { summary, chapter, mapSummary, mapChapters, mapSignpost, loadStory } from '../app/reducers/story_reducers';
+import { summary, chapter, draft, mapSummary, mapChapters, mapSignpost, loadStory } from '../app/reducers/story_reducers';
 import { SAMPLE2 } from './SampleData';
 
 describe('setting summary details', () => {
@@ -51,7 +51,7 @@ describe('setting summary details', () => {
 
 describe('setting chapter details', () => {
 
-  const CHAPTER = Map({
+  const START_CHAPTER = Map({
     id: 1000,
     heading: 'heading in',
     prose: 'prose in.'
@@ -63,22 +63,31 @@ describe('setting chapter details', () => {
   });
 
   it('handles unknown action', () => {
-    const nextState = chapter(CHAPTER, { type: 'BLARBY_GARBY' });
-    expect(nextState).to.equal(CHAPTER);
+    const nextState = chapter(START_CHAPTER, { type: 'BLARBY_GARBY' });
+    expect(nextState).to.equal(START_CHAPTER);
   });
 
   it('handles SET_HEADING', () => {
     const action = {type: 'SET_HEADING', heading: 'A New Beginning'};
-    const nextState = chapter(CHAPTER, action);
+    const nextState = chapter(START_CHAPTER, action);
     expect(nextState.get('heading')).to.equal('A New Beginning');
-  })
+    expect(nextState.get('id')).to.equal(START_CHAPTER.get('id'));
+    expect(nextState.get('prose')).to.equal(START_CHAPTER.get('prose'));
+  });
 
   it('handles SET_PROSE', () => {
     const action = {type: 'SET_PROSE', prose: 'It started out as any summer does.'};
-    const nextState = chapter(CHAPTER, action);
+    const nextState = chapter(START_CHAPTER, action);
     expect(nextState.get('prose')).to.equal('It started out as any summer does.');
-  })
+    expect(nextState.get('id')).to.equal(START_CHAPTER.get('id'));
+    expect(nextState.get('heading')).to.equal(START_CHAPTER.get('heading'));
+  });
 
+  it('handles ADD_SIGN', () => {
+    const action = {type: 'ADD_SIGN', teaser: 'Next chapter'};
+    const nextState = chapter(START_CHAPTER, action);
+    expect(nextState.getIn(['signPost', 0, 'teaser'])).to.equal('Next chapter');
+  });
 });
 
 //describe('mappers to convert story from server payload to internal state', () => {

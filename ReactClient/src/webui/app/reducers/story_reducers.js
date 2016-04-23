@@ -1,4 +1,4 @@
-import {Map, List} from 'immutable';
+import { Map, List } from 'immutable';
 
 const INITIAL_STATE = Map();
 
@@ -23,14 +23,26 @@ export const chapter = (state = INITIAL_STATE, action) => {
       return state.set('heading', action.heading);
     case 'SET_PROSE':
       return state.set('prose', action.prose);
+    case 'ADD_SIGN':
+      return addSign(state);
     default:
       return state;
   }
 };
 
-export const draft = (state = INITIAL_STATE, action) => {
-
+const addSign = (state) => {
+  return state;
 };
+
+export const draft = (state = INITIAL_STATE, action) => {
+  return Map({
+    summary: summary(state.get('summary'), action),
+    chapter: chapter(state.get('chapter'), action)
+  });
+};
+
+
+// TODO LOAD_STORY, CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER, EDIT_CHAPTER, EDIT_SUMMARY, ADD_SIGN
 
 export function loadStory(state = INITIAL_STATE, storyFromServer) {
   let stateOut = state.setIn(['story','summary'], mapSummary(storyFromServer.summary));
