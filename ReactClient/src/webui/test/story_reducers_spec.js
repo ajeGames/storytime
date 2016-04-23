@@ -1,9 +1,8 @@
 import { expect } from 'chai';
 import { Map, List, fromJS } from 'immutable';
-import { summary, chapter, draft, mapSummary, mapChapters, mapSignpost, loadStory } from '../app/reducers/story_reducers';
-import { SAMPLE2 } from './SampleData';
+import { summary, chapter, draft } from '../app/reducers/story_reducers';
 
-describe('setting summary details', () => {
+describe('summary details', () => {
 
   const START_SUMMARY = Map({
     key: 'BLARGY',
@@ -49,12 +48,12 @@ describe('setting summary details', () => {
 
 });
 
-describe('setting chapter details', () => {
+describe('chapter details', () => {
 
   const START_CHAPTER = Map({
     id: 1000,
     heading: 'heading in',
-    prose: 'prose in.'
+    prose: 'prose in'
   });
 
   it('return initial state when none given', () => {
@@ -84,74 +83,16 @@ describe('setting chapter details', () => {
   });
 
   it('handles ADD_SIGN', () => {
-    const action = {type: 'ADD_SIGN', teaser: 'Next chapter'};
-    const nextState = chapter(START_CHAPTER, action);
+    let action = {type: 'ADD_SIGN', nextChapterId: 1001, teaser: 'Next chapter'};
+    let nextState = chapter(START_CHAPTER, action);
+    expect(nextState.getIn(['signPost', 0, 'nextChapterId'])).to.equal(1001);
     expect(nextState.getIn(['signPost', 0, 'teaser'])).to.equal('Next chapter');
-  });
-});
 
-//describe('mappers to convert story from server payload to internal state', () => {
-//
-//  const expectedSummaryMapping = fromJS({
-//    key: "ABCD1234",
-//    title: "Title",
-//    author: "Author",
-//    tagLine: "Tag Line",
-//    about: "About",
-//    firstChapter: 1
-//  });
-//
-//  const expectedChapterMapping = fromJS({
-//    1: {
-//      heading: "Heading 1",
-//      prose: "Prose 1"
-//    },
-//    2: {
-//      heading: "Heading 2",
-//      prose: "Prose 2"
-//    },
-//    3: {
-//      heading: "Heading 3",
-//      prose: "Prose 3"
-//    }
-//  });
-//
-//  const expectedSignpostMapping = fromJS({
-//    1: [
-//      {
-//        chapterId: 2,
-//        teaser: "Teaser 1-1"
-//      }, {
-//        chapterId: 3,
-//        teaser: "Teaser 1-2"
-//      }
-//    ]
-//  });
-//
-//  it('maps summary correctly', () => {
-//    let transformed = mapSummary(SAMPLE2.summary);
-//    expect(transformed).to.be.ok;
-//    expect(transformed).to.equal(expectedSummaryMapping);
-//  });
-//
-//  it('maps chapters correctly', () => {
-//    let transformed = mapChapters(SAMPLE2.chapters);
-//    expect(transformed).to.be.ok;
-//    expect(transformed).to.equal(expectedChapterMapping);
-//  });
-//
-//  it('creates signpost correctly', () => {
-//    let transformed = mapSignpost(SAMPLE2.chapters);
-//    expect(transformed).to.be.ok;
-//    expect(transformed).to.equal(expectedSignpostMapping);
-//  });
-//
-//  it('loads story correctly', () => {
-//    let transformed = loadStory(undefined, SAMPLE2);
-//    expect(transformed).to.be.ok;
-//    console.log(transformed);
-//    expect(transformed.getIn(['story', 'summary'])).to.equal(expectedSummaryMapping);
-//    expect(transformed.getIn(['story', 'chapters'])).to.equal(expectedChapterMapping);
-//    expect(transformed.getIn(['story', 'signpost'])).to.equal(expectedSignpostMapping);
-//  });
-//});
+    action = {type: 'ADD_SIGN', nextChapterId: 1002, teaser: 'Another choice'};
+    nextState = chapter(nextState, action);
+    expect(nextState.getIn(['signPost', 1, 'nextChapterId'])).to.equal(1002);
+    expect(nextState.getIn(['signPost', 1, 'teaser'])).to.equal('Another choice');
+  });
+
+
+});

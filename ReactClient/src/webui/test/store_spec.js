@@ -3,13 +3,13 @@ import { expect } from 'chai';
 
 import { store } from '../app/store';
 
-describe('StoryTime Redux Store', () => {
+describe('redux store', () => {
 
   let callback = false;
 
   // make sure setup is correct
   store.subscribe(() => {
-    console.log(store.getState());
+    //console.log(store.getState());
     callback = true;
   });
 

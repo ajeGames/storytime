@@ -2,6 +2,24 @@ import { Map, List } from 'immutable';
 
 const INITIAL_STATE = Map();
 
+export const story = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case 'LOAD_STORY':
+      return loadStory(action.storyFromServer);
+    default:
+      return state;
+  }
+};
+
+const loadStory = (storyFromServer) => {
+  let stateOut = state.setIn(['story','summary'], mapSummary(storyFromServer.summary));
+  stateOut = stateOut.setIn(['story','chapters'], mapChapters(storyFromServer.chapters));
+  stateOut = stateOut.setIn(['story', 'signpost'], mapSignpost(storyFromServer.chapters));
+  console.log('new state == ' + stateOut);
+  return stateOut;
+}
+
+
 export const summary = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case 'SET_TITLE':
@@ -24,14 +42,14 @@ export const chapter = (state = INITIAL_STATE, action) => {
     case 'SET_PROSE':
       return state.set('prose', action.prose);
     case 'ADD_SIGN':
-      return addSign(state);
+      return state.set('signPost', addSign(state.get('signPost'), action.nextChapterId, action.teaser));
     default:
       return state;
   }
 };
 
-const addSign = (state) => {
-  return state;
+const addSign = (signPost = List(), nextChapterId, teaser) => {
+  return signPost.push(Map({nextChapterId: nextChapterId, teaser: teaser}));
 };
 
 export const draft = (state = INITIAL_STATE, action) => {
@@ -44,50 +62,3 @@ export const draft = (state = INITIAL_STATE, action) => {
 
 // TODO LOAD_STORY, CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER, EDIT_CHAPTER, EDIT_SUMMARY, ADD_SIGN
 
-export function loadStory(state = INITIAL_STATE, storyFromServer) {
-  let stateOut = state.setIn(['story','summary'], mapSummary(storyFromServer.summary));
-  stateOut = stateOut.setIn(['story','chapters'], mapChapters(storyFromServer.chapters));
-  stateOut = stateOut.setIn(['story', 'signpost'], mapSignpost(storyFromServer.chapters));
-  console.log('new state == ' + stateOut);
-  return stateOut;
-}
-
-export function mapSummary(summary) {
-  return Map({
-    key: summary.key,
-    title: summary.title,
-    author: summary.author,
-    tagLine: summary.tagLine,
-    about: summary.about,
-    firstChapter: summary.firstChapter.targetChapterId
-  });
-}
-
-export function mapChapters(chapters) {
-  let out = Map();
-  chapters.forEach(function (chapter) {
-    out = out.set(chapter.id.toString(), Map({
-      heading: chapter.heading,
-      prose: chapter.prose
-    }));
-  });
-  return out;
-}
-
-export function mapSignpost(chapters) {
-  let out = Map();
-  let signs = List();
-  chapters.forEach(function (chapter) {
-    chapter.nextChapterOptions.forEach(function (option) {
-      if (out.get(chapter.id.toString()) === undefined) {
-        out = out.set(chapter.id.toString(), List());
-      }
-      signs = out.getIn(chapter.id.toString()).push(Map({
-        chapterId: option.targetChapterId,
-        teaser: option.teaser
-      }));
-      out = out.set(chapter.id.toString(), signs);
-    });
-  });
-  return out;
-}
