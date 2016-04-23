@@ -1,4 +1,4 @@
-import {Map, List} from 'immutable';
+import { Map, List } from 'immutable';
 
 const INITIAL_STATE = Map();
 
@@ -29,7 +29,10 @@ export const chapter = (state = INITIAL_STATE, action) => {
 };
 
 export const draft = (state = INITIAL_STATE, action) => {
-
+  return Map({
+    summary: summary(state.get('summary'), action),
+    chapter: chapter(state.get('chapter'), action)
+  });
 };
 
 export function loadStory(state = INITIAL_STATE, storyFromServer) {

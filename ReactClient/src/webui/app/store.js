@@ -1,6 +1,5 @@
-import {createStore} from 'redux';
-import reducer from './reducers/reducers';
+import { createStore } from 'redux';
+import { draft } from './reducers/story_reducers';
 
-export default function makeStore() {
-  return createStore(reducer);
-}
+export const store = createStore( draft );
+
