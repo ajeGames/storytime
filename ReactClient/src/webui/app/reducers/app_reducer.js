@@ -10,8 +10,15 @@ export const reduce = (state = INITIAL_STATE, action) => {
       out = clearDraft(state);
       return out.set('story', mapStory(action.story));
     case 'EDIT_SUMMARY':
-      return state.set('draft', Map({ summary: state.getIn(['story', 'summary'])}));
-    //case 'EDIT_CHAPTER':
+      return state.set('draft', Map({summary: state.getIn(['story', 'summary'])}));
+    case 'EDIT_CHAPTER':
+      const chapter = state.getIn(['story', 'chapters', action.chapterId.toString()]);
+      if (chapter !== undefined) {
+        return state.setIn(['draft', 'chapter'], chapter);
+      } else {
+        console.log('Chapter not found: ' + action.chapterId);
+        return state;
+      }
     default:
       return state;
   }
@@ -21,6 +28,6 @@ const clearDraft = (state) => {
   return state.delete('draft');
 };
 
-// TODO CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER, EDIT_CHAPTER, EDIT_SUMMARY
+// TODO CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER
 
 
