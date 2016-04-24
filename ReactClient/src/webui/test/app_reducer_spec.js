@@ -47,8 +47,7 @@ describe('app reducer', () => {
 
   it('places chapter in edit mode', () => {
     const initState = loadSampleStory();
-    const chapterIdToEdit = 1;  // TODO initState.getIn(['story', 'chapters', 0, 'id']);
-    console.log('chapter to edit: ' + initState.getIn(['story', 'chapters', '1']));
+    const chapterIdToEdit = 1;
     const action = {
       type: 'EDIT_CHAPTER',
       chapterId: chapterIdToEdit

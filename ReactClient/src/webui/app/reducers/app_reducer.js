@@ -1,6 +1,8 @@
 import { Map } from 'immutable';
 import { mapStory } from './backend_payload_converter';
 
+// TODO CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER
+
 const INITIAL_STATE = Map();
 
 export const reduce = (state = INITIAL_STATE, action) => {
@@ -27,7 +29,3 @@ export const reduce = (state = INITIAL_STATE, action) => {
 const clearDraft = (state) => {
   return state.delete('draft');
 };
-
-// TODO CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER
-
-
