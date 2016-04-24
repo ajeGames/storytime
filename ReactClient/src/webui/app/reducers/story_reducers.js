@@ -2,16 +2,6 @@ import { Map, List } from 'immutable';
 
 const INITIAL_STATE = Map();
 
-export const story = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case 'LOAD_STORY':
-      return loadStory(action.storyFromServer);
-    default:
-      return state;
-  }
-};
-
-
 export const summary = (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case 'SET_TITLE':
@@ -52,5 +42,4 @@ export const draft = (state = INITIAL_STATE, action) => {
 };
 
 
-// TODO LOAD_STORY, CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER, EDIT_CHAPTER, EDIT_SUMMARY
 

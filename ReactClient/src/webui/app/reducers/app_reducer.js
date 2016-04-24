@@ -4,13 +4,23 @@ import { mapStory } from './backend_payload_converter';
 const INITIAL_STATE = Map();
 
 export const reduce = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  let out;
+  switch (action.type) {
     case 'LOAD_STORY':
-      return state.set('story', mapStory(action.story));
-    //case 'CLEAR_DRAFT':
-    //  return state.delete('draft');
+      out = clearDraft(state);
+      return out.set('story', mapStory(action.story));
+    case 'EDIT_SUMMARY':
+      return state.set('draft', Map({ summary: state.getIn(['story', 'summary'])}));
+    //case 'EDIT_CHAPTER':
     default:
       return state;
   }
 };
+
+const clearDraft = (state) => {
+  return state.delete('draft');
+};
+
+// TODO CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER, EDIT_CHAPTER, EDIT_SUMMARY
+
 

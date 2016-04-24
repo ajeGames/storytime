@@ -52,7 +52,6 @@ describe('mappers to convert story from server payload to internal state', () =>
 
   it('loads story correctly', () => {
     let transformed = mapStory(SAMPLE2);
-    console.log(transformed);
     expect(transformed).to.be.ok;
     expect(transformed.get('summary')).to.equal(expectedSummaryMapping);
     expect(transformed.get('chapters')).to.equal(expectedChapterMapping);
