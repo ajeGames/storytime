@@ -11,14 +11,6 @@ export const story = (state = INITIAL_STATE, action) => {
   }
 };
 
-const loadStory = (storyFromServer) => {
-  let stateOut = state.setIn(['story','summary'], mapSummary(storyFromServer.summary));
-  stateOut = stateOut.setIn(['story','chapters'], mapChapters(storyFromServer.chapters));
-  stateOut = stateOut.setIn(['story', 'signpost'], mapSignpost(storyFromServer.chapters));
-  console.log('new state == ' + stateOut);
-  return stateOut;
-}
-
 
 export const summary = (state = INITIAL_STATE, action) => {
   switch(action.type) {
@@ -60,5 +52,5 @@ export const draft = (state = INITIAL_STATE, action) => {
 };
 
 
-// TODO LOAD_STORY, CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER, EDIT_CHAPTER, EDIT_SUMMARY, ADD_SIGN
+// TODO LOAD_STORY, CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER, EDIT_CHAPTER, EDIT_SUMMARY
 

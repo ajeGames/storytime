@@ -17,7 +17,16 @@ describe('mappers to convert story from server payload to internal state', () =>
   const expectedChapterMapping = fromJS({
     1: {
       heading: "Heading 1",
-      prose: "Prose 1"
+      prose: "Prose 1",
+      signPost: [
+        {
+          chapterId: 2,
+          teaser: "Teaser 1-1"
+        }, {
+          chapterId: 3,
+          teaser: "Teaser 1-2"
+        }
+      ]
     },
     2: {
       heading: "Heading 2",
@@ -27,18 +36,6 @@ describe('mappers to convert story from server payload to internal state', () =>
       heading: "Heading 3",
       prose: "Prose 3"
     }
-  });
-
-  const expectedSignpostMapping = fromJS({
-    1: [
-      {
-        chapterId: 2,
-        teaser: "Teaser 1-1"
-      }, {
-        chapterId: 3,
-        teaser: "Teaser 1-2"
-      }
-    ]
   });
 
   it('maps summary correctly', () => {
@@ -53,18 +50,11 @@ describe('mappers to convert story from server payload to internal state', () =>
     expect(transformed).to.equal(expectedChapterMapping);
   });
 
-  it('creates signpost correctly', () => {
-    let transformed = mapSignpost(SAMPLE2.chapters);
-    expect(transformed).to.be.ok;
-    expect(transformed).to.equal(expectedSignpostMapping);
-  });
-
   it('loads story correctly', () => {
-    let transformed = loadStory(undefined, SAMPLE2);
-    expect(transformed).to.be.ok;
+    let transformed = loadStory(SAMPLE2);
     console.log(transformed);
-    expect(transformed.getIn(['story', 'summary'])).to.equal(expectedSummaryMapping);
-    expect(transformed.getIn(['story', 'chapters'])).to.equal(expectedChapterMapping);
-    expect(transformed.getIn(['story', 'signpost'])).to.equal(expectedSignpostMapping);
+    expect(transformed).to.be.ok;
+    expect(transformed.get('summary')).to.equal(expectedSummaryMapping);
+    expect(transformed.get('chapters')).to.equal(expectedChapterMapping);
   });
 });

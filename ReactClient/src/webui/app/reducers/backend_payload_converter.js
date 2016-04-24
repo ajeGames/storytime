@@ -1,6 +1,11 @@
 import { Map, List } from 'immutable';
 
-const INITIAL_STATE = Map();
+export const loadStory = (storyFromServer) => {
+  return Map({
+    summary: mapSummary(storyFromServer.summary),
+    chapters: mapChapters(storyFromServer.chapters)
+  });
+};
 
 export function mapSummary(summary) {
   return Map({
@@ -20,24 +25,20 @@ export function mapChapters(chapters) {
       heading: chapter.heading,
       prose: chapter.prose
     }));
+    if (chapter.nextChapterOptions && chapter.nextChapterOptions.length > 0) {
+      out = out.setIn([chapter.id.toString(), "signPost"], mapSignpost(chapter.nextChapterOptions));
+    }
   });
   return out;
 }
 
-export function mapSignpost(chapters) {
-  let out = Map();
+function mapSignpost(options) {
   let signs = List();
-  chapters.forEach(function (chapter) {
-    chapter.nextChapterOptions.forEach(function (option) {
-      if (out.get(chapter.id.toString()) === undefined) {
-        out = out.set(chapter.id.toString(), List());
-      }
-      signs = out.getIn(chapter.id.toString()).push(Map({
-        chapterId: option.targetChapterId,
-        teaser: option.teaser
-      }));
-      out = out.set(chapter.id.toString(), signs);
-    });
+  options.forEach((option) => {
+    signs = signs.push(Map({
+      chapterId: option.targetChapterId,
+      teaser: option.teaser
+    }));
   });
-  return out;
+  return signs;
 }
