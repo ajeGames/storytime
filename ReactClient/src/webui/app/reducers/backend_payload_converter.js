@@ -1,6 +1,6 @@
 import { Map, List } from 'immutable';
 
-export const loadStory = (storyFromServer) => {
+export const mapStory = (storyFromServer) => {
   return Map({
     summary: mapSummary(storyFromServer.summary),
     chapters: mapChapters(storyFromServer.chapters)

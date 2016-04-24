@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Map, List, fromJS } from 'immutable';
-import { loadStory, mapSummary, mapChapters, mapSignpost } from '../app/reducers/backend_payload_converter';
+import { fromJS } from 'immutable';
+import { mapStory, mapSummary, mapChapters } from '../app/reducers/backend_payload_converter';
 import { SAMPLE2 } from './SampleData';
 
 describe('mappers to convert story from server payload to internal state', () => {
@@ -51,7 +51,7 @@ describe('mappers to convert story from server payload to internal state', () =>
   });
 
   it('loads story correctly', () => {
-    let transformed = loadStory(SAMPLE2);
+    let transformed = mapStory(SAMPLE2);
     console.log(transformed);
     expect(transformed).to.be.ok;
     expect(transformed.get('summary')).to.equal(expectedSummaryMapping);
