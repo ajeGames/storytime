@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { draft } from './reducers/story_reducers';
+import { reduce } from './reducers/app_reducer';
 
-export const store = createStore( draft );
+export const store = createStore( reduce );
 

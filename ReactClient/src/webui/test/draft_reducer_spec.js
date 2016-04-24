@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Map, List, fromJS } from 'immutable';
-import { summary, chapter, draft } from '../app/reducers/story_reducers';
+import { summary, chapter, draft } from '../app/reducers/draft_reducer';
 
 describe('summary details', () => {
 
