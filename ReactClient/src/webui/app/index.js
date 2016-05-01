@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './reducers/reducers';
+import reducer from './reducers/app_reducer';
 import App from './components/App';
 import Home from './components/Home';
 import Catalog from './components/Catalog';

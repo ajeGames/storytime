@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const Header = ( { heading } ) => (
-    <div id="masthead" className="frame">
-      <h1>{heading}</h1>
-    </div>
-)
-
-export default Header
+export default class Header extends React.Component {
+  render() {
+    return (
+        <div id="masthead" className="cyod_header">
+          <h1>{heading}</h1>
+        </div>
+    );
+  }
+}
