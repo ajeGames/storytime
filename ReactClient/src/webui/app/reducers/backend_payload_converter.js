@@ -3,7 +3,8 @@ import { Map, List } from 'immutable';
 export const mapStory = (storyFromServer) => {
   return Map({
     summary: mapSummary(storyFromServer.summary),
-    chapters: mapChapters(storyFromServer.chapters)
+    chapters: mapChapters(storyFromServer.chapters),
+    openChapter: storyFromServer.summary.firstChapter
   });
 };
 

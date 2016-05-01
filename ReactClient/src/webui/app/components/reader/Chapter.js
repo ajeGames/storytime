@@ -3,15 +3,13 @@ import DecisionPoint from './DecisionPoint'
 
 class Chapter extends React.Component {
   render() {
-    let chapter = this.props.chapter;
-
     return (
         <div id="chapter" className="section">
-          <div className="chapter_title">{chapter.heading}</div>
+          <div className="chapter_title">{this.props.chapter.heading}</div>
           <div id="prose">
-            {chapter.prose}
+            {this.props.chapter.prose}
           </div>
-          <DecisionPoint storyKey={this.props.storyKey} nextOptions={chapter.nextChapterOptions} />
+          <DecisionPoint storyKey={this.props.storyKey} nextOptions={this.props.chapter.signPost} />
         </div>
     );
   };

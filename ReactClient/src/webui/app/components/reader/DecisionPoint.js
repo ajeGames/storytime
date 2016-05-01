@@ -26,7 +26,7 @@ class DecisionPoint extends React.Component {
                 <h3>Choose what to do next</h3>
                 <ul>
                     {options.map(function(option) {
-                        return <Sign key={option.targetChapterId} storyKey={storyKey} option={option} />;
+                        return <Sign key={option.chapterId} storyKey={storyKey} option={option} />;
                     })}
                 </ul>
                 {theEndOptions}
