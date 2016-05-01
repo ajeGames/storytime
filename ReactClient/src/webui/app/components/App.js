@@ -1,7 +1,7 @@
 import React from 'react';
 import {List} from 'immutable';
 
-require('../../style/storytime.scss');
+require('../styles/main.scss');
 
 const summaries = List.of(
   {
