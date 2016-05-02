@@ -2,11 +2,9 @@ import { Map } from 'immutable';
 import { mapStory } from './backend_payload_converter';
 import { draft } from './draft_reducer';
 
-// TODO CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER
-
 const INITIAL_STATE = Map();
 
-export default reducer = function(state = INITIAL_STATE, action) {
+export default function(state = INITIAL_STATE, action) {
   let out;
   switch (action.type) {
     case 'LOAD_STORY':
@@ -33,4 +31,4 @@ export default reducer = function(state = INITIAL_STATE, action) {
     default:
       return state;
   }
-};
+}
