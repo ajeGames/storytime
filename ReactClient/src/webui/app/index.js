@@ -8,7 +8,7 @@ import App from './components/App';
 import Home from './components/Home';
 import Catalog from './components/Catalog';
 import { ReaderContainer } from './components/reader/Reader';
-import Editor from './components/editor/Editor';
+import { EditorContainer } from './components/editor/Editor';
 import { SAMPLE2 } from '../test/SampleData';  // TODO remove this reference -- should come out once story is loaded from server
 
 const store = createStore(reducer);
@@ -16,16 +16,14 @@ store.dispatch({
   type: 'LOAD_STORY',
   story: SAMPLE2
 });
+store.dispatch({
+  type: 'EDIT_SUMMARY'
+});
 
 const routes = <Route component={App}>
-  <Route path="/" component={Catalog} />
-  <Route path="/hello" component={Home} />
-  <Route path="/story" component={ReaderContainer}>
-    <Route path=":storyKey" component={ReaderContainer}>
-      <Route path=":chapterId" component={ReaderContainer} />
-    </Route>
-  </Route>
-  <Route path="/editor" component={Editor} />
+  <Route path="/" component={Home} />
+  <Route path="/catalog" component={Catalog} />
+  <Route path="/editor" component={EditorContainer} />
 </Route>;
 
 ReactDOM.render(
@@ -34,3 +32,12 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('app')
 );
+
+
+/*
+ <Route path="/story" component={ReaderContainer}>
+ <Route path=":storyKey" component={ReaderContainer}>
+ <Route path=":chapterId" component={ReaderContainer} />
+ </Route>
+ </Route>
+*/

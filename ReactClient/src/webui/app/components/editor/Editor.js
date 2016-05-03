@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import StorySummaryEditor from './StorySummaryEditor';
 
 /*
@@ -21,20 +22,21 @@ import StorySummaryEditor from './StorySummaryEditor';
  <ChapterEditor />
  */
 
-class Editor extends React.Component {
-
-  constructor() {
-    super();
-  }
-
-  render() {
+export const Editor = React.createClass({
+  render: function() {
     return (
         <div id="editor">
           <h2>Create Your Story</h2>
-          <StorySummaryEditor />
+          <StorySummaryEditor summary={this.props.draftSummary}/>
         </div>
     );
   }
+});
+
+function mapStateToProps(state) {
+  return {
+    draftSummary: state.getIn(['draft', 'summary'])
+  }
 }
 
-export default Editor;
+export const EditorContainer = connect(mapStateToProps)(Editor);

@@ -2,10 +2,13 @@ import { Map } from 'immutable';
 import { mapStory } from './backend_payload_converter';
 import { draft } from './draft_reducer';
 
+// TODO CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER
+
 const INITIAL_STATE = Map();
 
 export default function(state = INITIAL_STATE, action) {
   let out;
+  console.log('Action: ' + action.type);
   switch (action.type) {
     case 'LOAD_STORY':
       out = state.delete('draft');
