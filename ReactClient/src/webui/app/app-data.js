@@ -4,6 +4,26 @@ const stateShape = {
     screenName: "Sir Walter Raleigh",
     penName: "Bubba Gump"
   },
+  catalog: {
+    searchResults: [
+      {
+        key: "11111111",
+        title: "Story 1",
+        author: "Bubba Gump 1",
+        tagLine: "Read me 1"
+      }, {
+        key: "22222222",
+        title: "Story 2",
+        author: "Bubba Gump 2",
+        tagLine: "Read me 2"
+      }, {
+        key: "o9s0toym",
+        title: "The Cave",
+        author: "Bubba Gump",
+        tagLine: "What lies beneath"
+      }
+    ]
+  },
   story: {
     summary: {
       key: "o9s0toym",
@@ -13,6 +33,7 @@ const stateShape = {
       about: "See where your choices lead.  You can choose your own destiny, but can you escape fate?",
       firstChapter: 1000
     },
+    openChapter: 1001,
     chapters: {
       1000: {
         id: 1000,
