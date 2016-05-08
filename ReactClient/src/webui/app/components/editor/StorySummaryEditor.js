@@ -5,9 +5,7 @@ export default class StorySummaryEditor extends React.Component {
   render() {
     return (
         <div>
-          <h3>StorySummaryEditor</h3>
           <div className="section">
-            <div>Key: {this.props.summary.key}</div>
             <div>Title: {this.props.summary.title}</div>
             <div>
               <label>Title:

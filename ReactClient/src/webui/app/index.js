@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers/reducer';
@@ -24,9 +24,11 @@ store.dispatch({
 ReactDOM.render((
     <Provider store={store}>
       <Router history={hashHistory}>
-        <Route component={BasicLayout}>
-          <Route path="/" component={Home} />
+        <Route path="/" component={BasicLayout}>
+          <IndexRoute component={Home} />
+          <Route path="library" component={Catalog} />
           <Route path="editor" component={EditorContainer} />
+          <Route path="story" component={ReaderContainer} />
         </Route>
       </Router>
     </Provider>
@@ -49,9 +51,6 @@ ReactDOM.render((
 
 
 /*
- <Route path="/story" component={ReaderContainer}>
- <Route path=":storyKey" component={ReaderContainer}>
- <Route path=":chapterId" component={ReaderContainer} />
  </Route>
  </Route>
  */

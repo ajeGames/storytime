@@ -25,8 +25,8 @@ import StorySummaryEditor from './StorySummaryEditor';
 export const Editor = React.createClass({
   render: function() {
     return (
-        <div id="editor">
-          <h2>Create Your Story</h2>
+        <div class="editor">
+          <header>Create Your Story (Editor)</header>
           <StorySummaryEditor summary={this.props.draftSummary}/>
         </div>
     );

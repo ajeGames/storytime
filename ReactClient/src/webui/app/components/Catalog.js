@@ -26,7 +26,7 @@ class Catalog extends React.Component {
     let summaries = this.getSummaries();
 
     return (
-        <div id="catalog" className="section">
+        <div class="catalog">
           <h1>Library</h1>
           <h2>Which story would you like to try?</h2>
           <div>

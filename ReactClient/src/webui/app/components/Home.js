@@ -4,7 +4,9 @@ import Catalog from './Catalog'
 class Home extends React.Component {
   render() {
     return (
-        <p>Boo Ya!</p>
+        <main>
+          <p>Boo Ya!</p>
+        </main>
     );
   }
 }

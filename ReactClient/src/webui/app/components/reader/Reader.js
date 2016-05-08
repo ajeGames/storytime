@@ -5,13 +5,22 @@ import TitleBar from './TitleBar';
 import Chapter from './Chapter';
 
 export default class Reader extends React.Component {
+
   render() {
-    return (
-        <div id="reader">
-          <TitleBar summary={this.props.summary} />
-          <Chapter chapter={this.props.chapter} storyKey={this.props.storyKey} />
-        </div>
-    );
+    if (true) {
+      return (
+          <div class="reader">
+            <header>Story Reader Goes Here</header>
+          </div>
+      )
+    } else {
+      return (
+          <div class="reader">
+            <TitleBar summary={this.props.summary} />
+            <Chapter chapter={this.props.chapter} storyKey={this.props.storyKey} />
+          </div>
+      )
+    }
   }
 }
 
