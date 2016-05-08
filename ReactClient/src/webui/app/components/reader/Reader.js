@@ -7,7 +7,10 @@ import Chapter from './Chapter';
 export default class Reader extends React.Component {
 
   render() {
-    if (true) {
+    let key = this.props.params.storyKey;
+    let chapterId = this.props.params.chapterId || "1";
+
+    if (key === undefined) {
       return (
           <div class="reader">
             <header>Story Reader Goes Here</header>
@@ -16,13 +19,14 @@ export default class Reader extends React.Component {
     } else {
       return (
           <div class="reader">
-            <TitleBar summary={this.props.summary} />
-            <Chapter chapter={this.props.chapter} storyKey={this.props.storyKey} />
+            <header>Loading story {key}, chapter {chapterId} ...forever</header>
           </div>
       )
     }
   }
 }
+//<TitleBar summary={this.props.summary} />
+//<Chapter chapter={this.props.chapter} storyKey={this.props.storyKey} />
 
 function mapStateToProps(state) {
   let openChapter = state.getIn(['story', 'openChapter']);
