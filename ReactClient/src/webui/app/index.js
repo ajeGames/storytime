@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers/reducer';
 import App from './components/App';
+import BasicLayout from './components/BasicLayout';
 import Home from './components/Home';
 import Catalog from './components/Catalog';
 import { ReaderContainer } from './components/reader/Reader';
@@ -20,18 +21,31 @@ store.dispatch({
   type: 'EDIT_SUMMARY'
 });
 
-const routes = <Route component={App}>
-  <Route path="/" component={Home} />
-  <Route path="/catalog" component={Catalog} />
-  <Route path="/editor" component={EditorContainer} />
-</Route>;
-
-ReactDOM.render(
+ReactDOM.render((
     <Provider store={store}>
-      <Router history={hashHistory}>{routes}</Router>
-    </Provider>,
-    document.getElementById('app')
-);
+      <Router history={hashHistory}>
+        <Route component={BasicLayout}>
+          <Route path="/" component={Home} />
+          <Route path="editor" component={EditorContainer} />
+        </Route>
+      </Router>
+    </Provider>
+), document.getElementById('app'));
+
+//const routes = <Route component={App}>
+//  <Route component={BasicLayout}>
+//    <Route path="/" component={Home} />
+//    <Route path="/catalog" component={Catalog} />
+//    <Route path="/editor" component={EditorContainer} />
+//  </Route>
+//</Route>;
+//
+//ReactDOM.render(
+//    <Provider store={store}>
+//        <Router history={hashHistory}>{routes}</Router>
+//    </Provider>,
+//    document.getElementById('app')
+//);
 
 
 /*
@@ -40,4 +54,4 @@ ReactDOM.render(
  <Route path=":chapterId" component={ReaderContainer} />
  </Route>
  </Route>
-*/
+ */
