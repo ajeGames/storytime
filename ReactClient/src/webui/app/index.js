@@ -7,7 +7,7 @@ import reducer from './reducers/reducer';
 import App from './components/App';
 import BasicLayout from './components/BasicLayout';
 import Home from './components/Home';
-import Catalog from './components/Catalog';
+import CatalogContainer from './components/catalog/CatalogContainer';
 import { ReaderContainer } from './components/reader/Reader';
 import { EditorContainer } from './components/editor/Editor';
 import { SAMPLE2 } from '../test/SampleData';  // TODO remove this reference -- should come out once story is loaded from server
@@ -26,7 +26,7 @@ ReactDOM.render((
       <Router history={hashHistory}>
         <Route path="/" component={BasicLayout}>
           <IndexRoute component={Home} />
-          <Route path="library" component={Catalog} />
+          <Route path="library" component={CatalogContainer} />
           <Route path="editor" component={EditorContainer} />
           <Route path="story" component={ReaderContainer}>
             <Route path=":storyKey" component={ReaderContainer}>

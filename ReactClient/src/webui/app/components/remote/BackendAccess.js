@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+// TODO use a different library that provide Promise-based AJAX without messing with the DOM -- see Axios
+
 class BackendAccess {
   constructor() {
     this.uriBase = '/api';
