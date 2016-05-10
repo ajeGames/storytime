@@ -10,6 +10,8 @@
     "url": "https://github.com/ajeGames/storytime"
   },
   "scripts": {
+    "lint": "eslint app",
+    "fix": "eslint --fix app",
     "start": "webpack-dev-server --progress --colors",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\"",
     "test:watch": "npm run test -- --watch"

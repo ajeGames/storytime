@@ -1,32 +1,32 @@
-const a = [
+export const a = [
   {
     type: 'LOAD_STORY',
     payload: {
-      key: 'ABC123'
-    }
+      key: 'ABC123',
+    },
   },
   {
     type: 'SET_TITLE',
     payload: {
-      title: ''
-    }
+      title: '',
+    },
   },
   {
     type: 'SET_AUTHOR',
     payload: {
-      author: ''
-    }
+      author: '',
+    },
   },
   {
     type: 'SET_TAG_LINE',
     payload: {
-      tagLine: ''
-    }
+      tagLine: '',
+    },
   },
   {
     type: 'SET_ABOUT',
     payload: {
-      about: ''
-    }
-  }
+      about: '',
+    },
+  },
 ];

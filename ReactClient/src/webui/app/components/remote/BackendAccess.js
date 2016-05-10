@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
-// TODO use a different library that provide Promise-based AJAX without messing with the DOM -- see Axios
+// TODO use a different library that provide Promise-based AJAX without messing with the DOM
+// TODO  -- see Axios
 
 class BackendAccess {
   constructor() {
@@ -8,32 +9,32 @@ class BackendAccess {
   }
 
   loadSummaries(context) {
-    let endpoint = this.uriBase + '/storytime/stories';
+    const endpoint = '{this.uriBase}/storytime/stories';
     $.ajax({
       url: endpoint,
       dataType: 'json',
       cache: false,
-      success: function (summaries) {
-        context._handleSuccess(summaries);
-      }.bind(context),
-      error: function (xhr, status, err) {
-        console.error(endpoint, status, err.toString());
-      }.bind(context)
+      success: (summaries) => (
+        context.handleSuccess(summaries)
+      ).bind(context),
+      error: (xhr, status, err) => (
+        context.handleError(endpoint, status, err)
+      ).bind(context),
     });
   }
 
   loadStory(context, storyKey) {
-    let endpoint = this.uriBase + '/story/' + storyKey + '/full';
+    const endpoint = '{this.uriBase}/story/{storyKey}/full';
     $.ajax({
       url: endpoint,
       dataType: 'json',
       cache: false,
-      success: function (data) {
-        context._handleSuccess(data);
-      }.bind(context),
-      error: function (xhr, status, err) {
-        console.error(endpoint, status, err.toString());
-      }.bind(context)
+      success: (data) => (
+        context.handleSuccess(data)
+      ).bind(context),
+      error: (xhr, status, err) => (
+        context.handleError(endpoint, status, err)
+      ).bind(context),
     });
   }
 }

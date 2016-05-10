@@ -1,13 +1,15 @@
 import React from 'react';
 
-class TitleBar extends React.Component {
-  render() {
-    return (
-        <div id="title" className="section">
-          <span className="title">{this.props.summary.title}</span> <span className="author">by {this.props.summary.author}</span>
-        </div>
-    );
-  }
-}
+const TitleBar = (props) => (
+  <div id="title" className="section">
+    <span className="title">{props.title}</span>
+    <span className="author">by {props.author}</span>
+  </div>
+);
+
+TitleBar.propTypes = {
+  title: React.PropTypes.string,
+  author: React.PropTypes.string,
+};
 
 export default TitleBar;
