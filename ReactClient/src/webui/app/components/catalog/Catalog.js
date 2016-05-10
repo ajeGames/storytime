@@ -1,21 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router';
-import BackendAccess from '../remote/BackendAccess';
 
 class Catalog extends React.Component {
 
   getSummaries() {
-    return this.props.storySummaries || []
+    return this.props.storySummaries || [];
   }
 
   render() {
+    var summaries = this.getSummaries();
+
     return (
         <div class="catalog">
           <h1>Library</h1>
           <h2>Which story would you like to try?</h2>
           <div>
             <ul>
-              {this.getSummaries().map(function (summary) {
+              {summaries.map(function (summary) {
                 return <li key={summary.key}>
                   <Link to={'/story/' + summary.key}>{summary.title}</Link> by {summary.author} - {summary.tagLine}
                 </li>
