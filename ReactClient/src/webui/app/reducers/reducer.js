@@ -6,9 +6,9 @@ import { draft } from './draft_reducer';
 
 const INITIAL_STATE = new Map();
 
-export default function (state = INITIAL_STATE, action) {
+const reducer = function (state = INITIAL_STATE, action) {
   let out;
-  const chapter = state.getIn(['story', 'chapters', action.chapterId.toString()]);
+  const chapter = state.getIn(['story', 'chapters', action.chapterId]);
   switch (action.type) {
     case 'LOAD_STORY':
       out = state.delete('draft');
@@ -32,4 +32,7 @@ export default function (state = INITIAL_STATE, action) {
     default:
       return state;
   }
-}
+};
+
+export default reducer;
+
