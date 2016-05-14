@@ -5,7 +5,13 @@ export const stateShape = {
     penName: 'Bubba Gump',
   },
   catalog: {
-    searchResults: [
+    isFetching: false,
+    didInvalidate: false,
+    lastUpdated: 1439487405547,
+    error: {
+      message: 'Something went wrong; take a rain check.',
+    },
+    stories: [
       {
         key: '11111111',
         title: 'Story 1',
@@ -25,6 +31,9 @@ export const stateShape = {
     ],
   },
   story: {
+    isFetching: false,
+    storyKey: 'o9s0toym',
+    lastUpdated: 1439487405547,
     summary: {
       key: 'o9s0toym',
       title: 'The Cave',
