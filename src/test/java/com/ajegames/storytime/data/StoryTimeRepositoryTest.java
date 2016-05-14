@@ -65,13 +65,11 @@ public class StoryTimeRepositoryTest {
         List<Story> toLoad = new ArrayList<Story>();
         toLoad.add(
                 Story.create(
-                        StorySummary.create("loadStoryTest1", "title", "author", "tag line", "about",
-                                ChapterSign.create(1000, "teaser")),
+                        StorySummary.create("loadStoryTest1", "title", "author", "tag line", "about", 1000),
                         null));
         toLoad.add(
                 Story.create(
-                        StorySummary.create("loadStoryTest2", "title", "author", "tag line", "about",
-                                ChapterSign.create(1000, "teaser")),
+                        StorySummary.create("loadStoryTest2", "title", "author", "tag line", "about", 1000),
                         null));
         persistenceMock.setStoriesToLoad(toLoad);
 

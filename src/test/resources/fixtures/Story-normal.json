@@ -5,10 +5,7 @@
     "author": "Bubba Gump",
     "tagLine": "Want a fun adventure?  Just add water.",
     "about": "Come have an adventure.",
-    "firstChapter": {
-      "targetChapterId": 1000,
-      "teaser": "It was a dark and stormy night."
-    }
+    "firstChapter": 1000
   },
   "chapters" : [
     {

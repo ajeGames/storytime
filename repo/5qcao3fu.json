@@ -5,10 +5,7 @@
     "author": "Mr. Bubbles",
     "tagLine": "Round and round and down and down",
     "about": "What happens when someone pulls the plug?",
-    "firstChapter": {
-      "targetChapterId": 1000,
-      "teaser": "Pull the plug and down you go..."
-    }
+    "firstChapter": 1000
   },
   "chapters": [
     {

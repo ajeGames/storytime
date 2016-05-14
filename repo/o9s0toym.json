@@ -5,10 +5,7 @@
     "author": "Bubba Gump",
     "tagLine": "What lies beneath",
     "about": "See where your choices lead.  You can choose your own destiny, but can you escape fate?",
-    "firstChapter": {
-      "targetChapterId": 1000,
-      "teaser": "This might be a good day to take some risks."
-    }
+    "firstChapter": 1000
   },
   "chapters": [
     {
