@@ -29,4 +29,7 @@ export const a = [
       about: '',
     },
   },
+  { type: 'FETCH_CATALOG' },
+  { type: 'FETCH_CATALOG', status: 'error', error: 'Oops' },
+  { type: 'FETCH_CATALOG', status: 'success', response: 'data' },
 ];
