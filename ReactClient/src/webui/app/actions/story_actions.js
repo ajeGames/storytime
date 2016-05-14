@@ -11,7 +11,9 @@ export const LOAD_CATALOG = 'LOAD_CATALOG';
 export function loadCatalog(results) {
   return {
     type: LOAD_CATALOG,
-    payload: results,
+    payload: {
+      stories: results,
+    },
   };
 }
 
