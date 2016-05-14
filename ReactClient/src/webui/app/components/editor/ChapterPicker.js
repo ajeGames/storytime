@@ -1,10 +1,7 @@
 import React from 'react';
 
-class ChapterPicker extends React.component {
+const ChapterPicker = () => (
+  <div>Chapter Picker</div>
+);
 
-  render() {
-    return (
-        <div>Chapter Picker</div>
-    );
-  }
-}
+export default ChapterPicker;

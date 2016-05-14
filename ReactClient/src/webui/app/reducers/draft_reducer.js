@@ -1,16 +1,9 @@
 import { Map, List } from 'immutable';
 
-const INITIAL_STATE = Map();
-
-export const draft = (state = INITIAL_STATE, action) => {
-  return Map({
-    summary: summary(state.get('summary'), action),
-    chapter: chapter(state.get('chapter'), action)
-  });
-};
+const INITIAL_STATE = new Map();
 
 export const summary = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'SET_TITLE':
       return state.set('title', action.title);
     case 'SET_AUTHOR':
@@ -24,19 +17,27 @@ export const summary = (state = INITIAL_STATE, action) => {
   }
 };
 
+const addSign = (signPost = new List(), nextChapterId, teaser) => (
+  signPost.push(new Map({ nextChapterId, teaser }))
+);
+
 export const chapter = (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'SET_HEADING':
       return state.set('heading', action.heading);
     case 'SET_PROSE':
       return state.set('prose', action.prose);
     case 'ADD_SIGN':
-      return state.set('signPost', addSign(state.get('signPost'), action.nextChapterId, action.teaser));
+      return state.set('signPost', addSign(state.get('signPost'), action.nextChapterId,
+        action.teaser));
     default:
       return state;
   }
 };
 
-const addSign = (signPost = List(), nextChapterId, teaser) => {
-  return signPost.push(Map({nextChapterId: nextChapterId, teaser: teaser}));
-};
+export const draft = (state = INITIAL_STATE, action) => (
+  new Map({
+    summary: summary(state.get('summary'), action),
+    chapter: chapter(state.get('chapter'), action),
+  })
+);

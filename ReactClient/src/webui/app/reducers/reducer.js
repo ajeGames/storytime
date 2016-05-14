@@ -4,23 +4,21 @@ import { draft } from './draft_reducer';
 
 // TODO CREATE_STORY, SAVE_STORY, ADD_CHAPTER, SAVE_CHAPTER
 
-const INITIAL_STATE = Map();
+const INITIAL_STATE = new Map();
 
-export default function(state = INITIAL_STATE, action) {
+const reducer = function (state = INITIAL_STATE, action) {
   let out;
-  console.log('Action: ' + action.type);
+  const chapter = state.getIn(['story', 'chapters', action.chapterId]);
   switch (action.type) {
     case 'LOAD_STORY':
       out = state.delete('draft');
       return out.set('story', mapStory(action.story));
     case 'EDIT_SUMMARY':
-      return state.set('draft', Map({summary: state.getIn(['story', 'summary'])}));
+      return state.set('draft', new Map({ summary: state.getIn(['story', 'summary']) }));
     case 'EDIT_CHAPTER':
-      const chapter = state.getIn(['story', 'chapters', action.chapterId.toString()]);
       if (chapter !== undefined) {
         return state.setIn(['draft', 'chapter'], chapter);
       } else {
-        console.log('Chapter not found: ' + action.chapterId);
         return state;
       }
     case 'SET_TITLE':
@@ -34,4 +32,7 @@ export default function(state = INITIAL_STATE, action) {
     default:
       return state;
   }
-}
+};
+
+export default reducer;
+

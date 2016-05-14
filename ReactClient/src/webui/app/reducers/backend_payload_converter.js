@@ -1,45 +1,45 @@
 import { Map, List } from 'immutable';
 
-export const mapStory = (storyFromServer) => {
-  return Map({
-    summary: mapSummary(storyFromServer.summary),
-    chapters: mapChapters(storyFromServer.chapters),
-    openChapter: storyFromServer.summary.firstChapter
-  });
-};
-
 export function mapSummary(summary) {
-  return Map({
+  return new Map({
     key: summary.key,
     title: summary.title,
     author: summary.author,
     tagLine: summary.tagLine,
     about: summary.about,
-    firstChapter: summary.firstChapter.targetChapterId
+    firstChapter: summary.firstChapter.targetChapterId,
   });
 }
 
+function mapSignpost(options) {
+  let signs = new List();
+  options.forEach(option => {
+    signs = signs.push(new Map({
+      chapterId: option.targetChapterId,
+      teaser: option.teaser,
+    }));
+  });
+  return signs;
+}
+
 export function mapChapters(chapters) {
-  let out = Map();
-  chapters.forEach(function (chapter) {
-    out = out.set(chapter.id.toString(), Map({
+  let out = new Map();
+  chapters.forEach(chapter => {
+    out = out.set(chapter.id.toString(), new Map({
       heading: chapter.heading,
-      prose: chapter.prose
+      prose: chapter.prose,
     }));
     if (chapter.nextChapterOptions && chapter.nextChapterOptions.length > 0) {
-      out = out.setIn([chapter.id.toString(), "signPost"], mapSignpost(chapter.nextChapterOptions));
+      out = out.setIn([chapter.id.toString(), 'signPost'], mapSignpost(chapter.nextChapterOptions));
     }
   });
   return out;
 }
 
-function mapSignpost(options) {
-  let signs = List();
-  options.forEach((option) => {
-    signs = signs.push(Map({
-      chapterId: option.targetChapterId,
-      teaser: option.teaser
-    }));
+export function mapStory(storyFromServer) {
+  return new Map({
+    summary: mapSummary(storyFromServer.summary),
+    chapters: mapChapters(storyFromServer.chapters),
+    openChapter: storyFromServer.summary.firstChapter,
   });
-  return signs;
 }

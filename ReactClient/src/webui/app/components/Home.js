@@ -1,12 +1,9 @@
 import React from 'react';
-import Catalog from './Catalog'
 
-class Home extends React.Component {
-  render() {
-    return (
-        <p>Boo Ya!</p>
-    );
-  }
-}
+const Home = () => (
+  <main>
+    <p>Boo Ya!</p>
+  </main>
+);
 
 export default Home;

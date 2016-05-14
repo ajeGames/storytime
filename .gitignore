@@ -7,3 +7,4 @@ dist
 dependency-reduced-pom.xml
 .sass-cache/
 *.css.map
+npm-debug.log

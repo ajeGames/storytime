@@ -49,5 +49,6 @@ public class StoryTimeApplication extends Application<StoryTimeConfiguration> {
         environment.jersey().register(new StoryTimeResource());
         environment.jersey().register(new StoryResource());
         environment.jersey().register(new ChapterResource());
+        environment.jersey().register(new SumGuessingResource());
     }
 }
