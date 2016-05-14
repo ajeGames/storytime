@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import { fromJS } from 'immutable';
-import { reduce } from '../app/reducers/app_reducer';
+import { reducer } from '../app/reducers/reducer';
 import { SAMPLE2 } from './SampleData';
 
-describe('app reducer', () => {
+describe('reducer', () => {
 
   it('loads story from server', () => {
     const action = {type: 'LOAD_STORY', story: SAMPLE2};
-    const nextState = reduce(undefined, action);
+    const nextState = reducer(undefined, action);
     expect(nextState).to.be.ok;
   });
 
@@ -27,7 +27,7 @@ describe('app reducer', () => {
       }
     });
     const action = {type: 'LOAD_STORY', story: SAMPLE2};
-    const nextState = reduce(init, action);
+    const nextState = reducer(init, action);
     expect(nextState.get('draft')).to.be.undefined;
     expect(nextState.getIn(['story', 'summary', 'title'])).to.equal(SAMPLE2.summary.title);
     expect(nextState.getIn(['user', 'name'])).to.equal('Bubba');
@@ -35,12 +35,12 @@ describe('app reducer', () => {
   });
 
   const loadSampleStory = () => {
-    return reduce(undefined, {type: 'LOAD_STORY', story: SAMPLE2});
+    return reducer(undefined, {type: 'LOAD_STORY', story: SAMPLE2});
   };
 
   it('places story in edit mode', () => {
     const initState = loadSampleStory();
-    const nextState = reduce(initState, {type: 'EDIT_SUMMARY'});
+    const nextState = reducer(initState, {type: 'EDIT_SUMMARY'});
     expect(nextState.getIn(['draft', 'summary', 'title'])).to.equal(SAMPLE2.summary.title);
     expect(nextState.getIn(['draft', 'summary'])).to.equal(nextState.getIn(['story', 'summary']));
   });
@@ -52,7 +52,7 @@ describe('app reducer', () => {
       type: 'EDIT_CHAPTER',
       chapterId: chapterIdToEdit
     };
-    const nextState = reduce(initState, action);
+    const nextState = reducer(initState, action);
     expect(nextState).is.not.undefined;
     expect(nextState.getIn(['draft', 'chapter'])).is.not.undefined;
     expect(nextState.getIn(['draft', 'chapter'])).to.equal(nextState.getIn(['story', 'chapters', '1']));
@@ -71,15 +71,15 @@ describe('app reducer', () => {
         prose: 'Ooop, forgot the corkscrew again.'
       }
     };
-    let nextState = reduce(undefined, {type: 'SET_TITLE', title: draftValues.summary.title});
-    nextState = reduce(nextState, {type: 'SET_AUTHOR', author: draftValues.summary.author});
-    nextState = reduce(nextState, {type: 'SET_TAG_LINE', tagLine: draftValues.summary.tagLine});
-    nextState = reduce(nextState, {type: 'SET_ABOUT', about: draftValues.summary.about});
-    nextState = reduce(nextState, {type: 'SET_HEADING', heading: draftValues.chapter.heading});
-    nextState = reduce(nextState, {type: 'SET_PROSE', prose: draftValues.chapter.prose});
+    let nextState = reducer(undefined, {type: 'SET_TITLE', title: draftValues.summary.title});
+    nextState = reducer(nextState, {type: 'SET_AUTHOR', author: draftValues.summary.author});
+    nextState = reducer(nextState, {type: 'SET_TAG_LINE', tagLine: draftValues.summary.tagLine});
+    nextState = reducer(nextState, {type: 'SET_ABOUT', about: draftValues.summary.about});
+    nextState = reducer(nextState, {type: 'SET_HEADING', heading: draftValues.chapter.heading});
+    nextState = reducer(nextState, {type: 'SET_PROSE', prose: draftValues.chapter.prose});
     expect(nextState.get('draft')).to.equal(fromJS(draftValues));
 
-    nextState = reduce(nextState, {type: 'ADD_SIGN', nextChapterId: 42, teaser: 'Hello, World!'});
+    nextState = reducer(nextState, {type: 'ADD_SIGN', nextChapterId: 42, teaser: 'Hello, World!'});
     expect(nextState.getIn(['draft', 'chapter', 'signPost', 0, 'teaser'])).to.equal('Hello, World!');
   });
 

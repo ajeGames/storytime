@@ -1,4 +1,4 @@
 import { createStore } from 'redux';
-import { reducer } from './reducers/app_reducer';
+import { rootReducer } from './reducers/storytime_reducer';
 
-export const store = createStore(reducer);
+export const store = createStore(rootReducer);

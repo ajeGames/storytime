@@ -6,7 +6,6 @@ export const stateShape = {
   },
   catalog: {
     isFetching: false,
-    didInvalidate: false,
     lastUpdated: 1439487405547,
     error: {
       message: 'Something went wrong; take a rain check.',

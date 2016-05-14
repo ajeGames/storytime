@@ -6,7 +6,7 @@ import { draft } from './draft_reducer';
 
 const INITIAL_STATE = new Map();
 
-const reducer = function (state = INITIAL_STATE, action) {
+function reducer(state = INITIAL_STATE, action) {
   let out;
   const chapter = state.getIn(['story', 'chapters', action.chapterId]);
   switch (action.type) {
@@ -32,7 +32,6 @@ const reducer = function (state = INITIAL_STATE, action) {
     default:
       return state;
   }
-};
+}
 
 export default reducer;
-
