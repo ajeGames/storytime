@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { FETCH_CATALOG, FETCH_CATALOG_ERR, LOAD_CATALOG } from '../actions/story_actions';
 
-const INITIAL_CATALOG_STATE = {
+export const INITIAL_CATALOG_STATE = {
   isFetching: false,
   stories: [],
 };
