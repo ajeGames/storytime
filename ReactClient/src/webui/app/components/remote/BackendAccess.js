@@ -1,42 +1,22 @@
-import $ from 'jquery';
+import axios from 'axios';
 
-// TODO use a different library that provide Promise-based AJAX without messing with the DOM
-// TODO  -- see Axios
-
-class BackendAccess {
-  constructor() {
-    this.uriBase = '/api';
+class StoryTimeAPI {
+  loadSummaries() {
+    const endpoint = '/api/storytime/stories';
+    axios.get(endpoint)
+      .then(response => (console.log(response.data)))
+      .catch(response => (console.log(response.message)));
+    /*
+     successful result should update redux store
+     */
   }
-
-  loadSummaries(context) {
-    const endpoint = '{this.uriBase}/storytime/stories';
-    $.ajax({
-      url: endpoint,
-      dataType: 'json',
-      cache: false,
-      success: (summaries) => (
-        context.handleSuccess(summaries)
-      ).bind(context),
-      error: (xhr, status, err) => (
-        context.handleError(endpoint, status, err)
-      ).bind(context),
-    });
-  }
-
-  loadStory(context, storyKey) {
-    const endpoint = '{this.uriBase}/story/{storyKey}/full';
-    $.ajax({
-      url: endpoint,
-      dataType: 'json',
-      cache: false,
-      success: (data) => (
-        context.handleSuccess(data)
-      ).bind(context),
-      error: (xhr, status, err) => (
-        context.handleError(endpoint, status, err)
-      ).bind(context),
-    });
-  }
+  //
+  //loadStory(storyKey) {  // eslint-disable-line
+  //  const endpoint = '{this.uriBase}/story/${storyKey}/full';
+  //  axios.get(endpoint)
+  //    .then(response => (console.log(response.data)))
+  //    .catch(response => (console.log(response.message)));
+  //}
 }
 
-export default BackendAccess;
+export default StoryTimeAPI;
