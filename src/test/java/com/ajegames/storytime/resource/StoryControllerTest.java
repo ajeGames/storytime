@@ -32,8 +32,7 @@ public class StoryControllerTest {
         Assert.assertEquals(summary.getAuthor(), "bar");
         Assert.assertEquals(summary.getTagLine(), "baz");
         Assert.assertEquals(summary.getAbout(), "qux");
-        Assert.assertNotNull(summary.getFirstChapter());
-        Assert.assertNotNull(summary.getFirstChapter().getTargetChapterId());
+        Assert.assertNotEquals(summary.getFirstChapter(), 0);
     }
 
     @Test
@@ -48,7 +47,8 @@ public class StoryControllerTest {
     @Test
     public void testUpdateStory() {
         StorySummary adv = ctrl.createStory(StoryTestUtil.createWithoutKey("three", "three", "three", "three"));
-        StorySummary update = StorySummary.create(adv.getKey(), "updated", "updated", "updated", "updated", null);
+        StorySummary update = StorySummary.create(adv.getKey(), "updated", "updated", "updated", "updated",
+                adv.getFirstChapter());
         ctrl.updateSummary(update);
         StorySummary result = ctrl.getStory(update.getKey()).getSummary();
         Assert.assertEquals(result.getTitle(), "updated");

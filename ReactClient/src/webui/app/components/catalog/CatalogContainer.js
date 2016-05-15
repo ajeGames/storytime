@@ -1,12 +1,11 @@
 import React from 'react';
-import $ from 'jquery';
 import Catalog from './Catalog';
 
 class CatalogContainer extends React.Component {
 
   getInitialState() {
     return {
-      storySummaries: [],
+      catalog: [],
     };
   }
 
@@ -18,7 +17,7 @@ class CatalogContainer extends React.Component {
       dataType: 'json',
       cache: false,
       success: function (summaries) {
-        _this.setState({ storySummaries: summaries });
+        _this.setState({ catalog: summaries });
       }.bind(_this),
       error: function (xhr, status, err) {
         console.error(endpoint, status, err.toString());
@@ -27,7 +26,7 @@ class CatalogContainer extends React.Component {
   }
 
   render() {
-    return (<Catalog summaries={this.state.storySummaries} />);
+    return (<Catalog summaries={this.state.catalog} />);
   }
 }
 

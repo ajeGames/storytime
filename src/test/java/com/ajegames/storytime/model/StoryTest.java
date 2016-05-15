@@ -52,8 +52,7 @@ public class StoryTest extends RepresentationTestBase {
 
         return Story.create(
                 StorySummary.create("0123456789abcdef", "Rain", "Bubba Gump", "Want a fun adventure?  Just add water.",
-                        "Come have an adventure.",
-                        ChapterSign.create(1000, "It was a dark and stormy night.")),
+                        "Come have an adventure.", 1000),
                 new ArrayList<Chapter>(chapters));
     }
 

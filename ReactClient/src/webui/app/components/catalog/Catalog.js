@@ -4,7 +4,7 @@ import Entry from './Entry';
 class Catalog extends React.Component {
 
   getSummaries() {
-    return this.props.storySummaries || [];
+    return this.props.catalog || [];
   }
 
   render() {
@@ -23,7 +23,7 @@ class Catalog extends React.Component {
 }
 
 Catalog.propTypes = {
-  storySummaries: React.PropTypes.arrayOf(React.PropTypes.object),
+  catalog: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
 export default Catalog;

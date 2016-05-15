@@ -13,10 +13,10 @@ public class StorySummary {
     private String author;
     private String tagLine;
     private String about;
-    private ChapterSign firstChapter;
+    private int firstChapter;
 
     public static StorySummary create(String key, String title, String author, String tagLine, String about,
-                                      final ChapterSign firstChapter) {
+                                      int firstChapter) {
         StorySummary summary = new StorySummary();
         summary.key = key;
         summary.title = title;
@@ -53,7 +53,7 @@ public class StorySummary {
     }
 
     @JsonProperty
-    public ChapterSign getFirstChapter() {
+    public int getFirstChapter() {
         return firstChapter;
     }
 

@@ -1,4 +1,6 @@
 import { createStore } from 'redux';
-import { reducer } from './reducers/app_reducer';
+// import { rootReducer } from './reducers/storytime_reducer';
 
-export const store = createStore(reducer);
+const root = require('./reducers/storytime_reducer.js').default;
+
+export const store = createStore(root);
