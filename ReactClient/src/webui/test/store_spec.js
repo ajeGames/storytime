@@ -1,5 +1,4 @@
 /* global define, it, describe */
-import { Map } from 'immutable';
 import { expect } from 'chai';
 import { store } from '../app/store';
 
