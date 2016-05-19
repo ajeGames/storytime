@@ -9,7 +9,7 @@ class CatalogContainer extends React.Component {
   }
 
   render() {
-    return (<Catalog summaries={getState().catalog} />);
+    return (<Catalog summaries={store.getState().catalog} />);
   }
 }
 
