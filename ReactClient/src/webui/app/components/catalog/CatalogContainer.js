@@ -9,8 +9,12 @@ class CatalogContainer extends React.Component {
   }
 
   render() {
-    return (<Catalog summaries={store.getState().catalog} />);
+    const { store } = this.context;
+    return (<Catalog summaries={store.catalog} />);
   }
 }
+CatalogContainer.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default CatalogContainer;
