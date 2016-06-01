@@ -1,0 +1,53 @@
+{
+  "name": "storytime-react-client",
+  "version": "0.3.0",
+  "description": "React client to the StoryTime server",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint app",
+    "fix": "eslint --fix app",
+    "start": "webpack-dev-server --progress --colors",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\"",
+    "test:watch": "npm run test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajeGames/storytime.git"
+  },
+  "keywords": [
+    "adventure",
+    "game",
+    "reading",
+    "writing",
+    "author",
+    "story",
+    "stories"
+  ],
+  "author": "AJE Games",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajeGames/storytime/issues"
+  },
+  "homepage": "https://github.com/ajeGames/storytime#readme",
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.9.1",
+    "babel-eslint": "^6.0.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "eslint": "^2.11.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.2.2",
+    "eslint-plugin-react": "^5.1.1",
+    "muicss": "^0.6.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
