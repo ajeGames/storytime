@@ -7,6 +7,9 @@ export const stateShape = {
   catalog: {
     isFetching: false,
     lastUpdated: 1439487405547,
+    filter: {
+      genre: 'all',
+    },
     error: {
       message: 'Something went wrong; take a rain check.',
     },
