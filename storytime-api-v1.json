@@ -1,0 +1,46 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "StoryTime API",
+        "description": "An RESTful interface to the StoryTime server, enabling all manner of choose-your-own-destiny games.",
+        "termsOfService": "http://www.ajegames.com/blog/terms-of-use/",
+        "contact": {
+            "name": "AJEGames Support",
+            "url": "http://www.ajegames.com/blog/support/",
+            "email": "support@ajegames.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "0.1.0"
+    },
+    "host": "api.ajegames.com",
+    "basePath": "/storytime",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/ping": {
+            "get": {
+                "summary": "Quick way to check if the service is responsive.",
+                "description": "Use this method to confirm that the service is alive.  Simply returns 'pong' if responsive.  Anonymous access is expected.",
+                "operationId": "ping",
+                "responses": {
+                    "200": {
+                        "description": "The message 'pong'",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
