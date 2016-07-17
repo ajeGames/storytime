@@ -6,6 +6,7 @@ AWS.config.update({
 });
 
 var dynamodb = new AWS.DynamoDB();
+var docClient = new AWS.DynamoDB.DocumentClient();
 
 var handleResponse = function(err, data) {
   if (err) {
@@ -19,5 +20,10 @@ exports.listTables = function() {
   dynamodb.listTables({}, handleResponse);
 };
 
+exports.scan = function(tableName) {
+  dynamodb.scan({ TableName: tableName }, handleResponse);
+};
+
 exports.dynamodb = dynamodb;
+exports.docClient = docClient;
 exports.handleResponse = handleResponse;
