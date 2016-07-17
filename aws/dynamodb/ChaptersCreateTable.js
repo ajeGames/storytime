@@ -8,12 +8,14 @@ AWS.config.update({
 var dynamodb = new AWS.DynamoDB();
 
 var params = {
-  TableName : "Stories",
+  TableName : "Chapters",
   KeySchema: [
-    { AttributeName: "StoryID", KeyType: "HASH" },
+    { AttributeName: "StoryID", KeyType: "HASH"},
+    { AttributeName: "ChapterID", KeyType: "RANGE"},
   ],
   AttributeDefinitions: [
     { AttributeName: "StoryID", AttributeType: "S" },
+    { AttributeName: "ChapterID", AttributeType: "N" },
   ],
   ProvisionedThroughput: {
     ReadCapacityUnits: 1,
