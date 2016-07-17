@@ -1,0 +1,22 @@
+{
+  "name": "storytime-services",
+  "version": "1.0.0",
+  "description": "Services to support the StoryTime choose-your-own-destiny games.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajeGames/storytime.git"
+  },
+  "author": "AJE Games",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajeGames/storytime/issues"
+  },
+  "homepage": "https://github.com/ajeGames/storytime#readme",
+  "dependencies": {
+    "aws-sdk": "^2.4.7"
+  }
+}
