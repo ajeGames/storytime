@@ -2,8 +2,8 @@ var CommonAdmin = require('./CommonAdmin');
 var dynamodb = CommonAdmin.dynamodb;
 var handleResponse = CommonAdmin.handleResponse;
 
-exports.createTable = function() {
-  var createParams = {
+exports.create = function() {
+  var params = {
     TableName : "Stories",
     KeySchema: [
       { AttributeName: "storyID", KeyType: "HASH" },
@@ -16,12 +16,12 @@ exports.createTable = function() {
       WriteCapacityUnits: 1
     }
   };
-  dynamodb.createTable(createParams, handleResponse);
+  dynamodb.createTable(params, handleResponse);
 };
 
-exports.deleteTable = function() {
-  var deleteParams = {
+exports.delete = function() {
+  var params = {
     TableName: 'Stories',
   };
-  dynamodb.deleteTable(deleteParams, handleResponse);
+  dynamodb.deleteTable(params, handleResponse);
 };
