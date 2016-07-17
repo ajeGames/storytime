@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "title": "StoryTime API",
-        "description": "An RESTful interface to the StoryTime server, enabling all manner of choose-your-own-destiny games.",
+        "description": "RESTful interface to the StoryTime server, enabling all manner of choose-your-own-destiny games.",
         "termsOfService": "http://www.ajegames.com/blog/terms-of-use/",
         "contact": {
             "name": "AJEGames Support",
@@ -34,13 +34,18 @@
                 "operationId": "ping",
                 "responses": {
                     "200": {
-                        "description": "The message 'pong'",
+                        "description": "A-okay",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/Message"
                         }
                     }
                 }
             }
+        }
+    },
+    "definitions": {
+        "Message": {
+            "type": "string"
         }
     }
 }
