@@ -1,5 +1,6 @@
 var CommonAdmin = require('./CommonAdmin');
 var dynamodb = CommonAdmin.dynamodb;
+var docClient = CommonAdmin.docClient;
 var handleResponse = CommonAdmin.handleResponse;
 
 exports.create = function() {
@@ -26,4 +27,19 @@ exports.delete = function() {
     TableName: 'Chapters',
   };
   dynamodb.deleteTable(params, handleResponse);
-}
+};
+
+exports.addChapter = function(storyID, chapter) {
+  console.log('Given: ' + JSON.stringify(chapter));
+  var params = {
+    TableName: 'Chapters',
+    Item: {
+      storyID: storyID,
+      chapterID: chapter.chapterID,
+      heading: chapter.heading,
+      prose: chapter.prose,
+      signPost: chapter.signPost,
+    }
+  };
+  docClient.put(params, handleResponse);
+};

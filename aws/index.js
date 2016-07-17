@@ -1,6 +1,5 @@
 var StoriesTable = require('./dynamodb/StoriesTable');
 var ChaptersTable = require('./dynamodb/ChaptersTable');
-
 var admin = require('./dynamodb/CommonAdmin');
 
 // TODO not using aynch correctly; these steps need to be gated by callbacks
@@ -17,8 +16,15 @@ var createAllTables = function() {
   ChaptersTable.create();
 }
 
+var scanAllTables = function() {
+  admin.scan('Stories');
+  admin.scan('Chapters');
+}
+
+// destroyAllTables();
 // createAllTables();
-// admin.listTables();
+admin.listTables();
+scanAllTables();
 
 var story = {
   storyID: 'ABC123',
@@ -27,7 +33,10 @@ var story = {
   tagLine: 'Read it now.',
   about: 'This is amazing!!!',
   firstChapter: 1000,
-  chapters: [
+};
+// StoriesTable.addStory(story);
+
+var chapters = [
     {
       chapterID: 1000,
       heading: 'The Cave',
@@ -86,8 +95,9 @@ var story = {
       prose: null,
       signPost: []
     }
-  ]
-};
-// StoriesTable.addStory(story);
+  ];
 
-admin.scan('Stories');
+chapters.forEach(function(chapter) {
+  ChaptersTable.addChapter('ABC123', chapter);
+})
+// ChaptersTable.addChapter('ABC123', chapters[0]);

@@ -33,14 +33,11 @@ exports.addStory = function(story) {
     TableName: 'Stories',
     Item: {
       storyID: story.storyID,
-      summary: {
-        title: story.title,
-        author: story.author,
-        tagLine: story.tagLine,
-        about: story.about,
-        firstChapter: story.firstChapter,
-      },
-      chapters: story.chapters,
+      title: story.title,
+      author: story.author,
+      tagLine: story.tagLine,
+      about: story.about,
+      firstChapter: story.firstChapter,
     }
   };
   docClient.put(params, handleResponse);
