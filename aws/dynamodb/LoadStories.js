@@ -14,6 +14,9 @@ var loadRepo = function() {
       return fs.statSync(file).isFile();
     });
   });
+  fileList.each(function(file) {
+    console.log(file);
+  });
 };
 
 loadRepo();
