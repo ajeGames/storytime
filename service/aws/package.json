@@ -4,6 +4,7 @@
   "description": "Services to support the StoryTime choose-your-own-destiny games.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint dynamodb",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,12 @@
   "homepage": "https://github.com/ajeGames/storytime#readme",
   "dependencies": {
     "aws-sdk": "^2.4.7"
+  },
+  "devDependencies": {
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.12.0",
+    "eslint-plugin-jsx-a11y": "^1.5.5",
+    "eslint-plugin-react": "^5.2.2"
   }
 }
