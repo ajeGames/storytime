@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const ChaptersTable = require('../dynamodb/ChaptersTable');
+const ChaptersTable = require('../src/dynamodb/ChaptersTable');
 
 describe("Blargy", function() {
   it("adds correctly", function() {
