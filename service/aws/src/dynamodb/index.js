@@ -1,6 +1,6 @@
-var StoriesTable = require('./dynamodb/StoriesTable');
-var ChaptersTable = require('./dynamodb/ChaptersTable');
-var admin = require('./dynamodb/CommonAdmin');
+var StoriesTable = require('./StoriesTable');
+var ChaptersTable = require('./ChaptersTable');
+var admin = require('./CommonAdmin');
 
 // TODO not using aynch correctly; these steps need to be gated by callbacks
 
