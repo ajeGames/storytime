@@ -1,11 +1,11 @@
-var CommonAdmin = require('./CommonAdmin');
-var dynamodb = CommonAdmin.dynamodb;
-var docClient = CommonAdmin.docClient;
-var handleResponse = CommonAdmin.handleResponse;
+const CommonAdmin = require('./CommonAdmin');
+const dynamodb = CommonAdmin.dynamodb;
+const docClient = CommonAdmin.docClient;
+const handleResponse = CommonAdmin.handleResponse;
 
-exports.create = function() {
-  var params = {
-    TableName : 'Stories',
+function create() {
+  const params = {
+    TableName: 'Stories',
     KeySchema: [
       { AttributeName: 'storyID', KeyType: 'HASH' },
     ],
@@ -14,22 +14,22 @@ exports.create = function() {
     ],
     ProvisionedThroughput: {
       ReadCapacityUnits: 1,
-      WriteCapacityUnits: 1
-    }
+      WriteCapacityUnits: 1,
+    },
   };
   dynamodb.createTable(params, handleResponse);
-};
+}
 
-exports.delete = function() {
-  var params = {
+function deleteTable() {
+  const params = {
     TableName: 'Stories',
   };
   dynamodb.deleteTable(params, handleResponse);
-};
+}
 
-exports.addStory = function(story) {
-  console.log('Given: ' + JSON.stringify(story));
-  var params = {
+function addStory(story) {
+  console.log('Given: ${JSON.stringify(story)}');
+  const params = {
     TableName: 'Stories',
     Item: {
       storyID: story.storyID,
@@ -38,7 +38,11 @@ exports.addStory = function(story) {
       tagLine: story.tagLine,
       about: story.about,
       firstChapter: story.firstChapter,
-    }
+    },
   };
   docClient.put(params, handleResponse);
-};
+}
+
+exports.create = create;
+exports.deleteTable = deleteTable;
+exports.addStory = addStory;

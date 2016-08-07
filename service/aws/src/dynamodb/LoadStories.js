@@ -1,22 +1,20 @@
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
-var repoPath = '../../repo';
-var loadRepo = function() {
-  var fileList;
-  fs.readdir(repoPath, function(err, files) {
+const repoPath = '../../repo';
+const loadRepo = () => {
+  let fileList;
+  fs.readdir(repoPath, (err, files) => {
     if (err) {
       throw err;
     }
-    fileList = files.map(function (file) {
+    fileList = files.map(file => {
       return path.join(repoPath, file);
     }).filter(function (file) {
       return fs.statSync(file).isFile();
     });
   });
-  fileList.each(function(file) {
-    console.log(file);
-  });
+  fileList.each((file) => console.log(file));
 };
 
 loadRepo();
