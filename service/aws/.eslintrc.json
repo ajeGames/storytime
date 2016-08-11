@@ -3,7 +3,4 @@
   "plugins": [
     "react"
   ],
-  "env": {
-    "mocha": true
-  }
 }

@@ -3,7 +3,7 @@ const dynamodb = CommonAdmin.dynamodb;
 const docClient = CommonAdmin.docClient;
 const handleResponse = CommonAdmin.handleResponse;
 
-function create() {
+export function create() {
   const params = {
     TableName: 'Stories',
     KeySchema: [
@@ -20,29 +20,32 @@ function create() {
   dynamodb.createTable(params, handleResponse);
 }
 
-function deleteTable() {
+export function deleteTable() {
   const params = {
     TableName: 'Stories',
   };
   dynamodb.deleteTable(params, handleResponse);
 }
 
-function addStory(story) {
-  console.log('Given: ${JSON.stringify(story)}');
+function generateRandomID() {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < 10; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+}
+
+export function addStory(story) {
   const params = {
     TableName: 'Stories',
     Item: {
-      storyID: story.storyID,
+      storyID: generateRandomID(),
       title: story.title,
       author: story.author,
       tagLine: story.tagLine,
       about: story.about,
-      firstChapter: story.firstChapter,
     },
   };
   docClient.put(params, handleResponse);
 }
-
-exports.create = create;
-exports.deleteTable = deleteTable;
-exports.addStory = addStory;
