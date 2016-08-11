@@ -11,6 +11,7 @@ const SAMPLE_STORY = {
 describe('CRUD operations for stories', () => {
   it('Retrieves a story from persistence', () => {
     const story = createStory(SAMPLE_STORY);
+    expect(story).to.exist;
     const storyReturned = getStory(story.storyID);
     expect(storyReturned).to.exist;
   });
