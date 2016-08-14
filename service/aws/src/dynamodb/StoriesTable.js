@@ -1,28 +1,25 @@
-const CommonAdmin = require('./CommonAdmin');
-const dynamodb = CommonAdmin.dynamodb;
-const docClient = CommonAdmin.docClient;
-const handleResponse = CommonAdmin.handleResponse;
+import { dynamodb, docClient, handleResponse } from './CommonAdmin';
 
 export function create() {
   const params = {
     TableName: 'Stories',
     KeySchema: [
-      { AttributeName: 'storyID', KeyType: 'HASH' },
+      { AttributeName: 'storyID', KeyType: 'HASH' }
     ],
     AttributeDefinitions: [
-      { AttributeName: 'storyID', AttributeType: 'S' },
+      { AttributeName: 'storyID', AttributeType: 'S' }
     ],
     ProvisionedThroughput: {
       ReadCapacityUnits: 1,
-      WriteCapacityUnits: 1,
-    },
+      WriteCapacityUnits: 1
+    }
   };
   dynamodb.createTable(params, handleResponse);
 }
 
 export function deleteTable() {
   const params = {
-    TableName: 'Stories',
+    TableName: 'Stories'
   };
   dynamodb.deleteTable(params, handleResponse);
 }
@@ -44,8 +41,8 @@ export function addStory(story) {
       title: story.title,
       author: story.author,
       tagLine: story.tagLine,
-      about: story.about,
-    },
+      about: story.about
+    }
   };
   docClient.put(params, handleResponse);
 }

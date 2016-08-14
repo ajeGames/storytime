@@ -21,10 +21,10 @@ function scanAllTables() {
   admin.scan('Chapters');
 }
 
-// destroyAllTables();
-// createAllTables();
-// admin.listTables();
-// scanAllTables();
+destroyAllTables();
+createAllTables();
+admin.listTables();
+scanAllTables();
 
 // const story = {
 //   storyID: 'ABC123',

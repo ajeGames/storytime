@@ -1,9 +1,9 @@
 {
-  "extends": "../",
-  "rules": {
-    "no-unused-expressions": "off",
-  },
   "env": {
-    "mocha": true,
+    "mocha": true
+  },
+  "rules": {
+    // with Chai expect it is common to have "expect(something).to.be.false;"
+    "no-unused-expressions": 0
   }
 }
