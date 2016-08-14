@@ -1,29 +1,30 @@
-var AWS = require("aws-sdk");
+import AWS from 'aws-sdk';
 
+// TODO get from environment
 AWS.config.update({
-  region: "us-west-2",
-  endpoint: "http://localhost:8000"
+  region: 'us-west-2',
+  endpoint: 'http://localhost:8000',
 });
 
-var dynamodb = new AWS.DynamoDB();
-var docClient = new AWS.DynamoDB.DocumentClient();
+export const dynamodb = new AWS.DynamoDB();
+export const docClient = new AWS.DynamoDB.DocumentClient();
 
-var handleResponse = function(err, data) {
+export function handleResponse(err, data) {
   if (err) {
-    console.error("Unable to perform action. Error:", JSON.stringify(err, null, 2));
+    return false;
   } else {
-    console.log("Action completed. Result:", JSON.stringify(data, null, 2));
+    return this.data;
   }
-};
+}
 
-exports.listTables = function() {
+export function listTables() {
   dynamodb.listTables({}, handleResponse);
-};
+}
 
-exports.scan = function(tableName) {
+export function scan(tableName) {
   dynamodb.scan({ TableName: tableName }, handleResponse);
-};
+}
 
-exports.dynamodb = dynamodb;
-exports.docClient = docClient;
-exports.handleResponse = handleResponse;
+export function isAlive() {
+  dynamodb.listTables()
+}
