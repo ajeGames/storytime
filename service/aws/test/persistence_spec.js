@@ -1,9 +1,8 @@
-const expect = require('chai').expect;
-const ChaptersTable = require('../src/dynamodb/ChaptersTable');
+import { expect } from 'chai';
+import { isAlive } from './src/dynamodb/CommonAdmin';
 
-describe('Story Table admin', () => {
-  it('works', () => {
-    ChaptersTable.createTable();
-    expect(true).is.equal(true);
+describe('Common Admin', () => {
+  it('Can tell that DynamoDB is responsive', () => {
+    expect(isAlive()).is.true;
   });
 });
