@@ -1,4 +1,4 @@
-import { addStory } from './dynamodb/StoriesTable';
+import { addStory } from '../dynamodb/StoriesTable';
 
 // create story
 export function createStory(storySummary) {
