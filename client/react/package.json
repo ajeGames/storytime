@@ -29,6 +29,7 @@
   "homepage": "https://github.com/ajeGames/storytime#readme",
   "dependencies": {
     "react": "^15.1.0",
+    "react-bootstrap": "^0.30.3",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2"
@@ -44,7 +45,6 @@
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-jsx-a11y": "^1.2.2",
     "eslint-plugin-react": "^5.1.1",
-    "muicss": "^0.6.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }
