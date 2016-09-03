@@ -5,19 +5,6 @@
   text-align: center;
 }
 
-.card {
-  margin: 2em 2em;
-  padding: 1em;
-  border: dashed #796e24 1px;
-  background-color: #e6cf8b;
-}
-.card .heading {
-  color: #796e24;
-  font-weight: bold;
-  font-size: 200%;
-  margin-bottom: 0.5em;
-}
-
 /*
 $palette-redearth-color1: #796e24;
 $palette-redearth-color2: #f9df8d;

@@ -21,41 +21,94 @@
     <![endif]-->
   </head>
   <body>
-    <div>
-      <div class="masthead">StoryTime -- Choose Your Own Destiny</div>
-
-      <div id="player" class="card">
-        <div class="heading">Player Information</div>
-        <form id="playerInfoForm">
-          <label>Screen Name: <input name="screenName" type="text" size="30" placeholder="Your alias for StoryTime"/></label><br/>
-          <label>Pen Name: <input name="penName" type="text" size="30" placeholder="Your alias as an author"/></label><br/>
-          <label>Email Address: <input name="email" type="email" size="50" placeholder="How we will contact you"/></label><br/>
-          <label>Password: <input name="password" type="password" size="30" placeholder="Yet another password"/></label></br/>
-          <label>Confirm Password: <input name="passwordRetype" type="password" size="30" placeholder="Yet another password"/></label></br/>
-          <label>Is a Minor: <input name="isMinor" type="checkbox"/></label><br/>
-        </form>
+    <div class="container-fluid">
+      <div class="page-header">
+        <h1>StoryTime <small>Choose Your Own Destiny</small></h1>
       </div>
 
-      <div id="story" class="card">
-        <div class="heading">Story Information</div>
-        <form id="storyInfoForm">
-          <label>Title: <input name="storyTitle" type="text" size="100" placeholder="What is the title of the story?"/></label><br/>
-          <label>About: <input name="about" type="text" size="100" placeholder="Summarize what the story is about"/></label><br/>
-          <label>Tag Line: <input name="tagLine" type="text" size="100" placeholder="Attract attention with a catchy phrase"/></label><br/>
-          <label>Is a Minor: <input name="isMinor" type="checkbox"/></label><br/>
-        </form>
+      <div class="row">
+        <div class="col-xs-6">
+          <div id="player" class="panel panel-default">
+            <div class="panel-heading">Player Information (Edit)</div>
+            <div class="panel-body">
+              <form id="playerInfoForm">
+                <label>Screen Name: <input name="screenName" type="text" size="30" placeholder="Your alias for StoryTime"/></label><br/>
+                <label>Pen Name: <input name="penName" type="text" size="30" placeholder="Your alias as an author"/></label><br/>
+                <label>Email Address: <input name="email" type="email" size="30" placeholder="How we will contact you"/></label><br/>
+                <label>Is a Minor: <input name="isMinor" type="checkbox"/></label><br/>
+                <button type="button" class="btn btn-success">Save Player Info</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div id="player" class="panel panel-default">
+            <div class="panel-heading">Player Information (Read-only)</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-3"><strong>Screen Name:</strong></div>
+                <div class="col-xs-9">BubbaGump</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3"><strong>Pen Name:</strong></div>
+                <div class="col-xs-9">BubbaGump, Esquire</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3"><strong>Email:</strong></div>
+                <div class="col-xs-9">bubba@bubbagump.com</div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3"><strong>Is a Minor:</strong></div>
+                <div class="col-xs-9">No</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div id="chapter" class="card">
-        <div class="heading">Chapter Information</div>
+      <div id="story" class="panel panel-default">
+        <div class="panel-heading">Story Information (Edit)</div>
+        <div class="panel-body">
+          <form id="storyInfoForm">
+            <label>Title: <input name="storyTitle" type="text" size="100" placeholder="What is the title of the story?"/></label><br/>
+            <label>About: <input name="about" type="text" size="100" placeholder="Summarize what the story is about"/></label><br/>
+            <label>Tag Line: <input name="tagLine" type="text" size="100" placeholder="Attract attention with a catchy phrase"/></label><br/>
+            <button type="button" class="btn btn-success">Save Story Info</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="story" class="panel panel-default">
+        <div class="panel-heading">Story Information (Read-only)</div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-2"><strong>Title:</strong></div>
+            <div class="col-xs-10">War and Pieces</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-2"><strong>About:</strong></div>
+            <div class="col-xs-10">The dastardly adventures of a hapless warrior who finds himself trapped in ancient times.</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-2"><strong>Tag Line:</strong></div>
+            <div class="col-xs-10">Watch out for the trap door.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chapter" class="panel panel-default">
+        <div class="panel-heading">Chapter (Edit)</div>
+        <div class="panel-body">
         <form id="chapterInfoForm">
           <label>Title: <input name="chapterTitle" type="text" size="100" placeholder="What is the title of the chapter?"/></label><br/>
           <label>Prose: <textarea name="prose" cols="80" rows="10" placeholder="Type your chapter here"></textarea></label><br/>
+          <button type="button" class="btn btn-success">Save Chapter</button>
         </form>
       </div>
 
-      <div id="sign" class="card">
-        <div class="heading">Next Chapter Sign Information</div>
+      <div id="sign" class="panel panel-default">
+        <div class="panel-heading">Next Chapter Sign (Edit)</div>
+        <div class="panel-body">
         <form id="signInfoForm">
           <label>Teaser: <input name="teaser" type="text" size="100" placeholder="Describe why the reader might choose this path"/></label><br/>
           <label>Next Chapter:
@@ -66,6 +119,7 @@
               <option value="1002">1002 - Chapter 3 -- this is the one where everything goes to heck.</option>
             </select>
           </label><br/>
+          <button type="button" class="btn btn-success">Save Sign</button>
         </form>
       </div>
     </div>
