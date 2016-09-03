@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>StoryTime -- Choose Your Own Destiny</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-theme.min.css">
+    <link rel="stylesheet" href="storytime.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div>
+      <div class="masthead">StoryTime -- Choose Your Own Destiny</div>
+
+      <div id="player" class="card">
+        <div class="heading">Player Information</div>
+        <form id="playerInfoForm">
+          <label>Screen Name: <input name="screenName" type="text" size="30" placeholder="Your alias for StoryTime"/></label><br/>
+          <label>Pen Name: <input name="penName" type="text" size="30" placeholder="Your alias as an author"/></label><br/>
+          <label>Email Address: <input name="email" type="email" size="50" placeholder="How we will contact you"/></label><br/>
+          <label>Password: <input name="password" type="password" size="30" placeholder="Yet another password"/></label></br/>
+          <label>Confirm Password: <input name="passwordRetype" type="password" size="30" placeholder="Yet another password"/></label></br/>
+          <label>Is a Minor: <input name="isMinor" type="checkbox"/></label><br/>
+        </form>
+      </div>
+
+      <div id="story" class="card">
+        <div class="heading">Story Information</div>
+        <form id="storyInfoForm">
+          <label>Title: <input name="storyTitle" type="text" size="100" placeholder="What is the title of the story?"/></label><br/>
+          <label>About: <input name="about" type="text" size="100" placeholder="Summarize what the story is about"/></label><br/>
+          <label>Tag Line: <input name="tagLine" type="text" size="100" placeholder="Attract attention with a catchy phrase"/></label><br/>
+          <label>Is a Minor: <input name="isMinor" type="checkbox"/></label><br/>
+        </form>
+      </div>
+
+      <div id="chapter" class="card">
+        <div class="heading">Chapter Information</div>
+        <form id="chapterInfoForm">
+          <label>Title: <input name="chapterTitle" type="text" size="100" placeholder="What is the title of the chapter?"/></label><br/>
+          <label>Prose: <textarea name="prose" cols="80" rows="10" placeholder="Type your chapter here"></textarea></label><br/>
+        </form>
+      </div>
+
+      <div id="sign" class="card">
+        <div class="heading">Next Chapter Sign Information</div>
+        <form id="signInfoForm">
+          <label>Teaser: <input name="teaser" type="text" size="100" placeholder="Describe why the reader might choose this path"/></label><br/>
+          <label>Next Chapter:
+            <select name="nextChapter" required>
+              <option value="">...choose the chapter this sign leads to...</option>
+              <option value="1000">1000 - In the Beginning</option>
+              <option value="1001">1001 - Chapter 2</option>
+              <option value="1002">1002 - Chapter 3 -- this is the one where everything goes to heck.</option>
+            </select>
+          </label><br/>
+        </form>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
