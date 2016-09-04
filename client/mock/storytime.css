@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+.form-field {
+  margin-bottom: 0.5em;
+}
+
 /*
 $palette-redearth-color1: #796e24;
 $palette-redearth-color2: #f9df8d;

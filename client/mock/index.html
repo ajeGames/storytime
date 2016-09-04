@@ -21,45 +21,64 @@
     <![endif]-->
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container">
       <div class="page-header">
         <h1>StoryTime <small>Choose Your Own Destiny</small></h1>
       </div>
 
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-xs-7">
           <div id="player" class="panel panel-default">
             <div class="panel-heading">Player Information (Edit)</div>
             <div class="panel-body">
-              <form id="playerInfoForm">
+              <!-- <form id="playerInfoForm">
                 <label>Screen Name: <input name="screenName" type="text" size="30" placeholder="Your alias for StoryTime"/></label><br/>
                 <label>Pen Name: <input name="penName" type="text" size="30" placeholder="Your alias as an author"/></label><br/>
                 <label>Email Address: <input name="email" type="email" size="30" placeholder="How we will contact you"/></label><br/>
                 <label>Is a Minor: <input name="isMinor" type="checkbox"/></label><br/>
                 <button type="button" class="btn btn-success">Save Player Info</button>
+              </form> -->
+              <form id="playerInfoForm">
+                <div class="row form-field">
+                  <div class="col-xs-3"><label for="screenName">Screen Name:</label></div>
+                  <div class="col-xs-9"><input name="screenName" type="text" size="40" placeholder="Your alias for StoryTime" value="BubbaGump"/></div>
+                </div>
+                <div class="row form-field">
+                  <div class="col-xs-3"><label>Pen Name:</label></div>
+                  <div class="col-xs-9"><input name="penName" type="text" size="40" placeholder="Your alias as an author" value="BubbaGump, Esquire"/></div>
+                </div>
+                <div class="row form-field">
+                  <div class="col-xs-3"><label>Email Address:</label></div>
+                  <div class="col-xs-9"><input name="email" type="email" size="40" placeholder="How we will contact you"/></div>
+                </div>
+                <div class="row form-field">
+                  <div class="col-xs-3"><label>Is a Minor:</label></div>
+                  <div class="col-xs-9"><input name="isMinor" type="checkbox"/></div>
+                </div>
+                <button type="button" class="btn btn-success">Save Player Info</button>
               </form>
             </div>
           </div>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-5">
           <div id="player" class="panel panel-default">
             <div class="panel-heading">Player Information (Read-only)</div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-xs-3"><strong>Screen Name:</strong></div>
-                <div class="col-xs-9">BubbaGump</div>
+                <div class="col-xs-4"><strong>Screen Name:</strong></div>
+                <div class="col-xs-8">BubbaGump</div>
               </div>
               <div class="row">
-                <div class="col-xs-3"><strong>Pen Name:</strong></div>
-                <div class="col-xs-9">BubbaGump, Esquire</div>
+                <div class="col-xs-4"><strong>Pen Name:</strong></div>
+                <div class="col-xs-8">BubbaGump, Esquire</div>
               </div>
               <div class="row">
-                <div class="col-xs-3"><strong>Email:</strong></div>
-                <div class="col-xs-9">bubba@bubbagump.com</div>
+                <div class="col-xs-4"><strong>Email:</strong></div>
+                <div class="col-xs-8"><em>unknown</em></div>
               </div>
               <div class="row">
-                <div class="col-xs-3"><strong>Is a Minor:</strong></div>
-                <div class="col-xs-9">No</div>
+                <div class="col-xs-4"><strong>Is a Minor:</strong></div>
+                <div class="col-xs-8">No</div>
               </div>
             </div>
           </div>
@@ -99,11 +118,12 @@
       <div id="chapter" class="panel panel-default">
         <div class="panel-heading">Chapter (Edit)</div>
         <div class="panel-body">
-        <form id="chapterInfoForm">
-          <label>Title: <input name="chapterTitle" type="text" size="100" placeholder="What is the title of the chapter?"/></label><br/>
-          <label>Prose: <textarea name="prose" cols="80" rows="10" placeholder="Type your chapter here"></textarea></label><br/>
-          <button type="button" class="btn btn-success">Save Chapter</button>
-        </form>
+          <form id="chapterInfoForm">
+            <label>Title: <input name="chapterTitle" type="text" size="100" placeholder="What is the title of the chapter?"/></label><br/>
+            <label>Prose: <textarea name="prose" cols="80" rows="10" placeholder="Type your chapter here"></textarea></label><br/>
+            <button type="button" class="btn btn-success">Save Chapter</button>
+          </form>
+        </div>
       </div>
 
       <div id="sign" class="panel panel-default">
@@ -125,8 +145,8 @@
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
   </body>
 </html>
