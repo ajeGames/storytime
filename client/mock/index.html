@@ -9,9 +9,9 @@
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap-theme.min.css">
-    <link rel="stylesheet" href="storytime.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/storytime.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,137 +26,180 @@
         <h1 class="text-center">StoryTime <small>Choose Your Own Destiny</small></h1>
       </div>
 
-      <div class="row">
-        <div class="col-xs-7">
-          <div id="player" class="panel panel-warning">
-            <div class="panel-heading">Player Information (Edit)</div>
-            <div class="panel-body">
-              <form id="playerInfoForm">
-                <div class="form-group">
-                  <label for="screenName">Screen Name:</label>
-                  <input id="screenName" type="text" class="form-control" placeholder="Your alias for StoryTime"/>
-                </div>
-                <div class="form-group">
-                  <label for="penName">Pen Name:</label>
-                  <input id="penName" type="text" class="form-control" placeholder="Your alias as an author"/>
-                </div>
-                <div class="form-group">
-                  <label for="email">Email Address:</label>
-                  <input id="email" type="email" class="form-control" placeholder="How we will contact you"/>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input id="isMinor" type="checkbox"> Is a minor
-                  </label>
-                </div>
-                <button type="button" class="btn btn-warning">Save Player Info</button>
-              </form>
-            </div>
+      <div id="player" class="panel panel-info">
+        <div class="panel-heading">Player Information</div>
+        <div class="panel-body">
+          <div class="row form-field">
+            <div class="col-xs-4"><strong>Screen Name</strong></div>
+            <div class="col-xs-8">BubbaGump</div>
           </div>
+          <div class="row form-field">
+            <div class="col-xs-4"><strong>Pen Name</strong></div>
+            <div class="col-xs-8">BubbaGump, Esquire</div>
+          </div>
+          <div class="row form-field">
+            <div class="col-xs-4"><strong>Email</strong></div>
+            <div class="col-xs-8"><em>unknown</em></div>
+          </div>
+          <div class="row form-field">
+            <div class="col-xs-4"><strong>Is a Minor</strong></div>
+            <div class="col-xs-8">No</div>
+          </div>
+          <form>
+            <button type="button" class="btn btn-success" aria-label="Change Player Information">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              Change Player Information
+            </button>
+          </form>
         </div>
-        <div class="col-xs-5">
-          <div id="player" class="panel panel-info">
-            <div class="panel-heading">Player Information (Read-only)</div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-xs-4"><strong>Screen Name:</strong></div>
-                <div class="col-xs-8">BubbaGump</div>
-              </div>
-              <div class="row">
-                <div class="col-xs-4"><strong>Pen Name:</strong></div>
-                <div class="col-xs-8">BubbaGump, Esquire</div>
-              </div>
-              <div class="row">
-                <div class="col-xs-4"><strong>Email:</strong></div>
-                <div class="col-xs-8"><em>unknown</em></div>
-              </div>
-              <div class="row">
-                <div class="col-xs-4"><strong>Is a Minor:</strong></div>
-                <div class="col-xs-8">No</div>
-              </div>
-              <button type="button" class="btn btn-success">Change Player Information</button>
+      </div>
+
+      <div id="player" class="panel panel-warning">
+        <div class="panel-heading">Player Information</div>
+        <div class="panel-body">
+          <form id="playerInfoForm">
+            <div class="form-group">
+              <label for="screenName">Screen Name</label>
+              <input id="screenName" type="text" class="form-control" placeholder="Your alias for StoryTime"/>
+            </div>
+            <div class="form-group">
+              <label for="penName">Pen Name</label>
+              <input id="penName" type="text" class="form-control" placeholder="Your alias as an author"/>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input id="email" type="email" class="form-control" placeholder="How we will contact you"/>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input id="isMinor" type="checkbox"> <strong>Is a minor</strong>
+              </label>
+            </div>
+            <button type="button" class="btn btn-warning" aria-label="Save Player Info">
+              <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+              Save Player Info
+            </button>
+            <button type="button" class="btn btn-danger" aria-label="Cancel Changes">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              Cancel Changes
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div id="story" class="panel panel-info">
+        <div class="panel-heading">Story Information</div>
+        <div class="panel-body">
+          <div class="row form-field">
+            <div class="col-xs-2"><strong>Title</strong></div>
+            <div class="col-xs-10">War and Pieces</div>
+          </div>
+          <div class="row form-field">
+            <div class="col-xs-2"><strong>About</strong></div>
+            <div class="col-xs-10">The dastardly adventures of a hapless warrior who finds himself trapped in ancient times.</div>
+          </div>
+          <div class="row form-field">
+            <div class="col-xs-2"><strong>Tag Line</strong></div>
+            <div class="col-xs-10">Watch out for the trap door.</div>
+          </div>
+          <div class="row form-field">
+            <div class="col-xs-12">
+              <form>
+                <button type="button" class="btn btn-success" aria-label="Change Story Information">
+                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                  Change Story Information
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
 
       <div id="story" class="panel panel-warning">
-        <div class="panel-heading">Story Information (Edit)</div>
+        <div class="panel-heading">Story Information</div>
         <div class="panel-body">
           <form id="storyInfoForm">
             <div class="form-group">
-              <label for="storyTitle">Title:</label>
+              <label for="storyTitle">Title</label>
               <input id="storyTitle" type="text" class="form-control" placeholder="What is the title of the story?"/>
             </div>
             <div class="form-group">
-              <label for="about">About:</label>
+              <label for="about">About</label>
               <input id="about" type="text" class="form-control" placeholder="Summarize what the story is about"/>
             </div>
             <div class="form-group">
-              <label for="tagLine">Tag Line:</label>
+              <label for="tagLine">Tag Line</label>
               <input id="tagLine" type="text" class="form-control" placeholder="Attract attention with a catchy phrase"/>
             </div>
-            <button type="button" class="btn btn-warning">Save Story Info</button>
+            <button type="button" class="btn btn-warning" aria-label="Save Story Info">
+              <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+              Save Story Info
+            </button>
+            <button type="button" class="btn btn-danger" aria-label="Cancel Changes">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              Cancel Changes
+            </button>
           </form>
         </div>
       </div>
 
-      <div id="story" class="panel panel-info">
-        <div class="panel-heading">Story Information (Read-only)</div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-xs-2"><strong>Title:</strong></div>
-            <div class="col-xs-10">War and Pieces</div>
-          </div>
-          <div class="row">
-            <div class="col-xs-2"><strong>About:</strong></div>
-            <div class="col-xs-10">The dastardly adventures of a hapless warrior who finds himself trapped in ancient times.</div>
-          </div>
-          <div class="row">
-            <div class="col-xs-2"><strong>Tag Line:</strong></div>
-            <div class="col-xs-10">Watch out for the trap door.</div>
-          </div>
-        </div>
-      </div>
-
       <div id="chapter" class="panel panel-warning">
-        <div class="panel-heading">Chapter (Edit)</div>
+        <div class="panel-heading">Chapter</div>
         <div class="panel-body">
           <form id="chapterInfoForm">
             <div class="form-group">
-              <label for="chapterTitle">Title:</label>
+              <label for="chapterTitle">Title</label>
               <input id="chapterTitle" type="text" class="form-control" placeholder="What is the title of the chapter?"/>
             </div>
             <div class="form-group">
-              <label>Prose:</label>
-              <textarea name="prose" class="form-control" placeholder="Type your chapter here"></textarea>
+              <label for="prose">Prose</label>
+              <textarea id="prose" class="form-control" placeholder="Type your chapter here"></textarea>
             </div>
-            <button type="button" class="btn btn-warning">Save Chapter</button>
+            <button type="button" class="btn btn-warning" aria-label="Save Chapter">
+              <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+              Save Chapter
+            </button>
+            <button type="button" class="btn btn-danger" aria-label="Cancel Changes">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              Cancel Changes
+            </button>
           </form>
         </div>
       </div>
 
       <div id="sign" class="panel panel-warning">
-        <div class="panel-heading">Next Chapter Sign (Edit)</div>
+        <div class="panel-heading">Next Chapter Sign</div>
         <div class="panel-body">
-        <form id="signInfoForm">
-          <label>Teaser: <input name="teaser" type="text" size="100" placeholder="Describe why the reader might choose this path"/></label><br/>
-          <label>Next Chapter:
-            <select name="nextChapter" required>
-              <option value="">...choose the chapter this sign leads to...</option>
-              <option value="1000">1000 - In the Beginning</option>
-              <option value="1001">1001 - Chapter 2</option>
-              <option value="1002">1002 - Chapter 3 -- this is the one where everything goes to heck.</option>
-            </select>
-          </label><br/>
-          <button type="button" class="btn btn-warning">Save Sign</button>
-        </form>
+          <form id="signInfoForm">
+            <div class="form-group">
+              <label>Teaser</label>
+              <input name="teaser" type="text" class="form-control" placeholder="Describe why the reader might choose this path"/>
+            </div>
+            <div class="form-group">
+              <label for="nextChapter">Next Chapter</label>
+              <select id="nextChapter" class="form-control">
+                <option value="">...choose the chapter this sign leads to...</option>
+                <option value="1000">1000 - In the Beginning</option>
+                <option value="1001">1001 - Into the Valley of Death</option>
+                <option value="1002">1002 - The Safe Road</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-warning" aria-label="Save Sign">
+              <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+              Save Sign
+            </button>
+            <button type="button" class="btn btn-danger" aria-label="Cancel Changes">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              Cancel Changes
+            </button>
+          </form>
+        </div>
       </div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="js/jquery-1.12.4.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
