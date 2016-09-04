@@ -23,45 +23,39 @@
   <body>
     <div class="container">
       <div class="page-header">
-        <h1>StoryTime <small>Choose Your Own Destiny</small></h1>
+        <h1 class="text-center">StoryTime <small>Choose Your Own Destiny</small></h1>
       </div>
 
       <div class="row">
         <div class="col-xs-7">
-          <div id="player" class="panel panel-default">
+          <div id="player" class="panel panel-warning">
             <div class="panel-heading">Player Information (Edit)</div>
             <div class="panel-body">
-              <!-- <form id="playerInfoForm">
-                <label>Screen Name: <input name="screenName" type="text" size="30" placeholder="Your alias for StoryTime"/></label><br/>
-                <label>Pen Name: <input name="penName" type="text" size="30" placeholder="Your alias as an author"/></label><br/>
-                <label>Email Address: <input name="email" type="email" size="30" placeholder="How we will contact you"/></label><br/>
-                <label>Is a Minor: <input name="isMinor" type="checkbox"/></label><br/>
-                <button type="button" class="btn btn-success">Save Player Info</button>
-              </form> -->
               <form id="playerInfoForm">
-                <div class="row form-field">
-                  <div class="col-xs-3"><label for="screenName">Screen Name:</label></div>
-                  <div class="col-xs-9"><input name="screenName" type="text" size="40" placeholder="Your alias for StoryTime" value="BubbaGump"/></div>
+                <div class="form-group">
+                  <label for="screenName">Screen Name:</label>
+                  <input id="screenName" type="text" class="form-control" placeholder="Your alias for StoryTime"/>
                 </div>
-                <div class="row form-field">
-                  <div class="col-xs-3"><label>Pen Name:</label></div>
-                  <div class="col-xs-9"><input name="penName" type="text" size="40" placeholder="Your alias as an author" value="BubbaGump, Esquire"/></div>
+                <div class="form-group">
+                  <label for="penName">Pen Name:</label>
+                  <input id="penName" type="text" class="form-control" placeholder="Your alias as an author"/>
                 </div>
-                <div class="row form-field">
-                  <div class="col-xs-3"><label>Email Address:</label></div>
-                  <div class="col-xs-9"><input name="email" type="email" size="40" placeholder="How we will contact you"/></div>
+                <div class="form-group">
+                  <label for="email">Email Address:</label>
+                  <input id="email" type="email" class="form-control" placeholder="How we will contact you"/>
                 </div>
-                <div class="row form-field">
-                  <div class="col-xs-3"><label>Is a Minor:</label></div>
-                  <div class="col-xs-9"><input name="isMinor" type="checkbox"/></div>
+                <div class="checkbox">
+                  <label>
+                    <input id="isMinor" type="checkbox"> Is a minor
+                  </label>
                 </div>
-                <button type="button" class="btn btn-success">Save Player Info</button>
+                <button type="button" class="btn btn-warning">Save Player Info</button>
               </form>
             </div>
           </div>
         </div>
         <div class="col-xs-5">
-          <div id="player" class="panel panel-default">
+          <div id="player" class="panel panel-info">
             <div class="panel-heading">Player Information (Read-only)</div>
             <div class="panel-body">
               <div class="row">
@@ -80,24 +74,34 @@
                 <div class="col-xs-4"><strong>Is a Minor:</strong></div>
                 <div class="col-xs-8">No</div>
               </div>
+              <button type="button" class="btn btn-success">Change Player Information</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="story" class="panel panel-default">
+      <div id="story" class="panel panel-warning">
         <div class="panel-heading">Story Information (Edit)</div>
         <div class="panel-body">
           <form id="storyInfoForm">
-            <label>Title: <input name="storyTitle" type="text" size="100" placeholder="What is the title of the story?"/></label><br/>
-            <label>About: <input name="about" type="text" size="100" placeholder="Summarize what the story is about"/></label><br/>
-            <label>Tag Line: <input name="tagLine" type="text" size="100" placeholder="Attract attention with a catchy phrase"/></label><br/>
-            <button type="button" class="btn btn-success">Save Story Info</button>
+            <div class="form-group">
+              <label for="storyTitle">Title:</label>
+              <input id="storyTitle" type="text" class="form-control" placeholder="What is the title of the story?"/>
+            </div>
+            <div class="form-group">
+              <label for="about">About:</label>
+              <input id="about" type="text" class="form-control" placeholder="Summarize what the story is about"/>
+            </div>
+            <div class="form-group">
+              <label for="tagLine">Tag Line:</label>
+              <input id="tagLine" type="text" class="form-control" placeholder="Attract attention with a catchy phrase"/>
+            </div>
+            <button type="button" class="btn btn-warning">Save Story Info</button>
           </form>
         </div>
       </div>
 
-      <div id="story" class="panel panel-default">
+      <div id="story" class="panel panel-info">
         <div class="panel-heading">Story Information (Read-only)</div>
         <div class="panel-body">
           <div class="row">
@@ -115,18 +119,24 @@
         </div>
       </div>
 
-      <div id="chapter" class="panel panel-default">
+      <div id="chapter" class="panel panel-warning">
         <div class="panel-heading">Chapter (Edit)</div>
         <div class="panel-body">
           <form id="chapterInfoForm">
-            <label>Title: <input name="chapterTitle" type="text" size="100" placeholder="What is the title of the chapter?"/></label><br/>
-            <label>Prose: <textarea name="prose" cols="80" rows="10" placeholder="Type your chapter here"></textarea></label><br/>
-            <button type="button" class="btn btn-success">Save Chapter</button>
+            <div class="form-group">
+              <label for="chapterTitle">Title:</label>
+              <input id="chapterTitle" type="text" class="form-control" placeholder="What is the title of the chapter?"/>
+            </div>
+            <div class="form-group">
+              <label>Prose:</label>
+              <textarea name="prose" class="form-control" placeholder="Type your chapter here"></textarea>
+            </div>
+            <button type="button" class="btn btn-warning">Save Chapter</button>
           </form>
         </div>
       </div>
 
-      <div id="sign" class="panel panel-default">
+      <div id="sign" class="panel panel-warning">
         <div class="panel-heading">Next Chapter Sign (Edit)</div>
         <div class="panel-body">
         <form id="signInfoForm">
@@ -139,7 +149,7 @@
               <option value="1002">1002 - Chapter 3 -- this is the one where everything goes to heck.</option>
             </select>
           </label><br/>
-          <button type="button" class="btn btn-success">Save Sign</button>
+          <button type="button" class="btn btn-warning">Save Sign</button>
         </form>
       </div>
     </div>
