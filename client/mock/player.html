@@ -25,36 +25,39 @@
       <div class="page-header">
         <h1 class="text-center">StoryTime <small>Choose Your Own Destiny</small></h1>
         <!-- navigation menu -->
-        <div><a href="index.html">Home</a> | <a href="player.html">Player</a> | <a href="story.html">Story</a> | <a href="chapter.html">Chapter</a></div>
+        <div><a href="index.html">Home</a> | <a href="player.html">Player</a>
+          | <a href="story.html">Story</a> | <a href="chapter.html">Chapter</a>
+          | <a href="signpost.html">Sign Post</a>
+        </div>
       </div>
 
       <div id="player" class="panel panel-info">
-        <div class="panel-heading">Player Information</div>
+        <div class="panel-heading">
+          Player Information
+         </div>
         <div class="panel-body">
           <div class="row form-field">
-            <div class="col-xs-2"><strong>Screen Name</strong></div>
+            <div class="col-xs-2 text-right"><strong>Screen Name</strong></div>
             <div class="col-xs-10">BubbaGump</div>
           </div>
           <div class="row form-field">
-            <div class="col-xs-2"><strong>Pen Name</strong></div>
+            <div class="col-xs-2 text-right"><strong>Pen Name</strong></div>
             <div class="col-xs-10">BubbaGump, Esquire</div>
           </div>
           <div class="row form-field">
-            <div class="col-xs-2"><strong>Email</strong></div>
+            <div class="col-xs-2 text-right"><strong>Email</strong></div>
             <div class="col-xs-10"><em>unknown</em></div>
           </div>
           <div class="row form-field">
-            <div class="col-xs-2"><strong>Is a Minor</strong></div>
+            <div class="col-xs-2 text-right"><strong>Is a Minor</strong></div>
             <div class="col-xs-10">No</div>
           </div>
-          <form class="horizontal-form">
+          <form>
             <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" class="btn btn-success" aria-label="Change Player Information">
-                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                  Change Player Information
-                </button>
-              </div>
+              <button type="button" class="btn btn-success" aria-label="Change Player Information">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                Change Player Information
+              </button>
             </div>
           </form>
         </div>
@@ -63,45 +66,35 @@
       <div id="player" class="panel panel-warning">
         <div class="panel-heading">Player Information</div>
         <div class="panel-body">
-          <form id="playerInfoForm" class="horizontal-form">
+          <form>
             <div class="form-group">
-              <label for="screenName" class="col-sm-2 control-label">Screen Name</label>
-              <div class="col-sm-10">
-                <input id="screenName" type="text" class="form-control" placeholder="Your alias for StoryTime"/>
+              <label for="screenName">Screen Name</label>
+              <input id="screenName" type="text" class="form-control" placeholder="Your alias for StoryTime"/>
+            </div>
+            <div class="form-group">
+              <label for="penName">Pen Name</label>
+              <input id="penName" type="text" class="form-control" placeholder="Your alias as an author"/>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input id="email" type="email" class="form-control" placeholder="How we will contact you"/>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input id="isMinor" type="checkbox"> <strong>Is a minor</strong>
+                </label>
               </div>
             </div>
             <div class="form-group">
-              <label for="penName" class="col-sm-2 control-label">Pen Name</label>
-              <div class="col-sm-10">
-                <input id="penName" type="text" class="form-control" placeholder="Your alias as an author"/>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="email" class="col-sm-2 control-label">Email Address</label>
-              <div class="col-sm-10">
-                <input id="email" type="email" class="form-control" placeholder="How we will contact you"/>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                  <label>
-                    <input id="isMinor" type="checkbox"> Is a minor
-                  </label>
-                </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" class="btn btn-warning" aria-label="Save Player Info">
-                  <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                  Save Player Info
-                </button>
-                <button type="button" class="btn btn-danger" aria-label="Cancel Changes">
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  Cancel Changes
-                </button>
-              </div>
+              <button type="button" class="btn btn-warning" aria-label="Save Player Info">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                Save Player Info
+              </button>
+              <button type="button" class="btn btn-danger" aria-label="Cancel Changes">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                Cancel Changes
+              </button>
             </div>
           </form>
         </div>
