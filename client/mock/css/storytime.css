@@ -9,6 +9,11 @@
   margin-bottom: 0.5em;
 }
 
+.signpost {
+  margin-top: 2em;
+  border: dotted green 2px;
+  padding: 1em;
+}
 /*
 $palette-redearth-color1: #796e24;
 $palette-redearth-color2: #f9df8d;
