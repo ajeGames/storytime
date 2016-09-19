@@ -10,7 +10,7 @@
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
     <link rel="stylesheet" href="css/storytime.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -40,8 +40,8 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li><a href="catalog.html">Catalog</a></li>
-              <li><a href="player.html">Account</a></li>
-              <li class="active"><a href="reader.html">Reader <span class="sr-only">(current)</span></a></li>
+              <li class="active"><a href="player.html">Account <span class="sr-only">(current)</span></a></li>
+              <li><a href="reader.html">Reader</a></li>
               <!-- use dropdown button -->
               <li class="dropdown">
                 <a href="editor.html" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -57,33 +57,63 @@
         </div>
       </nav>
 
-      <div class="panel panel-info">
-        <div class="panel-heading">In the Beginning</div>
+      <div id="player" class="panel panel-info">
+        <div class="panel-heading">
+          Player Information
+         </div>
         <div class="panel-body">
-          <div class="chapter-prose">
-            <p>This is the first chapter.  You are about to go on a fantastic
-              adventure.  Boy oh boy, this is going to be fun.</p>
-            <p>There will be multiple paragraphs of very interesting writing that
-              brings the reader deep into the world the author has created.  You
-              just cannot stop yourself from reading.</p>
-            <p>There will even be illustrations.</p>
-            <img width="400px" height="300px" src="pix/some_illustration_1.png" />
-            <p>Now isn't that nice.  Perhaps we could have multiple illustrations
-              per chapter.  Wouldn't that be even better?</p>
-            <img width="200px" height="150px" src="pix/some_illustration_1.png" />
-            <p>Maybe do something about wrapping</p>
-          </div>
-
-          <div class="signpost">
-            <p>What would you like to do?  Choose your action, and decide your fate.</p>
-            <div class="list-group">
-              <button type="button" onClick="#1" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> Do this.</button>
-              <button type="button" onClick="#1" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> Do that.</button>
-              <button type="button" onClick="#1" class="list-group-item"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> Do something completely different.</button>
+          <p><strong>Screen Name</strong><br/>BubbaGump</p>
+          <p><strong>Pen Name</strong><br/>BubbaGump, Esquire</p>
+          <p><strong>Email</strong><br/><em>unknown</em></p>
+          <p><strong>Is a minor?</strong><br/><em>No</em></p>
+          <form>
+            <div class="form-group">
+              <button type="button" class="btn btn-success" aria-label="Change Player Information">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                Change Player Information
+              </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
+
+      <div id="player" class="panel panel-warning">
+        <div class="panel-heading">Player Information</div>
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <label for="screenName">Screen Name</label>
+              <input id="screenName" type="text" class="form-control" placeholder="Your alias for StoryTime"/>
+            </div>
+            <div class="form-group">
+              <label for="penName">Pen Name</label>
+              <input id="penName" type="text" class="form-control" placeholder="Your alias as an author"/>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input id="email" type="email" class="form-control" placeholder="How we will contact you"/>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input id="isMinor" type="checkbox"> <strong>Is a minor</strong>
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn btn-warning" aria-label="Save Player Info">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                Save Player Info
+              </button>
+              <button type="button" class="btn btn-danger" aria-label="Cancel Changes">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                Cancel Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
