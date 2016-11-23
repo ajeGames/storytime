@@ -1,45 +1,48 @@
 swagger: '2.0'
-
 info:
-  title: Storytime API
-  description: An RESTful interface to the Storytime server, enabling all manner of choose-your-own-destiny games.
-  termsOfService: http://www.ajegames.com/terms/
+  title: StoryTime API
+  description: >-
+    RESTful interface to the StoryTime server, enabling all manner of
+    choose-your-own-destiny games.
+  termsOfService: 'http://www.ajegames.com/blog/terms-of-use/'
   contact:
     name: AJEGames Support
-    url: http://www.ajegames.com/support/
+    url: 'http://www.ajegames.com/blog/support/'
     email: support@ajegames.com
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: "1.0.0"
-host: www.ajegames.com
-basePath: /storytime/api/v1
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 0.1.0
+host: api.ajegames.com
+basePath: /storytime
 schemes:
   - http
+consumes:
+  - application/json
 produces:
   - application/json
-
 paths:
-  /storytime:
+  /status:
     get:
       tags:
-        - story
         - admin
-      summary: Ping server to see if it is responsive.
+      summary: Provides summary of StoryTime service status.
       description:
-        Can be called to determine if the server is responding to requests in general.  Returns the message 'pong' if alive.  Anonymous access is expected.
-      operationId: ping
+        Can be called to determine if the server is responding to requests in general.  Anonymous access is expected.
+      operationId: status
       responses:
         '200':
-          description: The message 'pong'
+          description: Short status summary
           schema:
-            type: string
-  /storytime/stories:
+            $ref: '#/definitions/Status'
+  /catalog:
     get:
+      tags:
+       - reader
       summary: Returns summaries of all available stories.
       description:
         Retrieves array of summaries of all published stories.  This is for use by 'reader' clients as a simple means for browsing the catalog of stories.  At some point, this will have to be refactored to handle the millions of published stories.  Anonymous access to this list is expected.
-      operationId: findPublishedStories
+      operationId: browseCatalog
       responses:
         '200':
           description: An array of summaries of published stories.
@@ -50,7 +53,7 @@ paths:
   /story:
     post:
       tags:
-        - story
+        - author
       summary: Creates a new story on the server.
       description:
         Creates a story from the data provided, assigning a unique key in the process.  Must be invoked by a user with 'author' priviledges.
@@ -65,9 +68,22 @@ paths:
       responses:
         "405":
           description: Invalid input
+  /story/{storyKey}:
+    get:
+      tags:
+       - reader
+      summary: Returns story information, what you might find on a book cover.
+      description:
+        The story summary should provide enough information to allow or entice the reader to choose the story.
+      operationId: getStory
+      responses:
+        '200':
+          description: The summary of the story.
+          schema:
+            $ref: '#/definitions/StorySummary'
     put:
       tags:
-        - story
+        - author
       summary: Update an existing pet
       description: ""
       operationId: updatePet
@@ -87,8 +103,9 @@ paths:
       responses:
         "400":
           description: Invalid ID supplied
-
 definitions:
+  Status:
+    type: string
   StorySummary:
     type: object
     properties:

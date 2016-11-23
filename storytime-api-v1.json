@@ -27,25 +27,158 @@
         "application/json"
     ],
     "paths": {
-        "/ping": {
+        "/status": {
             "get": {
-                "summary": "Quick way to check if the service is responsive.",
-                "description": "Use this method to confirm that the service is alive.  Simply returns 'pong' if responsive.  Anonymous access is expected.",
-                "operationId": "ping",
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Provides summary of StoryTime service status.",
+                "description": "Can be called to determine if the server is responding to requests in general.  Anonymous access is expected.",
+                "operationId": "status",
                 "responses": {
                     "200": {
-                        "description": "A-okay",
+                        "description": "Short status summary",
                         "schema": {
-                            "$ref": "#/definitions/Message"
+                            "$ref": "#/definitions/Status"
                         }
+                    }
+                }
+            }
+        },
+        "/catalog": {
+            "get": {
+                "tags": [
+                    "reader"
+                ],
+                "summary": "Returns summaries of all available stories.",
+                "description": "Retrieves array of summaries of all published stories.  This is for use by 'reader' clients as a simple means for browsing the catalog of stories.  At some point, this will have to be refactored to handle the millions of published stories.  Anonymous access to this list is expected.",
+                "operationId": "browseCatalog",
+                "responses": {
+                    "200": {
+                        "description": "An array of summaries of published stories.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/StorySummary"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/story": {
+            "get": {
+                "tags": [
+                    "reader"
+                ],
+                "summary": "Returns story information, what you might find on a book cover.",
+                "description": "The story summary should provide enough information to allow or entice the reader to choose the story.",
+                "operationId": "getStory",
+                "responses": {
+                    "200": {
+                        "description": "The summary of the story.",
+                        "schema": {
+                            "$ref": "#/definitions/StorySummary"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "author"
+                ],
+                "summary": "Creates a new story on the server.",
+                "description": "Creates a story from the data provided, assigning a unique key in the process.  Must be invoked by a user with 'author' priviledges.",
+                "operationId": "createStory",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Pet object that needs to be added to the store",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/StorySummary"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "author"
+                ],
+                "summary": "Update an existing pet",
+                "description": "",
+                "operationId": "updatePet",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Pet object that needs to be added to the store",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/StorySummary"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
                     }
                 }
             }
         }
     },
     "definitions": {
-        "Message": {
+        "Status": {
             "type": "string"
+        },
+        "StorySummary": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "tagLine": {
+                    "type": "string"
+                },
+                "about": {
+                    "type": "string"
+                },
+                "firstChapter": {
+                    "$ref": "#/definitions/ChapterSign"
+                }
+            }
+        },
+        "ChapterSign": {
+            "type": "object",
+            "properties": {
+                "targetChapterId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "teaser": {
+                    "type": "string"
+                }
+            }
         }
     }
 }
