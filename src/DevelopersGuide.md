@@ -4,6 +4,9 @@
 ## REST API
 This is a summary of the resources and actions you can take via the StoryTime REST API.
 
+**/status**
+* get - returns status information about the StoryTime service
+
 **/stories**
 * post - creates a story summary, including a pointer to the first chapter
 
@@ -26,6 +29,11 @@ This is a summary of the resources and actions you can take via the StoryTime RE
 * patch - updates specified options, leaving others intact
 
 ### Definitions
+
+**Status**
+* **salutation** - string
+* **status** - string
+* **version** - string
 
 **StorySummary**
 * **key** - string
