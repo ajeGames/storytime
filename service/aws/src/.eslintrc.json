@@ -1,9 +1,0 @@
-{
-  "rules": {
-    // follows Airbnb style
-    "import/no-extraneous-dependencies": [2, {
-      "devDependencies": false,
-      "optionalDependencies": false
-    }]
-  }
-}
