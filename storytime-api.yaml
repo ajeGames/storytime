@@ -1,9 +1,7 @@
 swagger: '2.0'
-
 info:
-  version: '0.1.0'
+  version: 0.1.0
   title: StoryTime API
-
 paths:
   /status:
     get:
@@ -12,15 +10,14 @@ paths:
       operationId: getStatus
       description: Gets information about the status of the StoryTime service.
       responses:
-        200:
+        '200':
           description: Successful response
           schema:
             $ref: '#/definitions/Status'
   /stories:
     post:
       summary: Creates new story with given information.
-      description:
-        Creates a story with the information provided, assigning a unique key.
+      description: 'Creates a story with the information provided, assigning a unique key.'
       operationId: createStory
       parameters:
         - name: story
@@ -30,19 +27,18 @@ paths:
           schema:
             $ref: '#/definitions/StorySummary'
       responses:
-        201:
+        '201':
           description: Story created
           schema:
             $ref: '#/definitions/StorySummary'
-        405:
+        '405':
           description: Invalid input
           schema:
             $ref: '#/definitions/Error'
-  /stories/{key}:
+  '/stories/{key}':
     get:
       summary: Returns story summary for given key
-      description:
-        Returns the summary of the story indentified by key.
+      description: Returns the summary of the story indentified by key.
       operationId: getStory
       parameters:
         - name: key
@@ -51,18 +47,17 @@ paths:
           required: true
           type: string
       responses:
-        200:
+        '200':
           description: Story found
           schema:
             $ref: '#/definitions/StorySummary'
-        404:
+        '404':
           description: Story not found
           schema:
             $ref: '#/definitions/Error'
     put:
       summary: Creates new story with given information.
-      description:
-        Creates a story with the information provided, assigning a unique key.
+      description: 'Creates a story with the information provided, assigning a unique key.'
       operationId: updateStory
       parameters:
         - name: key
@@ -77,23 +72,22 @@ paths:
           schema:
             $ref: '#/definitions/StorySummary'
       responses:
-        202:
+        '202':
           description: Story updated
           schema:
             $ref: '#/definitions/StorySummary'
-        404:
+        '404':
           description: Story not found
           schema:
             $ref: '#/definitions/Error'
-        405:
+        '405':
           description: Invalid input
           schema:
             $ref: '#/definitions/Error'
-  /stories/{key}/chapters:
+  '/stories/{key}/chapters':
     post:
-      summary: Creates new story with given information.
-      description:
-        Creates a chapter with the information provided, assigning a chapter ID.
+      summary: Creates new chapter with given information.
+      description: 'Creates a chapter with the information provided, assigning a chapter ID.'
       operationId: createChapter
       parameters:
         - name: key
@@ -108,19 +102,18 @@ paths:
           schema:
             $ref: '#/definitions/Chapter'
       responses:
-        201:
+        '201':
           description: Chapter created
           schema:
             $ref: '#/definitions/Chapter'
-        405:
+        '405':
           description: Invalid input
           schema:
             $ref: '#/definitions/Error'
-  /stories/{key}/chapters/{id}:
+  '/stories/{key}/chapters/{id}':
     get:
       summary: Retrieves chapter with given ID of story with given key.
-      description:
-        Retrieves chapter with given ID of story with given key.
+      description: Retrieves chapter with given ID of story with given key.
       operationId: getChapter
       parameters:
         - name: key
@@ -134,18 +127,17 @@ paths:
           required: true
           type: string
       responses:
-        200:
+        '200':
           description: Chapter found
           schema:
             $ref: '#/definitions/Chapter'
-        404:
+        '404':
           description: Chapter not found
           schema:
             $ref: '#/definitions/Error'
     put:
-      summary: Creates new story with given information.
-      description:
-        Updates the given chapter of given story.
+      summary: Updates chapter with given information.
+      description: Updates the given chapter of given story.
       operationId: updateChapter
       parameters:
         - name: key
@@ -165,19 +157,18 @@ paths:
           schema:
             $ref: '#/definitions/Chapter'
       responses:
-        202:
+        '202':
           description: Chapter updated
           schema:
             $ref: '#/definitions/Chapter'
-        404:
+        '404':
           description: Story not found
           schema:
             $ref: '#/definitions/Error'
-        405:
+        '405':
           description: Invalid input
           schema:
             $ref: '#/definitions/Error'
-
 definitions:
   Status:
     type: object
@@ -228,7 +219,7 @@ definitions:
   ChapterSign:
     type: object
     properties:
-      targetChapterId:
+      chapterId:
         type: integer
         format: int32
       teaser:

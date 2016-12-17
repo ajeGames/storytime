@@ -1,44 +1,53 @@
 'use strict';
 
-const doc = require('dynamodb-doc');
-
-console.log('Loading function');
-
-const dynamo = new doc.DynamoDB();
-
 /**
  * Demonstrates a simple HTTP endpoint using API Gateway. You have full
  * access to the request and response payload, including headers and
  * status code.
- *
- * To scan a DynamoDB table, make a GET request with the TableName as a
- * query string parameter. To put, update, or delete an item, make a POST,
- * PUT, or DELETE request respectively, passing in the payload to the
- * DynamoDB API as a JSON body.
  */
 exports.handler = (event, context, callback) => {
   console.log('Received event:', JSON.stringify(event, null, 2));
 
-  const done = (err, res) => callback(null, {
-    statusCode: err ? '400' : '200',
-    body: err ? err.message : JSON.stringify(res),
+  const notImplemented = {
+    statusCode: 200,
+    body: {
+      message: "not implemented"
+    },
     headers: {
       'Content-Type': 'application/json',
     },
-  });
+  }
+
+  const postResponse = {
+    statusCode: '201',
+    body: {
+      key: "blargyblargy",
+      title: "Your Story",
+      author: "you",
+      tagLine: "something catchy",
+      about: "something interesting",
+      firstChapter: {
+        chapterId: 1,
+        teaser: "start here"
+      }
+    },
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
 
   switch (event.httpMethod) {
     case 'DELETE':
-      dynamo.deleteItem(JSON.parse(event.body), done);
+      callback(null, notImplemented);
       break;
     case 'GET':
-      dynamo.scan({ TableName: event.queryStringParameters.TableName }, done);
+      callback(null, notImplemented);
       break;
     case 'POST':
-      dynamo.putItem(JSON.parse(event.body), done);
+      callback(null, postResponse);
       break;
     case 'PUT':
-      dynamo.updateItem(JSON.parse(event.body), done);
+      callback(null, notImplemented);
       break;
     default:
       done(new Error(`Unsupported method "${event.httpMethod}"`));
