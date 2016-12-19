@@ -1,13 +1,3 @@
-const statusResponse = {
-    salutation: 'Greetings from the StoryTime server.',
-    status: 'Feeling great!',
-    version: 'alpha'
-};
-
-exports.statusHandler = (event, context, callback) => {
-    callback(null, statusResponse);
-};
-
 const storyReponse = {
   title: 'the wumpus',
   author: 'the wumpus',
