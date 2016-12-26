@@ -27,7 +27,18 @@ provider:
   memorySize: 512
 
 # you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-west-2:*:*"
+
 #    - Effect: "Allow"
 #      Action:
 #        - "s3:ListBucket"
@@ -57,6 +68,18 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    description: Evokes a cheerful greeting
+  getStories:
+    handler: handler.getStories
+    description: Returns list of story summaries
+    events:
+      - http:
+          path: stories
+          method: get
+
+#  createStory:
+#    handler: handler.createStory
+#    description: Creates a new story with a unique key
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
