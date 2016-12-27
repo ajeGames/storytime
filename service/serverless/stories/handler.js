@@ -1,27 +1,12 @@
 'use strict';
 
-module.exports.hello = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'The StoryTime service is alive and well. Thanks for asking.',
-      input: event,
-    }),
-  };
+console.log('Loading StoryTime handlers');
 
-  callback(null, response);
+const doc = require('dynamodb-doc');
+const dynamo = new doc.DynamoDB();
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
-};
-
-module.exports.getStories = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify(sampleStories())
-  };
-
-  callback(null, response);
+function prettyLog(thing) {
+  console.log(JSON.stringify(thing, null, 2));
 }
 
 function sampleStories() {
@@ -45,13 +30,6 @@ function sampleStories() {
   ];
 }
 
-module.exports.createStory = (event, context, callback) => {
-  const response = {
-    statusCode: 202,
-    body: JSON.stringify(sampleStory())
-  };
-}
-
 function sampleStory() {
   return {
     key: '1111-imauniqukey',
@@ -62,5 +40,82 @@ function sampleStory() {
       chapterId: 1,
       teaser: 'Your destiny starts here.'
     }
+  };
+}
+
+function getHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin" : "*" // Required for CORS support to work
+  };
+}
+
+module.exports.hello = (event, context, callback) => {
+  prettyLog(event);
+  const response = {
+    statusCode: 200,
+    headers: getHeaders(),
+    body: JSON.stringify({
+      message: 'The StoryTime service is alive and well. Thanks for asking.',
+      input: event,
+    }),
+  };
+  callback(null, response);
+};
+
+function getStorySummaries() {
+  return sampleStories();
+}
+
+module.exports.listSummaries = (event, context, callback) => {
+  prettyLog(event);
+
+  const response = {
+    statusCode: 200,
+    headers: getHeaders(),
+    body: JSON.stringify(getStorySummaries())
+  };
+  callback(null, response);
+}
+
+function generateStoryKey() {
+  const length = 12;
+  let key = "";
+  let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for(var i = 0; i < length; i++) {
+    key += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return key;
+}
+
+module.exports.createStory = (event, context, callback) => {
+  prettyLog(event);
+
+  let storySummary = event.body;  // TODO check that body is what we expect; if not, return 400
+  storySummary.key = generateStoryKey();
+
+  const params = {
+    TableName: "stories",
+    Item: {
+      key: storySummary.key,
+      summary: storySummary;
+    }
+  };
+
+  const processResults = (err, res) => callback(null, {
+    statusCode: err ? '400' : '202',
+    headers: getHeaders(),
+    body: err ? err.message : JSON.stringify(res),
+  });
+
+  dynamo.put(params, processResults);
+}
+
+module.exports.getStory = (event, context, callback) => {
+  prettyLog(event);
+  const response = {
+    statusCode: 200,
+    headers: getHeaders(),
+    body: JSON.stringify(sampleStory())
   };
 }

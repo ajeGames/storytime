@@ -69,17 +69,34 @@ functions:
   hello:
     handler: handler.hello
     description: Evokes a cheerful greeting
+    events:
+      - http:
+          path: hello
+          method: get
+          cors: true
   getStories:
-    handler: handler.getStories
+    handler: handler.listSummaries
     description: Returns list of story summaries
     events:
       - http:
           path: stories
           method: get
-
-#  createStory:
-#    handler: handler.createStory
-#    description: Creates a new story with a unique key
+          cors: true
+  createStory:
+    handler: handler.createStory
+    description: Creates a new story with a unique key
+    events:
+      - http:
+          path: stories
+          method: post
+          cors: true
+  getStory:
+    handler: handler.getStory
+    description: Returns story summary given a key
+    events:
+      - http:
+          path: stories/{storyKey}
+          method: get
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -99,8 +116,22 @@ functions:
 #      variable2: value2
 
 # you can add CloudFormation resource templates here
-#resources:
-#  Resources:
+resources:
+  Resources:
+    storiesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: stories
+        AttributeDefinitions:
+          - AttributeName: key
+            AttributeType: S
+        KeySchema:
+          - AttributeName: key
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
 #    NewResource:
 #      Type: AWS::S3::Bucket
 #      Properties:
