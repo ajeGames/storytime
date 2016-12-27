@@ -121,12 +121,12 @@ resources:
     storiesTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: stories
+        TableName: storiesTable
         AttributeDefinitions:
-          - AttributeName: key
+          - AttributeName: storyKey
             AttributeType: S
         KeySchema:
-          - AttributeName: key
+          - AttributeName: storyKey
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
