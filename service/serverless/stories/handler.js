@@ -1,83 +1,55 @@
 'use strict';
 
 const AWS = require('aws-sdk');
-const docClient = new AWS.DynamoDB.DocumentClient();
+const dynamodbClient = new AWS.DynamoDB.DocumentClient();
 const storyTableName = 'storiesTable';
+const version = '0.5.0';
 
-function prettyLog(thing) {
-  console.log(JSON.stringify(thing, null, 2));
-}
-
-// function sampleStories() {
-//   return [
-//     {
-//       key: '1111-imauniqukey',
-//       title: 'Walk About the Neighborhood',
-//       author: 'Evangeline Sora',
-//       tagLine: 'Ooo, look at all the pretty lights.',
-//     }, {
-//       key: '2222-imauniqukey',
-//       title: 'The Cave',
-//       author: 'Bubba Gump',
-//       tagLine: 'As you are walking through the woods, you discover an opening in the ground.',
-//     }, {
-//       key: '3333-imauniqukey',
-//       title: 'ミスターバブル',
-//       author: '和くん',
-//       tagLine: '面白いよ！',
-//     }
-//   ];
-// }
-
-function sampleStory() {
-  return {
-    key: '1111-imauniqukey',
-    title: 'Walk About the Neighborhood',
-    author: 'Evangeline Sora',
-    tagLine: 'Ooo, look at all the pretty lights.',
-    firstChapter: {
-      chapterId: 1,
-      teaser: 'Your destiny starts here.'
-    }
-  };
-}
-
-function getHeaders() {
-  return {
-    'Content-Type': 'application/json',
-    "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
-  };
-}
-
-module.exports.hello = (event, context) => {
-  const response = {
-    statusCode: 200,
-    headers: getHeaders(),
-    body: JSON.stringify({
-      message: 'The StoryTime service is alive and well. Thanks for asking.',
-      input: event,
-    }),
-  };
-  context.succeed(response);
+const headers = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin' : '*', // Required for CORS support to work
 };
 
-module.exports.listSummaries = (event, context, callback) => {
+const sampleStory = {
+  key: '1111-imauniqukey',
+  title: 'Walk About the Neighborhood',
+  author: 'Evangeline Sora',
+  tagLine: 'Ooo, look at all the pretty lights.',
+  firstChapter: {
+    chapterId: 1,
+    teaser: 'Your destiny starts here.'
+  }
+};
+
+function prettyJsonLog(thing, description) {
+  console.log(description, JSON.stringify(thing, null, 2));
+}
+
+module.exports.getStatus = (event, context, callback) => {
+  const response = {
+    statusCode: 200,
+    headers: headers,
+    body: JSON.stringify({
+      salutation: 'The StoryTime service is alive and well. Thanks for asking.',
+      status: 'All systems are go.',
+      version: version,
+    }),
+  };
+  callback(null, response);
+};
+
+module.exports.getSummaries = (event, context, callback) => {
   const params = {
     TableName: storyTableName,
     AttributesToGet: [ 'summary' ],
     ConsistentRead: true,
   };
-
-  const processResults = (err, res) => {
-    const resp = {
-      statusCode: err ? '500' : '200',
-      headers: getHeaders(),
-      body: err ? err.message : JSON.stringify(res),
-    };
-    context.succeed(resp);
-  }
-
-  docClient.scan(params, processResults);
+  const processResults = (err, res) => callback(null, {
+    statusCode: err ? '500' : '200',
+    headers: headers,
+    body: err ? err.message : JSON.stringify(res.Items),
+  });
+  dynamodbClient.scan(params, processResults);
 }
 
 function generateStoryKey() {
@@ -91,64 +63,50 @@ function generateStoryKey() {
 }
 
 module.exports.createStory = (event, context, callback) => {
-  console.log('called createStory');
-  prettyLog(event);
-  prettyLog(context);
-
   const body = JSON.parse(event.body);
 
   // validate input
   if (body.title === undefined) {
-    console.log('Validation: missing required field [title]')
-    callback(new Error('[400] Bad Request'));
+    callback(new Error('[400] Validation Error: missing required field: title'));
     return;
   }
 
+  // insert story summary
   const storyKey = generateStoryKey();
-  const storySummary = {
+  const summary = {
     key: storyKey,
     title: body.title,
     author: body.author,
     tagLine: body.tagLine,
     about: body.about,
+    firstChapter: {
+      chapterId: 1,
+      teaser: 'Start here',
+    },
   };
-  prettyLog(storySummary);
-
   const params = {
     TableName: storyTableName,
     Item: {
       storyKey: storyKey,
-      summary: storySummary,
+      summary: summary,
     },
     // ConditionExpression: 'attribute_not_exists(storyKey)',
   };
-
-  const correctWayToProcess = (err, res) => {
-    prettyLog(err);
-    const resp = {
-      statusCode: err ? '400' : '202',
-      headers: getHeaders(),
-      body: err ? err.message : JSON.stringify(storySummary),
-    };
-    context.succeed(resp);
-  }
-
+  // TODO make this gracefully handle duplicate key, retry
   const processResults = (err, res) => callback(null, {
-    statusCode: err ? '400' : '202',
-    headers: getHeaders(),
-    body: err ? err.message : JSON.stringify(storySummary),
+    statusCode: err ? '500' : '202',
+    headers: headers,
+    body: err ? err.message : JSON.stringify(summary),
   });
-
-  prettyLog(params);
-  docClient.put(params, correctWayToProcess);
+  dynamodbClient.put(params, processResults);
 }
 
 module.exports.getStory = (event, context, callback) => {
-  prettyLog(event);
+  prettyJsonLog(event, 'event');
   const response = {
     statusCode: 200,
-    headers: getHeaders(),
-    body: JSON.stringify(sampleStory())
+    headers: headers,
+    body: JSON.stringify(sampleStory)
   };
   callback(null, response);
 }

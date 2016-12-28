@@ -66,16 +66,16 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  status:
+    handler: handler.getStatus
     description: Evokes a cheerful greeting
     events:
       - http:
-          path: hello
+          path: status
           method: get
           cors: true
   getStories:
-    handler: handler.listSummaries
+    handler: handler.getSummaries
     description: Returns list of story summaries
     events:
       - http:
@@ -97,6 +97,7 @@ functions:
       - http:
           path: stories/{storyKey}
           method: get
+          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

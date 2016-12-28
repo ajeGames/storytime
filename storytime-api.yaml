@@ -41,7 +41,18 @@ paths:
           description: Invalid input
           schema:
             $ref: '#/definitions/Error'
-  '/stories/{key}':
+    get:
+      summary: Gets all of the story summaries
+      description: Gets every story summary. Results might be truncated for paging.
+      operationId: getSummaries
+      responses:
+        '200':
+          description: Story summaries
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/StorySummary'
+  /stories/{key}:
     get:
       summary: Returns story summary for given key
       description: Returns the summary of the story indentified by key.
