@@ -52,6 +52,29 @@ module.exports.getSummaries = (event, context, callback) => {
   dynamodbClient.scan(params, processResults);
 }
 
+function retrieveStory(storyKey) {
+
+}
+
+module.exports.getStory = (event, context, callback) => {
+  const storyKey = event.pathParameters.storyKey;
+  const params = {
+    TableName: storyTableName,
+    Key: {
+      storyKey: storyKey,
+    },
+  };
+  const processResults = (err, res) => {
+    prettyJsonLog(err ? err : res, 'getStory');
+    callback(null, {
+      statusCode: err ? '404' : '200',
+      headers: headers,
+      body: err ? err.message : JSON.stringify(res.Item.summary),
+    });
+  };
+  dynamodbClient.get(params, processResults);
+}
+
 function generateStoryKey() {
   const length = 12;
   let key = "";
@@ -72,7 +95,7 @@ module.exports.createStory = (event, context, callback) => {
   }
 
   // insert story summary
-  const storyKey = generateStoryKey();
+  const storyKey = generateStoryKey();  // TODO make sure key not already in use
   const summary = {
     key: storyKey,
     title: body.title,
@@ -90,23 +113,15 @@ module.exports.createStory = (event, context, callback) => {
       storyKey: storyKey,
       summary: summary,
     },
-    // ConditionExpression: 'attribute_not_exists(storyKey)',
+    ConditionExpression: 'attribute_not_exists(storyKey)',  // do not overwrite existing
   };
-  // TODO make this gracefully handle duplicate key, retry
-  const processResults = (err, res) => callback(null, {
-    statusCode: err ? '500' : '202',
-    headers: headers,
-    body: err ? err.message : JSON.stringify(summary),
-  });
+  const processResults = (err, res) => {
+    prettyJsonLog(err ? err : res, 'getStory');
+    callback(null, {
+      statusCode: err ? '500' : '202',
+      headers: headers,
+      body: err ? err.message : JSON.stringify(summary),
+    });
+  }
   dynamodbClient.put(params, processResults);
-}
-
-module.exports.getStory = (event, context, callback) => {
-  prettyJsonLog(event, 'event');
-  const response = {
-    statusCode: 200,
-    headers: headers,
-    body: JSON.stringify(sampleStory)
-  };
-  callback(null, response);
 }
