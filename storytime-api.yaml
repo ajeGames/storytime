@@ -200,8 +200,7 @@ definitions:
     type: object
     properties:
       errorCode:
-        type: integer
-        format: int32
+        type: string
       message:
         type: string
   StorySummary:
