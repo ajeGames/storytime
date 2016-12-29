@@ -3,11 +3,11 @@
 const AWS = require('aws-sdk');
 const dynamodbClient = new AWS.DynamoDB.DocumentClient();
 const storyTableName = 'storiesTable';
-const version = '0.5.0';
+const version = '0.6.0';
 
 const headers = {
   'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin' : '*', // Required for CORS support to work
+  'Access-Control-Allow-Origin' : '*' // Required for CORS support to work
 };
 
 function prettyJsonLog(thing, description) {
@@ -19,7 +19,7 @@ function buildSuccess(payload, statusCode) {
   return {
     statusCode: code,
     headers: headers,
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload)
   };
 }
 
@@ -29,14 +29,18 @@ function buildError(statusCode, errorCode, errorMessage) {
     headers: headers,
     body: JSON.stringify({
       errorCode: errorCode,
-      message: errorMessage,
-    }),
+      message: errorMessage
+    })
   };
 }
 
 function buildErrorRequiredField(fieldName) {
   return buildError('400', 'MissingRequiredField',
     'Request body missing required field: ' + fieldName);
+}
+
+function buildErrorMalformedInput() {
+  return buildError('400', 'MalformedInput', 'Unable to process input');
 }
 
 function buildErrorNotFound(key) {
@@ -55,7 +59,7 @@ module.exports.getStatus = (event, context, callback) => {
   const payload = {
     salutation: 'The StoryTime service is alive and well. Thanks for asking.',
     status: 'All systems are go.',
-    version: version,
+    version: version
   };
   callback(null, buildSuccess(payload));
 };
@@ -68,7 +72,7 @@ module.exports.getSummaries = (event, context, callback) => {
   const params = {
     TableName: storyTableName,
     AttributesToGet: [ 'summary' ],
-    ConsistentRead: true,
+    ConsistentRead: true
   };
   const processResults = (err, res) => {
     if (err) {
@@ -78,7 +82,7 @@ module.exports.getSummaries = (event, context, callback) => {
     }
   };
   dynamodbClient.scan(params, processResults);
-}
+};
 
 /**
  * Returns the story with the given storyKey or 404 if not found.
@@ -88,8 +92,8 @@ module.exports.getStory = (event, context, callback) => {
   const params = {
     TableName: storyTableName,
     Key: {
-      storyKey: storyKey,
-    },
+      storyKey: storyKey
+    }
   };
   const processResults = (err, res) => {
     if (err) {
@@ -103,7 +107,7 @@ module.exports.getStory = (event, context, callback) => {
     }
   };
   dynamodbClient.get(params, processResults);
-}
+};
 
 function generateStoryKey(length) {
   const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -116,36 +120,39 @@ function generateStoryKey(length) {
 
 /**
  * Adds a new story with a unique storyKey to database.
- *
- * (There is a minute chance of failure if a key is generated that is
- * already in use.  Just try a second time -- the odds are nearly certain
- * that it won't happen twice in a row unless there's a bug in the service.)
  */
 module.exports.createStory = (event, context, callback) => {
-  const body = JSON.parse(event.body);
-
-  // validate input
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch (e) {
+    callback(null, buildErrorMalformedInput());
+    return;
+  }
   if (body.title === undefined) {
     callback(null, buildErrorRequiredField('title'));
     return;
   }
   // TODO handle unexpected types (i.e., non-String)
 
-  const storyKey = generateStoryKey(12);  // TODO make sure key not already in use
+  // There is a minute chance of failure if a key is generated that is
+  // already in use.  Just try a second time -- the odds are nearly certain
+  // that it won't happen twice in a row unless there's a bug in the service.
+  const storyKey = generateStoryKey(12);
   const summary = {
     key: storyKey,
     title: body.title,
     author: body.author,
     tagLine: body.tagLine,
-    about: body.about,
+    about: body.about
   };
   const params = {
     TableName: storyTableName,
     Item: {
       storyKey: storyKey,
-      summary: summary,
+      summary: summary
     },
-    ConditionExpression: 'attribute_not_exists(storyKey)',  // do not overwrite existing
+    ConditionExpression: 'attribute_not_exists(storyKey)'
   };
   const processResults = (err, res) => {
     if (err) {
@@ -155,39 +162,59 @@ module.exports.createStory = (event, context, callback) => {
     }
   };
   dynamodbClient.put(params, processResults);
-}
+};
 
+/**
+ * Updates story with field values sent in body.
+ */
 module.exports.updateStory = (event, context, callback) => {
-  prettyJsonLog(event, 'updateStory event');
   const storyKey = event.pathParameters.storyKey;
-  const body = JSON.parse(event.body);
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch (e) {
+    callback(null, buildErrorMalformedInput());
+    return;
+  }
 
-  let updTitle = body.title ? body.title : '';
-  let updAuthor = body.author ? body.author : '';
-  let updTagLine = body.tagLine ? body.tagLine : '';
-  let updAbout = body.about ? body.about : '';
+  const fieldsToUpdate = ['title', 'author', 'tagLine', 'about'];
+  let updExpr = 'set ';
+  const offset = updExpr.length;
+  let exprAttrValues = {};
+  const numFields = fieldsToUpdate.length;
+  for (let i = 0; i < numFields; i++) {
+    let fieldName = fieldsToUpdate[i];
+    let bodyFieldValue = body[fieldName];
+    if (bodyFieldValue === undefined || bodyFieldValue === '') {
+      continue;
+    }
+    if (updExpr.length > offset) {
+      updExpr += ', ';
+    }
+    let placeholder = ':' + fieldName;
+    updExpr += 'summary.' + fieldName + ' = ' + placeholder;
+    exprAttrValues[placeholder] = bodyFieldValue;
+  }
+  if (updExpr.length === offset) {
+    callback(null, buildErrorRequiredField('any or all of [' + fieldsToUpdate + ']'));
+    return;
+  }
 
   const params = {
     TableName: storyTableName,
     Key: {
       storyKey: storyKey,
     },
-    UpdateExpression: 'set summary.title = :title, summary.author = :author, summary.tagLine = :tagLine, summary.about = :about',
-    ExpressionAttributeValues: {
-      ':title': updTitle,
-      ':author': updAuthor,
-      ':tagLine': updTagLine,
-      ':about': updAbout,
-    },
-    ReturnValues: "ALL_NEW",
+    UpdateExpression: updExpr,
+    ExpressionAttributeValues: exprAttrValues,
+    ReturnValues: "ALL_NEW"
   };
   const processResults = (err, res) => {
     if (err) {
       callback(null, buildErrorDataAccess(err));
     } else {
-      prettyJsonLog(res, 'updateStory dynamodb result');
-      callback(null, buildSuccess(res));
+      callback(null, buildSuccess(res.Attributes.summary));
     }
   };
   dynamodbClient.update(params, processResults);
-}
+};
