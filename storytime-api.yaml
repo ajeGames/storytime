@@ -216,8 +216,6 @@ definitions:
         type: string
       about:
         type: string
-      firstChapter:
-        $ref: '#/definitions/ChapterSign'
   Chapter:
     type: object
     properties:

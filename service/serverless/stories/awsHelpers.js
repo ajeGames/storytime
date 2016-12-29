@@ -30,19 +30,24 @@ module.exports.buildError = (statusCode, errorCode, errorMessage) => {
 }
 
 module.exports.buildErrorRequiredField = (fieldName) => {
-  return buildError('400', 'MissingRequiredField',
+  return this.buildError('400', 'MissingRequiredField',
     'Request body missing required field: ' + fieldName);
 }
 
+module.exports.buildErrorInvalidInput = (fieldName, typeName) => {
+  return this.buildError('400', 'InvalidInput',
+    'Expected field [' + fieldName + '] to be of type [' + typeName + ']');
+}
+
 module.exports.buildErrorMalformedInput = () => {
-  return buildError('400', 'MalformedInput', 'Unable to process input');
+  return this.buildError('400', 'MalformedInput', 'Unable to process input');
 }
 
 module.exports.buildErrorNotFound = (key) => {
-  return buildError('404', 'NotFound', 'Nothing found with key: ' + key);
+  return this.buildError('404', 'NotFound', 'Nothing found with key: ' + key);
 }
 
 module.exports.buildErrorDataAccess = (err) => {
   prettyJsonLog(err, 'dynamodb err');
-  return buildError('500', 'DataAccess', err.message);
+  return this.buildError('500', 'DataAccess', err.message);
 }
