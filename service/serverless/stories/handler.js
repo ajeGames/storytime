@@ -138,10 +138,6 @@ module.exports.createStory = (event, context, callback) => {
     author: body.author,
     tagLine: body.tagLine,
     about: body.about,
-    firstChapter: {
-      chapterId: 1,
-      teaser: 'Start here',
-    },
   };
   const params = {
     TableName: storyTableName,
@@ -159,4 +155,39 @@ module.exports.createStory = (event, context, callback) => {
     }
   };
   dynamodbClient.put(params, processResults);
+}
+
+module.exports.updateStory = (event, context, callback) => {
+  prettyJsonLog(event, 'updateStory event');
+  const storyKey = event.pathParameters.storyKey;
+  const body = JSON.parse(event.body);
+
+  let updTitle = body.title ? body.title : '';
+  let updAuthor = body.author ? body.author : '';
+  let updTagLine = body.tagLine ? body.tagLine : '';
+  let updAbout = body.about ? body.about : '';
+
+  const params = {
+    TableName: storyTableName,
+    Key: {
+      storyKey: storyKey,
+    },
+    UpdateExpression: 'set summary.title = :title, summary.author = :author, summary.tagLine = :tagLine, summary.about = :about',
+    ExpressionAttributeValues: {
+      ':title': updTitle,
+      ':author': updAuthor,
+      ':tagLine': updTagLine,
+      ':about': updAbout,
+    },
+    ReturnValues: "ALL_NEW",
+  };
+  const processResults = (err, res) => {
+    if (err) {
+      callback(null, buildErrorDataAccess(err));
+    } else {
+      prettyJsonLog(res, 'updateStory dynamodb result');
+      callback(null, buildSuccess(res));
+    }
+  };
+  dynamodbClient.update(params, processResults);
 }

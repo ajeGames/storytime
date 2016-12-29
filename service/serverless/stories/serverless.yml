@@ -98,19 +98,14 @@ functions:
           path: stories/{storyKey}
           method: get
           cors: true
-
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill
+  updateStory:
+    handler: handler.updateStory
+    description: Modifies an existing story
+    events:
+      - http:
+          path: stories/{storyKey}
+          method: put
+          cors: true
 
 #    Define function environment variables here
 #    environment:
