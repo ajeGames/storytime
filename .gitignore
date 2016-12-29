@@ -10,3 +10,6 @@ dependency-reduced-pom.xml
 npm-debug.log
 *.db
 lib/
+node_modules/
+jspm_packages/
+.serverless/
