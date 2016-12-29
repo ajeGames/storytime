@@ -1,9 +1,12 @@
-'use strict';
+"use strict";
 
+const Stories = require('stories');
 const AWS = require('aws-sdk');
 const dynamodbClient = new AWS.DynamoDB.DocumentClient();
 const storyTableName = 'storiesTable';
 const version = '0.6.0';
+
+let stories = new Stories(dynamodbClient, storyTableName);
 
 const headers = {
   'Content-Type': 'application/json',
@@ -69,20 +72,24 @@ module.exports.getStatus = (event, context, callback) => {
  * be limited with filters and pagination.
  */
 module.exports.getSummaries = (event, context, callback) => {
-  const params = {
-    TableName: storyTableName,
-    AttributesToGet: [ 'summary' ],
-    ConsistentRead: true
-  };
-  const processResults = (err, res) => {
-    if (err) {
-      callback(null, buildErrorDataAccess(err));
-    } else {
-      callback(null, buildSuccess(res.Items));
-    }
-  };
-  dynamodbClient.scan(params, processResults);
+  stories.getSummaries(callback);
 };
+
+// module.exports.getSummaries = (event, context, callback) => {
+//   const params = {
+//     TableName: storyTableName,
+//     AttributesToGet: [ 'summary' ],
+//     ConsistentRead: true
+//   };
+//   const processResults = (err, res) => {
+//     if (err) {
+//       callback(null, buildErrorDataAccess(err));
+//     } else {
+//       callback(null, buildSuccess(res.Items));
+//     }
+//   };
+//   dynamodbClient.scan(params, processResults);
+// };
 
 /**
  * Returns the story with the given storyKey or 404 if not found.
