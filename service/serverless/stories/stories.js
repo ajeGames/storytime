@@ -137,7 +137,7 @@ class Stories {
     const params = {
       TableName: this.storyTableName,
       Key: {
-        storyKey: storyKey,
+        storyKey: storyKey
       },
       UpdateExpression: updExpr,
       ExpressionAttributeValues: exprAttrValues,
@@ -145,6 +145,7 @@ class Stories {
     };
     const processResults = (err, res) => {
       if (err) {
+        // TODO find graceful way to respond when not found
         callback(null, awsHelpers.buildErrorDataAccess(err));
       } else {
         callback(null, awsHelpers.buildSuccess(res.Attributes.summary));

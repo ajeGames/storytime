@@ -48,6 +48,6 @@ module.exports.buildErrorNotFound = (key) => {
 }
 
 module.exports.buildErrorDataAccess = (err) => {
-  prettyJsonLog(err, 'dynamodb err');
-  return this.buildError('500', 'DataAccess', err.message);
+  this.prettyJsonLog(err, 'dynamodb err');
+  return this.buildError('500', 'DataAccess', err.code + ': ' + err.message);
 }

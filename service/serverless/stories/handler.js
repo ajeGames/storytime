@@ -10,53 +10,6 @@ const version = '0.6.0';
 
 let stories = new Stories(dynamodbClient, storyTableName);
 
-// const headers = {
-//   'Content-Type': 'application/json',
-//   'Access-Control-Allow-Origin' : '*' // Required for CORS support to work
-// };
-//
-// function prettyJsonLog(thing, description) {
-//   console.log(description, JSON.stringify(thing, null, 2));
-// }
-//
-// function buildSuccess(payload, statusCode) {
-//   let code = statusCode ? statusCode : 200;
-//   return {
-//     statusCode: code,
-//     headers: headers,
-//     body: JSON.stringify(payload)
-//   };
-// }
-//
-// function buildError(statusCode, errorCode, errorMessage) {
-//   return {
-//     statusCode: statusCode,
-//     headers: headers,
-//     body: JSON.stringify({
-//       errorCode: errorCode,
-//       message: errorMessage
-//     })
-//   };
-// }
-//
-// function buildErrorRequiredField(fieldName) {
-//   return buildError('400', 'MissingRequiredField',
-//     'Request body missing required field: ' + fieldName);
-// }
-//
-// function buildErrorMalformedInput() {
-//   return buildError('400', 'MalformedInput', 'Unable to process input');
-// }
-//
-// function buildErrorNotFound(key) {
-//   return buildError('404', 'NotFound', 'Nothing found with key: ' + key);
-// }
-//
-// function buildErrorDataAccess(err) {
-//   prettyJsonLog(err, 'dynamodb err');
-//   return buildError('500', 'DataAccess', err.message);
-// }
-
 /**
  * Checks the status of the service; returns signs of life if possible.
  */
