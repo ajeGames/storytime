@@ -44,7 +44,7 @@ module.exports.buildErrorMalformedInput = () => {
 }
 
 module.exports.buildErrorNotFound = (key) => {
-  return this.buildError('404', 'NotFound', 'Nothing found with key: ' + key)
+  return this.buildError('404', 'NotFound', 'Nothing found with key: [' + key + ']')
 }
 
 module.exports.buildErrorDataAccess = (err) => {

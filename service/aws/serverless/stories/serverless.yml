@@ -106,6 +106,22 @@ functions:
           path: stories/{storyKey}
           method: put
           cors: true
+  getChapter:
+    handler: handler.getChapter
+    description: Returns given chapter of given story key
+    events:
+      - http:
+          path: stories/{storyKey}/chapter/{chapterId}
+          method: get
+          cors: true
+  updateChapter:
+    handler: handler.updateChapter
+    description: Modifies an existing chapter
+    events:
+      - http:
+          path: stories/{storyKey}/chapter/{chapterId}
+          method: put
+          cors: true
 
 #    Define function environment variables here
 #    environment:
@@ -114,16 +130,33 @@ functions:
 # you can add CloudFormation resource templates here
 resources:
   Resources:
-    storiesTable:
+    storiesDynamoDBTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: storiesTable
+        TableName: stories
         AttributeDefinitions:
           - AttributeName: storyKey
             AttributeType: S
         KeySchema:
           - AttributeName: storyKey
             KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    chaptersDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: chapters
+        AttributeDefinitions:
+          - AttributeName: storyKey
+            AttributeType: S
+          - AttributeName: chapterId
+            AttributeType: N
+        KeySchema:
+          - AttributeName: storyKey
+            KeyType: HASH
+          - AttributeName: chapterId
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

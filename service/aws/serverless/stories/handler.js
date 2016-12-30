@@ -1,14 +1,17 @@
 'use strict'
 
-const awsHelpers = require('awsHelpers')
-const Stories = require('stories')
+const awsHelpers = require('./awsHelpers')
+const Stories = require('./stories')
+const Chapters = require('./chapters')
 const AWS = require('aws-sdk')
 
 const dynamodbClient = new AWS.DynamoDB.DocumentClient()
-const storyTableName = 'storiesTable'
-const version = '0.6.0'
+const storyTableName = 'stories'
+const chapterTableName = 'chapters'
+const version = '0.7.0'
 
 let stories = new Stories(dynamodbClient, storyTableName)
+let chapters = new Chapters(dynamodbClient, chapterTableName)
 
 /**
  * Checks the status of the service; returns signs of life if possible.
@@ -65,4 +68,14 @@ module.exports.updateStory = (event, context, callback) => {
     return
   }
   stories.updateStory(storyKey, body, callback)
+}
+
+module.exports.getChapter = (event, context, callback) => {
+  const storyKey = event.pathParameters.storyKey
+  const chapterId = parseInt(event.pathParameters.chapterId)
+  chapters.getChapter(storyKey, chapterId, callback)
+}
+
+module.exports.updateChapter = (event, context, callback) => {
+  callback(null, 'bah')
 }
