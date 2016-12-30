@@ -29,6 +29,11 @@ module.exports.buildError = (statusCode, errorCode, errorMessage) => {
   }
 }
 
+module.exports.buildErrorNotImplemented = () => {
+  return this.buildError('501', 'NotImplemented',
+    'This method has not been implemented')
+}
+
 module.exports.buildErrorRequiredField = (fieldName) => {
   return this.buildError('400', 'MissingRequiredField',
     'Request body missing required field: ' + fieldName)

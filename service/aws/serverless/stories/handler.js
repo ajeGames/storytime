@@ -70,6 +70,14 @@ module.exports.updateStory = (event, context, callback) => {
   stories.updateStory(storyKey, body, callback)
 }
 
+module.exports.getChapters = (event, context, callback) => {
+  callback(null, awsHelpers.buildErrorNotImplemented())
+}
+
+module.exports.createChapter = (event, context, callback) => {
+  callback(null, awsHelpers.buildErrorNotImplemented())
+}
+
 module.exports.getChapter = (event, context, callback) => {
   const storyKey = event.pathParameters.storyKey
   const chapterId = parseInt(event.pathParameters.chapterId)
@@ -77,5 +85,5 @@ module.exports.getChapter = (event, context, callback) => {
 }
 
 module.exports.updateChapter = (event, context, callback) => {
-  callback(null, 'bah')
+  callback(null, awsHelpers.buildErrorNotImplemented())
 }

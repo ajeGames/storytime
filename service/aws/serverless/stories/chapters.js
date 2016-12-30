@@ -23,7 +23,7 @@ class Chapters {
         if (res.Item === undefined) {
           callback(null, awsHelpers.buildErrorNotFound(storyKey + ':' + chapterId))
         } else {
-          callback(null, awsHelpers.buildSuccess(res.Item))
+          callback(null, awsHelpers.buildSuccess(res.Item.detail))
         }
       }
     }

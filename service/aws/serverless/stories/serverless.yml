@@ -106,12 +106,28 @@ functions:
           path: stories/{storyKey}
           method: put
           cors: true
+  getChapters:
+    handler: handler.getChapters
+    description: Returns chapters of the given story
+    events:
+      - http:
+          path: stories/{storyKey}/chapters
+          method: get
+          cors: true
+  createChapter:
+    handler: handler.createChapter
+    description: Creates a new story with a unique key
+    events:
+      - http:
+          path: stories/{storyKey}/chapters
+          method: post
+          cors: true
   getChapter:
     handler: handler.getChapter
     description: Returns given chapter of given story key
     events:
       - http:
-          path: stories/{storyKey}/chapter/{chapterId}
+          path: stories/{storyKey}/chapters/{chapterId}
           method: get
           cors: true
   updateChapter:
@@ -119,9 +135,17 @@ functions:
     description: Modifies an existing chapter
     events:
       - http:
-          path: stories/{storyKey}/chapter/{chapterId}
+          path: stories/{storyKey}/chapters/{chapterId}
           method: put
           cors: true
+  # updateSignPost:
+  #   handler: handler.updateChapterSignPost
+  #   description: Replaces the next options for given chapter
+  #   events:
+  #     - http:
+  #         path: stories/{storyKey}/chapter/{chapterId}
+  #         method: put
+  #         cors: true
 
 #    Define function environment variables here
 #    environment:
