@@ -1,14 +1,14 @@
-"use strict";
+'use strict'
 
-const awsHelpers = require('awsHelpers');
-const Stories = require('stories');
-const AWS = require('aws-sdk');
+const awsHelpers = require('awsHelpers')
+const Stories = require('stories')
+const AWS = require('aws-sdk')
 
-const dynamodbClient = new AWS.DynamoDB.DocumentClient();
-const storyTableName = 'storiesTable';
-const version = '0.6.0';
+const dynamodbClient = new AWS.DynamoDB.DocumentClient()
+const storyTableName = 'storiesTable'
+const version = '0.6.0'
 
-let stories = new Stories(dynamodbClient, storyTableName);
+let stories = new Stories(dynamodbClient, storyTableName)
 
 /**
  * Checks the status of the service; returns signs of life if possible.
@@ -18,51 +18,51 @@ module.exports.getStatus = (event, context, callback) => {
     salutation: 'The StoryTime service is alive and well. Thanks for asking.',
     status: 'All systems are go.',
     version: version
-  };
-  callback(null, awsHelpers.buildSuccess(payload));
-};
+  }
+  callback(null, awsHelpers.buildSuccess(payload))
+}
 
 /**
  * Returns summaries of all stories in the system.  Someday this will have to
  * be limited with filters and pagination.
  */
 module.exports.getSummaries = (event, context, callback) => {
-  stories.getSummaries(callback);
-};
+  stories.getSummaries(callback)
+}
 
 /**
  * Returns the story with the given storyKey or 404 if not found.
  */
 module.exports.getStory = (event, context, callback) => {
-  const storyKey = event.pathParameters.storyKey;
-  stories.getStory(storyKey, callback);
-};
+  const storyKey = event.pathParameters.storyKey
+  stories.getStory(storyKey, callback)
+}
 
 /**
  * Adds a new story with a unique storyKey to database.
  */
 module.exports.createStory = (event, context, callback) => {
-  let body;
+  let body
   try {
-    body = JSON.parse(event.body);
+    body = JSON.parse(event.body)
   } catch (e) {
-    callback(null, awsHelpers.buildErrorMalformedInput());
-    return;
+    callback(null, awsHelpers.buildErrorMalformedInput())
+    return
   }
-  stories.createStory(body, callback);
-};
+  stories.createStory(body, callback)
+}
 
 /**
  * Updates story with field values sent in body.
  */
 module.exports.updateStory = (event, context, callback) => {
-  const storyKey = event.pathParameters.storyKey;
-  let body;
+  const storyKey = event.pathParameters.storyKey
+  let body
   try {
-    body = JSON.parse(event.body);
+    body = JSON.parse(event.body)
   } catch (e) {
-    callback(null, awsHelpers.buildErrorMalformedInput());
-    return;
+    callback(null, awsHelpers.buildErrorMalformedInput())
+    return
   }
-  stories.updateStory(storyKey, body, callback);
-};
+  stories.updateStory(storyKey, body, callback)
+}

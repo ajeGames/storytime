@@ -1,3 +1,3 @@
-import StoriesTable from './StoriesTable';
+import StoriesTable from './StoriesTable'
 
-StoriesTable.deleteTable();
+StoriesTable.deleteTable()

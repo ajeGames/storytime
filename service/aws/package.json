@@ -4,7 +4,9 @@
   "description": "Services to support the StoryTime choose-your-own-destiny games.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter nyan"
+    "test": "standard && mocha --reporter nyan",
+    "fix": "standard --fix",
+    "deploy": "cd serverless/stories && sls deploy"
   },
   "repository": {
     "type": "git",
