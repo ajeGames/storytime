@@ -1,6 +1,6 @@
 "use strict";
 
-const awsHelpers = require('awsHelpers');
+const awsHelpers = require('./awsHelpers');
 const storyKeyLength = 12;
 
 function generateStoryKey(length) {
