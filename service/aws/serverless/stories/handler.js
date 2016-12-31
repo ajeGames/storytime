@@ -1,9 +1,9 @@
 'use strict'
 
+const AWS = require('aws-sdk')
 const awsHelpers = require('./awsHelpers')
 const Stories = require('./stories')
 const Chapters = require('./chapters')
-const AWS = require('aws-sdk')
 
 const dynamodbClient = new AWS.DynamoDB.DocumentClient()
 const storyTableName = 'stories'
@@ -71,11 +71,20 @@ module.exports.updateStory = (event, context, callback) => {
 }
 
 module.exports.getChapters = (event, context, callback) => {
-  callback(null, awsHelpers.buildErrorNotImplemented())
+  const storyKey = event.pathParameters.storyKey
+  chapters.getChapters(storyKey, callback)
 }
 
 module.exports.createChapter = (event, context, callback) => {
-  callback(null, awsHelpers.buildErrorNotImplemented())
+  const storyKey = event.pathParameters.storyKey
+  let body
+  try {
+    body = JSON.parse(event.body)
+  } catch (e) {
+    callback(null, awsHelpers.buildErrorMalformedInput())
+    return
+  }
+  chapters.createChapter(storyKey, body, callback)
 }
 
 module.exports.getChapter = (event, context, callback) => {
@@ -85,5 +94,14 @@ module.exports.getChapter = (event, context, callback) => {
 }
 
 module.exports.updateChapter = (event, context, callback) => {
-  callback(null, awsHelpers.buildErrorNotImplemented())
+  const storyKey = event.pathParameters.storyKey
+  const chapterId = parseInt(event.pathParameters.chapterId)
+  let body
+  try {
+    body = JSON.parse(event.body)
+  } catch (e) {
+    callback(null, awsHelpers.buildErrorMalformedInput())
+    return
+  }
+  chapters.updateChapter(storyKey, chapterId, body, callback)
 }
