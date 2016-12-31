@@ -1,30 +1,30 @@
-const StoriesTable = require('./StoriesTable');
-const ChaptersTable = require('./ChaptersTable');
-const admin = require('./CommonAdmin');
+const StoriesTable = require('./StoriesTable')
+const ChaptersTable = require('./ChaptersTable')
+const admin = require('./CommonAdmin')
 
 // TODO not using aynch correctly; these steps need to be gated by callbacks
 
-function destroyAllTables() {
+function destroyAllTables () {
   // wipe out everything
-  StoriesTable.delete();
-  ChaptersTable.delete();
+  StoriesTable.delete()
+  ChaptersTable.delete()
 }
 
-function createAllTables() {
+function createAllTables () {
   // create new tables
-  StoriesTable.create();
-  ChaptersTable.create();
+  StoriesTable.create()
+  ChaptersTable.create()
 }
 
-function scanAllTables() {
-  admin.scan('Stories');
-  admin.scan('Chapters');
+function scanAllTables () {
+  admin.scan('Stories')
+  admin.scan('Chapters')
 }
 
-destroyAllTables();
-createAllTables();
-admin.listTables();
-scanAllTables();
+destroyAllTables()
+createAllTables()
+admin.listTables()
+scanAllTables()
 
 // const story = {
 //   storyID: 'ABC123',

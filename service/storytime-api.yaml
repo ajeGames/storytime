@@ -37,7 +37,7 @@ paths:
           description: Story created
           schema:
             $ref: '#/definitions/StorySummary'
-        '405':
+        '400':
           description: Invalid input
           schema:
             $ref: '#/definitions/Error'
@@ -52,13 +52,13 @@ paths:
             type: array
             items:
               $ref: '#/definitions/StorySummary'
-  /stories/{key}:
+  /stories/{storyKey}:
     get:
       summary: Returns story summary for given key
       description: Returns the summary of the story indentified by key.
       operationId: getStory
       parameters:
-        - name: key
+        - name: storyKey
           in: path
           description: unique key of story to retrieve
           required: true
@@ -77,7 +77,7 @@ paths:
       description: Creates a story with the information provided, assigning a unique key.
       operationId: updateStory
       parameters:
-        - name: key
+        - name: storyKey
           in: path
           description: unique key of story to update
           required: true
@@ -89,25 +89,25 @@ paths:
           schema:
             $ref: '#/definitions/StorySummary'
       responses:
-        '202':
+        '200':
           description: Story updated
           schema:
             $ref: '#/definitions/StorySummary'
+        '400':
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/Error'
         '404':
           description: Story not found
           schema:
             $ref: '#/definitions/Error'
-        '405':
-          description: Invalid input
-          schema:
-            $ref: '#/definitions/Error'
-  '/stories/{key}/chapters':
+  '/stories/{storyKey}/chapters':
     post:
       summary: Creates new chapter with given information.
       description: Creates a chapter with the information provided, assigning a chapter ID.
       operationId: createChapter
       parameters:
-        - name: key
+        - name: storyKey
           in: path
           description: key of story to add chapter to
           required: true
@@ -123,26 +123,44 @@ paths:
           description: Chapter created
           schema:
             $ref: '#/definitions/Chapter'
-        '405':
+        '400':
           description: Invalid input
           schema:
             $ref: '#/definitions/Error'
-  '/stories/{key}/chapters/{id}':
+    get:
+      summary: Gets all of the chapter of given story
+      description: Gets every chapter of given story.
+      operationId: getChapters
+      parameters:
+        - name: storyKey
+          in: path
+          description: key of story to add chapter to
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Chapter details
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Chapter'
+  '/stories/{storyKey}/chapters/{chapterId}':
     get:
       summary: Retrieves chapter with given ID of story with given key.
       description: Retrieves chapter with given ID of story with given key.
       operationId: getChapter
       parameters:
-        - name: key
+        - name: storyKey
           in: path
           description: unique key of story to retrieve
           required: true
           type: string
-        - name: id
+        - name: chapterId
           in: path
           description: chapter ID
           required: true
-          type: string
+          type: integer
+          format: int32
       responses:
         '200':
           description: Chapter found
@@ -157,16 +175,17 @@ paths:
       description: Updates the given chapter of given story.
       operationId: updateChapter
       parameters:
-        - name: key
+        - name: storyKey
           in: path
           description: unique key of story to update
           required: true
           type: string
-        - name: id
+        - name: chapterId
           in: path
           description: chapter ID
           required: true
-          type: string
+          type: integer
+          format: int32
         - name: chapter
           in: body
           description: Chapter information
@@ -178,12 +197,12 @@ paths:
           description: Chapter updated
           schema:
             $ref: '#/definitions/Chapter'
-        '404':
-          description: Story not found
+        '400':
+          description: Invalid input
           schema:
             $ref: '#/definitions/Error'
-        '405':
-          description: Invalid input
+        '404':
+          description: Story not found
           schema:
             $ref: '#/definitions/Error'
 definitions:
@@ -216,15 +235,13 @@ definitions:
         type: string
       about:
         type: string
-      firstChapter:
-        $ref: '#/definitions/ChapterSign'
   Chapter:
     type: object
     properties:
-      id:
+      chapterId:
         type: integer
         format: int32
-      heading:
+      title:
         type: string
       prose:
         type: string

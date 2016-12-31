@@ -1,6 +1,6 @@
-import { dynamodb, docClient, handleResponse } from './CommonAdmin';
+import { dynamodb, docClient, handleResponse } from './CommonAdmin'
 
-export function create() {
+export function create () {
   const params = {
     TableName: 'Stories',
     KeySchema: [
@@ -13,27 +13,27 @@ export function create() {
       ReadCapacityUnits: 1,
       WriteCapacityUnits: 1
     }
-  };
-  dynamodb.createTable(params, handleResponse);
+  }
+  dynamodb.createTable(params, handleResponse)
 }
 
-export function deleteTable() {
+export function deleteTable () {
   const params = {
     TableName: 'Stories'
-  };
-  dynamodb.deleteTable(params, handleResponse);
-}
-
-function generateRandomID() {
-  let text = '';
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (let i = 0; i < 10; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
-  return text;
+  dynamodb.deleteTable(params, handleResponse)
 }
 
-export function addStory(story) {
+function generateRandomID () {
+  let text = ''
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  for (let i = 0; i < 10; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  }
+  return text
+}
+
+export function addStory (story) {
   const params = {
     TableName: 'Stories',
     Item: {
@@ -43,6 +43,6 @@ export function addStory(story) {
       tagLine: story.tagLine,
       about: story.about
     }
-  };
-  docClient.put(params, handleResponse);
+  }
+  docClient.put(params, handleResponse)
 }

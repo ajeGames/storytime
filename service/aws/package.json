@@ -4,6 +4,9 @@
   "description": "Services to support the StoryTime choose-your-own-destiny games.",
   "main": "index.js",
   "scripts": {
+    "test": "standard && mocha --reporter nyan",
+    "fix": "standard --fix",
+    "deploy": "cd serverless/stories && sls deploy"
   },
   "repository": {
     "type": "git",
@@ -17,6 +20,9 @@
   "homepage": "https://github.com/ajeGames/storytime#readme",
   "devDependencies": {
     "aws-sdk": "^2.5.0",
-    "lambda-local": "^1.2.0"
+    "chai": "^3.5.0",
+    "lambda-local": "^1.2.0",
+    "mocha": "^3.2.0",
+    "standard": "^8.6.0"
   }
 }
