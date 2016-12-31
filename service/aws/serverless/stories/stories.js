@@ -39,11 +39,11 @@ class Stories {
         if (res.Item === undefined) {
           callback(null, awsHelpers.buildErrorNotFound(storyId))
         } else {
-          let resp = {
+          let payload = {
             storyId: storyId,
             details: res.Item.details
           }
-          callback(null, awsHelpers.buildSuccess(resp))
+          callback(null, awsHelpers.buildSuccess(payload))
         }
       }
     }
@@ -94,11 +94,11 @@ class Stories {
       if (err) {
         callback(null, awsHelpers.buildErrorDataAccess(err))
       } else {
-        let resp = {
+        let payload = {
           storyId: storyId,
           details: details
         }
-        callback(null, awsHelpers.buildSuccess(resp, 201))
+        callback(null, awsHelpers.buildSuccess(payload, 201))
       }
     }
     this.db.put(params, processResults)

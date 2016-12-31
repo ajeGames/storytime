@@ -89,13 +89,13 @@ module.exports.createChapter = (event, context, callback) => {
 
 module.exports.getChapter = (event, context, callback) => {
   const storyId = event.pathParameters.storyId
-  const chapterId = parseInt(event.pathParameters.chapterId)
+  const chapterId = event.pathParameters.chapterId
   chapters.getChapter(storyId, chapterId, callback)
 }
 
 module.exports.updateChapter = (event, context, callback) => {
   const storyId = event.pathParameters.storyId
-  const chapterId = parseInt(event.pathParameters.chapterId)
+  const chapterId = event.pathParameters.chapterId
   let body
   try {
     body = JSON.parse(event.body)

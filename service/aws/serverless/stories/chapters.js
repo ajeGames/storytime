@@ -12,7 +12,7 @@ class Chapters {
   getChapters (storyId, callback) {
     const params = {
       TableName: this.chapterTableName,
-      AttributesToGet: [ 'details' ],
+      ProjectionExpression: 'chapterId, details',
       ConsistentRead: true
     }
     const processResults = (err, res) => {
@@ -39,7 +39,6 @@ class Chapters {
     // save
     const chapterId = awsHelpers.generateRandomId(chapterIdLength)
     const details = {
-      chapterId: chapterId,
       title: detailsIn.title,
       prose: detailsIn.prose,
       signPost: []
@@ -57,7 +56,11 @@ class Chapters {
       if (err) {
         callback(null, awsHelpers.buildErrorDataAccess(err))
       } else {
-        callback(null, awsHelpers.buildSuccess(details, 201))
+        let payload = {
+          chapterId: chapterId,
+          details: details
+        }
+        callback(null, awsHelpers.buildSuccess(payload, 201))
       }
     }
     this.db.put(params, processResults)
@@ -78,7 +81,11 @@ class Chapters {
         if (res.Item === undefined) {
           callback(null, awsHelpers.buildErrorNotFound(storyId + ':' + chapterId))
         } else {
-          callback(null, awsHelpers.buildSuccess(res.Item.details))
+          let payload = {
+            chapterId: chapterId,
+            details: res.Item.details
+          }
+          callback(null, awsHelpers.buildSuccess(payload))
         }
       }
     }
