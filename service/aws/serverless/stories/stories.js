@@ -12,7 +12,7 @@ class Stories {
   getSummaries (callback) {
     const params = {
       TableName: this.storyTableName,
-      AttributesToGet: [ 'summary' ],
+      ProjectionExpression: 'storyId, details',
       ConsistentRead: true
     }
     const processResults = (err, res) => {
@@ -39,7 +39,11 @@ class Stories {
         if (res.Item === undefined) {
           callback(null, awsHelpers.buildErrorNotFound(storyId))
         } else {
-          callback(null, awsHelpers.buildSuccess(res.Item.summary))
+          let resp = {
+            storyId: storyId,
+            details: res.Item.details
+          }
+          callback(null, awsHelpers.buildSuccess(resp))
         }
       }
     }
@@ -72,7 +76,6 @@ class Stories {
     // save
     const storyId = awsHelpers.generateRandomId(storyIdLength)
     const details = {
-      storyId: storyId,
       title: summaryIn.title,
       author: summaryIn.author,
       tagLine: summaryIn.tagLine,
@@ -91,7 +94,11 @@ class Stories {
       if (err) {
         callback(null, awsHelpers.buildErrorDataAccess(err))
       } else {
-        callback(null, awsHelpers.buildSuccess(details, 201))
+        let resp = {
+          storyId: storyId,
+          details: details
+        }
+        callback(null, awsHelpers.buildSuccess(resp, 201))
       }
     }
     this.db.put(params, processResults)
