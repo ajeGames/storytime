@@ -6,9 +6,9 @@ const Stories = require('./stories')
 const Chapters = require('./chapters')
 
 const dynamodbClient = new AWS.DynamoDB.DocumentClient()
-const storyTableName = 'stories'
-const chapterTableName = 'chapters'
-const version = '0.7.0'
+const storyTableName = 'stories_v1'
+const chapterTableName = 'chapters_v1'
+const version = '0.8.0'
 
 let stories = new Stories(dynamodbClient, storyTableName)
 let chapters = new Chapters(dynamodbClient, chapterTableName)
@@ -34,15 +34,15 @@ module.exports.getSummaries = (event, context, callback) => {
 }
 
 /**
- * Returns the story with the given storyKey or 404 if not found.
+ * Returns the story with the given storyId or 404 if not found.
  */
 module.exports.getStory = (event, context, callback) => {
-  const storyKey = event.pathParameters.storyKey
-  stories.getStory(storyKey, callback)
+  const storyId = event.pathParameters.storyId
+  stories.getStory(storyId, callback)
 }
 
 /**
- * Adds a new story with a unique storyKey to database.
+ * Adds a new story with a unique storyId to database.
  */
 module.exports.createStory = (event, context, callback) => {
   let body
@@ -59,7 +59,7 @@ module.exports.createStory = (event, context, callback) => {
  * Updates story with field values sent in body.
  */
 module.exports.updateStory = (event, context, callback) => {
-  const storyKey = event.pathParameters.storyKey
+  const storyId = event.pathParameters.storyId
   let body
   try {
     body = JSON.parse(event.body)
@@ -67,16 +67,16 @@ module.exports.updateStory = (event, context, callback) => {
     callback(null, awsHelpers.buildErrorMalformedInput())
     return
   }
-  stories.updateStory(storyKey, body, callback)
+  stories.updateStory(storyId, body, callback)
 }
 
 module.exports.getChapters = (event, context, callback) => {
-  const storyKey = event.pathParameters.storyKey
-  chapters.getChapters(storyKey, callback)
+  const storyId = event.pathParameters.storyId
+  chapters.getChapters(storyId, callback)
 }
 
 module.exports.createChapter = (event, context, callback) => {
-  const storyKey = event.pathParameters.storyKey
+  const storyId = event.pathParameters.storyId
   let body
   try {
     body = JSON.parse(event.body)
@@ -84,18 +84,18 @@ module.exports.createChapter = (event, context, callback) => {
     callback(null, awsHelpers.buildErrorMalformedInput())
     return
   }
-  chapters.createChapter(storyKey, body, callback)
+  chapters.createChapter(storyId, body, callback)
 }
 
 module.exports.getChapter = (event, context, callback) => {
-  const storyKey = event.pathParameters.storyKey
-  const chapterId = parseInt(event.pathParameters.chapterId)
-  chapters.getChapter(storyKey, chapterId, callback)
+  const storyId = event.pathParameters.storyId
+  const chapterId = event.pathParameters.chapterId
+  chapters.getChapter(storyId, chapterId, callback)
 }
 
 module.exports.updateChapter = (event, context, callback) => {
-  const storyKey = event.pathParameters.storyKey
-  const chapterId = parseInt(event.pathParameters.chapterId)
+  const storyId = event.pathParameters.storyId
+  const chapterId = event.pathParameters.chapterId
   let body
   try {
     body = JSON.parse(event.body)
@@ -103,5 +103,5 @@ module.exports.updateChapter = (event, context, callback) => {
     callback(null, awsHelpers.buildErrorMalformedInput())
     return
   }
-  chapters.updateChapter(storyKey, chapterId, body, callback)
+  chapters.updateChapter(storyId, chapterId, body, callback)
 }

@@ -1,16 +1,7 @@
 'use strict'
 
 const awsHelpers = require('./awsHelpers')
-const storyKeyLength = 12
-
-function generateStoryKey (length) {
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  let key = ''
-  for (var i = 0; i < length; i++) {
-    key += possible.charAt(Math.floor(Math.random() * possible.length))
-  }
-  return key
-}
+const storyIdLength = 12
 
 class Stories {
   constructor (db, storyTableName) {
@@ -21,7 +12,7 @@ class Stories {
   getSummaries (callback) {
     const params = {
       TableName: this.storyTableName,
-      AttributesToGet: [ 'summary' ],
+      ProjectionExpression: 'storyId, details',
       ConsistentRead: true
     }
     const processResults = (err, res) => {
@@ -34,11 +25,11 @@ class Stories {
     this.db.scan(params, processResults)
   }
 
-  getStory (storyKey, callback) {
+  getStory (storyId, callback) {
     const params = {
       TableName: this.storyTableName,
       Key: {
-        storyKey: storyKey
+        storyId: storyId
       }
     }
     const processResults = (err, res) => {
@@ -46,9 +37,13 @@ class Stories {
         callback(null, awsHelpers.buildErrorDataAccess(err))
       } else {
         if (res.Item === undefined) {
-          callback(null, awsHelpers.buildErrorNotFound(storyKey))
+          callback(null, awsHelpers.buildErrorNotFound(storyId))
         } else {
-          callback(null, awsHelpers.buildSuccess(res.Item.summary))
+          let payload = {
+            storyId: storyId,
+            details: res.Item.details
+          }
+          callback(null, awsHelpers.buildSuccess(payload))
         }
       }
     }
@@ -79,34 +74,38 @@ class Stories {
     }
 
     // save
-    const storyKey = generateStoryKey(storyKeyLength)
-    const summary = {
-      key: storyKey,
+    const storyId = awsHelpers.generateRandomId(storyIdLength)
+    const details = {
       title: summaryIn.title,
       author: summaryIn.author,
       tagLine: summaryIn.tagLine,
-      about: summaryIn.about
+      about: summaryIn.about,
+      firstChapter: 'unknown'  // should be updated after first chapter is created
     }
     const params = {
       TableName: this.storyTableName,
       Item: {
-        storyKey: storyKey,
-        summary: summary
+        storyId: storyId,
+        details: details
       },
-      ConditionExpression: 'attribute_not_exists(storyKey)' // fail if key is in use -- worth the risk
+      ConditionExpression: 'attribute_not_exists(storyId)' // fail if key is in use -- worth the risk
     }
     const processResults = (err, res) => {
       if (err) {
         callback(null, awsHelpers.buildErrorDataAccess(err))
       } else {
-        callback(null, awsHelpers.buildSuccess(summary, 201))
+        let payload = {
+          storyId: storyId,
+          details: details
+        }
+        callback(null, awsHelpers.buildSuccess(payload, 201))
       }
     }
     this.db.put(params, processResults)
   }
 
-  updateStory (storyKey, updateIn, callback) {
-    const fieldsToUpdate = ['title', 'author', 'tagLine', 'about']
+  updateStory (storyId, updateIn, callback) {
+    const fieldsToUpdate = ['title', 'author', 'tagLine', 'about', 'firstChapter']
 
     // construct update expressions
     let updExpr = 'set '
@@ -123,11 +122,11 @@ class Stories {
         updExpr += ', '
       }
       let placeholder = ':' + fieldName
-      updExpr += 'summary.' + fieldName + ' = ' + placeholder
+      updExpr += 'details.' + fieldName + ' = ' + placeholder
       exprAttrValues[placeholder] = bodyFieldValue
     }
 
-    // do not allow noop, must call with something worth updating
+    // complain about noops
     if (updExpr.length === offset) {
       callback(null, awsHelpers.buildErrorRequiredField('any or all of [' + fieldsToUpdate + ']'))
       return
@@ -137,7 +136,7 @@ class Stories {
     const params = {
       TableName: this.storyTableName,
       Key: {
-        storyKey: storyKey
+        storyId: storyId
       },
       UpdateExpression: updExpr,
       ExpressionAttributeValues: exprAttrValues,
@@ -148,7 +147,7 @@ class Stories {
         // TODO find graceful way to respond when not found
         callback(null, awsHelpers.buildErrorDataAccess(err))
       } else {
-        callback(null, awsHelpers.buildSuccess(res.Attributes.summary))
+        callback(null, awsHelpers.buildSuccess(res.Attributes.details))
       }
     }
     this.db.update(params, processResults)

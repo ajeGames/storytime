@@ -52,13 +52,13 @@ paths:
             type: array
             items:
               $ref: '#/definitions/StorySummary'
-  /stories/{storyKey}:
+  /stories/{storyId}:
     get:
       summary: Returns story summary for given key
       description: Returns the summary of the story indentified by key.
       operationId: getStory
       parameters:
-        - name: storyKey
+        - name: storyId
           in: path
           description: unique key of story to retrieve
           required: true
@@ -77,7 +77,7 @@ paths:
       description: Creates a story with the information provided, assigning a unique key.
       operationId: updateStory
       parameters:
-        - name: storyKey
+        - name: storyId
           in: path
           description: unique key of story to update
           required: true
@@ -101,13 +101,13 @@ paths:
           description: Story not found
           schema:
             $ref: '#/definitions/Error'
-  '/stories/{storyKey}/chapters':
+  '/stories/{storyId}/chapters':
     post:
       summary: Creates new chapter with given information.
       description: Creates a chapter with the information provided, assigning a chapter ID.
       operationId: createChapter
       parameters:
-        - name: storyKey
+        - name: storyId
           in: path
           description: key of story to add chapter to
           required: true
@@ -132,7 +132,7 @@ paths:
       description: Gets every chapter of given story.
       operationId: getChapters
       parameters:
-        - name: storyKey
+        - name: storyId
           in: path
           description: key of story to add chapter to
           required: true
@@ -144,13 +144,13 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Chapter'
-  '/stories/{storyKey}/chapters/{chapterId}':
+  '/stories/{storyId}/chapters/{chapterId}':
     get:
       summary: Retrieves chapter with given ID of story with given key.
       description: Retrieves chapter with given ID of story with given key.
       operationId: getChapter
       parameters:
-        - name: storyKey
+        - name: storyId
           in: path
           description: unique key of story to retrieve
           required: true
@@ -159,8 +159,7 @@ paths:
           in: path
           description: chapter ID
           required: true
-          type: integer
-          format: int32
+          type: string
       responses:
         '200':
           description: Chapter found
@@ -175,7 +174,7 @@ paths:
       description: Updates the given chapter of given story.
       operationId: updateChapter
       parameters:
-        - name: storyKey
+        - name: storyId
           in: path
           description: unique key of story to update
           required: true
@@ -184,8 +183,7 @@ paths:
           in: path
           description: chapter ID
           required: true
-          type: integer
-          format: int32
+          type: string
         - name: chapter
           in: body
           description: Chapter information
@@ -225,7 +223,7 @@ definitions:
   StorySummary:
     type: object
     properties:
-      key:
+      storyId:
         type: string
       title:
         type: string
@@ -235,12 +233,13 @@ definitions:
         type: string
       about:
         type: string
+      firstChapter:
+        type: string
   Chapter:
     type: object
     properties:
       chapterId:
-        type: integer
-        format: int32
+        type: string
       title:
         type: string
       prose:
@@ -253,7 +252,6 @@ definitions:
     type: object
     properties:
       chapterId:
-        type: integer
-        format: int32
+        type: string
       teaser:
         type: string
