@@ -6,6 +6,7 @@ class DestinyApp extends Component {
   render() {
     return (
       <div>
+        <Header />
         <Library />
       </div>
     );
