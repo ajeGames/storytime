@@ -23,7 +23,6 @@ class App extends Component {
               <div className="collapse navbar-collapse" id="navcol-1">
                 <ul className="nav navbar-nav">
                   <li role="presentation"><Link to="/">Library</Link></li>
-                  <li role="presentation"><Link to="/reader">Reader</Link></li>
                   <li role="presentation"><Link to="/desk">Writing Desk</Link></li>
                   <li role="presentation"><Link to="/clubhouse">Clubhouse</Link></li>
                 </ul>
@@ -33,7 +32,7 @@ class App extends Component {
           </nav>
 
           <Route exact path="/" component={Library} />
-          <Route path="/reader" component={Reader} />
+          <Route path="/reader/:storyKey/:chapterId" component={Reader} />
           <Route path="/desk" component={WritingDesk} />
           <Route path="/clubhouse" component={Clubhouse} />
         </div>
