@@ -5,7 +5,7 @@ export const storySummaries = [
     author: "Bubba Gumpzzz",
     tagLine: "You want to read this.",
     about: "Sometimes life compels you great things.  And sometimes you'd rather play this game.",
-    firstChapter: 1000
+    firstChapter: 1000,
   },
   {
     "key": "5qcao3fu",

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { story } from '../api/sample-stories';
 
-const Sign = (props) => {
+function Sign(props) {
   return (
     <li>
       <Link to={`/reader/${props.storyKey}/${props.destination.chapterId}`}>
@@ -13,14 +13,14 @@ const Sign = (props) => {
 }
 
 Sign.propTypes = {
-  storyKey: React.PropTypes.string,
+  storyKey: React.PropTypes.string.isRequired,
   destination: React.PropTypes.shape({
     chapterId: React.PropTypes.number,
     teaser: React.PropTypes.string,
-  }),
+  }).isRequired,
 };
 
-const TheEnd = (props) => {
+function TheEnd(props) {
   return (
     <div>
       <p>You are at the end of the line.</p>
@@ -33,12 +33,12 @@ const TheEnd = (props) => {
 }
 
 TheEnd.propTypes = {
-  storyKey: React.PropTypes.string,
+  storyKey: React.PropTypes.string.isRequired,
 };
 
-const SignPost = (props) => {
+function SignPost(props) {
   if (props.signs.length === 0) {
-    return <TheEnd storyKey={props.storyKey} />
+    return (<TheEnd storyKey={props.storyKey} />);
   }
   return (
     <ul>
@@ -46,32 +46,44 @@ const SignPost = (props) => {
         <Sign
           key={destination.chapterId}
           storyKey={props.storyKey}
-          destination={destination} />)}
+          destination={destination}
+        />)}
     </ul>
-  )
-};
+  );
+}
 
 SignPost.propTypes = {
-  storyKey: React.PropTypes.string,
-  signs: React.PropTypes.arrayOf(React.PropTypes.object),
+  storyKey: React.PropTypes.string.isRequired,
+  signs: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };
 
-const Chapter = (props) => (
-  <div className="container">
-    <h1>{props.chapter.title}</h1>
-    <p>{props.chapter.prose}</p>
-    <hr />
-    <SignPost storyKey={props.storyKey} signs={props.chapter.signPost} />
-  </div>
-)
+function Chapter(props) {
+  return (
+    <div className="container">
+      <h1>{props.chapter.title}</h1>
+      <p>{props.chapter.prose}</p>
+      <hr />
+      <SignPost storyKey={props.storyKey} signs={props.chapter.signPost} />
+    </div>
+  );
+}
+
+Chapter.propTypes = {
+  storyKey: React.PropTypes.string.isRequired,
+  chapter: React.PropTypes.shape({
+    title: React.PropTypes.string,
+    prose: React.PropTypes.string,
+    signPost: React.PropTypes.object,
+  }).isRequired,
+};
 
 class Reader extends Component {
   constructor() {
     super();
     this.state = {
       story: story.summary,
-      chapter: story.chapter
-    }
+      chapter: story.chapter,
+    };
   }
 
   handleChangeChapter(chapter) {
