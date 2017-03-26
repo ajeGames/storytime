@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { story } from '../api/sample-stories';
 
-const Sign = (props) => (
-  <li>
-    <Link to={`/reader/${props.storyKey}/${props.destination.chapterId}`}>
-      {props.destination.teaser}
-    </Link>
-  </li>
-);
+const Sign = (props) => {
+  return (
+    <li>
+      <Link to={`/reader/${props.storyKey}/${props.destination.chapterId}`}>
+        {props.destination.teaser}
+      </Link>
+    </li>
+  );
+}
 
 Sign.propTypes = {
   storyKey: React.PropTypes.string,
@@ -18,25 +20,25 @@ Sign.propTypes = {
   }),
 };
 
-const EndOfLine = (props) => {
+const TheEnd = (props) => {
   return (
     <div>
       <p>You are at the end of the line.</p>
       <ul>
-        <li><Link to="/story/{props.storyKey}">Return to Chapter One</Link></li>
+        <li><Link to={`/story/${props.storyKey}`}>Return to Chapter One</Link></li>
         <li><Link to="/">Choose Another Story</Link></li>
       </ul>
     </div>
   );
 }
 
-EndOfLine.propTypes = {
+TheEnd.propTypes = {
   storyKey: React.PropTypes.string,
 };
 
 const SignPost = (props) => {
   if (props.signs.length === 0) {
-    return <EndOfLine />
+    return <TheEnd storyKey={props.storyKey} />
   }
   return (
     <ul>
@@ -64,15 +66,27 @@ const Chapter = (props) => (
 )
 
 class Reader extends Component {
+  constructor() {
+    super();
+    this.state = {
+      story: story.summary,
+      chapter: story.chapter
+    }
+  }
+
+  handleChangeChapter(chapter) {
+    this.setState({ chapter });
+  }
+
   render() {
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
           <h3 className="text-center panel-title">
-            <b>{story.summary.title}</b> <em>by {story.summary.author}</em></h3>
+            <b>{this.state.story.title}</b> <em>by {this.state.story.author}</em></h3>
         </div>
         <div className="panel-body">
-          <Chapter storyKey={story.summary.key} chapter={story.chapter} />
+          <Chapter storyKey={this.state.story.key} chapter={this.state.chapter} />
         </div>
       </div>
     );
