@@ -1,4 +1,4 @@
-export const story = {
+export const normalStory = {
   summary: {
     key: "o9s0toym",
     title: "The Cave",
