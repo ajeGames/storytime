@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { storySummaries } from '../api/sample-stories.js';
+import { storySummaries } from '../apidata';
 
 const StoryCard = (props) => (
   <div className="col-md-4">
