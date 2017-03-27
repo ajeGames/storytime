@@ -11,3 +11,4 @@ This area is for ideas to follow up on later -- not in the middle of whatever el
 * Use create-react-app as long as possible
 * Use eslint with airbnb-like rules in .eslintrc
 * Use yarn
+* Use react-router-dom
