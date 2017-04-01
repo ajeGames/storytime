@@ -4,14 +4,24 @@ import { Container, Row, Button } from 'reactstrap';
 class NumberGuessing extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      message: 'Guess My Number',
-      answer: this.chooseAnswer(),
-      guess: ''
-    };
-
+    this.state = this.getInitialState();
     this.handleInput = this.handleInput.bind(this);
     this.checkGuess = this.checkGuess.bind(this);
+    this.restart = this.restart.bind(this);
+  }
+
+  getInitialState() {
+    return {
+      message: 'Guess My Number',
+      answer: this.chooseAnswer(),
+      guess: '',
+      history: {},
+      isCorrect: false
+    };
+  }
+
+  restart() {
+    this.setState(this.getInitialState());
   }
 
   chooseAnswer() {
@@ -21,7 +31,6 @@ class NumberGuessing extends Component {
   }
 
   handleInput(event) {
-    // let guess = (Number(event.target.value)
     this.setState({guess: event.target.value});
   }
 
@@ -36,7 +45,8 @@ class NumberGuessing extends Component {
       } else if (guess > this.state.answer) {
         msg = this.state.guess + ' is too high.';
       } else {
-        msg = 'You got it!';
+        this.setState({isCorrect: true});
+        msg = <span style={{color: 'green'}}>You got it!</span>;
       }
     }
     this.setState({message: msg});
@@ -45,13 +55,34 @@ class NumberGuessing extends Component {
   renderHistory() {
     return (
       <Row>
-        <h2>Previous Guesses</h2>
+        <h2>Previous Rounds</h2>
 
       </Row>
     );
   }
 
   render() {
+    let button = null;
+    if (this.state.isCorrect) {
+      button = (
+        <Button
+          style={{marginLeft: 0.5 + 'em'}}
+          onClick={this.restart}
+        >
+          Start Over
+        </Button>
+      );
+    } else {
+      button = (
+        <Button
+          style={{marginLeft: 0.5 + 'em'}}
+          onClick={this.checkGuess}
+        >
+          Guess
+        </Button>
+      );
+    }
+
     return (
       <Container style={{marginTop: 5 + 'em'}}>
         <Row className="text-center">
@@ -65,12 +96,7 @@ class NumberGuessing extends Component {
                 size="5"
                 onChange={this.handleInput}
               />
-              <Button
-                style={{marginLeft: 0.5 + 'em'}}
-                onClick={this.checkGuess}
-              >
-                Guess
-              </Button>
+              {button}
             </p>
           </form>
         </Row>
