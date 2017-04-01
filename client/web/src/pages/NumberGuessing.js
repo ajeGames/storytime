@@ -5,6 +5,7 @@ class NumberGuessing extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      message: 'Guess My Number',
       answer: this.chooseAnswer(),
       guess: ''
     };
@@ -27,7 +28,7 @@ class NumberGuessing extends Component {
   checkGuess(event) {
     event.preventDefault();
 
-    var msg = 'Enter a number.'
+    var msg = 'Enter a number.';
     if (!isNaN(this.state.guess)) {
       const guess = Number(this.state.guess);
       if (guess < this.state.answer) {
@@ -41,14 +42,24 @@ class NumberGuessing extends Component {
     this.setState({message: msg});
   }
 
+  renderHistory() {
+    return (
+      <Row>
+        <h2>Previous Guesses</h2>
+
+      </Row>
+    );
+  }
+
   render() {
     return (
       <Container style={{marginTop: 5 + 'em'}}>
         <Row className="text-center">
-          <h1>Guess My Number</h1>
+          <h1>{this.state.message}</h1>
           <form>
             <p>
               <input
+                autoFocus
                 type="text"
                 value={this.state.guess}
                 size="5"
@@ -62,7 +73,6 @@ class NumberGuessing extends Component {
               </Button>
             </p>
           </form>
-          <h3>{this.state.message}</h3>
         </Row>
       </Container>
     )
