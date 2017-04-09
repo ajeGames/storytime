@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Library from './components/Library';
 import NumberGuessing from './pages/NumberGuessing';
-// import SumGuessing from './pages/SumGuessing';
 
-class App extends Component {
-  render() {
-    return (
+const App = () => (
+    <Router>
       <div>
-        <NumberGuessing />
-        {/* <SumGuessing /> */}
+        <h1>This is StoryTime.  Choose your destiny and find adventure.</h1>
+        <p><Link to="/">StoryTime</Link> | <Link to="/guess">Number Guessing Game</Link></p>
+        <Route exact path="/" component={Library} />
+        <Route path="/guess" component={NumberGuessing} />
       </div>
-    );
-  }
-}
+    </Router>
+)
 
 export default App;
