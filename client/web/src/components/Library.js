@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { storySummaries } from '../apidata/storySummaries';
-import { Container, Row, Col, Card, CardTitle, CardText, CardSubtitle, Button } from 'reactstrap';
+import { Container, Row, Col, Card, CardTitle, CardText, CardSubtitle } from 'reactstrap';
 
 const StoryCard = (props) => (
   <Col sm="4">
-    <Card block outline color="primary" className="text-center">
+    <Card block outline color="primary"
+      className="text-center"
+      style={{marginBottom: 2 + 'em', padding: 0.5 + 'em', border: 'solid 1px gray'}}>
       <CardTitle>
         <Link
-          to={ `/reader/${ props.story.key }/${ props.story.firstChapter }` }
+          to={ `/reader/${ props.story.key }` }
         >
           { props.story.title }
         </Link>
       </CardTitle>
       <CardSubtitle><em>by { props.story.author }</em></CardSubtitle>
       <CardText>{ props.story.about }</CardText>
-      <Button>{ props.story.tagLine }</Button>
+      <Link
+        className="btn btn-info"
+        role="button"
+        to={ `/reader/${ props.story.key }` }
+      >
+        { props.story.tagLine }
+      </Link>
     </Card>
   </Col>
 );
