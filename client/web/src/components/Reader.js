@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { normalStory as story } from '../apidata/normalStory';
 
@@ -13,10 +14,10 @@ function Sign(props) {
 }
 
 Sign.propTypes = {
-  storyKey: React.PropTypes.string.isRequired,
-  destination: React.PropTypes.shape({
-    chapterId: React.PropTypes.number,
-    teaser: React.PropTypes.string,
+  storyKey: PropTypes.string.isRequired,
+  destination: PropTypes.shape({
+    chapterId: PropTypes.number,
+    teaser: PropTypes.string,
   }).isRequired,
 };
 
@@ -33,7 +34,7 @@ function TheEnd(props) {
 }
 
 TheEnd.propTypes = {
-  storyKey: React.PropTypes.string.isRequired,
+  storyKey: PropTypes.string.isRequired,
 };
 
 function SignPost(props) {
@@ -53,8 +54,8 @@ function SignPost(props) {
 }
 
 SignPost.propTypes = {
-  storyKey: React.PropTypes.string.isRequired,
-  signs: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  storyKey: PropTypes.string.isRequired,
+  signs: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 function Chapter(props) {
@@ -69,11 +70,11 @@ function Chapter(props) {
 }
 
 Chapter.propTypes = {
-  storyKey: React.PropTypes.string.isRequired,
-  chapter: React.PropTypes.shape({
-    title: React.PropTypes.string,
-    prose: React.PropTypes.string,
-    signPost: React.PropTypes.array,
+  storyKey: PropTypes.string.isRequired,
+  chapter: PropTypes.shape({
+    title: PropTypes.string,
+    prose: PropTypes.string,
+    signPost: PropTypes.array,
   }).isRequired,
 };
 
