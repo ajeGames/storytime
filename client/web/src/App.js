@@ -5,12 +5,12 @@ import { createStore } from 'redux';
 import storyTimeApp from './appstate/reducers';
 import Library from './components/Library';
 import Reader from './components/Reader';
-import NumberGuessing from './pages/NumberGuessing';
+import NumberGuessing from './components/NumberGuessing';
 
-let store = createStore()
+let store = createStore(storyTimeApp);  // FIXME this is wrong
 
 const App = () => (
-  <Provider store=>
+  <Provider store={ store }>
     <Router>
       <div>
         <h3>StoryTime</h3>
