@@ -15,7 +15,6 @@
   },
   "library": {  // for read-only stories
     "uniquestorykey1": {
-      "fetching": false,
       "versionStamp": "somekindofchecksumtodetectwhentherehasbeenachange",
       "author": {
         "id": "arn::userkey",
@@ -28,7 +27,7 @@
         "genre": [
           "mystery", "suspense", "sci-fi"
         ]
-      }
+      },
       "firstChapter": "uniquechapterkey2",
       "chapters": {
         "uniquechapterkey2": {

@@ -1,7 +1,8 @@
 import storySummaries from './storySummaries';
-import normalStory from './normalStory';
+import { normalStory, fullStory } from './normalStory';
 
 export default {
   storySummaries,
-  normalStory
+  normalStory,
+  fullStory
 };
