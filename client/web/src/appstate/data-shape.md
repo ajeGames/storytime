@@ -14,6 +14,12 @@
     ],
   },
   "library": {  // for read-only stories
+    "fetchingSummaries": false,
+    "storySummariesToShow": [
+      "uniquestorykey1", "uniquestorykey2", "uniquestorykey3"
+    ]
+  },
+  "bookshelf": {
     "uniquestorykey1": {
       "storyKey": "uniquestorykey1",
       "versionStamp": "somekindofchecksumtodetectwhentherehasbeenachange",

@@ -1,6 +1,5 @@
-import { summary, summaries } from './library';
+import library from './library';
 
 export {
-  summary,
-  summaries
+  library
 }

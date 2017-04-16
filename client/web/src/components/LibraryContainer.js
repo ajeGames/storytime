@@ -1,18 +1,11 @@
 import { connect } from 'react-redux';
-// import { storySummaries } from '../apidata/storySummaries';
 import Library from './Library';
 
-// class LibraryContainer extends Component {
-//   render() {
-//     const summaries = storySummaries;
-//     return (
-//       <Library summaries={ summaries } />
-//     )
-//   }
-// }
-//
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    summaries: state.library.storySummariesToShow,
+    loading: state.library.fetchingSummaries
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -22,6 +15,6 @@ const mapDispatchToProps = (dispatch) => {
 const LibraryContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Library);
+)(Library)
 
 export default LibraryContainer;
