@@ -15,6 +15,7 @@
   },
   "library": {  // for read-only stories
     "uniquestorykey1": {
+      "storyKey": "uniquestorykey1",
       "versionStamp": "somekindofchecksumtodetectwhentherehasbeenachange",
       "author": {
         "id": "arn::userkey",
@@ -31,6 +32,7 @@
       "firstChapter": "uniquechapterkey2",
       "chapters": {
         "uniquechapterkey2": {
+          "chapterId": "uniquechapterkey2",
           "versionStamp": "somekindofchecksumtodetectwhentherehasbeenachange",
           "title": "Danger Lies Within",
           "prose": "blah blah blah blah blah blah with some kind of handlebars for styling, image placement, etc.",

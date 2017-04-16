@@ -90,6 +90,10 @@ const Reader = ({ story, chapter }) => (
 )
 
 class ReaderContainer extends Component {
+
+  // TODO load story and chapters dynamically from external file
+  // TODO change chapter using signpost links
+
   constructor() {
     super();
     this.state = {
