@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Card, CardTitle, CardText, CardSubtitle } from 'reactstrap';
+import { Container, Row, Col, Card, CardTitle, CardText, CardSubtitle, Button } from 'reactstrap';
 
 const StoryCard = ({ story }) => (
   <Col sm="4">
@@ -35,9 +35,15 @@ const CardCatalog = ({ stories }) => (
   </Container>
 );
 
-const Library = ({ summaries, loading }) => {
-  const message = (loading) ? 'Stories are being loaded.' :
-    (!summaries || summaries.length === 0) ? 'No stories were found' : 'Choose a story.';
+const Library = ({ summaries, loading, loadStories }) => {
+  const message = (loading) ? "Stories are loading. Please wait." : "Not loading.";
+
+  let catalog;
+  if (!summaries || summaries.length === 0) {
+    catalog = <Button onClick={ loadStories }>Load Stories</Button>
+  } else {
+    catalog = <CardCatalog stories={ summaries } />
+  }
 
   return (
     <div className="panel panel-default">
@@ -45,7 +51,7 @@ const Library = ({ summaries, loading }) => {
         <h3 className="text-center panel-title">Welcome to the Library.</h3></div>
       <div className="panel-body">
         <p>{ message }</p>
-        <CardCatalog stories={ summaries } />
+        { catalog }
       </div>
     </div>
   )

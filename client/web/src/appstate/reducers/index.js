@@ -1,5 +1,8 @@
+import { combineReducers } from 'redux';
 import library from './library';
 
-export {
+const storyTimeApp = combineReducers({
   library
-}
+});
+
+export default storyTimeApp;

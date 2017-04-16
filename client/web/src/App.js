@@ -2,12 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import library from './appstate/reducers/library';
+import storyTimeApp from './appstate/reducers';
 import LibraryContainer from './components/LibraryContainer';
 import ReaderContainer from './components/Reader';
 import NumberGuessing from './components/NumberGuessing';
 
-let store = createStore(library);
+let store = createStore(
+  storyTimeApp,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const App = () => (
   <Provider store={ store }>

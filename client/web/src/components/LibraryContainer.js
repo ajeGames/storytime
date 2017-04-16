@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { fetchStorySummaries } from '../appstate/actions';
 import Library from './Library';
 
 const mapStateToProps = (state) => {
@@ -9,7 +10,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    loadStories: () => {
+      dispatch(fetchStorySummaries());
+    }
+  }
 }
 
 const LibraryContainer = connect(

@@ -2,10 +2,8 @@ import { FETCH_STORY_SUMMARIES } from '../actions/storySummaries';
 // import storySummaries from '../../apidata/storySummaries';
 
 const initialState = {
-  library: {
-    fetchingSummaries: false,
-    storySummariesToShow: []
-  }
+  fetchingSummaries: false,
+  storySummariesToShow: []
 };
 
 const library = (state = initialState, action) => {
@@ -13,7 +11,7 @@ const library = (state = initialState, action) => {
     case FETCH_STORY_SUMMARIES:
       return Object.assign({}, state, {
         fetchingSummaries: true
-      })
+      });
     default:
       return state;
   }
