@@ -1,6 +1,13 @@
-import { loadSummariesAction, loadSummaryAction } from './summaryActions.js';
+import {
+  fetchStorySummaries,
+  failFetchStorySummaries,
+  loadStorySummaries,
+  loadStorySummary
+} from './storySummaries.js';
 
 export {
-  loadSummariesAction,
-  loadSummaryAction
+  fetchStorySummaries,
+  failFetchStorySummaries,
+  loadStorySummaries,
+  loadStorySummary
 };

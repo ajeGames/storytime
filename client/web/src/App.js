@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 // import { Provider } from 'react-redux';
 // import { createStore } from 'redux';
 // import storyTimeApp from './appstate/reducers';
-import Library from './components/Library';
+import LibraryContainer from './components/LibraryContainer';
 import ReaderContainer from './components/Reader';
 import NumberGuessing from './components/NumberGuessing';
 
@@ -15,7 +15,7 @@ const App = () => (
     <div>
       <h3>StoryTime</h3>
       <p><Link to="/">StoryTime</Link> | <Link to="/guess">Number Guessing Game</Link></p>
-      <Route exact path="/" component={ Library } />
+      <Route exact path="/" component={ LibraryContainer } />
       <Route path="/reader" component={ ReaderContainer } />
       <Route path="/guess" component={ NumberGuessing } />
     </div>
