@@ -27,22 +27,36 @@ const StoryCard = ({ story }) => (
   </Col>
 );
 
-const CardCatalog = ({ stories }) => (
-  <Container fluid>
-    <Row>
-      { stories.map((story) => <StoryCard key={ story.storyKey } story={ story } />) }
-    </Row>
-  </Container>
-);
-
-const Library = ({ summaries, loading, loadStories }) => {
-  const message = (loading) ? "Stories are loading. Please wait." : "Not loading.";
-
-  let catalog;
-  if (!summaries || summaries.length === 0) {
-    catalog = <Button onClick={ loadStories }>Load Stories</Button>
+const CardCatalog = ({ stories }) => {
+  if (!stories || stories.length === 0) {
+    return <h3>No stories found.</h3>;
   } else {
-    catalog = <CardCatalog stories={ summaries } />
+    return (
+      <Container fluid>
+        <Row>
+          { stories.map((story) => <StoryCard key={ story.storyKey } story={ story } />) }
+        </Row>
+      </Container>
+    )
+  }
+}
+
+const Library = (props) => {
+  let actionBar;
+  if (props.loading) {
+    actionBar = (
+      <div>
+        <p>Stories are loading. Please wait. <Button color="danger" onClick={ props.cancelLoadStories }>Cancel</Button></p>
+        <hr />
+      </div>
+    )
+  } else {
+    actionBar = (
+      <div>
+        <p>Click to refresh list of stories. <Button color="primary" onClick={ props.loadStories }>Load Stories</Button></p>
+        <hr />
+      </div>
+    )
   }
 
   return (
@@ -50,8 +64,8 @@ const Library = ({ summaries, loading, loadStories }) => {
       <div className="panel-heading">
         <h3 className="text-center panel-title">Welcome to the Library.</h3></div>
       <div className="panel-body">
-        <p>{ message }</p>
-        { catalog }
+        { actionBar }
+        <CardCatalog stories={ props.summaries } />
       </div>
     </div>
   )

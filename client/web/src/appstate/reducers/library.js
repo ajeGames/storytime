@@ -1,4 +1,7 @@
-import { FETCH_STORY_SUMMARIES } from '../actions/storySummaries';
+import {
+  FETCH_STORY_SUMMARIES,
+  FAIL_FETCH_STORY_SUMMARIES
+} from '../actions/storySummaries';
 // import storySummaries from '../../apidata/storySummaries';
 
 const initialState = {
@@ -11,6 +14,10 @@ const library = (state = initialState, action) => {
     case FETCH_STORY_SUMMARIES:
       return Object.assign({}, state, {
         fetchingSummaries: true
+      });
+    case FAIL_FETCH_STORY_SUMMARIES:
+      return Object.assign({}, state, {
+        fetchingSummaries: false
       });
     default:
       return state;

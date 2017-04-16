@@ -9,11 +9,13 @@ export const fetchStorySummaries = () => {
   }
 }
 
-export const failFetchStorySummaries = (error) => {
+export const failFetchStorySummaries = (errorMessage) => {
   return {
     type: FAIL_FETCH_STORY_SUMMARIES,
     error: true,
-    payload: new Error(error)
+    payload: {
+      errorMessage
+    }
   }
 }
 

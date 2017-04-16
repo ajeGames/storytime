@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchStorySummaries } from '../appstate/actions';
+import { fetchStorySummaries, failFetchStorySummaries } from '../appstate/actions';
 import Library from './Library';
 
 const mapStateToProps = (state) => {
@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadStories: () => {
       dispatch(fetchStorySummaries());
+    },
+    cancelLoadStories: () => {
+      dispatch(failFetchStorySummaries('User canceled'));
     }
   }
 }
