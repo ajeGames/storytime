@@ -46,14 +46,18 @@ const Library = (props) => {
   if (props.loading) {
     actionBar = (
       <div>
-        <p>Stories are loading. Please wait. <Button color="danger" onClick={ props.cancelLoadStories }>Cancel</Button></p>
+        <p>
+          Stories are loading. Please wait.
+          <Button color="primary" onClick={ props.completeRefreshStories }>Complete</Button>
+          <Button color="danger" onClick={ props.cancelRefreshStories }>Cancel</Button>
+        </p>
         <hr />
       </div>
     )
   } else {
     actionBar = (
       <div>
-        <p>Click to refresh list of stories. <Button color="primary" onClick={ props.loadStories }>Load Stories</Button></p>
+        <p>Click to refresh list of stories. <Button color="primary" onClick={ props.refreshStories }>Refresh Stories</Button></p>
         <hr />
       </div>
     )
