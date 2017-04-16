@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { normalStory as story } from '../apidata/normalStory';
 
-function Sign(props) {
+function Sign({ storyKey, sign }) {
   return (
     <li>
-      <Link to={`/reader/${props.storyKey}/${props.destination.chapterId}`}>
-        {props.destination.teaser}
+      <Link to={`/reader/${ storyKey }/${ sign.destination }`}>
+        { sign.teaser }
       </Link>
     </li>
   );
@@ -15,39 +14,23 @@ function Sign(props) {
 
 Sign.propTypes = {
   storyKey: PropTypes.string.isRequired,
-  destination: PropTypes.shape({
-    chapterId: PropTypes.number,
+  sign: PropTypes.shape({
+    destination: PropTypes.string,
     teaser: PropTypes.string,
   }).isRequired,
 };
 
-function TheEnd(props) {
-  return (
-    <div>
-      <p>You are at the end of the line.</p>
-      <ul>
-        <li><Link to={`/story/${props.storyKey}`}>Return to Chapter One</Link></li>
-        <li><Link to="/">Choose Another Story</Link></li>
-      </ul>
-    </div>
-  );
-}
-
-TheEnd.propTypes = {
-  storyKey: PropTypes.string.isRequired,
-};
-
-function SignPost(props) {
-  if (props.signs.length === 0) {
-    return (<TheEnd storyKey={props.storyKey} />);
+function SignPost({ storyKey, signs }) {
+  if (signs.length === 0) {
+    return (<TheEnd storyKey={ storyKey } />);
   }
   return (
     <ul>
-      {props.signs.map(destination =>
+      {signs.map(sign =>
         <Sign
-          key={destination.chapterId}
-          storyKey={props.storyKey}
-          destination={destination}
+          key={ sign.destination }
+          storyKey={ storyKey }
+          sign={ sign }
         />)}
     </ul>
   );
@@ -58,13 +41,29 @@ SignPost.propTypes = {
   signs: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-function Chapter(props) {
+function TheEnd({ storyKey }) {
+  return (
+    <div>
+      <p>You are at the end of the line.</p>
+      <ul>
+        <li><Link to={`/story/${storyKey}`}>Return to Chapter One</Link></li>
+        <li><Link to="/">Choose Another Story</Link></li>
+      </ul>
+    </div>
+  );
+}
+
+TheEnd.propTypes = {
+  storyKey: PropTypes.string.isRequired,
+};
+
+function Chapter({ storyKey, chapter }) {
   return (
     <div className="container">
-      <h2>{props.chapter.title}</h2>
-      <p>{props.chapter.prose}</p>
+      <h2>{ chapter.title }</h2>
+      <p>{ chapter.prose }</p>
       <hr />
-      <SignPost storyKey={props.storyKey} signs={props.chapter.signPost} />
+      <SignPost storyKey={ storyKey } signs={ chapter.signpost } />
     </div>
   );
 }
@@ -78,32 +77,60 @@ Chapter.propTypes = {
   }).isRequired,
 };
 
-class Reader extends Component {
+const Reader = ({ story, chapter }) => (
+  <div className="panel panel-default">
+    <div className="panel-heading">
+      <h3 className="text-center panel-title">
+        <b>{ story.title }</b> <em>by { story.author.penName }</em></h3>
+    </div>
+    <div className="panel-body">
+      <Chapter storyKey={ story.storyKey } chapter={ chapter } />
+    </div>
+  </div>
+)
+
+class ReaderContainer extends Component {
   constructor() {
     super();
     this.state = {
-      story: story.summary,
-      chapter: story.chapter,
-    };
-  }
-
-  handleChangeChapter(chapter) {
-    this.setState({ chapter });
+      reader: {
+        activeStory: "uniquestorykey",
+        activeStoryStatus: "loaded",
+        activeChapter: "uniquechapterkey",
+        activeChapterStatus: "fetching"
+      },
+      story: {
+        storyKey: "uniquestorykey",
+        title: "The Big One",
+        author: {
+          penName: "Bubba Gump"
+        },
+        tagLine: "Read this, you fool.",
+        about: "What do you think this is about?  I'll tell you.",
+        firstChapter: "uniquechapterkey"
+      },
+      chapter: {
+        chapterKey: "uniquechapterkey",
+        title: "Uh Oh.",
+        prose: "This is all of the stuff that happens in the chapter.",
+        signpost: [
+          {
+            destination: "uniquechapterkey",
+            teaser: "It's groundhogs day all over again. Try to escape."
+          }
+        ]
+      }
+    }
   }
 
   render() {
+    const story = this.state.story;
+    const chapter = this.state.chapter;
     return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3 className="text-center panel-title">
-            <b>{this.state.story.title}</b> <em>by {this.state.story.author}</em></h3>
-        </div>
-        <div className="panel-body">
-          <Chapter storyKey={this.state.story.key} chapter={this.state.chapter} />
-        </div>
-      </div>
-    );
+      <Reader story={ story } chapter={ chapter }/>
+    )
   }
+
 }
 
-export default Reader;
+export default ReaderContainer;
