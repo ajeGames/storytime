@@ -24,10 +24,11 @@ export const storyThatStartsAtTheEnd = {
 export const shortStory = {
   summary: {
     storyKey: "uniquestorykey1",
+    title: "Bye",
     versionStamp: "somekindofchecksumtodetectwhentherehasbeenachange",
     author: {
       id: "arn::1234",
-      penName: "Bubba"
+      penName: "Little Miss Perfect"
     },
     tagLine: "tag line",
     about: "about",
@@ -44,7 +45,7 @@ export const shortStory = {
       chapterId: "uniquechapterkey1",
       versionStamp: "somekindofchecksumtodetectwhentherehasbeenachange",
       title: "Danger Lies Within",
-      prose: "blah blah blah blah blah blah with some kind of handlebars for styling, image placement, etc.",
+      prose: "It was a dark and stormy day when all of the animals went crazy and died.",
       signpost: [
         {
           destination: "uniquechapterkey2",
