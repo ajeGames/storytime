@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
-function Sign({ storyKey, sign }) {
+function Sign({ storyKey, sign, switchToChapter }) {
   return (
     <li>
       <Link to={`/reader/${ storyKey }/${ sign.destination }`}>
         { sign.teaser }
       </Link>
+      <Button onClick={ switchToChapter(sign.destination) }>Go</Button>
     </li>
   );
 }
@@ -20,28 +22,7 @@ Sign.propTypes = {
   }).isRequired,
 };
 
-function SignPost({ storyKey, signs }) {
-  if (signs.length === 0) {
-    return (<TheEnd storyKey={ storyKey } />);
-  }
-  return (
-    <ul>
-      {signs.map(sign =>
-        <Sign
-          key={ sign.destination }
-          storyKey={ storyKey }
-          sign={ sign }
-        />)}
-    </ul>
-  );
-}
-
-SignPost.propTypes = {
-  storyKey: PropTypes.string.isRequired,
-  signs: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-function TheEnd({ storyKey }) {
+function TheEnd({ storyKey, switchToChapter }) {
   return (
     <div>
       <p>You are at the end of the line.</p>
@@ -57,13 +38,39 @@ TheEnd.propTypes = {
   storyKey: PropTypes.string.isRequired,
 };
 
-function Chapter({ storyKey, chapter }) {
+function SignPost({ storyKey, signs, switchToChapter }) {
+  if (signs.length === 0) {
+    return (<TheEnd storyKey={ storyKey } />);
+  }
+  return (
+    <ul>
+      {signs.map(sign =>
+        <Sign
+          key={ sign.destination }
+          storyKey={ storyKey }
+          sign={ sign }
+          switchToChapter={ switchToChapter }
+        />)}
+    </ul>
+  );
+}
+
+SignPost.propTypes = {
+  storyKey: PropTypes.string.isRequired,
+  signs: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+function Chapter({ storyKey, chapter, switchToChapter }) {
   return (
     <div className="container">
       <h2>{ chapter.title }</h2>
       <p>{ chapter.prose }</p>
       <hr />
-      <SignPost storyKey={ storyKey } signs={ chapter.signpost } />
+      <SignPost
+        storyKey={ storyKey }
+        signs={ chapter.signpost }
+        switchToChapter={ switchToChapter }
+      />
     </div>
   );
 }
@@ -77,14 +84,18 @@ Chapter.propTypes = {
   }).isRequired,
 };
 
-const Reader = ({ story, chapter }) => (
+const Reader = ({ story, chapter, switchToChapter }) => (
   <div className="panel panel-default">
     <div className="panel-heading">
       <h3 className="text-center panel-title">
         <b>{ story.title }</b> <em>by { story.author.penName }</em></h3>
     </div>
     <div className="panel-body">
-      <Chapter storyKey={ story.storyKey } chapter={ chapter } />
+      <Chapter
+        storyKey={ story.storyKey }
+        chapter={ chapter }
+        switchToChapter={ switchToChapter }
+      />
     </div>
   </div>
 )
