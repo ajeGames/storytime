@@ -20,8 +20,15 @@
 */
 
 import { LOAD_STORY_SUMMARY, LOAD_CHAPTER } from '../actions';
+import { shortStory } from '../../apidata';
 
-const bookshelf = (state = {}, action) => {
+let initialState = {}
+initialState[shortStory.summary.storyKey] = {
+  summary: shortStory.summary,
+  chapters: shortStory.chapters
+};
+
+const bookshelf = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_STORY_SUMMARY:
       return Object.assign({}, state, {
