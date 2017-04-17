@@ -1,8 +1,8 @@
 import storySummaries from './storySummaries';
-import { normalStory, fullStory } from './normalStory';
+import { storyThatStartsAtTheEnd, shortStory } from './storySamples';
 
 export {
   storySummaries,
-  normalStory,
-  fullStory
+  storyThatStartsAtTheEnd,
+  shortStory
 };
