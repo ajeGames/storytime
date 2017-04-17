@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import storyTimeApp from './appstate/reducers';
 import LibraryContainer from './components/LibraryContainer';
-import ReaderContainer from './components/Reader';
+import ReaderContainer from './components/ReaderContainer';
 import NumberGuessing from './components/NumberGuessing';
 
 let store = createStore(
@@ -19,7 +19,7 @@ const App = () => (
         <h3>StoryTime</h3>
         <p><Link to="/">StoryTime</Link> | <Link to="/guess">Number Guessing Game</Link></p>
         <Route exact path="/" component={ LibraryContainer } />
-        <Route path="/reader/{storyKey}" component={ ReaderContainer } />
+        <Route path="/reader" component={ ReaderContainer } />
         <Route path="/guess" component={ NumberGuessing } />
       </div>
     </Router>

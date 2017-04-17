@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -73,7 +73,7 @@ Chapter.propTypes = {
   chapter: PropTypes.shape({
     title: PropTypes.string,
     prose: PropTypes.string,
-    signPost: PropTypes.array,
+    signpost: PropTypes.array,
   }).isRequired,
 };
 
@@ -89,52 +89,4 @@ const Reader = ({ story, chapter }) => (
   </div>
 )
 
-class ReaderContainer extends Component {
-
-  // TODO load story and chapters dynamically from external file
-  // TODO change chapter using signpost links
-
-  constructor() {
-    super();
-    this.state = {
-      reader: {
-        activeStory: "uniquestorykey",
-        activeStoryStatus: "loaded",
-        activeChapter: "uniquechapterkey",
-        activeChapterStatus: "fetching"
-      },
-      story: {
-        storyKey: "uniquestorykey",
-        title: "The Big One",
-        author: {
-          penName: "Bubba Gump"
-        },
-        tagLine: "Read this, you fool.",
-        about: "What do you think this is about?  I'll tell you.",
-        firstChapter: "uniquechapterkey"
-      },
-      chapter: {
-        chapterKey: "uniquechapterkey",
-        title: "Uh Oh.",
-        prose: "This is all of the stuff that happens in the chapter.",
-        signpost: [
-          {
-            destination: "uniquechapterkey",
-            teaser: "It's groundhogs day all over again. Try to escape."
-          }
-        ]
-      }
-    }
-  }
-
-  render() {
-    const story = this.state.story;
-    const chapter = this.state.chapter;
-    return (
-      <Reader story={ story } chapter={ chapter }/>
-    )
-  }
-
-}
-
-export default ReaderContainer;
+export default Reader;
