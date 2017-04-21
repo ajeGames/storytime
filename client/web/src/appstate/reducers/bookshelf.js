@@ -22,18 +22,26 @@
 import { LOAD_STORY_SUMMARY, LOAD_CHAPTER } from '../actions';
 import { shortStory } from '../../apidata';
 
-let initialState = {}
+let initialState = {};
 initialState[shortStory.summary.storyKey] = {
   summary: shortStory.summary,
   chapters: shortStory.chapters
 };
 
+function prepSummaryForStorage(summary) {
+  let node = {};
+  node[summary.storyKey] = {
+    summary
+  };
+  return node;
+}
+
 const bookshelf = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_STORY_SUMMARY:
-      return Object.assign({}, state, {
-        story: action.payload.summary
-      });
+      console.log('From bookshelf reducer: ' + JSON.stringify(action));
+      return Object.assign({}, state,
+         prepSummaryForStorage(action.payload));
     case LOAD_CHAPTER:
     default:
       return state;

@@ -4,9 +4,7 @@ export const LOAD_CHAPTER = 'LOAD_CHAPTER';
 export const loadStorySummary = (summary) => {
   return {
     type: LOAD_STORY_SUMMARY,
-    payload: {
-      summary
-    }
+    payload: summary
   }
 }
 

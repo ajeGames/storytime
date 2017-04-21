@@ -25,9 +25,12 @@ const library = (state = initialState, action) => {
         fetchingSummaries: false
       });
     case LOAD_STORY_SUMMARIES:
+      const storyKeys = action.payload.stories.map((story) => {
+        return story.storyKey;
+      });
       return Object.assign({}, state, {
         fetchingSummaries: false,
-        storySummariesToShow: action.payload.stories
+        storySummariesToShow: storyKeys
       });
     default:
       return state;
