@@ -1,8 +1,8 @@
-import { LOAD_STORY_SUMMARY, LOAD_CHAPTER } from '../actions';
+import * as actions from '../actions';
 
 const summary = (state = {}, action) => {
   switch (action.type) {
-    case LOAD_STORY_SUMMARY:
+    case actions.FETCH_STORY_SUMMARY_RESPONSE:
       const story = action.payload;
       return {
         storyKey: story.storyKey,
@@ -22,7 +22,7 @@ const summary = (state = {}, action) => {
 
 const chapter = (state = {}, action) => {
   switch (action.type) {
-    case LOAD_CHAPTER:
+    case actions.FETCH_CHAPTER_RESPONSE:
       const chapter = action.payload;
       const mySignpost = (chapter.signpost)
         ? chapter.signpost.map(sign => {
@@ -43,23 +43,15 @@ const chapter = (state = {}, action) => {
   }
 }
 
-export const story = {
-  summary,
-  chapters: {
-    // ...chaptersById
-  }
-};
-
 export const bookshelf = (state = {}, action) => {
+  console.log(action);
   switch (action.type) {
-    case LOAD_STORY_SUMMARY:
-      const storySummary = summary(undefined, action);
-      let node = {};
-      node[storySummary.storyKey] = {
-        summary: storySummary
-      }
-      return Object.assign({}, state, node);
-    case LOAD_CHAPTER:
+    case actions.FETCH_STORY_SUMMARY_RESPONSE:
+      return {
+        ...state,
+        [action.storyKey]: summary(state[action.storyKey], action)
+      };
+    case actions.FETCH_CHAPTER_RESPONSE:
       // const storyKey = action.payload.storyKey;
       // const chapter = action.payload.chapter;
       // return Object.assign({}, state, {
