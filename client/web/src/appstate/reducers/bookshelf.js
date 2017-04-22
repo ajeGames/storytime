@@ -43,23 +43,36 @@ const chapter = (state = {}, action) => {
   }
 }
 
-export const bookshelf = (state = {}, action) => {
-  console.log(action);
+const story = (state = {}, action) => {
   switch (action.type) {
     case actions.FETCH_STORY_SUMMARY_RESPONSE:
       return {
         ...state,
-        [action.storyKey]: summary(state[action.storyKey], action)
+        summary: summary(state.summary, action)
       };
-    case actions.FETCH_CHAPTER_RESPONSE:
-      // const storyKey = action.payload.storyKey;
-      // const chapter = action.payload.chapter;
-      // return Object.assign({}, state, {
-      //   state[storyKey]: {
-      //     chapters: prepChapterForStorage(chapter)
-      //   }
-      // });
+    case action.FETCH_CHAPTER_RESPONSE:
+      const chapterId = action.payload.chapter.chapterId;
+      return {
+        ...state,
+        chapters: {
+          [chapterId]: chapter(state.chapters[action.chapterId], action.chapter)
+        }
+      };
+    default:
       return state;
+  }
+}
+
+export const bookshelf = (state = {}, action) => {
+  console.log(action);
+  switch (action.type) {
+    case actions.FETCH_STORY_SUMMARY_RESPONSE:
+    case actions.FETCH_CHAPTER_RESPONSE:
+      const storyKey = action.payload.storyKey;
+      return {
+        ...state,
+        [storyKey]: story(state[storyKey], action)
+      };
     default:
       return state;
   }

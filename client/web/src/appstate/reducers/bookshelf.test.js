@@ -15,6 +15,7 @@ const testSummary = {
 
 it('loads single story correctly', () => {
   const after = bookshelf(undefined, fetchStorySummaryResponse(testSummary));
+  console.log(after);
   expect(after['story123']).toBeDefined();
   expect(after['story123'].summary).toEqual(testSummary);
 });
