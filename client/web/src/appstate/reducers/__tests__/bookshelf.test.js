@@ -31,7 +31,6 @@ const testSummary = {
 
 it('loads single story correctly', () => {
   const after = bookshelf(undefined, loadStorySummary(testSummary));
-
   expect(after['story123']).toBeDefined();
   expect(after['story123'].summary).toEqual(testSummary);
 });
@@ -40,7 +39,6 @@ it('loads multiple stories correctly', () => {
   const first = bookshelf(undefined, loadStorySummary(testSummary));
   const anotherStory = Object.assign({}, testSummary, { storyKey: 'blargy' });
   let next = bookshelf(first, loadStorySummary(anotherStory));
-
   expect(next[testSummary.storyKey]).toBeDefined();
   expect(next[anotherStory.storyKey]).toBeDefined();
 })
