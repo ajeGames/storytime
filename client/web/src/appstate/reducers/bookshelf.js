@@ -23,7 +23,7 @@ const summary = (state = {}, action) => {
 const chapter = (state = {}, action) => {
   switch (action.type) {
     case actions.FETCH_CHAPTER_RESPONSE:
-      const chapter = action.payload;
+      const chapter = action.payload.chapter;
       const mySignpost = (chapter.signpost)
         ? chapter.signpost.map(sign => {
           return {
@@ -50,12 +50,14 @@ const story = (state = {}, action) => {
         ...state,
         summary: summary(state.summary, action)
       };
-    case action.FETCH_CHAPTER_RESPONSE:
-      const chapterId = action.payload.chapter.chapterId;
+    case actions.FETCH_CHAPTER_RESPONSE:
+      const chapterId = action.payload.chapter.id;
+      const currentChapter = (state.chapters) ? state.chapters[chapterId] : undefined;
       return {
-        ...state,
+        summary: (state.summary || {}),
         chapters: {
-          [chapterId]: chapter(state.chapters[action.chapterId], action.chapter)
+          ...state.chapters,
+          [chapterId]: chapter(currentChapter, action)
         }
       };
     default:
@@ -64,7 +66,6 @@ const story = (state = {}, action) => {
 }
 
 export const bookshelf = (state = {}, action) => {
-  console.log(action);
   switch (action.type) {
     case actions.FETCH_STORY_SUMMARY_RESPONSE:
     case actions.FETCH_CHAPTER_RESPONSE:
