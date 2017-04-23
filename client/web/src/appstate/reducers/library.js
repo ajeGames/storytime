@@ -1,7 +1,8 @@
 import { FETCH_STORY_SUMMARIES, FETCH_STORY_SUMMARIES_RESPONSE } from '../actions';
 
 const initialState = {
-  fetchingSummaries: false
+  fetchingSummaries: false,
+  storySummariesToShow: []
 };
 
 const library = (state = initialState, action) => {
@@ -12,10 +13,14 @@ const library = (state = initialState, action) => {
         fetchingSummaries: true
       };
     case FETCH_STORY_SUMMARIES_RESPONSE:
-    return {
-      ...state,
-      fetchingSummaries: false
-    };
+      const summaryKeys = action.payload.map(summary => {
+        return summary.storyKey;
+      });
+      return {
+        ...state,
+        fetchingSummaries: false,
+        storySummariesToShow: summaryKeys
+      };
     default:
       return state;
   }

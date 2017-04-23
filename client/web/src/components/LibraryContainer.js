@@ -4,9 +4,13 @@ import { storySummaries } from '../apidata';
 import Library from './Library';
 
 const mapStateToProps = (state) => {
+  const summaries = state.library.storySummariesToShow.map(storyKey => {
+    return state.bookshelf[storyKey].summary;
+  })
+  console.log(JSON.stringify(summaries, null, 2));
   return {
-    summaries: state.library.storySummariesToShow,
-    loading: state.library.fetchingSummaries
+    loading: state.library.fetchingSummaries,
+    summaries: summaries
   }
 }
 
