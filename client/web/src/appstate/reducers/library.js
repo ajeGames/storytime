@@ -1,13 +1,4 @@
-/*
-  library: {
-    fetchingSummaries: boolean,
-    storySummariesToShow: Array
-  }
-*/
-
-import {
-  FETCH_STORY_SUMMARIES, FAIL_FETCH_STORY_SUMMARIES, LOAD_STORY_SUMMARIES
-} from '../actions';
+import { FETCH_STORY_SUMMARIES, FETCH_STORY_SUMMARIES_RESPONSE } from '../actions';
 
 const initialState = {
   fetchingSummaries: false,
@@ -17,55 +8,22 @@ const initialState = {
 const library = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_STORY_SUMMARIES:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fetchingSummaries: true
+      };
+    case FETCH_STORY_SUMMARIES_RESPONSE:
+      const summaryKeys = action.payload.map(summary => {
+        return summary.storyKey;
       });
-    case FAIL_FETCH_STORY_SUMMARIES:
-      return Object.assign({}, state, {
-        fetchingSummaries: false
-      });
-    case LOAD_STORY_SUMMARIES:
-      const storyKeys = action.payload.stories.map((story) => {
-        return story.storyKey;
-      });
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fetchingSummaries: false,
-        storySummariesToShow: storyKeys
-      });
+        storySummariesToShow: summaryKeys
+      };
     default:
       return state;
   }
 };
 
 export default library;
-
-// export const summary = (state = {}, action) => {
-//   const summaryIn = action.payload.summary;
-//   switch (action.type) {
-//     case 'LOAD_SUMMARY':
-//       return {
-//         storyKey: summaryIn.storyKey,
-//         author: summaryIn.author,
-//         tagLine: summaryIn.tagLine,
-//         about: summaryIn.about,
-//         firstChapter: summaryIn.firstChapter
-//       };
-//     default:
-//       return state;
-//   }
-// }
-//
-// export const summaries = (state = [], action) => {
-//   switch (action.type) {
-//     case 'LOAD_SUMMARIES':
-//       // TODO does this create new objects?  need to ensure data shape?
-//       return action.payload.summaries.map(summary =>
-//         summary(undefined, loadSummaryAction(summary))
-//       )
-//       // return [
-//       //   ...(action.payload.summaries)
-//       // ];
-//     default:
-//       return state;
-//   }
-// }
