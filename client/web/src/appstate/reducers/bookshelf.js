@@ -74,6 +74,13 @@ export const bookshelf = (state = {}, action) => {
         ...state,
         [storyKey]: story(state[storyKey], action)
       };
+    case actions.FETCH_STORY_SUMMARIES_RESPONSE:
+      let newState = Object.assign({}, state);
+      action.payload.map(summary => {
+        newState[summary.storyKey] = story(undefined, actions.fetchStorySummaryResponse(summary));
+        return newState[summary.storyKey];
+      });
+      return newState;
     default:
       return state;
   }

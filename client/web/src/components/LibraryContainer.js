@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchStorySummaries, failFetchStorySummaries, loadStorySummaries } from '../appstate/actions';
+import { fetchStorySummaries, fetchStorySummariesResponse } from '../appstate/actions';
 import { storySummaries } from '../apidata';
 import Library from './Library';
 
@@ -16,10 +16,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(fetchStorySummaries());
     },
     cancelRefreshStories: () => {
-      dispatch(failFetchStorySummaries('User canceled'));
+      dispatch(fetchStorySummariesResponse(new Error('User canceled')));
     },
     completeRefreshStories: () => {
-      dispatch(loadStorySummaries(storySummaries));  // TODO have this call the server
+      dispatch(fetchStorySummariesResponse(storySummaries));  // TODO have this call the server
     }
   }
 }

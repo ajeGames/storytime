@@ -4,9 +4,9 @@ import bookshelf from './bookshelf';
 import reader from './reader'
 
 const storyTimeApp = combineReducers({
-  library,
-  reader,
   bookshelf,
+  library,
+  reader
 });
 
 export default storyTimeApp;

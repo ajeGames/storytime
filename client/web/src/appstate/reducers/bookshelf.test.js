@@ -1,5 +1,9 @@
 import { bookshelf } from './bookshelf';
-import { fetchStorySummaryResponse, fetchChapterResponse } from '../actions';
+import {
+  fetchStorySummaryResponse,
+  fetchChapterResponse,
+  fetchStorySummariesResponse
+} from '../actions';
 
 export const testSummary = {
   storyKey: 'story123',
@@ -67,15 +71,28 @@ describe('bookshelf reducer', () => {
   };
 
   it('loads multiple chapters', () => {
-    let now = bookshelf(undefined,
+    let after = bookshelf(undefined,
       fetchChapterResponse(testSummary.storyKey, testChapter));
-    now = bookshelf(now,
+    after = bookshelf(after,
       fetchChapterResponse(testSummary.storyKey, testChapter2));
-    console.log(JSON.stringify(now, null, 2));
-    const chapters = now[testSummary.storyKey].chapters;
+    const chapters = after[testSummary.storyKey].chapters;
     expect(chapters['chapter123']).toBeDefined();
     expect(chapters['chapter123']).toEqual(testChapter);
     expect(chapters['chapter234']).toBeDefined();
     expect(chapters['chapter234']).toEqual(testChapter2);
+  });
+
+  it('loads multiple summaries', () => {
+    const testSummaries = [
+      testSummary,
+      Object.assign({}, testSummary, { storyKey: 'blargy1' }),
+      Object.assign({}, testSummary, { storyKey: 'blargy2' }),
+      Object.assign({}, testSummary, { storyKey: 'blargy3' }),
+    ];
+    let after = bookshelf(undefined, fetchStorySummariesResponse(testSummaries));
+    expect(after['story123']).toBeDefined();
+    expect(after['blargy1']).toBeDefined();
+    expect(after['blargy2']).toBeDefined();
+    expect(after['blargy3']).toBeDefined();
   });
 });
