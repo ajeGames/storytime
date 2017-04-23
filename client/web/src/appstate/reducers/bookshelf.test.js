@@ -1,7 +1,7 @@
 import { bookshelf } from './bookshelf';
-import { fetchStorySummaryResponse } from '../actions';
+import { fetchStorySummaryResponse, fetchChapterResponse } from '../actions';
 
-const testSummary = {
+export const testSummary = {
   storyKey: 'story123',
   title: 'hello world',
   author: {
@@ -13,21 +13,69 @@ const testSummary = {
   firstChapter: 'chapter123'
 }
 
-it('loads single story correctly', () => {
-  const after = bookshelf(undefined, fetchStorySummaryResponse(testSummary));
-  console.log(after);
-  expect(after['story123']).toBeDefined();
-  expect(after['story123'].summary).toEqual(testSummary);
-});
+export const testChapter = {
+  id: 'chapter123',
+  title: 'Danger Lies Within',
+  prose: 'blah blah blah',
+  signpost: [
+    {
+      destination: 'chapter234',
+      teaser: 'Take this path, sucker.'
+    },
+    {
+      destination: 'chapter345',
+      teaser: 'You are making the right choice, dupe.'
+    }
+  ]
+}
 
-// it('loads multiple stories correctly', () => {
-//   const first = bookshelf(undefined, fetchStorySummaryResponse(testSummary));
-//   const anotherStory = Object.assign({}, testSummary, { storyKey: 'blargy' });
-//   let next = bookshelf(first, fetchStorySummaryResponse(anotherStory));
-//   expect(next[testSummary.storyKey]).toBeDefined();
-//   expect(next[anotherStory.storyKey]).toBeDefined();
-// })
-//
-// it('load a chapter correctly', () => {
-//   const after = bookshelf(undefined, loadChapter('story456', testChapter));
-// });
+describe('bookshelf reducer', () => {
+  it('loads story summary onto empty bookshelf', () => {
+    const after = bookshelf(undefined, fetchStorySummaryResponse(testSummary));
+    expect(after['story123']).toBeDefined();
+    expect(after['story123'].summary).toEqual(testSummary);
+  });
+
+  it('loads chapter onto empty bookshelf', () => {
+    const after = bookshelf(undefined,
+      fetchChapterResponse(testSummary.storyKey, testChapter));
+    expect(after['story123'].chapters[testChapter.id]).toBeDefined();
+    expect(after['story123'].chapters[testChapter.id]).toEqual(testChapter);
+  });
+
+  it('loads summary and chapter', () => {
+    const afterSummary = bookshelf(undefined,
+      fetchStorySummaryResponse(testSummary));
+    const afterChapter = bookshelf(afterSummary,
+      fetchChapterResponse(testSummary.storyKey, testChapter));
+    const expectedResult = {
+      story123: {
+        summary: testSummary,
+        chapters: {
+          chapter123: testChapter
+        }
+      }
+    };
+    expect(afterChapter).toEqual(expectedResult);
+  });
+
+  const testChapter2 = {
+    id: 'chapter234',
+    title: 'The End',
+    prose: 'That choice was...unhealthy.',
+    signpost: []
+  };
+
+  it('loads multiple chapters', () => {
+    let now = bookshelf(undefined,
+      fetchChapterResponse(testSummary.storyKey, testChapter));
+    now = bookshelf(now,
+      fetchChapterResponse(testSummary.storyKey, testChapter2));
+    console.log(JSON.stringify(now, null, 2));
+    const chapters = now[testSummary.storyKey].chapters;
+    expect(chapters['chapter123']).toBeDefined();
+    expect(chapters['chapter123']).toEqual(testChapter);
+    expect(chapters['chapter234']).toBeDefined();
+    expect(chapters['chapter234']).toEqual(testChapter2);
+  });
+});
