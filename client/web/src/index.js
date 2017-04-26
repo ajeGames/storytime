@@ -1,9 +1,10 @@
+import 'babel-polyfill';  // here because of isomorphic-fetch used to interact with remote services
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import App from './App';
 
-ReactDOM.render(
+render(
   <App />,
   document.getElementById('root')
 );

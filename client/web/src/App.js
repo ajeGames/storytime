@@ -1,14 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
 import storyTimeApp from './appstate/reducers';
 import LibraryContainer from './components/LibraryContainer';
 import ReaderContainer from './components/ReaderContainer';
 import NumberGuessing from './components/NumberGuessing';
 
-let store = createStore(
+const loggerMiddleware = createLogger();
+
+const store = createStore(
   storyTimeApp,
+  applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware
+  ),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

@@ -2,15 +2,15 @@ import * as actions from './actions';
 
 describe('fetch story summaries actions', () => {
   it('creates request action', () => {
-    expect(actions.fetchStorySummaries()).toEqual({
-      type: actions.FETCH_STORY_SUMMARIES
+    expect(actions.requestStorySummaries()).toEqual({
+      type: actions.REQUEST_STORY_SUMMARIES
     });
   });
 
   it('creates failure action', () => {
     const error = new TypeError('this is so wrong');
-    expect(actions.fetchStorySummariesResponse(error)).toEqual({
-      type: actions.FETCH_STORY_SUMMARIES_RESPONSE,
+    expect(actions.receiveStorySummaries(error)).toEqual({
+      type: actions.RECEIVE_STORY_SUMMARIES,
       payload: error,
       error: true
     });
@@ -21,10 +21,16 @@ describe('fetch story summaries actions', () => {
       { storyKey: 'a', title: 'a story' },
       { storyKey: 'b', title: 'b story' }
     ];
-    expect(actions.fetchStorySummariesResponse(summaries)).toEqual({
-      type: actions.FETCH_STORY_SUMMARIES_RESPONSE,
+    expect(actions.receiveStorySummaries(summaries)).toEqual({
+      type: actions.RECEIVE_STORY_SUMMARIES,
       payload: summaries
     });
+  });
+});
+
+describe('fetch story summaries asynchronous action', () => {
+  it('returns summaries', () => {
+    // return fetchStorySummaries().then(??)
   });
 });
 

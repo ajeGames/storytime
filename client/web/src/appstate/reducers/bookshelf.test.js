@@ -2,7 +2,7 @@ import { bookshelf } from './bookshelf';
 import {
   fetchStorySummaryResponse,
   fetchChapterResponse,
-  fetchStorySummariesResponse
+  receiveStorySummaries
 } from '../actions';
 
 export const testSummary = {
@@ -89,7 +89,7 @@ describe('bookshelf reducer', () => {
       Object.assign({}, testSummary, { storyKey: 'blargy2' }),
       Object.assign({}, testSummary, { storyKey: 'blargy3' }),
     ];
-    let after = bookshelf(undefined, fetchStorySummariesResponse(testSummaries));
+    let after = bookshelf(undefined, receiveStorySummaries(testSummaries));
     expect(after['story123']).toBeDefined();
     expect(after['blargy1']).toBeDefined();
     expect(after['blargy2']).toBeDefined();
