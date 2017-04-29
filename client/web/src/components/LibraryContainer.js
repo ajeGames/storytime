@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
-import { requestStorySummaries, receiveStorySummaries } from '../appstate/actions';
+import { requestStorySummaries, receiveStorySummaries, fetchStorySummaries } from '../appstate/actions';
 import { storySummaries } from '../apidata';
 import Library from './Library';
 
 const mapStateToProps = (state) => {
   const summaries = state.library.storySummariesToShow.map(storyKey => {
     return state.bookshelf[storyKey].summary;
-  })
+  });
   console.log(JSON.stringify(summaries, null, 2));
   return {
     loading: state.library.fetchingSummaries,
     summaries: summaries
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -26,11 +26,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(receiveStorySummaries(storySummaries));  // TODO have this call the server
     }
   }
-}
+};
 
-const LibraryContainer = connect(
+let LibraryContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Library)
+)(Library);
 
 export default LibraryContainer;
