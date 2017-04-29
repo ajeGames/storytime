@@ -15,27 +15,31 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class StoryTimeResource {
 
+    /*
+        TODO: consider security and protections against hackers; e.g., how to handle DDOS attacks
+     */
+
     private static Logger LOG = StoryTimeApplication.KEY_EVENT_LOG;
 
     @GET
     public String ping() {
-        LOG.debug("StoryTime service pinged...");
-        return "{ message: pong }";
+        LOG.info("Called ping");
+        return "{ \"message\": \"pong\" }";
     }
 
     /**
-     * Provide summary information for all stories that match given criteria.  For now, returns all stories.
+     * Provide summary information for all published stories in the catalog.
      *
      * @return java.util.List containing search results
      */
     @GET
     @Timed
     @Path("stories")
-    public List<StorySummary> findStories() {
+    public List<StorySummary> findPublishedStories() {
         /*
          * TODO: introduce criteria to refine search
          */
-        LOG.info("Find stories: all");
+        LOG.info("Called findPublishedStories");
         return CatalogController.create().getAllStorySummaries();
     }
 }

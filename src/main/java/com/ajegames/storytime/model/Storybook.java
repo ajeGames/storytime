@@ -124,9 +124,7 @@ public class Storybook {
     }
 
     public Chapter getFirstChapter() {
-        return (summary != null) ?
-                getChapter(getSummary().getFirstChapter().getTargetChapterId()) :
-                null;
+        return (getSummary() != null) ? getChapter(getSummary().getFirstChapter()) : null;
     }
 
     public void updateChapter(Chapter update) {

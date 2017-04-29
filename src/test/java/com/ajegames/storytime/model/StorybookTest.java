@@ -40,8 +40,7 @@ public class StorybookTest {
         Storybook bookOut = Storybook.load(testStory);
         StorySummary testSummary = testStory.getSummary();
 
-        StorySummary update = StorySummary.create(testSummary.getKey(), "update", "update", "update", "update",
-                ChapterSign.create(9999, "update"));
+        StorySummary update = StorySummary.create(testSummary.getKey(), "update", "update", "update", "update", 9999);
         bookOut.setSummary(update);
 
         Assert.assertEquals(bookOut.getSummary(), update);

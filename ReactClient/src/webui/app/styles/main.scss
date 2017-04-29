@@ -1,0 +1,75 @@
+@import 'base/_all';
+@import 'themes/_all';
+@import 'components/_all';
+
+body {
+  font-family: $site-font;
+  background-color: $color-background;
+  color: $color-text;
+}
+
+.active-menu-item {
+  color: fuchsia;
+}
+//#title {
+//  padding: 0.5em;
+//  background-color: $color-title-bar;
+//  text-align: center;
+//  font-family: $font-stack-garamond;
+//}
+//
+//#reader {
+//  width: 80%;
+//  float: left;
+//}
+//
+//#chapter {
+//  background-color: $color-reader;
+//}
+//
+//#chapter_title {
+//  padding: 0.5em;
+//  background-color: $color-chapter-title;
+//  text-align: center;
+//  font-family: $font-stack-garamond;
+//}
+//
+//#prose {
+//  padding: 0.5em 2em 2em 2em;
+//}
+//
+//#prose {
+//  div, p, li {
+//    font-family: $font-stack-garamond;
+//  }
+//}
+//#middle{
+//  margin: 0 2em 0 0;
+//}
+//
+//#sidebar {
+//  float: right;
+//  margin-top: 2em;
+//}
+//
+//#footer {
+//  clear: both;
+//}
+//
+//p {
+//  margin-top: 1em;
+//}
+//
+//.adbox {
+//  padding-bottom: 2em;
+//}
+//
+//#signpost {
+//  ul {
+//    margin-left: 5em;
+//    list-style: katakana-iroha;
+//    li {
+//      padding-bottom: 0.5em;
+//    }
+//  }
+//}

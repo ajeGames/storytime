@@ -46,9 +46,8 @@ public class StorySummaryTest extends RepresentationTestBase {
     // ==== builders ====
 
     private static StorySummary buildStorySummary() {
-        final ChapterSign firstChapter = ChapterSign.create(1000, "once upon a time...");
         return StorySummary.create("1234abcd", "normal title", "normal author", "this is a normal tag line",
-                "what it is normally about", firstChapter);
+                "what it is normally about", 1000);
     }
 
 }

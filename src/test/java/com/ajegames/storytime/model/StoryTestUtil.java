@@ -13,8 +13,7 @@ public class StoryTestUtil {
 
     public static Story generateStory() {
         return Story.create(StorySummary.create(keyGenerator.nextKey(), fillGenerator.nextKey(),
-                fillGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey(),
-                ChapterSign.create(1, fillGenerator.nextKey())),
+                fillGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey(), 1),
                 null);
     }
 
@@ -30,8 +29,7 @@ public class StoryTestUtil {
 
         return Story.create(
                 StorySummary.create(keyGenerator.nextKey(), fillGenerator.nextKey(), fillGenerator.nextKey(),
-                        fillGenerator.nextKey(), fillGenerator.nextKey(),
-                        ChapterSign.create(1000, fillGenerator.nextKey())),
+                        fillGenerator.nextKey(), fillGenerator.nextKey(), 1000),
                 new ArrayList<Chapter>(chapters));
     }
 
@@ -43,7 +41,7 @@ public class StoryTestUtil {
     }
 
     public static StorySummary createWithoutKey(String title, String author, String tagLine, String about) {
-        return StorySummary.create(null, title, author, tagLine, about, null);
+        return StorySummary.create(null, title, author, tagLine, about, 1);
     }
 
 }

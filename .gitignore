@@ -6,3 +6,11 @@ node_modules/
 dist
 dependency-reduced-pom.xml
 .sass-cache/
+*.css.map
+npm-debug.log
+*.db
+lib/
+node_modules/
+jspm_packages/
+.serverless/
+client/designs/
