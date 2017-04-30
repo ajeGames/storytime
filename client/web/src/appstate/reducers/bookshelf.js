@@ -2,15 +2,12 @@ import * as actions from '../actions';
 
 const summary = (state = {}, action) => {
   switch (action.type) {
-    case actions.FETCH_STORY_SUMMARY_RESPONSE:
+    case actions.RECEIVE_STORY_SUMMARY:
       const story = action.payload;
       return {
-        storyKey: story.storyKey,
+        storyKey: story.key,
         title: story.title,
-        author: {
-          id: story.author.id,
-          penName: story.author.penName
-        },
+        author: story.author,
         tagLine: story.tagLine,
         about: story.about,
         firstChapter: story.firstChapter
@@ -22,7 +19,7 @@ const summary = (state = {}, action) => {
 
 const chapter = (state = {}, action) => {
   switch (action.type) {
-    case actions.FETCH_CHAPTER_RESPONSE:
+    case actions.RECEIVE_CHAPTER:
       const chapter = action.payload.chapter;
       const mySignpost = (chapter.signpost)
         ? chapter.signpost.map(sign => {
@@ -45,12 +42,12 @@ const chapter = (state = {}, action) => {
 
 const story = (state = {}, action) => {
   switch (action.type) {
-    case actions.FETCH_STORY_SUMMARY_RESPONSE:
+    case actions.RECEIVE_STORY_SUMMARY:
       return {
         ...state,
         summary: summary(state.summary, action)
       };
-    case actions.FETCH_CHAPTER_RESPONSE:
+    case actions.RECEIVE_CHAPTER:
       const chapterId = action.payload.chapter.id;
       const currentChapter = (state.chapters) ? state.chapters[chapterId] : undefined;
       return {
@@ -67,9 +64,9 @@ const story = (state = {}, action) => {
 
 export const bookshelf = (state = {}, action) => {
   switch (action.type) {
-    case actions.FETCH_STORY_SUMMARY_RESPONSE:
-    case actions.FETCH_CHAPTER_RESPONSE:
-      const storyKey = action.payload.storyKey;
+    case actions.RECEIVE_STORY_SUMMARY:
+    case actions.RECEIVE_CHAPTER:
+      const storyKey = action.payload.key;  // FIXME change service API to use storyKey instead of key
       return {
         ...state,
         [storyKey]: story(state[storyKey], action)
@@ -77,8 +74,9 @@ export const bookshelf = (state = {}, action) => {
     case actions.RECEIVE_STORY_SUMMARIES:
       let newState = Object.assign({}, state);
       action.payload.map(summary => {
-        newState[summary.storyKey] = story(undefined, actions.fetchStorySummaryResponse(summary));
-        return newState[summary.storyKey];
+        const storyKey = summary.key;  // FIXME change service API to use storyKey instead of key
+        newState[storyKey] = story(undefined, actions.receiveStorySummary(summary));
+        return newState[storyKey];
       });
       return newState;
     default:

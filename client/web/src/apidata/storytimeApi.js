@@ -1,45 +1,22 @@
 import fetch from 'isomorphic-fetch';
-import storytimeServerEndpoint from '../env';
-import storySummaries from './storySummaries';
+// import storytimeServerEndpoint from '../env';
 
-const testing = true;
+const serviceEndpoint = 'http://localhost:3000/api';
 
-const simFetchStorySummaries = new Promise(
-  (resolve, reject) => {
-    console.log('simulate server request for story summaries');
-    window.setTimeout(
-      () => {
-        resolve(storySummaries);
-      }, 1000);
-  }
-);
-
-const simFetchStorySummary = new Promise(
-  (resolve, reject) => {
-    console.log('simulate server request for story summaries');
-    window.setTimeout(
-      () => {
-        resolve(storySummaries[0]);
-      }, 1000);
-  }
-);
-
-export function fetchStorySummaries() {
-  if (testing) {
-    return simFetchStorySummaries();
-  }
-  return fetch(`{ storytimeServerEndpoint }/stories/summaries`);
+export function ping() {
+  return fetch(`${ serviceEndpoint }/storytime`);
 }
 
-export function fetchStory(storyKey) {
-  if (testing) {
-    return simFetchStorySummary();
-  }
-  return fetch(`${ storytimeServerEndpoint }/stories/${ storyKey }`);
+export function getStorySummaries() {
+  return fetch(`${ serviceEndpoint }/storytime/stories`);
 }
 
-export function fetchChapter(storyKey, chapterId) {
-  return fetch(`${ storytimeServerEndpoint }/stories/${ storyKey }/chapters/${ chapterId }`);
+export function getStorySummary(storyKey) {
+  return fetch(`${ serviceEndpoint }/story/${ storyKey }/summary`);
+}
+
+export function getChapter(storyKey, chapterId) {
+  return fetch(`${ serviceEndpoint }/story/${ storyKey }/chapters/${ chapterId }`);
 }
 
 /*

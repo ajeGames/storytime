@@ -13,8 +13,14 @@ const library = (state = initialState, action) => {
         fetchingSummaries: true
       };
     case RECEIVE_STORY_SUMMARIES:
+      if (action.error) {
+        return {
+          ...state,
+          fetchingSummaries: false
+        }
+      }
       const summaryKeys = action.payload.map(summary => {
-        return summary.storyKey;
+        return summary.key;  // FIXME change service API to use storyKey instead of key
       });
       return {
         ...state,
