@@ -37,8 +37,8 @@ describe('fetch story summaries asynchronous action', () => {
 describe('fetch story summary actions', () => {
   it('creates request action', () => {
     const storyKey = 'abc123';
-    expect(actions.fetchStorySummary(storyKey)).toEqual({
-      type: actions.FETCH_STORY_SUMMARY,
+    expect(actions.requestStorySummary(storyKey)).toEqual({
+      type: actions.REQUEST_STORY_SUMMARY,
       payload: storyKey
     });
   });
@@ -47,8 +47,8 @@ describe('fetch story summary actions', () => {
     const storyKey = 'abc123';
     const errorMsg =`Story with key ${storyKey} not found`;
     const error = new TypeError(errorMsg);
-    expect(actions.fetchStorySummaryResponse(error)).toEqual({
-      type: actions.FETCH_STORY_SUMMARY_RESPONSE,
+    expect(actions.receiveStorySummary(error)).toEqual({
+      type: actions.RECEIVE_STORY_SUMMARY,
       payload: error,
       error: true
     });
@@ -56,8 +56,8 @@ describe('fetch story summary actions', () => {
 
   it('creates response action', () => {
     const summary = { storyKey: 'abc123', title: 'a great story' };
-    expect(actions.fetchStorySummaryResponse(summary)).toEqual({
-      type: actions.FETCH_STORY_SUMMARY_RESPONSE,
+    expect(actions.receiveStorySummary(summary)).toEqual({
+      type: actions.RECEIVE_STORY_SUMMARY,
       payload: summary
     });
   });
@@ -67,8 +67,8 @@ describe('fetch chapter actions', () => {
   it('creates request action', () => {
     const storyKey = 'abc123';
     const chapterId = '42';
-    expect(actions.fetchChapter(storyKey, chapterId)).toEqual({
-      type: actions.FETCH_CHAPTER,
+    expect(actions.requestChapter(storyKey, chapterId)).toEqual({
+      type: actions.REQUEST_CHAPTER,
       payload: {
         storyKey,
         chapterId
@@ -81,8 +81,8 @@ describe('fetch chapter actions', () => {
     const chapterId = '42'
     const errorMsg =`Chapter ${chapterId} of story ${storyKey} not found`;
     const error = new TypeError(errorMsg);
-    expect(actions.fetchChapterResponse(error)).toEqual({
-      type: actions.FETCH_CHAPTER_RESPONSE,
+    expect(actions.receiveChapter(error)).toEqual({
+      type: actions.RECEIVE_CHAPTER,
       payload: error,
       error: true
     });
@@ -91,8 +91,8 @@ describe('fetch chapter actions', () => {
   it('create response action', () => {
     const storyKey = 'abc123';
     const chapter = { chapterId: '42', title: 'surprise!' };
-    expect(actions.fetchChapterResponse(storyKey, chapter)).toEqual({
-      type: actions.FETCH_CHAPTER_RESPONSE,
+    expect(actions.receiveChapter(storyKey, chapter)).toEqual({
+      type: actions.RECEIVE_CHAPTER,
       payload: {
         storyKey,
         chapter

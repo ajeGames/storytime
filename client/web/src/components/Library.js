@@ -16,7 +16,7 @@ const StoryCard = ({ story }) => (
           { story.title }
         </Link>
       </CardTitle>
-      <CardSubtitle><em>by { story.author.penName }</em></CardSubtitle>
+      <CardSubtitle><em>by { story.author }</em></CardSubtitle>
       <CardText>{ story.about }</CardText>
       <Link
         className="btn btn-info"

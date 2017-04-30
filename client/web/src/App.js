@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import storyTimeApp from './appstate/reducers';
 import LibraryContainer from './components/LibraryContainer';
 import ReaderContainer from './components/ReaderContainer';
@@ -11,13 +11,14 @@ import NumberGuessing from './components/NumberGuessing';
 
 const loggerMiddleware = createLogger();
 
-const store = createStore(
-  storyTimeApp,
-  applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware
-  ),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(storyTimeApp,
+  composeEnhancers(
+    applyMiddleware(
+      thunkMiddleware,
+      loggerMiddleware
+    )
+  )
 );
 
 const App = () => (

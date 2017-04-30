@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions';
-import fetch from 'isomorphic-fetch';
-// import { fetchStorySummaries } from '../apidata/storytimeApi';
+import { getStorySummaries, getStorySummary, getChapter } from '../apidata/storytimeApi';
 
 /*
  * Asynchronously processes sequence of actions to fetch story summaries
@@ -15,31 +14,63 @@ export const receiveStorySummaries = createAction(RECEIVE_STORY_SUMMARIES);
 
 export const fetchStorySummaries = () => {
   return dispatch => {
+    console.log('dispatching REQUEST_STORY_SUMMARIES');
     dispatch(requestStorySummaries());
-    return fetch(`{ storytimeServerEndpoint }/stories/summaries`)
-      .then(response => {
-        dispatch(receiveStorySummaries(response.json));
+    return getStorySummaries()
+      .then(response => response.json())
+      .then(summaries => {
+        dispatch(receiveStorySummaries(summaries));
       })
-      .catch(response => {
-        dispatch(receiveStorySummaries(new Error(response.json)))
+      .catch(problem => {
+        dispatch(receiveStorySummaries(new Error(problem)))
+      })
+  }
+};
+
+export const REQUEST_STORY_SUMMARY = 'REQUEST_STORY_SUMMARY';
+export const RECEIVE_STORY_SUMMARY = 'RECEIVE_STORY_SUMMARY';
+
+export const requestStorySummary = createAction(REQUEST_STORY_SUMMARY);
+export const receiveStorySummary = createAction(RECEIVE_STORY_SUMMARY);
+
+export const fetchStorySummary = (storyKey) => {
+  return dispatch => {
+    dispatch(requestStorySummary());
+    return getStorySummary(storyKey)
+      .then(response => response.json())
+      .then(summary => {
+        dispatch(receiveStorySummary(summary));
+      })
+      .catch(problem => {
+        dispatch(receiveStorySummary(new Error(problem)))
       });
   };
 };
 
-// action types
+export const REQUEST_CHAPTER = 'REQUEST_CHAPTER';
+export const RECEIVE_CHAPTER = 'RECEIVE_CHAPTER';
 
-export const FETCH_STORY_SUMMARY = 'FETCH_STORY_SUMMARY';
-export const FETCH_STORY_SUMMARY_RESPONSE = 'FETCH_STORY_SUMMARY_RESPONSE';
-export const FETCH_CHAPTER = 'FETCH_CHAPTER';
-export const FETCH_CHAPTER_RESPONSE = 'FETCH_CHAPTER_RESPONSE';
+export const requestChapter = createAction(REQUEST_CHAPTER,
+  (storyKey, chapterId) => ({ storyKey, chapterId }));
+export const receiveChapter = createAction(RECEIVE_CHAPTER,
+  (storyKey, chapter) => ({ storyKey, chapter }));
+
+export const fetchChapter = (storyKey, chapterId) => {
+  return dispatch => {
+    dispatch(requestChapter(storyKey, chapterId));
+    return getChapter(storyKey, chapterId)
+      .then(response => response.json())
+      .then(chapter => {
+        dispatch(receiveChapter(storyKey, chapter));
+      })
+      .catch(problem => {
+        dispatch(receiveChapter(new Error(problem)))
+      });
+  };
+};
+
 export const SHOW_STORY = 'SHOW_STORY';
 export const SHOW_CHAPTER = 'SHOW_CHAPTER';
 
-export const fetchStorySummary = createAction(FETCH_STORY_SUMMARY);
-export const fetchStorySummaryResponse = createAction(FETCH_STORY_SUMMARY_RESPONSE);
-export const fetchChapter = createAction(FETCH_CHAPTER,
-  (storyKey, chapterId) => ({ storyKey, chapterId }));
-export const fetchChapterResponse = createAction(FETCH_CHAPTER_RESPONSE,
-  (storyKey, chapter) => ({ storyKey, chapter }));
 export const showStory = createAction(SHOW_STORY);
 export const showChapter = createAction(SHOW_CHAPTER);
