@@ -1,12 +1,12 @@
 {
   "fromChapterId": 1000,
-  "nextChapterOptions": [
+  "signpost": [
     {
-      "targetChapterId": 1001,
+      "destinationId": 1001,
       "teaser": "Take a walk in the rain."
     },
     {
-      "targetChapterId": 1002,
+      "destinationId": 1002,
       "teaser": "Stay inside."
     }
   ]

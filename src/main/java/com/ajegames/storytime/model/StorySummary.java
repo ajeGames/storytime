@@ -8,17 +8,17 @@ import com.google.common.base.Objects;
  */
 public class StorySummary {
 
-    private String key;
+    private String storyKey;
     private String title;
     private String author;
     private String tagLine;
     private String about;
     private int firstChapter;
 
-    public static StorySummary create(String key, String title, String author, String tagLine, String about,
+    public static StorySummary create(String storyKey, String title, String author, String tagLine, String about,
                                       int firstChapter) {
         StorySummary summary = new StorySummary();
-        summary.key = key;
+        summary.storyKey = storyKey;
         summary.title = title;
         summary.author = author;
         summary.tagLine = tagLine;
@@ -28,8 +28,8 @@ public class StorySummary {
     }
 
     @JsonProperty
-    public String getKey() {
-        return key;
+    public String getStoryKey() {
+        return storyKey;
     }
 
     @JsonProperty
@@ -60,7 +60,7 @@ public class StorySummary {
     @Override
     public String toString() {
         return "StorySummary{" +
-                "key='" + key + '\'' +
+                "storyKey='" + storyKey + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", tagLine='" + tagLine + '\'' +
@@ -74,7 +74,7 @@ public class StorySummary {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StorySummary that = (StorySummary) o;
-        return Objects.equal(key, that.key) &&
+        return Objects.equal(storyKey, that.storyKey) &&
                 Objects.equal(title, that.title) &&
                 Objects.equal(author, that.author) &&
                 Objects.equal(tagLine, that.tagLine) &&
@@ -84,6 +84,6 @@ public class StorySummary {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(key, title, author, tagLine, about, firstChapter);
+        return Objects.hashCode(storyKey, title, author, tagLine, about, firstChapter);
     }
 }

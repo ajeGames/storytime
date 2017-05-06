@@ -27,7 +27,7 @@ public class StoryController {
     private StoryController() {}
 
     public StorySummary createStory(StorySummary summary) {
-        if (summary.getKey() != null) {
+        if (summary.getStoryKey() != null) {
             LOG.warn("Given summary has a key, but create is for new stories; perhaps update was intended.");
             throw new IllegalArgumentException("Either remove key value or do an update");
         }
@@ -47,8 +47,8 @@ public class StoryController {
     }
 
     public void updateSummary(StorySummary update) {
-        LOG.info("Updating story information: " + update.getKey());
-        Storybook bookToUpdate = repo.getStorybook(update.getKey());
+        LOG.info("Updating story information: " + update.getStoryKey());
+        Storybook bookToUpdate = repo.getStorybook(update.getStoryKey());
         if (bookToUpdate == null) {
             throw new IllegalArgumentException("Unable to find story to update");
         }

@@ -14,7 +14,7 @@ public class Chapter implements Comparable {
     private Integer id;
     private String heading;
     private String prose;
-    private List<ChapterSign> nextChapterOptions;
+    private List<ChapterSign> signpost;
 
     public static Chapter create(final Integer id, final String heading, final String prose,
                                  final List<ChapterSign> options) {
@@ -22,14 +22,14 @@ public class Chapter implements Comparable {
         chapter.id = id;
         chapter.heading = heading;
         chapter.prose = prose;
-        chapter.nextChapterOptions = options;
+        chapter.signpost = options;
         return chapter;
     }
 
     public static Chapter createWithID(Integer id) {
         Chapter chapter = new Chapter();
         chapter.id = id;
-        chapter.nextChapterOptions = new ArrayList<ChapterSign>();
+        chapter.signpost = new ArrayList<ChapterSign>();
         return chapter;
     }
 
@@ -50,8 +50,8 @@ public class Chapter implements Comparable {
     }
 
     @JsonProperty
-    public List<ChapterSign> getNextChapterOptions() {
-        return nextChapterOptions;
+    public List<ChapterSign> getSignpost() {
+        return signpost;
     }
 
     @Override
@@ -62,12 +62,12 @@ public class Chapter implements Comparable {
         return Objects.equal(id, chapter.id) &&
                 Objects.equal(heading, chapter.heading) &&
                 Objects.equal(prose, chapter.prose) &&
-                Objects.equal(nextChapterOptions, chapter.nextChapterOptions);
+                Objects.equal(signpost, chapter.signpost);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, heading, prose, nextChapterOptions);
+        return Objects.hashCode(id, heading, prose, signpost);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Chapter implements Comparable {
                 "id=" + id +
                 ", heading='" + heading + '\'' +
                 ", prose='" + prose + '\'' +
-                ", nextChapterOptions=" + nextChapterOptions +
+                ", signpost=" + signpost +
                 '}';
     }
 

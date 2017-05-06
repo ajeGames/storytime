@@ -54,13 +54,13 @@ public class StoryResource {
     @Path("{key}")
     public StorySummary updateStory(@PathParam("key") String key, StorySummary update) {
         LOG.info("Receiving changes to story: " + key);
-        if (update.getKey() != null && !key.equals(update.getKey())) {
+        if (update.getStoryKey() != null && !key.equals(update.getStoryKey())) {
             LOG.error("Key in URI does not match key in data");
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         try {
             ctrl.updateSummary(update);
-            return ctrl.getStory(update.getKey()).getSummary();
+            return ctrl.getStory(update.getStoryKey()).getSummary();
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }

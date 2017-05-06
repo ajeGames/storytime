@@ -15,7 +15,7 @@ public class StorybookTest {
         Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
         Storybook bookOut = Storybook.load(testStory);
 
-        Assert.assertEquals(bookOut.getStoryKey(), testStory.getSummary().getKey());
+        Assert.assertEquals(bookOut.getStoryKey(), testStory.getSummary().getStoryKey());
         Assert.assertEquals(bookOut.getSummary(), testStory.getSummary());
         Assert.assertEquals(bookOut.getChapters().size(), testStory.getChapters().size());
     }
@@ -40,7 +40,7 @@ public class StorybookTest {
         Storybook bookOut = Storybook.load(testStory);
         StorySummary testSummary = testStory.getSummary();
 
-        StorySummary update = StorySummary.create(testSummary.getKey(), "update", "update", "update", "update", 9999);
+        StorySummary update = StorySummary.create(testSummary.getStoryKey(), "update", "update", "update", "update", 9999);
         bookOut.setSummary(update);
 
         Assert.assertEquals(bookOut.getSummary(), update);
@@ -87,7 +87,7 @@ public class StorybookTest {
         Storybook bookOut = Storybook.load(testStory);
         int chapterCount = bookOut.getChapters().size();
         Chapter first = bookOut.getFirstChapter();
-        Chapter update = Chapter.create(first.getId(), "update", "update", first.getNextChapterOptions());
+        Chapter update = Chapter.create(first.getId(), "update", "update", first.getSignpost());
         bookOut.updateChapter(update);
         Assert.assertEquals(bookOut.getChapter(first.getId()), update);
         Assert.assertEquals(bookOut.getChapters().size(), chapterCount);
@@ -98,7 +98,7 @@ public class StorybookTest {
         Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
         Storybook bookOut = Storybook.load(testStory);
         Chapter first = bookOut.getFirstChapter();
-        Chapter update = Chapter.create(10001, "update", "update", first.getNextChapterOptions());
+        Chapter update = Chapter.create(10001, "update", "update", first.getSignpost());
         try {
             bookOut.updateChapter(update);
         } catch (Exception e) {
@@ -113,7 +113,7 @@ public class StorybookTest {
         Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
         Storybook bookOut = Storybook.load(testStory);
         Chapter first = bookOut.getFirstChapter();
-        Chapter update = Chapter.create(null, "update", "update", first.getNextChapterOptions());
+        Chapter update = Chapter.create(null, "update", "update", first.getSignpost());
         try {
             bookOut.updateChapter(update);
         } catch (Exception e) {
@@ -142,15 +142,15 @@ public class StorybookTest {
         Storybook bookOut = Storybook.load(testStory);
         Chapter sourceChapter = bookOut.getFirstChapter();
 
-        int numOptions = sourceChapter.getNextChapterOptions().size();
+        int numOptions = sourceChapter.getSignpost().size();
         Chapter updatedSourceChapter = bookOut.addNextChapterOption(sourceChapter.getId(), "Choose Me");
 
         Assert.assertNotNull(updatedSourceChapter);
-        Assert.assertEquals(updatedSourceChapter.getNextChapterOptions().size(), numOptions + 1);
-        for (ChapterSign sign : updatedSourceChapter.getNextChapterOptions()) {
+        Assert.assertEquals(updatedSourceChapter.getSignpost().size(), numOptions + 1);
+        for (ChapterSign sign : updatedSourceChapter.getSignpost()) {
             if (sign.getTeaser().equals("Choose Me")) {
-                Assert.assertNotNull(sign.getTargetChapterId());
-                Assert.assertNotNull(bookOut.getChapter(sign.getTargetChapterId()));
+                Assert.assertNotNull(sign.getDestinationId());
+                Assert.assertNotNull(bookOut.getChapter(sign.getDestinationId()));
                 return;
             }
         }
@@ -163,13 +163,13 @@ public class StorybookTest {
         Storybook bookOut = Storybook.load(testStory);
 
         Assert.assertEquals(bookOut.getChapters().size(), 3);
-        Assert.assertEquals(bookOut.getFirstChapter().getNextChapterOptions().size(), 2);
+        Assert.assertEquals(bookOut.getFirstChapter().getSignpost().size(), 2);
 
         bookOut.deleteChapter(1002);
         Assert.assertNull(bookOut.getChapter(1002));
         Assert.assertEquals(bookOut.getChapters().size(), 2);
-        Assert.assertEquals(bookOut.getFirstChapter().getNextChapterOptions().size(), 1);
-        Assert.assertEquals(bookOut.getFirstChapter().getNextChapterOptions().get(0).getTargetChapterId().intValue(), 1001);
+        Assert.assertEquals(bookOut.getFirstChapter().getSignpost().size(), 1);
+        Assert.assertEquals(bookOut.getFirstChapter().getSignpost().get(0).getDestinationId().intValue(), 1001);
     }
 
 }

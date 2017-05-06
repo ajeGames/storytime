@@ -9,19 +9,19 @@ import com.google.common.base.Objects;
  */
 public class ChapterSign {
 
-    private Integer targetChapterId;
+    private Integer destinationId;
     private String teaser;
 
-    public static ChapterSign create(final Integer targetChapterId, final String teaser) {
+    public static ChapterSign create(final Integer destinationId, final String teaser) {
         final ChapterSign sign = new ChapterSign();
-        sign.targetChapterId = targetChapterId;
+        sign.destinationId = destinationId;
         sign.teaser = teaser;
         return sign;
     }
 
     @JsonProperty
-    public Integer getTargetChapterId() {
-        return targetChapterId;
+    public Integer getDestinationId() {
+        return destinationId;
     }
 
     @JsonProperty
@@ -32,7 +32,7 @@ public class ChapterSign {
     @Override
     public String toString() {
         return "ChapterSign{" +
-                "targetChapterId=" + targetChapterId +
+                "destinationId=" + destinationId +
                 ", teaser='" + teaser + '\'' +
                 '}';
     }
@@ -42,12 +42,12 @@ public class ChapterSign {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChapterSign that = (ChapterSign) o;
-        return Objects.equal(targetChapterId, that.targetChapterId) &&
+        return Objects.equal(destinationId, that.destinationId) &&
                 Objects.equal(teaser, that.teaser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(targetChapterId, teaser);
+        return Objects.hashCode(destinationId, teaser);
     }
 }

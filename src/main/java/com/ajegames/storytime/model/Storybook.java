@@ -35,7 +35,7 @@ public class Storybook {
     }
 
     private void initializeAfterLoad() {
-        this.storyKey = summary.getKey();
+        this.storyKey = summary.getStoryKey();
         reindexChapters();
     }
 
@@ -95,7 +95,7 @@ public class Storybook {
             throw new IllegalArgumentException("Source chapter not found");
         }
         Chapter toChapter = addChapter();
-        List<ChapterSign> nextChapterOptions = new ArrayList<ChapterSign>(fromChapter.getNextChapterOptions());
+        List<ChapterSign> nextChapterOptions = new ArrayList<ChapterSign>(fromChapter.getSignpost());
         nextChapterOptions.add(ChapterSign.create(toChapter.getId(), teaser));
         fromChapter = Chapter.create(fromChapter.getId(), fromChapter.getHeading(), fromChapter.getProse(),
                 nextChapterOptions);
@@ -154,13 +154,13 @@ public class Storybook {
 
     private void removeSignsToChapter(Integer chapterId) {
         for (Chapter chap : chapters) {
-            if (chap.getNextChapterOptions() == null) {
+            if (chap.getSignpost() == null) {
                 continue;
             }
-            Iterator<ChapterSign> signIter = chap.getNextChapterOptions().iterator();
+            Iterator<ChapterSign> signIter = chap.getSignpost().iterator();
             while (signIter.hasNext()) {
                 ChapterSign sign = signIter.next();
-                if (chapterId.equals(sign.getTargetChapterId())) {
+                if (chapterId.equals(sign.getDestinationId())) {
                     signIter.remove();
                 }
             }
