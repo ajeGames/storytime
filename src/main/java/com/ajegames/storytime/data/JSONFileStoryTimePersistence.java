@@ -51,7 +51,7 @@ public class JSONFileStoryTimePersistence implements StoryTimePersistence {
 
     public void saveStory(Story story) {
         try {
-            MAPPER.writeValue(buildFilename(story.getSummary().getKey()), story);
+            MAPPER.writeValue(buildFilename(story.getSummary().getStoryKey()), story);
         } catch (IOException e) {
             LOG.error("Something went wrong when writing out the story", e);
         }

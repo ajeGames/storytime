@@ -1,6 +1,6 @@
 {
   "summary": {
-    "key": "5qcao3fu",
+    "storyKey": "5qcao3fu",
     "title": "Where the Water Goes",
     "author": "Mr. Bubbles",
     "tagLine": "Round and round and down and down",
@@ -12,13 +12,13 @@
       "id": 1000,
       "heading": "The Bath",
       "prose": "You are enjoying a warm bath at the end of a long day.  After a while, you feel a suggestion of a tug and don't think much of it.  Soon you are certain that you are headed for the drain.",
-      "nextChapterOptions": [
+      "signpost": [
         {
-          "targetChapterId": 1001,
+          "destinationId": 1001,
           "teaser": "Fight the current."
         },
         {
-          "targetChapterId": 1002,
+          "destinationId": 1002,
           "teaser": "Relax and enjoy the ride."
         }
       ]
@@ -27,17 +27,17 @@
       "id": 1001,
       "heading": "The Struggle",
       "prose": "You turn tail and start swimming away from the force.",
-      "nextChapterOptions": [
+      "signpost": [
         {
-          "targetChapterId": 1003,
+          "destinationId": 1003,
           "teaser": "Head for the toy and hope for the best."
         },
         {
-          "targetChapterId": 1004,
+          "destinationId": 1004,
           "teaser": "Close your eyes and await your fate."
         },
         {
-          "targetChapterId": 1005,
+          "destinationId": 1005,
           "teaser": "Give up and swim with the current.  Might as well get it over with."
         }
       ]
@@ -46,25 +46,25 @@
       "id": 1002,
       "heading": null,
       "prose": null,
-      "nextChapterOptions": []
+      "signpost": []
     },
     {
       "id": 1003,
       "heading": null,
       "prose": null,
-      "nextChapterOptions": []
+      "signpost": []
     },
     {
       "id": 1004,
       "heading": null,
       "prose": null,
-      "nextChapterOptions": []
+      "signpost": []
     },
     {
       "id": 1005,
       "heading": null,
       "prose": null,
-      "nextChapterOptions": []
+      "signpost": []
     }
   ]
 }

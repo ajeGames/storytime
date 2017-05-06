@@ -43,18 +43,18 @@ public class CatalogControllerTest {
         StorySummary summary1 = allStorySummaries.get(0);
         StorySummary summary2 = allStorySummaries.get(1);
         StorySummary summary3 = allStorySummaries.get(2);
-        Assert.assertNotNull(summary1.getKey());
+        Assert.assertNotNull(summary1.getStoryKey());
         Assert.assertNotNull(summary1.getTagLine());
         Assert.assertNotNull(summary1.getTitle());
         Assert.assertNotNull(summary1.getAuthor());
         Assert.assertNotNull(summary1.getFirstChapter());
         List<String> keys = new ArrayList<String>();
         for (StorySummary summary : allStorySummaries) {
-            keys.add(summary.getKey());
+            keys.add(summary.getStoryKey());
         }
-        Assert.assertTrue(keys.contains(summary1.getKey()));
-        Assert.assertTrue(keys.contains(summary2.getKey()));
-        Assert.assertTrue(keys.contains(summary3.getKey()));
+        Assert.assertTrue(keys.contains(summary1.getStoryKey()));
+        Assert.assertTrue(keys.contains(summary2.getStoryKey()));
+        Assert.assertTrue(keys.contains(summary3.getStoryKey()));
     }
 
 }

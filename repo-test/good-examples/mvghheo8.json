@@ -1,6 +1,6 @@
 {
   "summary" : {
-    "key": "mvghheo8",
+    "storyKey": "mvghheo8",
     "title": "0qjj56k2qq7hhkb1",
     "author": "mpvnfs8otwgmv1od",
     "tagLine": "sgjkzxnb7r2ztoiy",
@@ -12,9 +12,9 @@
       "id": 1,
       "heading": "ykj6hrarx4ggug4y",
       "prose": "0foavkqo9dbh6jc5",
-      "nextChapterOptions": [
+      "signpost": [
         {
-          "targetChapterId": 2,
+          "destinationId": 2,
           "teaser": "uk87txtk5cyfql6u"
         }
       ]
@@ -23,7 +23,7 @@
       "id": 2,
       "heading": "i5smhjigy5xtoen8",
       "prose": "u08r2er4uhdxrwc8",
-      "nextChapterOptions": []
+      "signpost": []
     }
   ]
 }
