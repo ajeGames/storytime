@@ -27,15 +27,15 @@ public class StoryController {
     private StoryController() {}
 
     public StorySummary createStory(StorySummary summary) {
-        if (summary.getStoryKey() != null) {
+        if (summary.getStoryId() != null) {
             LOG.warn("Given summary has a key, but create is for new stories; perhaps update was intended.");
             throw new IllegalArgumentException("Either remove key value or do an update");
         }
         LOG.info("Creating a new story entitled: " + summary.getTitle());
         Storybook book = repo.createStorybook();
         Chapter firstChapter = book.addChapter();
-        book.setSummary(StorySummary.create(book.getStoryKey(), summary.getTitle(), summary.getAuthor(),
-                summary.getTagLine(), summary.getAbout(), firstChapter.getId()));
+        book.setSummary(StorySummary.create(book.getStoryKey(), summary.getTitle(), summary.getAuthorId(),
+                summary.getTagLine(), summary.getAbout(), firstChapter.getChapterId()));
         repo.saveStory(book);
         return book.getSummary();
     }
@@ -47,8 +47,8 @@ public class StoryController {
     }
 
     public void updateSummary(StorySummary update) {
-        LOG.info("Updating story information: " + update.getStoryKey());
-        Storybook bookToUpdate = repo.getStorybook(update.getStoryKey());
+        LOG.info("Updating story information: " + update.getStoryId());
+        Storybook bookToUpdate = repo.getStorybook(update.getStoryId());
         if (bookToUpdate == null) {
             throw new IllegalArgumentException("Unable to find story to update");
         }
@@ -70,7 +70,7 @@ public class StoryController {
     }
 
     public void updateChapter(String storyKey, Chapter update) {
-        LOG.info("Updating chapter " + update.getId() + " for story " + storyKey);
+        LOG.info("Updating chapter " + update.getChapterId() + " for story " + storyKey);
 
         Storybook book = repo.getStorybook(storyKey);
         book.updateChapter(update);

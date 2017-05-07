@@ -15,7 +15,7 @@ public class StorybookTest {
         Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
         Storybook bookOut = Storybook.load(testStory);
 
-        Assert.assertEquals(bookOut.getStoryKey(), testStory.getSummary().getStoryKey());
+        Assert.assertEquals(bookOut.getStoryKey(), testStory.getSummary().getStoryId());
         Assert.assertEquals(bookOut.getSummary(), testStory.getSummary());
         Assert.assertEquals(bookOut.getChapters().size(), testStory.getChapters().size());
     }
@@ -40,7 +40,7 @@ public class StorybookTest {
         Storybook bookOut = Storybook.load(testStory);
         StorySummary testSummary = testStory.getSummary();
 
-        StorySummary update = StorySummary.create(testSummary.getStoryKey(), "update", "update", "update", "update", 9999);
+        StorySummary update = StorySummary.create(testSummary.getStoryId(), "update", "update", "update", "update", 9999);
         bookOut.setSummary(update);
 
         Assert.assertEquals(bookOut.getSummary(), update);
@@ -61,8 +61,8 @@ public class StorybookTest {
         Chapter chapterA = bookOut.addChapter();
         Chapter chapterB = bookOut.addChapter();
         Chapter chapterC = bookOut.addChapter();
-        Assert.assertEquals(chapterB.getId().intValue(), chapterA.getId() + 1);
-        Assert.assertEquals(chapterC.getId().intValue(), chapterB.getId() + 1);
+        Assert.assertEquals(chapterB.getChapterId().intValue(), chapterA.getChapterId() + 1);
+        Assert.assertEquals(chapterC.getChapterId().intValue(), chapterB.getChapterId() + 1);
     }
 
     @Test
@@ -76,8 +76,8 @@ public class StorybookTest {
         // sorted properly?
         int previousChapter = 0;
         for (Chapter next : chapters) {
-            Assert.assertTrue(previousChapter < next.getId());
-            previousChapter = next.getId();
+            Assert.assertTrue(previousChapter < next.getChapterId());
+            previousChapter = next.getChapterId();
         }
     }
 
@@ -87,9 +87,9 @@ public class StorybookTest {
         Storybook bookOut = Storybook.load(testStory);
         int chapterCount = bookOut.getChapters().size();
         Chapter first = bookOut.getFirstChapter();
-        Chapter update = Chapter.create(first.getId(), "update", "update", first.getSignpost());
+        Chapter update = Chapter.create(first.getChapterId(), "update", "update", first.getSignpost());
         bookOut.updateChapter(update);
-        Assert.assertEquals(bookOut.getChapter(first.getId()), update);
+        Assert.assertEquals(bookOut.getChapter(first.getChapterId()), update);
         Assert.assertEquals(bookOut.getChapters().size(), chapterCount);
     }
 
@@ -143,7 +143,7 @@ public class StorybookTest {
         Chapter sourceChapter = bookOut.getFirstChapter();
 
         int numOptions = sourceChapter.getSignpost().size();
-        Chapter updatedSourceChapter = bookOut.addNextChapterOption(sourceChapter.getId(), "Choose Me");
+        Chapter updatedSourceChapter = bookOut.addNextChapterOption(sourceChapter.getChapterId(), "Choose Me");
 
         Assert.assertNotNull(updatedSourceChapter);
         Assert.assertEquals(updatedSourceChapter.getSignpost().size(), numOptions + 1);

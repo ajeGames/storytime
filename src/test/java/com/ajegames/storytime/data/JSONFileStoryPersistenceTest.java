@@ -36,8 +36,8 @@ public class JSONFileStoryPersistenceTest {
         Assert.assertEquals(stories.size(), 2, "Wrong number of stories loaded");
 
         // try deleting
-        storage.deleteStory(adv1.getSummary().getStoryKey());
-        storage.deleteStory(adv2.getSummary().getStoryKey());
+        storage.deleteStory(adv1.getSummary().getStoryId());
+        storage.deleteStory(adv2.getSummary().getStoryId());
         Assert.assertEquals(path.listFiles().length, 0, "Story files should be gone");
 
         // clean up
@@ -51,7 +51,7 @@ public class JSONFileStoryPersistenceTest {
         Assert.assertEquals(stories.size(), 2);
 
         for (Story story : stories) {
-            String storyKey = story.getSummary().getStoryKey();
+            String storyKey = story.getSummary().getStoryId();
             Assert.assertTrue(storyKey.equals("mvghheo8") || storyKey.equals("ni7l0szw"));
         }
     }

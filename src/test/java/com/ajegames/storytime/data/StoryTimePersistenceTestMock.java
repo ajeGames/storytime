@@ -26,7 +26,7 @@ public class StoryTimePersistenceTestMock implements StoryTimePersistence {
 
     public void saveStory(Story story) {
         LOG.info("Called saveStory");
-        testStoryMap.put(story.getSummary().getStoryKey(), story);
+        testStoryMap.put(story.getSummary().getStoryId(), story);
     }
 
     public boolean deleteStory(String storyKey) {

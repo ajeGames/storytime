@@ -35,7 +35,7 @@ public class Storybook {
     }
 
     private void initializeAfterLoad() {
-        this.storyKey = summary.getStoryKey();
+        this.storyKey = summary.getStoryId();
         reindexChapters();
     }
 
@@ -46,9 +46,9 @@ public class Storybook {
             chapterIndex = new HashMap<Integer, Chapter>();
         }
         for (Chapter chapter : chapters) {
-            chapterIndex.put(chapter.getId(), chapter);
-            if (chapter.getId() > highestChapter) {
-                highestChapter = chapter.getId();
+            chapterIndex.put(chapter.getChapterId(), chapter);
+            if (chapter.getChapterId() > highestChapter) {
+                highestChapter = chapter.getChapterId();
             }
         }
         nextChapterId = highestChapter + 1;
@@ -66,7 +66,7 @@ public class Storybook {
         }
         this.storyKey = key;
         StorySummary current = (summary != null) ? summary : new StorySummary();
-        summary = StorySummary.create(this.storyKey, current.getTitle(), current.getAuthor(), current.getTagLine(),
+        summary = StorySummary.create(this.storyKey, current.getTitle(), current.getAuthorId(), current.getTagLine(),
                 current.getAbout(), current.getFirstChapter());
     }
 
@@ -96,8 +96,8 @@ public class Storybook {
         }
         Chapter toChapter = addChapter();
         List<ChapterSign> nextChapterOptions = new ArrayList<ChapterSign>(fromChapter.getSignpost());
-        nextChapterOptions.add(ChapterSign.create(toChapter.getId(), teaser));
-        fromChapter = Chapter.create(fromChapter.getId(), fromChapter.getHeading(), fromChapter.getProse(),
+        nextChapterOptions.add(ChapterSign.create(toChapter.getChapterId(), teaser));
+        fromChapter = Chapter.create(fromChapter.getChapterId(), fromChapter.getHeading(), fromChapter.getProse(),
                 nextChapterOptions);
         updateChapter(fromChapter);
         return fromChapter;
@@ -115,7 +115,7 @@ public class Storybook {
     public Chapter addChapter() {
         Chapter newChapter = Chapter.createWithID(nextChapterId++);
         chapters.add(newChapter);
-        chapterIndex.put(newChapter.getId(), newChapter);
+        chapterIndex.put(newChapter.getChapterId(), newChapter);
         return newChapter;
     }
 
@@ -128,18 +128,18 @@ public class Storybook {
     }
 
     public void updateChapter(Chapter update) {
-        if (update == null || update.getId() == null) {
+        if (update == null || update.getChapterId() == null) {
             throw new IllegalArgumentException("Chapter and ID cannot be null");
         }
-        Chapter toUpdate = getChapter(update.getId());
+        Chapter toUpdate = getChapter(update.getChapterId());
         if (toUpdate == null) {
             throw new IllegalArgumentException("Chapter not found; cannot update");
         }
         chapters.remove(toUpdate);
-        chapterIndex.remove(toUpdate.getId());
+        chapterIndex.remove(toUpdate.getChapterId());
 
         chapters.add(update);
-        chapterIndex.put(update.getId(), update);
+        chapterIndex.put(update.getChapterId(), update);
     }
 
     public void deleteChapter(Integer chapterId) {
@@ -148,7 +148,7 @@ public class Storybook {
             return;
         }
         chapters.remove(toDelete);
-        chapterIndex.remove(toDelete.getId());
+        chapterIndex.remove(toDelete.getChapterId());
         removeSignsToChapter(chapterId);
     }
 

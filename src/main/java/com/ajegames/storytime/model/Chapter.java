@@ -11,32 +11,32 @@ import java.util.List;
  */
 public class Chapter implements Comparable {
 
-    private Integer id;
+    private Integer chapterId;
     private String heading;
     private String prose;
     private List<ChapterSign> signpost;
 
-    public static Chapter create(final Integer id, final String heading, final String prose,
+    public static Chapter create(final Integer chapterId, final String heading, final String prose,
                                  final List<ChapterSign> options) {
         Chapter chapter = new Chapter();
-        chapter.id = id;
+        chapter.chapterId = chapterId;
         chapter.heading = heading;
         chapter.prose = prose;
         chapter.signpost = options;
         return chapter;
     }
 
-    public static Chapter createWithID(Integer id) {
+    public static Chapter createWithID(Integer chapterId) {
         Chapter chapter = new Chapter();
-        chapter.id = id;
+        chapter.chapterId = chapterId;
         chapter.signpost = new ArrayList<ChapterSign>();
         return chapter;
     }
 
 
     @JsonProperty
-    public Integer getId() {
-        return id;
+    public Integer getChapterId() {
+        return chapterId;
     }
 
     @JsonProperty
@@ -59,7 +59,7 @@ public class Chapter implements Comparable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Chapter chapter = (Chapter) o;
-        return Objects.equal(id, chapter.id) &&
+        return Objects.equal(chapterId, chapter.chapterId) &&
                 Objects.equal(heading, chapter.heading) &&
                 Objects.equal(prose, chapter.prose) &&
                 Objects.equal(signpost, chapter.signpost);
@@ -67,13 +67,13 @@ public class Chapter implements Comparable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, heading, prose, signpost);
+        return Objects.hashCode(chapterId, heading, prose, signpost);
     }
 
     @Override
     public String toString() {
         return "Chapter{" +
-                "id=" + id +
+                "chapterId=" + chapterId +
                 ", heading='" + heading + '\'' +
                 ", prose='" + prose + '\'' +
                 ", signpost=" + signpost +
@@ -85,7 +85,7 @@ public class Chapter implements Comparable {
         if (o == null) return -1;  // force null objects to the end
 
         Chapter chapter = (Chapter) o;
-        if (id.equals(chapter.getId())) return 0;
-        return (id < chapter.getId()) ? -1 : 1;
+        if (chapterId.equals(chapter.getChapterId())) return 0;
+        return (chapterId < chapter.getChapterId()) ? -1 : 1;
     }
 }

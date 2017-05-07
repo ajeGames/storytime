@@ -32,12 +32,12 @@ public class ChapterResource {
     @Path("{id}")
     public Chapter update(@PathParam("key") String key, @PathParam("id") Integer id, Chapter update) {
         LOG.info("Receiving changes to story: " + key);
-        if (key == null || update.getId() == null || !id.equals(update.getId())) {
+        if (key == null || update.getChapterId() == null || !id.equals(update.getChapterId())) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
         try {
             ctrl.updateChapter(key, update);
-            return ctrl.getChapter(key, update.getId());
+            return ctrl.getChapter(key, update.getChapterId());
         } catch (Exception e) {
             throw new WebApplicationException(e, Response.Status.INTERNAL_SERVER_ERROR);
         }

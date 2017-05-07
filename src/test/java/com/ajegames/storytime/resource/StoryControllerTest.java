@@ -27,9 +27,9 @@ public class StoryControllerTest {
     @Test
     public void testCreateStory() {
         StorySummary summary = ctrl.createStory(StoryTestUtil.createWithoutKey("foo", "bar", "baz", "qux"));
-        Assert.assertNotNull(summary.getStoryKey());
+        Assert.assertNotNull(summary.getStoryId());
         Assert.assertEquals(summary.getTitle(), "foo");
-        Assert.assertEquals(summary.getAuthor(), "bar");
+        Assert.assertEquals(summary.getAuthorId(), "bar");
         Assert.assertEquals(summary.getTagLine(), "baz");
         Assert.assertEquals(summary.getAbout(), "qux");
         Assert.assertNotEquals(summary.getFirstChapter(), 0);
@@ -40,45 +40,45 @@ public class StoryControllerTest {
         StorySummary adv1 = ctrl.createStory(StoryTestUtil.createWithoutKey("one", "one", "one", "one"));
         StorySummary adv2 = ctrl.createStory(StoryTestUtil.createWithoutKey("two", "two", "two", "two"));
 
-        Assert.assertNotNull(ctrl.getStory(adv1.getStoryKey()));
-        Assert.assertNotNull(ctrl.getStory(adv2.getStoryKey()));
+        Assert.assertNotNull(ctrl.getStory(adv1.getStoryId()));
+        Assert.assertNotNull(ctrl.getStory(adv2.getStoryId()));
     }
 
     @Test
     public void testUpdateStory() {
         StorySummary adv = ctrl.createStory(StoryTestUtil.createWithoutKey("three", "three", "three", "three"));
-        StorySummary update = StorySummary.create(adv.getStoryKey(), "updated", "updated", "updated", "updated",
+        StorySummary update = StorySummary.create(adv.getStoryId(), "updated", "updated", "updated", "updated",
                 adv.getFirstChapter());
         ctrl.updateSummary(update);
-        StorySummary result = ctrl.getStory(update.getStoryKey()).getSummary();
+        StorySummary result = ctrl.getStory(update.getStoryId()).getSummary();
         Assert.assertEquals(result.getTitle(), "updated");
-        Assert.assertEquals(result.getAuthor(), "updated");
+        Assert.assertEquals(result.getAuthorId(), "updated");
         Assert.assertEquals(result.getTagLine(), "updated");
         Assert.assertEquals(result.getAbout(), "updated");
 
-        StorySummary check = ctrl.getStory(adv.getStoryKey()).getSummary();
+        StorySummary check = ctrl.getStory(adv.getStoryId()).getSummary();
         Assert.assertEquals(check, result, "Return value should match stored value");
     }
 
     @Test
     public void testGetChapter() {
         StorySummary adv = ctrl.createStory(StoryTestUtil.createWithoutKey("four", "four", "four", "four"));
-        Chapter chapterFound = ctrl.getFirstChapter(adv.getStoryKey());
+        Chapter chapterFound = ctrl.getFirstChapter(adv.getStoryId());
         Assert.assertNotNull(chapterFound);
     }
 
     @Test
     public void testUpdateChapter() {
         StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("five", "five", "five", "five"));
-        Chapter chap = ctrl.getFirstChapter(story.getStoryKey());
+        Chapter chap = ctrl.getFirstChapter(story.getStoryId());
 
         List<ChapterSign> options = new ArrayList<ChapterSign>();
         options.add(ChapterSign.create(2000, "update"));
         options.add(ChapterSign.create(2001, "update"));
-        Chapter update = Chapter.create(chap.getId(), "update", "update", options);
-        ctrl.updateChapter(story.getStoryKey(), update);
+        Chapter update = Chapter.create(chap.getChapterId(), "update", "update", options);
+        ctrl.updateChapter(story.getStoryId(), update);
 
-        Chapter result = ctrl.getFirstChapter(story.getStoryKey());
+        Chapter result = ctrl.getFirstChapter(story.getStoryId());
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getHeading(), "update");
         Assert.assertEquals(result.getProse(), "update");
@@ -89,8 +89,8 @@ public class StoryControllerTest {
     @Test
     public void testCreateNextChapter() {
         StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("six", "six", "six", "six"));
-        Chapter first = ctrl.getFirstChapter(story.getStoryKey());
-        Chapter result = ctrl.addNextChapter(story.getStoryKey(), first.getId(), "Choose me!");
+        Chapter first = ctrl.getFirstChapter(story.getStoryId());
+        Chapter result = ctrl.addNextChapter(story.getStoryId(), first.getChapterId(), "Choose me!");
 
         // check that source chapter was updated with new option
         Assert.assertNotNull(result);
@@ -99,7 +99,7 @@ public class StoryControllerTest {
         Assert.assertEquals(result.getSignpost().size(), 1);
 
         // make sure update was preserved, not just returned the first time
-        Chapter updatedFirst = ctrl.getFirstChapter(story.getStoryKey());
+        Chapter updatedFirst = ctrl.getFirstChapter(story.getStoryId());
         Assert.assertEquals(updatedFirst, result);
 
         // check the sign to the new chapter
@@ -107,19 +107,19 @@ public class StoryControllerTest {
         Assert.assertEquals(newChapterSign.getTeaser(), "Choose me!");
 
         // make sure new chapter exists
-        Chapter newChapter = ctrl.getChapter(story.getStoryKey(), newChapterSign.getDestinationId());
+        Chapter newChapter = ctrl.getChapter(story.getStoryId(), newChapterSign.getDestinationId());
         Assert.assertNotNull(newChapter);
     }
 
     @Test
     public void testCreateChainOfNextChapters() {
         StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("seven", "seven", "seven", "seven"));
-        String storyKey = story.getStoryKey();
+        String storyKey = story.getStoryId();
 
         Chapter node = ctrl.getFirstChapter(storyKey);
         for (int i=1; i <= 4; i++) {
             Assert.assertEquals(node.getSignpost().size(), 0);
-            node = ctrl.addNextChapter(storyKey, node.getId(), "level " + i);
+            node = ctrl.addNextChapter(storyKey, node.getChapterId(), "level " + i);
             Assert.assertEquals(node.getSignpost().size(), 1);
             node = ctrl.getChapter(storyKey, node.getSignpost().get(0).getDestinationId());
             Assert.assertNotNull(node);
@@ -129,22 +129,22 @@ public class StoryControllerTest {
     @Test
     public void testDeleteStory() {
         StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("eight", "eight", "eight", "eight"));
-        Assert.assertNotNull(ctrl.getStory(story.getStoryKey()));
-        ctrl.deleteStory(story.getStoryKey());
-        Assert.assertNull(ctrl.getStory(story.getStoryKey()));
+        Assert.assertNotNull(ctrl.getStory(story.getStoryId()));
+        ctrl.deleteStory(story.getStoryId());
+        Assert.assertNull(ctrl.getStory(story.getStoryId()));
     }
 
     @Test
     public void testDeleteChapter() {
         StorySummary story = ctrl.createStory(StoryTestUtil.createWithoutKey("eight", "eight", "eight", "eight"));
-        Chapter sourceChapter = ctrl.addNextChapter(story.getStoryKey(), ctrl.getFirstChapter(story.getStoryKey()).getId(),
+        Chapter sourceChapter = ctrl.addNextChapter(story.getStoryId(), ctrl.getFirstChapter(story.getStoryId()).getChapterId(),
                 "chapter two");
         Assert.assertEquals(sourceChapter.getSignpost().size(), 1);
-        Chapter next = ctrl.getChapter(story.getStoryKey(),
+        Chapter next = ctrl.getChapter(story.getStoryId(),
                 sourceChapter.getSignpost().get(0).getDestinationId());
         Assert.assertNotNull(next);
 
-        ctrl.deleteChapter(story.getStoryKey(), next.getId());
-        Assert.assertNull(ctrl.getChapter(story.getStoryKey(), next.getId()));
+        ctrl.deleteChapter(story.getStoryId(), next.getChapterId());
+        Assert.assertNull(ctrl.getChapter(story.getStoryId(), next.getChapterId()));
     }
 }
