@@ -82,7 +82,7 @@ public class StoryTimeRepository {
             throw new IllegalArgumentException("The storybook must already have an assigned key.  Use createStorybook" +
                     " to create a storybook with a generated key.");
         }
-        LOG.debug("Saving story: " + book.getSummary().getStoryId());
+        LOG.debug("Saving story: " + book.getSummary().getStoryKey());
         cacheStorybook(book);
         this.storage.saveStory(book.getStory());
     }
@@ -96,8 +96,8 @@ public class StoryTimeRepository {
     }
 
     private void cacheStorybook(Storybook book) {
-        LOG.debug("Adding story: " + book.getSummary().getStoryId());
-        stories.put(book.getSummary().getStoryId(), book);
+        LOG.debug("Adding story: " + book.getSummary().getStoryKey());
+        stories.put(book.getSummary().getStoryKey(), book);
     }
 
     public Storybook getStorybook(String storyKey) {

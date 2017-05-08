@@ -17,8 +17,6 @@ public class Story {
     public static Story create(final StorySummary summary, final List<Chapter> chapters) {
         Story story = new Story();
         story.summary = summary;
-
-        // TODO use immutable list
         story.chapters = chapters != null ? new ArrayList<Chapter>(chapters) : new ArrayList<Chapter>();
         return story;
     }

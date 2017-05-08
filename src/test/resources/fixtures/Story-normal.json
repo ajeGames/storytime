@@ -1,15 +1,18 @@
 {
   "summary" : {
     "storyKey": "0123456789abcdef",
+    "authorId": "ARN::Bubba Gump",
+    "version": 0,
     "title": "Rain",
-    "author": "Bubba Gump",
+    "penName": "Bubba Gump",
     "tagLine": "Want a fun adventure?  Just add water.",
     "about": "Come have an adventure.",
-    "firstChapter": 1000
+    "firstChapter": 1000,
+    "publishedAt": null
   },
   "chapters" : [
     {
-      "id": 1000,
+      "chapterId": 1000,
       "heading": "Chapter 1",
       "prose": "It was a dark and stormy night.",
       "signpost": [
@@ -24,13 +27,13 @@
       ]
     },
     {
-      "id": 1001,
+      "chapterId": 1001,
       "heading": "Chapter 2",
       "prose": "As you step outside, you notice a man with a wide-brimmed hat.  Your adventure has just begun...",
       "signpost": null
     },
     {
-      "id": 1002,
+      "chapterId": 1002,
       "heading": "Chapter 3",
       "prose": "You settle in for a nice evening by the fire.  The End.",
       "signpost": null

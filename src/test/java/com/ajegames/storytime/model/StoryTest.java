@@ -51,8 +51,9 @@ public class StoryTest extends RepresentationTestBase {
                 "You settle in for a nice evening by the fire.  The End.", null));
 
         return Story.create(
-                StorySummary.create("0123456789abcdef", "Rain", "Bubba Gump", "Want a fun adventure?  Just add water.",
-                        "Come have an adventure.", 1000),
+                StorySummary.create("0123456789abcdef", 0, "Rain",
+                        "Bubba Gump", "Want a fun adventure?  Just add water.",
+                        "Come have an adventure.", 1000, null),
                 new ArrayList<Chapter>(chapters));
     }
 

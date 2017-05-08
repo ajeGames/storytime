@@ -18,7 +18,7 @@ public class StoryController {
         return new StoryController();
     }
 
-    public static StoryController createWithMockControllerForTesting(StoryTimeRepository testRepo) {
+    static StoryController createWithMockControllerForTesting(StoryTimeRepository testRepo) {
         StoryController ctrl = new StoryController();
         ctrl.repo = testRepo;
         return ctrl;
@@ -27,28 +27,29 @@ public class StoryController {
     private StoryController() {}
 
     public StorySummary createStory(StorySummary summary) {
-        if (summary.getStoryId() != null) {
+        if (summary.getStoryKey() != null) {
             LOG.warn("Given summary has a key, but create is for new stories; perhaps update was intended.");
             throw new IllegalArgumentException("Either remove key value or do an update");
         }
         LOG.info("Creating a new story entitled: " + summary.getTitle());
         Storybook book = repo.createStorybook();
         Chapter firstChapter = book.addChapter();
-        book.setSummary(StorySummary.create(book.getStoryKey(), summary.getTitle(), summary.getAuthorId(),
-                summary.getTagLine(), summary.getAbout(), firstChapter.getChapterId()));
+        book.setSummary(StorySummary.create(book.getStoryKey(), 0, summary.getTitle(),
+                summary.getPenName(), summary.getTagLine(), summary.getAbout(),
+                firstChapter.getChapterId(), null));
         repo.saveStory(book);
         return book.getSummary();
     }
 
-    public Story getStory(String storyKey) {
+    Story getStory(String storyKey) {
         LOG.info("Retrieving story with key: " + storyKey);
         Storybook book = repo.getStorybook(storyKey);
         return book != null ? repo.getStorybook(storyKey).getStory() : null;
     }
 
-    public void updateSummary(StorySummary update) {
-        LOG.info("Updating story information: " + update.getStoryId());
-        Storybook bookToUpdate = repo.getStorybook(update.getStoryId());
+    void updateSummary(StorySummary update) {
+        LOG.info("Updating story information: " + update.getStoryKey());
+        Storybook bookToUpdate = repo.getStorybook(update.getStoryKey());
         if (bookToUpdate == null) {
             throw new IllegalArgumentException("Unable to find story to update");
         }
@@ -77,7 +78,7 @@ public class StoryController {
         repo.saveStory(book);
     }
 
-    public Chapter addNextChapter(String storyKey, Integer parentChapterId, String teaser) {
+    Chapter addNextChapter(String storyKey, Integer parentChapterId, String teaser) {
         LOG.debug("Adding chapter to story: " + storyKey + " from chapter: " + parentChapterId
                 + " with teaser: " + teaser);
         Storybook story = repo.getStorybook(storyKey);
@@ -104,7 +105,7 @@ public class StoryController {
      * 4. What to do when first chapter is deleted? -- don't allow
      */
 
-    public void deleteChapter(String key, Integer id) {
+    void deleteChapter(String key, Integer id) {
         Storybook book = repo.getStorybook(key);
         if (book == null) {
             throw new IllegalArgumentException("Book with key " + key + " not found");

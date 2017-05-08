@@ -121,7 +121,7 @@ paths:
           description: Story summary
           required: true
           schema:
-            $ref: '#/definitions/StorySummaryAuthorUpdate'
+            $ref: '#/definitions/StorySummary'
       responses:
         '201':
           description: Story created
@@ -144,7 +144,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/StorySummary'
-  '/stories/{storyId}':
+  '/stories/{storyKey}':
     get:
       summary: Returns story summary for given key
       description: Returns the summary of the story indentified by key.
@@ -152,7 +152,7 @@ paths:
         - storytime
       operationId: getStorySummary
       parameters:
-        - name: storyId
+        - name: storyKey
           in: path
           description: unique key of story to retrieve
           required: true
@@ -173,7 +173,7 @@ paths:
         - storytime
       operationId: updateStorySummary
       parameters:
-        - name: storyId
+        - name: storyKey
           in: path
           description: unique key of story to update
           required: true
@@ -183,7 +183,7 @@ paths:
           description: Story summary
           required: true
           schema:
-            $ref: '#/definitions/StorySummaryAuthorUpdate'
+            $ref: '#/definitions/StorySummary'
       responses:
         '200':
           description: Story summary updated
@@ -197,7 +197,7 @@ paths:
           description: Story not found
           schema:
             $ref: '#/definitions/Error'
-  '/stories/{storyId}/chapters':
+  '/stories/{storyKey}/chapters':
     post:
       summary: Creates new chapter with given information.
       description: 'Creates a chapter with the information provided, assigning a chapter ID.'
@@ -205,7 +205,7 @@ paths:
         - storytime
       operationId: createChapter
       parameters:
-        - name: storyId
+        - name: storyKey
           in: path
           description: key of story to add chapter to
           required: true
@@ -232,7 +232,7 @@ paths:
         - storytime
       operationId: getChapters
       parameters:
-        - name: storyId
+        - name: storyKey
           in: path
           description: key of story to add chapter to
           required: true
@@ -244,7 +244,7 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Chapter'
-  '/stories/{storyId}/chapters/{chapterId}':
+  '/stories/{storyKey}/chapters/{chapterId}':
     get:
       summary: Retrieves chapter with given ID of story with given key.
       description: Retrieves chapter with given ID of story with given key.
@@ -252,7 +252,7 @@ paths:
         - storytime
       operationId: getChapter
       parameters:
-        - name: storyId
+        - name: storyKey
           in: path
           description: unique key of story to retrieve
           required: true
@@ -279,7 +279,7 @@ paths:
         - storytime
       operationId: updateChapter
       parameters:
-        - name: storyId
+        - name: storyKey
           in: path
           description: unique key of story to update
           required: true
@@ -318,7 +318,7 @@ paths:
         - storytime
       operationId: patchChapter
       parameters:
-        - name: storyId
+        - name: storyKey
           in: path
           description: unique key of story to update
           required: true
@@ -418,42 +418,13 @@ definitions:
   StorySummary:
     type: object
     properties:
-      storyId:
-        type: string
-      title:
+      storyKey:
         type: string
       authorId:
         type: string
-      penName:
-        type: string
-      tagLine:
-        type: string
-      about:
-        type: string
-      firstChapter:
-        type: integer
-        format: int32
-      draft:
-        type: boolean
-      publishedAt:
-        type: string
-        format: date-time
       version:
         type: integer
         format: int32
-      genre:
-        type: array
-        items:
-          type: string
-      category:
-        type: array
-        items:
-          type: string
-  StorySummaryAuthorUpdate:
-    type: object
-    properties:
-      storyId:
-        type: string
       title:
         type: string
       penName:
@@ -465,13 +436,6 @@ definitions:
       firstChapter:
         type: integer
         format: int32
-      draft:
-        type: boolean
-      genre:
-        type: array
-        items:
-          type: string
-      category:
-        type: array
-        items:
-          type: string
+      publishedAt:
+        type: string
+        format: date-time

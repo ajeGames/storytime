@@ -1,45 +1,54 @@
 package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.StoryTimeApplication;
+import com.ajegames.storytime.model.Status;
 import com.ajegames.storytime.model.StorySummary;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
-@Path("/storytime")
 @Produces(MediaType.APPLICATION_JSON)
 public class StoryTimeResource {
 
     /*
+        TODO only allow admin
         TODO: consider security and protections against hackers; e.g., how to handle DDOS attacks
      */
 
     private static Logger LOG = StoryTimeApplication.KEY_EVENT_LOG;
 
     @GET
-    public String ping() {
-        LOG.info("Called ping");
-        return "{ \"message\": \"pong\" }";
+    @Path("/status")
+    public Status status() {
+        LOG.info("Called GET status");
+        return Status.create("Greetings, Earthling.", "All systems are go!",
+                "v0.3.0");
     }
 
-    /**
-     * Provide summary information for all published stories in the catalog.
-     *
-     * @return java.util.List containing search results
-     */
     @GET
-    @Timed
-    @Path("stories")
-    public List<StorySummary> findPublishedStories() {
-        /*
-         * TODO: introduce criteria to refine search
-         */
-        LOG.info("Called findPublishedStories");
-        return CatalogController.create().getAllStorySummaries();
+    @Path("/featuredStories")
+    public List<String> getFeaturedStories() {
+        LOG.info("Called GET featuredStories");  // TODO log URL string
+        ArrayList<String> fakeStoryIds = new ArrayList<String>();
+        fakeStoryIds.add("ABC123");
+        fakeStoryIds.add("DEF456");
+        return fakeStoryIds;
+    }
+
+    @PUT
+    @Path("/featuredStories")
+    public List<String> updateFeaturedStories(List<String> toAdd, List<String> toRemove) {
+        LOG.info("Called PUT featuredStories");
+        return new ArrayList<String>();
+    }
+
+    @DELETE
+    @Path("/featuredStories")
+    public void clearFeaturedStories() {
+        LOG.info("Called DELETE featuredStories");
     }
 }

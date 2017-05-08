@@ -22,7 +22,7 @@ public class CatalogController {
         return new CatalogController();
     }
 
-    public static CatalogController createWithMockControllerForTesting(StoryTimeRepository testRepo) {
+    static CatalogController createWithMockControllerForTesting(StoryTimeRepository testRepo) {
         CatalogController ctrl = new CatalogController();
         ctrl.repo = testRepo;
         return ctrl;
@@ -35,7 +35,7 @@ public class CatalogController {
      *
      * @return List of StorySummary
      */
-    public List<StorySummary> getAllStorySummaries() {
+    List<StorySummary> getAllStorySummaries() {
         LOG.info("Fetching all stories in repository");
 
         List<Storybook> stories = repo.getAllStorybooks();

@@ -15,9 +15,9 @@ public class Storybook {
     private SortedSet<Chapter> chapters;
     private Map<Integer, Chapter> chapterIndex;
 
-    public static Storybook createWithKey(String key) {
+    public static Storybook createWithKey(String storyKey) {
         Storybook book = new Storybook();
-        book.setStoryKey(key);
+        book.setStoryKey(storyKey);
         return book;
     }
 
@@ -35,7 +35,7 @@ public class Storybook {
     }
 
     private void initializeAfterLoad() {
-        this.storyKey = summary.getStoryId();
+        this.storyKey = summary.getStoryKey();
         reindexChapters();
     }
 
@@ -58,16 +58,18 @@ public class Storybook {
         return storyKey;
     }
 
-    private void setStoryKey(String key) {
+    private void setStoryKey(String storyKey) {
         if (this.storyKey != null) {
             throw new IllegalStateException("key is already defined; enforcing immutable key");
-        } else if (key == null) {
+        } else if (storyKey == null) {
             throw new IllegalArgumentException("key cannot be set to null");
         }
-        this.storyKey = key;
+        this.storyKey = storyKey;
         StorySummary current = (summary != null) ? summary : new StorySummary();
-        summary = StorySummary.create(this.storyKey, current.getTitle(), current.getAuthorId(), current.getTagLine(),
-                current.getAbout(), current.getFirstChapter());
+        // TODO re-think this
+        summary = StorySummary.create(this.storyKey, 0, current.getTitle(),
+                current.getPenName(), current.getTagLine(), current.getAbout(),
+                current.getFirstChapter(), null);
     }
 
     public Story getStory() {
@@ -85,8 +87,8 @@ public class Storybook {
     /**
      * Adds another chapter and the chapter sign that points to it.
      *
-     * @param sourceChapterId
-     * @param teaser
+     * @param sourceChapterId chapter option is attached to
+     * @param teaser words that explain the option
      * @return updated source chapter
      */
     public Chapter addNextChapterOption(Integer sourceChapterId, String teaser) {
@@ -97,8 +99,8 @@ public class Storybook {
         Chapter toChapter = addChapter();
         List<ChapterSign> nextChapterOptions = new ArrayList<ChapterSign>(fromChapter.getSignpost());
         nextChapterOptions.add(ChapterSign.create(toChapter.getChapterId(), teaser));
-        fromChapter = Chapter.create(fromChapter.getChapterId(), fromChapter.getHeading(), fromChapter.getProse(),
-                nextChapterOptions);
+        fromChapter = Chapter.create(fromChapter.getChapterId(), fromChapter.getHeading(),
+                fromChapter.getProse(), nextChapterOptions);
         updateChapter(fromChapter);
         return fromChapter;
     }

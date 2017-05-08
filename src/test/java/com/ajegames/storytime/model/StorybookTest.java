@@ -15,7 +15,7 @@ public class StorybookTest {
         Story testStory = StoryTestUtil.generateSimpleNonTrivialStory();
         Storybook bookOut = Storybook.load(testStory);
 
-        Assert.assertEquals(bookOut.getStoryKey(), testStory.getSummary().getStoryId());
+        Assert.assertEquals(bookOut.getStoryKey(), testStory.getSummary().getStoryKey());
         Assert.assertEquals(bookOut.getSummary(), testStory.getSummary());
         Assert.assertEquals(bookOut.getChapters().size(), testStory.getChapters().size());
     }
@@ -40,7 +40,9 @@ public class StorybookTest {
         Storybook bookOut = Storybook.load(testStory);
         StorySummary testSummary = testStory.getSummary();
 
-        StorySummary update = StorySummary.create(testSummary.getStoryId(), "update", "update", "update", "update", 9999);
+        StorySummary update = StorySummary.create(testSummary.getStoryKey(), 0,
+                "update", "update", "update", "update",
+                9999, null);
         bookOut.setSummary(update);
 
         Assert.assertEquals(bookOut.getSummary(), update);
