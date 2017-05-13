@@ -9,8 +9,9 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
+@Path("/catalog")
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/")
+@Consumes(MediaType.APPLICATION_JSON)
 public class StoryTimeResource {
 
     /*
