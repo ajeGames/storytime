@@ -95,7 +95,7 @@ functions:
     description: Returns story summary given a key
     events:
       - http:
-          path: stories/{storyId}
+          path: stories/{storyKey}
           method: get
           cors: true
   updateStory:
@@ -103,7 +103,7 @@ functions:
     description: Modifies an existing story
     events:
       - http:
-          path: stories/{storyId}
+          path: stories/{storyKey}
           method: put
           cors: true
   getChapters:
@@ -111,7 +111,7 @@ functions:
     description: Returns chapters of the given story
     events:
       - http:
-          path: stories/{storyId}/chapters
+          path: stories/{storyKey}/chapters
           method: get
           cors: true
   createChapter:
@@ -119,7 +119,7 @@ functions:
     description: Creates a new story with a unique key
     events:
       - http:
-          path: stories/{storyId}/chapters
+          path: stories/{storyKey}/chapters
           method: post
           cors: true
   getChapter:
@@ -127,7 +127,7 @@ functions:
     description: Returns given chapter of given story key
     events:
       - http:
-          path: stories/{storyId}/chapters/{chapterId}
+          path: stories/{storyKey}/chapters/{chapterId}
           method: get
           cors: true
   updateChapter:
@@ -135,7 +135,7 @@ functions:
     description: Modifies an existing chapter
     events:
       - http:
-          path: stories/{storyId}/chapters/{chapterId}
+          path: stories/{storyKey}/chapters/{chapterId}
           method: put
           cors: true
   # updateSignPost:
@@ -143,7 +143,7 @@ functions:
   #   description: Replaces the next options for given chapter
   #   events:
   #     - http:
-  #         path: stories/{storyId}/chapter/{chapterId}
+  #         path: stories/{storyKey}/chapter/{chapterId}
   #         method: put
   #         cors: true
 
@@ -159,10 +159,10 @@ resources:
       Properties:
         TableName: stories_v1
         AttributeDefinitions:
-          - AttributeName: storyId
+          - AttributeName: storyKey
             AttributeType: S
         KeySchema:
-          - AttributeName: storyId
+          - AttributeName: storyKey
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -172,12 +172,12 @@ resources:
       Properties:
         TableName: chapters_v1
         AttributeDefinitions:
-          - AttributeName: storyId
+          - AttributeName: storyKey
             AttributeType: S
           - AttributeName: chapterId
             AttributeType: S
         KeySchema:
-          - AttributeName: storyId
+          - AttributeName: storyKey
             KeyType: HASH
           - AttributeName: chapterId
             KeyType: RANGE
