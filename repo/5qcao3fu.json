@@ -2,14 +2,14 @@
   "summary": {
     "storyKey": "5qcao3fu",
     "title": "Where the Water Goes",
-    "author": "Mr. Bubbles",
+    "penName": "Mr. Bubbles",
     "tagLine": "Round and round and down and down",
     "about": "What happens when someone pulls the plug?",
     "firstChapter": 1000
   },
   "chapters": [
     {
-      "id": 1000,
+      "chapterId": 1000,
       "heading": "The Bath",
       "prose": "You are enjoying a warm bath at the end of a long day.  After a while, you feel a suggestion of a tug and don't think much of it.  Soon you are certain that you are headed for the drain.",
       "signpost": [
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "id": 1001,
+      "chapterId": 1001,
       "heading": "The Struggle",
       "prose": "You turn tail and start swimming away from the force.",
       "signpost": [
@@ -43,25 +43,25 @@
       ]
     },
     {
-      "id": 1002,
+      "chapterId": 1002,
       "heading": null,
       "prose": null,
       "signpost": []
     },
     {
-      "id": 1003,
+      "chapterId": 1003,
       "heading": null,
       "prose": null,
       "signpost": []
     },
     {
-      "id": 1004,
+      "chapterId": 1004,
       "heading": null,
       "prose": null,
       "signpost": []
     },
     {
-      "id": 1005,
+      "chapterId": 1005,
       "heading": null,
       "prose": null,
       "signpost": []

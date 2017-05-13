@@ -2,8 +2,6 @@ package com.ajegames.storytime.resource;
 
 import com.ajegames.storytime.StoryTimeApplication;
 import com.ajegames.storytime.model.Status;
-import com.ajegames.storytime.model.StorySummary;
-import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 
 import javax.ws.rs.*;
@@ -12,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
+@Path("/")
 public class StoryTimeResource {
 
     /*
@@ -22,7 +21,7 @@ public class StoryTimeResource {
     private static Logger LOG = StoryTimeApplication.KEY_EVENT_LOG;
 
     @GET
-    @Path("/status")
+    @Path("status")
     public Status status() {
         LOG.info("Called GET status");
         return Status.create("Greetings, Earthling.", "All systems are go!",
@@ -30,7 +29,7 @@ public class StoryTimeResource {
     }
 
     @GET
-    @Path("/featuredStories")
+    @Path("featuredStories")
     public List<String> getFeaturedStories() {
         LOG.info("Called GET featuredStories");  // TODO log URL string
         ArrayList<String> fakeStoryIds = new ArrayList<String>();
@@ -40,14 +39,14 @@ public class StoryTimeResource {
     }
 
     @PUT
-    @Path("/featuredStories")
+    @Path("featuredStories")
     public List<String> updateFeaturedStories(List<String> toAdd, List<String> toRemove) {
         LOG.info("Called PUT featuredStories");
         return new ArrayList<String>();
     }
 
     @DELETE
-    @Path("/featuredStories")
+    @Path("featuredStories")
     public void clearFeaturedStories() {
         LOG.info("Called DELETE featuredStories");
     }
